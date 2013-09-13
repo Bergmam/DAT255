@@ -2,56 +2,34 @@ package model;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
+
 
 /**
- * Contains the cardType enum.
- * 
+ * Contains the cardType enum.  
+ *
  */
 public class DecksOfCards {
 
-	private static LinkedList<CardType> cardDeck;
-	private static LinkedList<CardType> discardPile;
 
-	/**
-	 * Creates a new Deck of cards.
-	 * 
-	 * @param provinces
-	 *            String representives of all provinces
-	 */
-	public DecksOfCards(ArrayList<String> provinces) {
+	private LinkedList<CardType> cardDeck;
+	private List<CardType> discardPile;
+
+	public DecksOfCards(ArrayList<String> provinces){
 	}
-
-	/**
-	 * Draws a card from the deck.
-	 * 
-	 * @return the first cardType in the deck
-	 */
-	public static CardType takeCard() {
+	
+	public CardType takeCard(){
 		return cardDeck.removeFirst();
 	}
-
-	/**
-	 * Throws a card into the discard pile.
-	 * 
-	 * @param card
-	 *            the cardType to be put in the discardPile
-	 */
-	public static void discardCard(CardType card) {
+	
+	public void discardCard(CardType card){
 		discardPile.add(card);
 	}
-
-	/*
-	 * Shuffles the Cardtypes in the discardPile and adds them to the CardDeck.
-	 */
-	private void shuffle() {
-
+	
+	private void shuffle(){
+		
 	}
-
-	/**
-	 * Simulates the different cards in the game.
-	 */
-	enum CardType {
-		Infantry, Artillery, Cavalry, WildCard
-	};
-
+	enum CardType{Infantry, Artillery, Cavalry, WildCard};
+	
+	
 }

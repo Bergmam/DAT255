@@ -20,4 +20,7 @@ public class Player {
 		this.name = name;
 	}
 	
+	public void addCard(){
+		cards.add(DecksOfCards.takeCard());
+	}
 }
