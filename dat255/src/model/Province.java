@@ -9,6 +9,11 @@ public class Province {
 	private int units;
 	private String id;
 	
+	/**
+	 * Creates a new Province
+	 * 
+	 * @param province id of the province
+	 */
 	public Province(String province){
 		id=province;
 	}
