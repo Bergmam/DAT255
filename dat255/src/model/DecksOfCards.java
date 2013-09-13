@@ -12,17 +12,17 @@ import java.util.List;
 public class DecksOfCards {
 
 
-	private LinkedList<CardType> cardDeck;
-	private List<CardType> discardPile;
+	private static LinkedList<CardType> cardDeck;
+	private static List<CardType> discardPile;
 
 	public DecksOfCards(ArrayList<String> provinces){
 	}
 	
-	public CardType takeCard(){
+	public static CardType takeCard(){
 		return cardDeck.removeFirst();
 	}
 	
-	public void discardCard(CardType card){
+	public static void discardCard(CardType card){
 		discardPile.add(card);
 	}
 	
