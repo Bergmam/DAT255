@@ -38,15 +38,22 @@ public class Game implements GameInterface{
 	}
 
 	@Override
-	public int calcBonus() {
+	public int calcBonusUnits() {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public void placeUnits() {
+	public void placeBonusUnits(int units, Province province) {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public int getBonusUnitsLeft() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 
 }
