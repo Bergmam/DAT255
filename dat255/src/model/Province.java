@@ -16,6 +16,7 @@ public class Province {
 	 */
 	public Province(String province){
 		id=province;
+		units=1;  // Have do be atleast one soldier
 	}
 	
 	public int getUnits(){
@@ -26,8 +27,15 @@ public class Province {
 		this.units += units; 
 	}
 	
+	public void removeUnits(int units){
+		this.units -= units; 
+	}
+	
+	/**
+	 * Used in F2 after gaining a province and in F3. 
+	 */
 	public void moveUnits(int units, Province province){
-		this.units-=units;
+		removeUnits(units);
 		province.addUnits(units);
 	}
 	
