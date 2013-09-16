@@ -3,58 +3,61 @@ package se.chalmers.dat255.risk.model;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
-import java.util.List;
 
 
 /**
- * Contains the cardType enum.  
  *
  */
 public class Deck {
 
 
-	private static LinkedList<CardType> cardDeck;
-	private static LinkedList<CardType> discardPile;
+	private static LinkedList<Card> deck = new LinkedList<Card>();
+	private static LinkedList<Card> discardPile = new LinkedList<Card>();
 
-	public Deck(ArrayList<String> provinces){
-		int infantry=14; //Antaget v�rde hittade inget i reglerna
-		int cavalry=14; //Antaget v�rde hittade inget i reglerna
-		/*
-		 * F�ruts�tter att r�tt antal provincer finns, inte generell l�sning.
-		 */
-		for(String p:provinces){
+	public Deck(ArrayList<String> provinces, int nbrOfJokers){
+		int infantry = provinces.size() / 3;
+		int cavalry = provinces.size() / 3;
+		
+		//Assigning a province and a type to each created card.
+		for(String p : provinces){
 			if (infantry>0){
-			//discardPile.add(new Card(p), INFANTRY);
+			deck.add(new Card(Card.CardType.INFANTRY, p));
 			infantry--;
 			}
 			else if(cavalry>0){
-				//discardPile.add(new Card(p), CAVALRY);
+				deck.add(new Card(Card.CardType.CAVALRY, p));
 				cavalry--;
 			}
 			else{
-				//discardPile.add(new Card(p), ARTILLERY);
+				deck.add(new Card(Card.CardType.ARTILLERY, p));
 			}
 		}
-		for(int i=0; i<3 ;i++){
-			//discardPile.add(new Card(null), WILDCARD);
+		for(int i = 0; i < nbrOfJokers; i++){
+			deck.add(new Card(Card.CardType.JOKER, "Joker"));
 		}
-		
+		Collections.shuffle(deck);
+	}//contructor
+	
+	public static Card giveCard(){
+		return deck.removeFirst();
 	}
 	
-	public static CardType takeCard(){
-		return cardDeck.removeFirst();
-	}
-	
-	public static void discardCard(CardType card){
+	public static void discard(Card card){
 		discardPile.add(card);
 	}
 	
-	private void shuffle(){
-		Collections.shuffle(discardPile);
-		cardDeck=discardPile;
-		discardPile=null;
-	}
-	enum CardType{Infantry, Artillery, Cavalry, WildCard};
-	
-	
+	public static void recycleCards(){
+		if(deck.size() == 0){
+			deck=discardPile;
+			discardPile.clear();
+			Collections.shuffle(deck);
+		}else{
+			//If there are cards left in the deck, the recycled ones are added to the bottom of the deck.
+			Collections.shuffle(discardPile);
+			for(Card c : discardPile){
+				deck.add(c);
+			}
+			discardPile.clear();
+		}
+	}	
 }
