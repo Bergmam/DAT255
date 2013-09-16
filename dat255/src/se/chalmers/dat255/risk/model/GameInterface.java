@@ -38,9 +38,8 @@ public interface GameInterface {
 	/**
 	 * Method for calculating the amount of units
 	 * the player will receive at the start of his turn.
-	 * @return the amount of units the player may place.
 	 */
-	public int calcBonusUnits();
+	public void calcBonusUnits();
 	
 	/**
 	 * Method for placing the amount of units the player chooses

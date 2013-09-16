@@ -10,6 +10,8 @@ public class Game implements GameInterface {
 	private Player[] players;
 	private int activePlayer;
 	private int currentPhase;
+	private WorldMap worldMap;
+	private int bonus;
 	
 	/**
 	 * Creates a new Game.
@@ -20,6 +22,9 @@ public class Game implements GameInterface {
 			players[i]= new Player(i, playersId[i]);
 		}
 		currentPhase=1;
+		
+		// TODO: Dont forget to change null!!!!!
+		worldMap = new WorldMap(null);
 	}
 
 	@Override
@@ -29,7 +34,7 @@ public class Game implements GameInterface {
 
 	@Override
 	public void changeTurn() {
-		// Check this!
+		// TODO: Check this!
 		activePlayer = (activePlayer+1)%players.length;
 		currentPhase = 1;
 	}
@@ -42,8 +47,7 @@ public class Game implements GameInterface {
 
 	@Override
 	public Player getActivePlayer() {
-		// TODO Auto-generated method stub
-		return null;
+		return players[activePlayer];
 	}
 
 	@Override
@@ -53,21 +57,19 @@ public class Game implements GameInterface {
 	}
 
 	@Override
-	public int calcBonusUnits() {
+	public void calcBonusUnits() {
 		// TODO Auto-generated method stub
-		return 0;
 	}
 
 	@Override
 	public void placeBonusUnits(int units, Province province) {
-		// TODO Auto-generated method stub
-
+		province.addUnits(units);
+		bonus = bonus-units;
 	}
 
 	@Override
 	public int getBonusUnitsLeft() {
-		// TODO Auto-generated method stub
-		return 0;
+		return bonus;
 	}
 
 }
