@@ -40,7 +40,7 @@ public class Game implements GameInterface {
 	}
 
 	@Override
-	public void attack(Province offensiv, Province defensive) {
+	public void attack(Province offensive, Province defensive) {
 		// TODO Auto-generated method stub
 
 	}
