@@ -1,4 +1,4 @@
-package model;
+package se.chalmers.dat255.risk.model;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -17,10 +17,10 @@ public class DecksOfCards {
 	private static LinkedList<CardType> discardPile;
 
 	public DecksOfCards(ArrayList<String> provinces){
-		int infantry=14; //Antaget värde hittade inget i reglerna
-		int cavalry=14; //Antaget värde hittade inget i reglerna
+		int infantry=14; //Antaget vï¿½rde hittade inget i reglerna
+		int cavalry=14; //Antaget vï¿½rde hittade inget i reglerna
 		/*
-		 * Förutsätter att rätt antal provincer finns, inte generell lösning.
+		 * Fï¿½rutsï¿½tter att rï¿½tt antal provincer finns, inte generell lï¿½sning.
 		 */
 		for(String p:provinces){
 			if (infantry>0){

@@ -1,8 +1,9 @@
-package model;
+package se.chalmers.dat255.risk.model;
 
 import java.util.ArrayList;
 
-import model.DecksOfCards.CardType;
+import se.chalmers.dat255.risk.model.DecksOfCards.CardType;
+
 
 /**
  * The Player class contains relevant information about the player, 
@@ -26,7 +27,7 @@ public class Player {
 	}
 	
 	private void removeCard(CardType c1, CardType c2, CardType c3){
-		cards.remove(c1); // Görs alltid x3
+		cards.remove(c1); // Gï¿½rs alltid x3
 		cards.remove(c2); 
 		cards.remove(c3); 		
 		DecksOfCards.discardCard(c1);
@@ -35,10 +36,10 @@ public class Player {
 	}
 
 	/*
-	 * Vidare är inte provinces knutna till korten.
+	 * Vidare ï¿½r inte provinces knutna till korten.
 	 */
 	public boolean exchangeCard(CardType c1, CardType c2, CardType c3){
-		if(c1.equals(c2) && c2.equals(c3)){ // 3 Lika, dock får vi Wildcardbug
+		if(c1.equals(c2) && c2.equals(c3)){ // 3 Lika, dock fï¿½r vi Wildcardbug
 			removeCard(c1, c2, c3);
 			return true;
 		}

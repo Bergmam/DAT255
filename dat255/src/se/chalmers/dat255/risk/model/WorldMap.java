@@ -1,4 +1,4 @@
-package model;
+package se.chalmers.dat255.risk.model;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -15,10 +15,10 @@ import android.util.Pair;
 public class WorldMap {
 
 	private HashMap<String, Player> ownership; // Skapas genom lottning
-	private final HashMap<Pair<String, String>, Boolean> neighbours; // Fördefinerad lista som finns i en txt
+	private final HashMap<Pair<String, String>, Boolean> neighbours; // Fï¿½rdefinerad lista som finns i en txt
 	
 	/*
-	 * Läsa in hela filen här?
+	 * Lï¿½sa in hela filen hï¿½r?
 	 */
 	public WorldMap(File file){
 		
@@ -33,7 +33,7 @@ public class WorldMap {
 	}
 	
 	/*
-	 * Är osäker på hur Pair funkar, kan ge problem.
+	 * ï¿½r osï¿½ker pï¿½ hur Pair funkar, kan ge problem.
 	 */
 	
 	public boolean isNeighbours(String provinceName1, String provinceName2){

@@ -1,4 +1,4 @@
-package model;
+package se.chalmers.dat255.risk.model;
 
 /**
  * Simulates a province on the world map. Contains a number of units and handles

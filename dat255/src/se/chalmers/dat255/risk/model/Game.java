@@ -1,4 +1,4 @@
-package model;
+package se.chalmers.dat255.risk.model;
 /**
  * The top game class. Controls flow between our lower classes,
  * such as the battle handler and the WorldMap.
