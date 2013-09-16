@@ -6,7 +6,7 @@ import java.util.LinkedList;
 
 
 /**
- *
+ *A class representing the deck in the game.
  */
 public class Deck {
 
@@ -14,6 +14,12 @@ public class Deck {
 	private static LinkedList<Card> deck = new LinkedList<Card>();
 	private static LinkedList<Card> discardPile = new LinkedList<Card>();
 
+	/**
+	 * Constructs a deck given an array containing the names of all provinces 
+	 * in the game and the number of jokers there should be in the deck.
+	 * @param provinces, array with the names of all provinces.
+	 * @param nbrOfJokers, number of jokers in the deck.
+	 */
 	public Deck(ArrayList<String> provinces, int nbrOfJokers){
 		int infantry = provinces.size() / 3;
 		int cavalry = provinces.size() / 3;
@@ -38,14 +44,26 @@ public class Deck {
 		Collections.shuffle(deck);
 	}//contructor
 	
+	/**
+	 * Method for dealing a card.
+	 * @return the top card in the deck.
+	 */
 	public static Card giveCard(){
 		return deck.removeFirst();
 	}
 	
+	/**
+	 * Method which adds the given card to the list of discarded cards.
+	 * @param card, the card being discarded.
+	 */
 	public static void discard(Card card){
 		discardPile.add(card);
 	}
 	
+	/**
+	 * Method for shuffling and moving the discarded cards into the deck.
+	 * If deck is not empty methods adds shuffled cards to the end of the deck list.
+	 */
 	public static void recycleCards(){
 		if(deck.size() == 0){
 			deck=discardPile;
