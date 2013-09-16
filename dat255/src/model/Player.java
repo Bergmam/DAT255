@@ -23,4 +23,9 @@ public class Player {
 	public void addCard(){
 		cards.add(DecksOfCards.takeCard());
 	}
+	
+	/*
+	 * Test test 
+	 */
+	
 }
