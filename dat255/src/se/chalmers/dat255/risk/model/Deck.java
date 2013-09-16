@@ -10,13 +10,13 @@ import java.util.List;
  * Contains the cardType enum.  
  *
  */
-public class DecksOfCards {
+public class Deck {
 
 
 	private static LinkedList<CardType> cardDeck;
 	private static LinkedList<CardType> discardPile;
 
-	public DecksOfCards(ArrayList<String> provinces){
+	public Deck(ArrayList<String> provinces){
 		int infantry=14; //Antaget v�rde hittade inget i reglerna
 		int cavalry=14; //Antaget v�rde hittade inget i reglerna
 		/*

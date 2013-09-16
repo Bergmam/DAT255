@@ -2,7 +2,7 @@ package se.chalmers.dat255.risk.model;
 
 import java.util.ArrayList;
 
-import se.chalmers.dat255.risk.model.DecksOfCards.CardType;
+import se.chalmers.dat255.risk.model.Deck.CardType;
 
 
 /**
@@ -23,16 +23,16 @@ public class Player {
 	}
 	
 	public void addCard(){
-		cards.add(DecksOfCards.takeCard());
+		cards.add(Deck.takeCard());
 	}
 	
 	private void removeCard(CardType c1, CardType c2, CardType c3){
 		cards.remove(c1); // G�rs alltid x3
 		cards.remove(c2); 
 		cards.remove(c3); 		
-		DecksOfCards.discardCard(c1);
-		DecksOfCards.discardCard(c2);
-		DecksOfCards.discardCard(c3);
+		Deck.discardCard(c1);
+		Deck.discardCard(c2);
+		Deck.discardCard(c3);
 	}
 
 	/*
