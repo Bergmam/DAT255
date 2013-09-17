@@ -74,10 +74,10 @@ public class Deck {
 			Collections.shuffle(deck);
 		}else{
 			//If there are cards left in the deck, the recycled ones are added to the bottom of the deck.
-			Collections.shuffle(discardPile);
 			for(Card c : discardPile){
 				deck.add(c);
 			}
+			Collections.shuffle(deck);
 			discardPile.clear();
 		}
 	}	
