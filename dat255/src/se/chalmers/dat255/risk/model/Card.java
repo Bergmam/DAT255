@@ -58,9 +58,6 @@ public class Card {
 		}
 		if(o instanceof Card){
 			Card tmp = (Card) o;
-			if(this.type == CardType.JOKER || tmp.type == CardType.JOKER){
-				return true;
-			}
 			return this.type == tmp.type;
 		}
 		return false;
