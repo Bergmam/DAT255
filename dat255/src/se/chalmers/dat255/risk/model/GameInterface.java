@@ -25,10 +25,11 @@ public interface GameInterface {
 	
 	/**
 	 * Method for handeling going in to battle and register the result of the battle.
-	 * @param offensiv, the attacking province. 
+	 * @param offensiveDice, number of attacking units.
+	 * @param offensive, the attacking province. 
 	 * @param defensive, the province being attacked.
 	 */
-	public void attack(Province offensiv, Province defensive);
+	public void attack(int offensiveDice, Province offensiv, Province defensive);
 	
 	/**
 	 * Method for handing a card from the deck to the active player.

@@ -45,11 +45,15 @@ public class Game implements GameInterface {
 	}
 
 	@Override
-	public void attack(Province offensive, Province defensive) {
+	public void attack(int offensiveDice, Province offensive, Province defensive) {
 		// TODO decide number of attackers
 		//		check if ok in another method
-		int[] result = battle.doBattle(offensive.getUnits(),
-				defensive.getUnits());
+		
+		// Counts the number of defending units
+		int defensiveDice = defensive.getUnits() == 1 ? 1 : 2;
+		
+		int[] result = battle.doBattle(offensiveDice,
+				defensiveDice);
 
 		offensive.removeUnits(result[0]);
 		defensive.removeUnits(result[1]);
