@@ -74,7 +74,12 @@ public class Game implements GameInterface {
 
 	@Override
 	public void calcBonusUnits() {
-		// TODO Auto-generated method stub
+		int provinces = getActivePlayer().getNrOfProvinces();
+		if(provinces <= 9){
+			this.bonus = 3; 
+		} else {
+			this.bonus = provinces/3;
+		}
 	}
 
 	@Override
