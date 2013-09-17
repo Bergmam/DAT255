@@ -7,6 +7,9 @@ import java.util.LinkedList;
 
 /**
  *A class representing the deck in the game.
+ * @author Emma Håkansson
+ * @author Christoffer Matsson
+ * @since 2013-09-16
  */
 public class Deck {
 
