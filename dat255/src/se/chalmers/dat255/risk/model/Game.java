@@ -69,7 +69,7 @@ public class Game implements GameInterface {
 
 	@Override
 	public void dealCard() {
-		getActivePlayer().addCard(Deck.giveCard());
+		getActivePlayer().addCard();
 	}
 
 	@Override
