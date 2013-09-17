@@ -6,7 +6,8 @@ package se.chalmers.dat255.risk.model;
  * or has the type joker and the id joker. A joker is equal to any other card 
  * according to the overwritten equals method.
  * 
- * @author Emma Håkansson and Christoffer Matsson
+ * @author Emma Håkansson
+ * @author Christoffer Matsson
  * @since 2013-09-16
  *
  */
@@ -58,9 +59,6 @@ public class Card {
 		}
 		if(o instanceof Card){
 			Card tmp = (Card) o;
-			if(this.type == CardType.JOKER || tmp.type == CardType.JOKER){
-				return true;
-			}
 			return this.type == tmp.type;
 		}
 		return false;

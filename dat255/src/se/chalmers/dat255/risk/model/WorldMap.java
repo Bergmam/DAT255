@@ -18,13 +18,16 @@ import android.util.Pair;
 public class WorldMap {
 
 	private HashMap<String, Player> ownership; // Skapas genom lottning
-	private final HashMap<Pair<String, String>, Boolean> neighbours; // F�rdefinerad lista som finns i en txt
+	private final HashMap<String, ArrayList<String>> neighbours; // F�rdefinerad lista som finns i en txt
 	
 	/*
 	 * L�sa in hela filen h�r?
 	 */
 	public WorldMap(File file){
-        try {
+		
+			neighbours = new HashMap<String, ArrayList<String>>();
+			
+		try {
             //
             // Create a new Scanner object which will read the data 
             // from the file passed in. To check if there are more 
@@ -33,14 +36,16 @@ public class WorldMap {
             // by one till all line is read.
             //
             Scanner scanner = new Scanner(file);
+            
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
                 String[] array = line.split("-");
                 String p1 = array[0];
-                for(int i=1; i<array.length(); i++){
-                	String p2 = array[i];
-                	neighbours.put(new Pair<p1, p2>, true);
+                ArrayList<String> list = new ArrayList<String>();
+                for(int i = 1; i < array.length; i++){
+                	list.add(array[i]);
                 }
+                neighbours.put(p1, list);
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -54,15 +59,12 @@ public class WorldMap {
 	public void changeOwner(String provinceName, Player player){
 		ownership.put(provinceName, player);
 	}
-	
-	/*
-	 * �r os�ker p� hur Pair funkar, kan ge problem.
-	 */
-	
+
 	public boolean isNeighbours(String provinceName1, String provinceName2){
-		Pair<String,String> key = new Pair<String,String>(provinceName1, provinceName2);
-		if(neighbours.contains(key))
+		ArrayList list = neighbours.get(provinceName1);
+		if(list.contains(provinceName2)){
 			return true;
+		}
 		return false;
 	}
 }
