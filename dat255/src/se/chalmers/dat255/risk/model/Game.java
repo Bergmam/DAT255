@@ -12,19 +12,24 @@ public class Game implements GameInterface {
 	private int currentPhase;
 	private WorldMap worldMap;
 	private int bonus;
-	
+	private BattleHandler battle;
+
 	/**
 	 * Creates a new Game.
-	 * @param playersId The ids of the players
+	 * 
+	 * @param playersId
+	 *            The ids of the players
 	 */
 	public Game(String[] playersId) {
-		for(int i = 0; i < playersId.length ; i++){
-			players[i]= new Player(i, playersId[i]);
+		for (int i = 0; i < playersId.length; i++) {
+			players[i] = new Player(i, playersId[i]);
 		}
-		currentPhase=1;
-		
+		currentPhase = 1;
+
 		// TODO: Dont forget to change null!!!!!
 		worldMap = new WorldMap(null);
+
+		battle = new BattleHandler();
 	}
 
 	@Override
@@ -35,13 +40,25 @@ public class Game implements GameInterface {
 	@Override
 	public void changeTurn() {
 		// TODO: Check this!
-		activePlayer = (activePlayer+1)%players.length;
+		activePlayer = (activePlayer + 1) % players.length;
 		currentPhase = 1;
 	}
 
 	@Override
 	public void attack(Province offensive, Province defensive) {
-		// TODO Auto-generated method stub
+		// TODO decide number of attackers
+		//		check if ok in another method
+		int[] result = battle.doBattle(offensive.getUnits(),
+				defensive.getUnits());
+
+		offensive.removeUnits(result[0]);
+		defensive.removeUnits(result[1]);
+
+		if (defensive.getUnits() == 0) {
+			//TODO	move attacking units into 'defensive'
+			worldMap.changeOwner(defensive.getId(), getActivePlayer());
+			
+		}
 
 	}
 
@@ -52,8 +69,7 @@ public class Game implements GameInterface {
 
 	@Override
 	public void dealCard() {
-		// TODO Auto-generated method stub
-
+		getActivePlayer().addCard(Deck.giveCard());
 	}
 
 	@Override
@@ -64,7 +80,7 @@ public class Game implements GameInterface {
 	@Override
 	public void placeBonusUnits(int units, Province province) {
 		province.addUnits(units);
-		bonus = bonus-units;
+		bonus = bonus - units;
 	}
 
 	@Override
