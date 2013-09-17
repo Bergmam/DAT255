@@ -80,5 +80,9 @@ public class Deck {
 			Collections.shuffle(deck);
 			discardPile.clear();
 		}
-	}	
+	}
+	
+	public static int getSize(){
+		return deck.size();
+	}
 }
