@@ -10,9 +10,9 @@ import java.util.ArrayList;
  */
 
 public class Player {
-	String name;
-	int turnId, nrOfProvinces = 0;
-	ArrayList<Card> cards; // The cards the player currently has on his/her hand.
+	private String name;
+	private int turnId, nrOfProvinces = 0;
+	private ArrayList<Card> cards; // The cards the player currently has on his/her hand.
 	
 	public Player(int turnId, String name){
 		this.turnId = turnId;
@@ -92,5 +92,13 @@ public class Player {
 			return true;
 		}	
 		return false;
+	}
+	
+	/**
+	 * Returns the name of the player.
+	 * @return name of the player.
+	 */
+	public String getName(){
+		return this.name;
 	}
 }
