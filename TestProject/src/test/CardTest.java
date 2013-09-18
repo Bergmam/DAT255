@@ -1,7 +1,7 @@
 package test;
 
 import static org.junit.Assert.*;
-
+import se.chalmers.dat255.risk.model.*;
 import org.junit.Test;
 
 public class CardTest {

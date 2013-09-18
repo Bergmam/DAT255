@@ -14,8 +14,8 @@ import java.util.LinkedList;
 public class Deck {
 
 
-	private static LinkedList<Card> deck = new LinkedList<Card>();
-	private static LinkedList<Card> discardPile = new LinkedList<Card>();
+	private LinkedList<Card> deck = new LinkedList<Card>();
+	private LinkedList<Card> discardPile = new LinkedList<Card>();
 
 	/**
 	 * Constructs a deck given an array containing the names of all provinces 
@@ -51,7 +51,7 @@ public class Deck {
 	 * Method for dealing a card.
 	 * @return the top card in the deck.
 	 */
-	public static Card giveCard(){
+	public Card giveCard(){
 		return deck.removeFirst();
 	}
 	
@@ -59,7 +59,7 @@ public class Deck {
 	 * Method which adds the given card to the list of discarded cards.
 	 * @param card, the card being discarded.
 	 */
-	public static void discard(Card card){
+	public void discard(Card card){
 		discardPile.add(card);
 	}
 	
@@ -67,7 +67,7 @@ public class Deck {
 	 * Method for shuffling and moving the discarded cards into the deck.
 	 * If deck is not empty methods adds shuffled cards to the end of the deck list.
 	 */
-	public static void recycleCards(){
+	public void recycleCards(){
 		if(deck.size() == 0){
 			deck=discardPile;
 			discardPile.clear();
@@ -82,7 +82,15 @@ public class Deck {
 		}
 	}
 	
-	public static int getSize(){
+	public int getSize(){
 		return deck.size();
+	}
+	
+	public LinkedList<Card> getDeckList(){
+		return this.deck;
+	}
+	
+	public LinkedList<Card> getDiscard(){
+		return this.discardPile;
 	}
 }
