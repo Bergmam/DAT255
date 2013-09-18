@@ -17,7 +17,7 @@ public interface IProvince {
 	 * Adds units to this province
 	 * 
 	 * @param units
-	 *            , number of units to be added
+	 *            number of units to be added
 	 */
 	public void addUnits(int units);
 
@@ -25,7 +25,7 @@ public interface IProvince {
 	 * Removes units from this province
 	 * 
 	 * @param units
-	 *            , number of units to be removed
+	 *            number of units to be removed
 	 */
 	public void removeUnits(int units);
 
@@ -34,10 +34,10 @@ public interface IProvince {
 	 * gaining a province and in F3.
 	 * 
 	 * @param units
-	 *            , number of units to be moved
+	 *            number of units to be moved
 	 * 
 	 * @param province
-	 *            , the province to receive the units
+	 *            the province to receive the units
 	 */
 	public void moveUnits(int units, IProvince province);
 
