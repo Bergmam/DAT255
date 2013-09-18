@@ -13,9 +13,10 @@ import java.util.LinkedList;
  */
 public class Deck {
 
-
-	private LinkedList<Card> deck = new LinkedList<Card>();
-	private LinkedList<Card> discardPile = new LinkedList<Card>();
+	private static Deck INSTANCE = null;
+	
+	private static LinkedList<Card> deck = new LinkedList<Card>();
+	private static LinkedList<Card> discardPile = new LinkedList<Card>();
 
 	/**
 	 * Constructs a deck given an array containing the names of all provinces 
@@ -23,7 +24,7 @@ public class Deck {
 	 * @param provinces, array with the names of all provinces.
 	 * @param nbrOfJokers, number of jokers in the deck.
 	 */
-	public Deck(ArrayList<String> provinces, int nbrOfJokers){
+	private Deck(ArrayList<String> provinces, int nbrOfJokers){
 		int infantry = provinces.size() / 3;
 		int cavalry = provinces.size() / 3;
 		
@@ -51,7 +52,7 @@ public class Deck {
 	 * Method for dealing a card.
 	 * @return the top card in the deck.
 	 */
-	public Card giveCard(){
+	public static Card giveCard(){
 		return deck.removeFirst();
 	}
 	
@@ -59,7 +60,7 @@ public class Deck {
 	 * Method which adds the given card to the list of discarded cards.
 	 * @param card, the card being discarded.
 	 */
-	public void discard(Card card){
+	public static void discard(Card card){
 		discardPile.add(card);
 	}
 	
@@ -67,9 +68,9 @@ public class Deck {
 	 * Method for shuffling and moving the discarded cards into the deck.
 	 * If deck is not empty methods adds shuffled cards to the end of the deck list.
 	 */
-	public void recycleCards(){
+	public static void recycleCards(){
 		if(deck.size() == 0){
-			deck=discardPile;
+			deck = discardPile;
 			discardPile.clear();
 			Collections.shuffle(deck);
 		}else{
@@ -82,15 +83,24 @@ public class Deck {
 		}
 	}
 	
-	public int getSize(){
+	public static int getSize(){
 		return deck.size();
 	}
 	
-	public LinkedList<Card> getDeckList(){
-		return this.deck;
+	public static LinkedList<Card> getDeckList(){
+		return deck;
 	}
 	
-	public LinkedList<Card> getDiscard(){
-		return this.discardPile;
+	public static LinkedList<Card> getDiscard(){
+		return discardPile;
+	}
+	
+	public static Deck getInstance(ArrayList<String> provinces, int nbrOfJokers){
+		if(INSTANCE != null){
+			return INSTANCE;
+		}
+		INSTANCE = new Deck(provinces, nbrOfJokers);
+		return INSTANCE;
+			
 	}
 }
