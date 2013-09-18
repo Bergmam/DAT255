@@ -5,7 +5,7 @@ package se.chalmers.dat255.risk.model;
  * troop movement. 
  * 
  */
-public class Province {
+public class Province implements IProvince{
 	private int units;
 	private String id;
 	
@@ -19,26 +19,28 @@ public class Province {
 		units=1;  // Have do be atleast one soldier
 	}
 	
+	@Override
 	public int getUnits(){
 		return units;
 	}
 	
+	@Override
 	public void addUnits(int units){
 		this.units += units; 
 	}
 	
+	@Override
 	public void removeUnits(int units){
-		this.units -= units; 
-	}
+		this.units -= units; }
 	
-	/**
-	 * Used in F2 after gaining a province and in F3. 
-	 */
-	public void moveUnits(int units, Province province){
+	
+	@Override
+	public void moveUnits(int units, IProvince province){
 		removeUnits(units);
 		province.addUnits(units);
 	}
 	
+	@Override
 	public String getId(){
 		return id;
 	}

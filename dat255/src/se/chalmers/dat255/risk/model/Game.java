@@ -44,32 +44,34 @@ public class Game implements IGame {
 		activePlayer = (activePlayer + 1) % players.length;
 		currentPhase = 1;
 	}
-	
+
 	@Override
-	public void moveToProvince(int nbrOfUnits, IProvince from, IProvince goTo){
-		if(worldMap.getOwner(goTo.getId()) ==  getActivePlayer()){
-			from.moveUnits(nbrOfUnits, goTo);
-		}		
+	public void moveToProvince(int nbrOfUnits, IProvince from, IProvince goTo) {
+		if (worldMap.isNeighbours(from.getId(), goTo.getId())) {
+			if (worldMap.getOwner(goTo.getId()) == getActivePlayer()) {
+				from.moveUnits(nbrOfUnits, goTo);
+			}
+		}
 	}
 
 	@Override
-	public void attack(int offensiveDice, IProvince offensive, IProvince defensive) {
+	public void attack(int offensiveDice, IProvince offensive,
+			IProvince defensive) {
 		// TODO decide number of attackers
-		//		check if ok in another method
-		
+		// check if ok in another method
+
 		// Counts the number of defending units
 		int defensiveDice = defensive.getUnits() == 1 ? 1 : 2;
-		
-		int[] result = battle.doBattle(offensiveDice,
-				defensiveDice);
+
+		int[] result = battle.doBattle(offensiveDice, defensiveDice);
 
 		offensive.removeUnits(result[0]);
 		defensive.removeUnits(result[1]);
 
 		if (defensive.getUnits() == 0) {
-			//TODO	move attacking units into 'defensive'
+			// TODO move attacking units into 'defensive'
 			worldMap.changeOwner(defensive.getId(), getActivePlayer());
-			
+
 		}
 
 	}
@@ -87,10 +89,10 @@ public class Game implements IGame {
 	@Override
 	public void calcBonusUnits() {
 		int provinces = getActivePlayer().getNrOfProvinces();
-		if(provinces <= 9){
-			this.bonus = 3; 
+		if (provinces <= 9) {
+			this.bonus = 3;
 		} else {
-			this.bonus = provinces/3;
+			this.bonus = provinces / 3;
 		}
 	}
 
