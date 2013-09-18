@@ -7,7 +7,7 @@ package se.chalmers.dat255.risk.model;
  * @since 2013-09-13
  *
  */
-public interface GameInterface {
+public interface IGame {
 	
 	/**
 	 * Method for changing the state of the game to 
@@ -29,7 +29,7 @@ public interface GameInterface {
 	 * @param offensive, the attacking province. 
 	 * @param defensive, the province being attacked.
 	 */
-	public void attack(int offensiveDice, Province offensiv, Province defensive);
+	public void attack(int offensiveDice, IProvince offensiv, IProvince defensive);
 	
 	/**
 	 * Method for handing a card from the deck to the active player.
@@ -47,12 +47,20 @@ public interface GameInterface {
 	 * the place on the province the player chooses to place them.
 	 * @param units, the number of units being placed
 	 */
-	public void placeBonusUnits(int units, Province province);
+	public void placeBonusUnits(int units, IProvince province);
 	
 	/**
 	 * Method for retrieving the number of units the player has left to place.
 	 * @return The number of units left.
 	 */
 	public int getBonusUnitsLeft();
+
+	/**
+	 * Method for moving a number of units from one province to another.
+	 * @param nbrOfUnits, The number of units to move
+	 * @param from, Province to move units from
+	 * @param goTo, Province to move units to
+	 */
+	public void moveToProvince(int nbrOfUnits, IProvince from, IProvince goTo);
 
 }

@@ -8,7 +8,7 @@ import java.io.File;
  * 
  */
 
-public class Game implements GameInterface {
+public class Game implements IGame {
 	private Player[] players;
 	private int activePlayer;
 	private int currentPhase;
@@ -45,15 +45,15 @@ public class Game implements GameInterface {
 		currentPhase = 1;
 	}
 	
-	public void moveToProvince(int nbrOfUnits, Province from, Province goTo){
+	@Override
+	public void moveToProvince(int nbrOfUnits, IProvince from, IProvince goTo){
 		if(worldMap.getOwner(goTo.getId()) ==  getActivePlayer()){
-			from.removeUnits(nbrOfUnits);
-			goTo.addUnits(nbrOfUnits);
+			from.moveUnits(nbrOfUnits, goTo);
 		}		
 	}
 
 	@Override
-	public void attack(int offensiveDice, Province offensive, Province defensive) {
+	public void attack(int offensiveDice, IProvince offensive, IProvince defensive) {
 		// TODO decide number of attackers
 		//		check if ok in another method
 		
@@ -95,7 +95,7 @@ public class Game implements GameInterface {
 	}
 
 	@Override
-	public void placeBonusUnits(int units, Province province) {
+	public void placeBonusUnits(int units, IProvince province) {
 		province.addUnits(units);
 		bonus = bonus - units;
 	}
