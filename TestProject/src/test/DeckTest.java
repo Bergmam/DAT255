@@ -3,10 +3,7 @@ package test;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
-import java.util.List;
-
-import model.Card;
-import model.Deck;
+import se.chalmers.dat255.risk.model.*;
 
 import org.junit.Test;
 
@@ -77,18 +74,25 @@ public class DeckTest {
 	public void testGiveCard() {
 		int size = deck3.getSize();
 		deck3.giveCard();
-		assertTrue(deck3.getSize() == size-1);
+		deck3.giveCard();
+		deck3.giveCard();
+		assertTrue(deck3.getSize() == size-3);
 	}
 
 	@Test
 	public void testDiscard() {
 		deck4.discard(deck3.giveCard());
-		assertTrue(deck4.getSize() == 2);
+		assertTrue(deck4.getSize() == 1);
+		
 	}
 
 	@Test
 	public void testRecycleCards() {
-		fail("Not yet implemented"); // TODO
+		deck3.discard(deck1.giveCard());
+		deck3.discard(deck1.giveCard());
+		deck3.discard(deck1.giveCard());
+		deck3.recycleCards();
+		assertTrue(deck3.getSize() == 15);
 	}
 
 }
