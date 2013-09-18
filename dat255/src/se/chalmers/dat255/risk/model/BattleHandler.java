@@ -10,7 +10,6 @@ public class BattleHandler {
 	private Random generator = new Random();
 	private int[] diceOffensive;
 	private int[] diceDefensive;
-	private int[] lostArmies;
 
 	/**
 	 * Handles the attack between two provinces.
@@ -23,10 +22,11 @@ public class BattleHandler {
 	 */
 
 	public int[] doBattle(int offensive, int defensive) {
-
-		diceOffensive = rollDice(offensive);
+		int[] lostArmies = new int[2];
 		diceDefensive = rollDice(defensive);
-
+		diceOffensive = rollDice(offensive);
+		
+		
 		for (int i = 0; i < defensive; i++) {
 			if (diceOffensive[i] < diceDefensive[i]) {
 				lostArmies[0]++;
@@ -38,7 +38,7 @@ public class BattleHandler {
 	}
 
 	/**
-	 * Creates dice
+	 * Creates dice.
 	 * 
 	 * @param armies
 	 *            number of attacking armies
@@ -46,10 +46,7 @@ public class BattleHandler {
 	 */
 	private int[] rollDice(int armies) {
 		Random generator = new Random();
-		int[] dice = null;
-		dice[0] = 0;
-		dice[1] = 0;
-
+		int[] dice = new int[2];
 		for (int i = 0; i < armies; i++) {
 			int newDice = generator.nextInt(6) + 1;
 			if (newDice > dice[0]) {

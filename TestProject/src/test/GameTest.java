@@ -1,8 +1,10 @@
 package test;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.*;
+import se.chalmers.dat255.risk.model.*;
+import org.junit.Test;
 import se.chalmers.dat255.risk.model.*;
 
-public class GameTest extends TestCase{
+public class GameTest{
 	private Game game = new Game(null);
 }
