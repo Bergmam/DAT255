@@ -3,6 +3,8 @@ package test;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
+
 import se.chalmers.dat255.risk.model.*;
 
 import org.junit.Test;
@@ -48,25 +50,56 @@ public class DeckTest {
 		
 		//constructor test with deck1
 		int jokers1 = 0;
-		for(int i = 0; 1 < stringList1.size() + 3; i++){
-			Card c = deck1.giveCard();
-			assertTrue(c != null);
-			if(c.getType() == Card.CardType.JOKER){
+		int artillery1 = 0;
+		int cavalry1 = 0;
+		int infantry1 = 0;
+		LinkedList<Card> deck1List = deck1.getDeckList();
+		for(int i = 0; i < deck1.getSize(); i++){
+			assertTrue(deck1List.get(i) != null);
+			if(deck1List.get(i).getType() == Card.CardType.JOKER){
 				jokers1++;
+			}
+			if(deck1List.get(i).getType() == Card.CardType.ARTILLERY){
+				artillery1++;
+			}
+			if(deck1List.get(i).getType() == Card.CardType.CAVALRY){
+				cavalry1++;
+			}
+			if(deck1List.get(i).getType() == Card.CardType.INFANTRY){
+				infantry1++;
 			}
 		}
 		assertTrue(jokers1 == 3);
+		assertTrue(artillery1 == 1);
+		assertTrue(cavalry1 == 1);
+		assertTrue(infantry1 == 1);
+		
 		
 		//constructor test with deck2
 		int jokers2 = 0;
-		for(int i = 0; 1 < stringList2.size() + 0; i++){
-			Card c = deck2.giveCard();
-			assertTrue(c != null);
-			if(c.getType() == Card.CardType.JOKER){
+		int artillery2 = 0;
+		int cavalry2 = 0;
+		int infantry2 = 0;
+		LinkedList<Card> deck2List = deck1.getDeckList();
+		for(int i = 0; i < deck2.getSize(); i++){
+			assertTrue(deck2List.get(i) != null);
+			if(deck2List.get(i).getType() == Card.CardType.JOKER){
 				jokers2++;
+			}
+			if(deck2List.get(i).getType() == Card.CardType.ARTILLERY){
+				artillery2++;
+			}
+			if(deck2List.get(i).getType() == Card.CardType.CAVALRY){
+				cavalry2++;
+			}
+			if(deck2List.get(i).getType() == Card.CardType.INFANTRY){
+				infantry2++;
 			}
 		}
 		assertTrue(jokers2 == 0);
+		assertTrue(artillery2 == 4);
+		assertTrue(cavalry2 == 3);
+		assertTrue(infantry2 == 3);
 
 	}
 
@@ -81,18 +114,23 @@ public class DeckTest {
 
 	@Test
 	public void testDiscard() {
-		deck4.discard(deck3.giveCard());
-		assertTrue(deck4.getSize() == 1);
+		Card card1 = deck2.giveCard();
+		Card card2 = deck2.giveCard();
+		Card card3 = deck2.giveCard();
+		deck2.discard(card1);
+		deck2.discard(card1);
+		deck2.discard(card1);
+		
+		assertTrue(deck2.getSize() == 7);
+		assertTrue(deck2.getDiscard().size() == 3);
 		
 	}
 
 	@Test
 	public void testRecycleCards() {
-		deck3.discard(deck1.giveCard());
-		deck3.discard(deck1.giveCard());
-		deck3.discard(deck1.giveCard());
-		deck3.recycleCards();
-		assertTrue(deck3.getSize() == 15);
+		deck2.recycleCards();
+		assertTrue(deck2.getSize() == 10);
+		assertTrue(deck2.getDiscard().size() == 0);
 	}
 
 }
