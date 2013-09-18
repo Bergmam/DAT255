@@ -4,14 +4,12 @@ import se.chalmers.risk.GDXGame;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
 
-
 public class MainActivity extends AndroidApplication {
 
 	@Override
-	protected void onCreate(android.os.Bundle savedInstanceState) {
+	public void onCreate(android.os.Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		 initialize(new GDXGame(), false);
+		initialize(new GDXGame(), false);
 	}
-
 
 }
