@@ -1,20 +1,26 @@
 package se.chalmers.risk;
 
-import com.badlogic.gdx.ApplicationListener;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.FPSLogger;
-import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-public class GDXGame implements ApplicationListener {
-
+public class GDXGame extends Game {
+	SpriteBatch batch;
+	BitmapFont font;
 	FPSLogger logger;
 
 	@Override
 	public void create() {
-
 		Gdx.app.log("Risk", "creating game");
 
 		logger = new FPSLogger();
+
+		batch = new SpriteBatch();
+		font = new BitmapFont();
+		
+		setScreen(new MapScreen(this));
 
 	}
 
@@ -26,10 +32,8 @@ public class GDXGame implements ApplicationListener {
 
 	@Override
 	public void render() {
-		Gdx.app.log("Risk", "Render");
-		Gdx.gl.glClearColor(0f, 1f, 0f, 1f);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
+		super.render();
+		Gdx.app.log("Risk", "RenderingGame");
 	}
 
 	@Override
@@ -46,6 +50,8 @@ public class GDXGame implements ApplicationListener {
 	@Override
 	public void dispose() {
 		Gdx.app.log("Risk", "Destroying game");
+		batch.dispose();
+		font.dispose();
 
 	}
 
