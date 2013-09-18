@@ -38,7 +38,7 @@ public interface IGame {
 	 * @param defensive
 	 *            the province being attacked.
 	 */
-	public void attack(int offensiveDice, IProvince offensiv,
+	public void attack(int offensiveDice, IProvince offensive,
 			IProvince defensive);
 
 	/**
