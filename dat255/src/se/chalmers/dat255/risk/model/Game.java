@@ -27,7 +27,7 @@ public class Game implements GameInterface {
 		currentPhase = 1;
 
 		// TODO: Dont forget to change null!!!!!
-		worldMap = new WorldMap(null);
+		worldMap = new WorldMap(null, players);
 
 		battle = new BattleHandler();
 	}
@@ -42,6 +42,13 @@ public class Game implements GameInterface {
 		// TODO: Check this!
 		activePlayer = (activePlayer + 1) % players.length;
 		currentPhase = 1;
+	}
+	
+	public void moveToProvince(int nbrOfUnits, Province from, Province goTo){
+		if(worldMap.getOwner(goTo.getId()) ==  getActivePlayer()){
+			from.removeUnits(nbrOfUnits);
+			goTo.addUnits(nbrOfUnits);
+		}		
 	}
 
 	@Override
