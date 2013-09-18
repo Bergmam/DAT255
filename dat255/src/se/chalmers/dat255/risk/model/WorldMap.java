@@ -3,8 +3,12 @@ package se.chalmers.dat255.risk.model;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Random;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
+
+import android.hardware.Camera.Size;
+import android.text.InputFilter.LengthFilter;
 
 /**
  * Contains Maps with relations for the provinces on the game board
@@ -19,11 +23,14 @@ public class WorldMap {
 	// neighbours maps together each territory with all adjacent territories.
 	// It gets its information via the class constructor, which in turn reads all information
 	// from a text file. 
-	private final HashMap<String, ArrayList<String>> neighbours; 
+	private final HashMap<String, ArrayList<String>> neighbours;
 	
-	public WorldMap(File file){
+	
+	public WorldMap(File file, Player[] players){
 		
-			neighbours = new HashMap<String, ArrayList<String>>();
+			HashMap<String, ArrayList<String>> tempNeighbours = new HashMap<String, ArrayList<String>>();
+			ArrayList<String> listOfProvinces = new ArrayList<String>();
+			ownership= new HashMap<String, Player>(); 
 			
 		try {
             Scanner scanner = new Scanner(file);
@@ -31,15 +38,22 @@ public class WorldMap {
                 String line = scanner.nextLine();
                 String[] array = line.split("-");
                 String p1 = array[0];
+                listOfProvinces.add(p1);
                 ArrayList<String> list = new ArrayList<String>();
                 for(int i = 1; i < array.length; i++){
                 	list.add(array[i]);
                 }
-                neighbours.put(p1, list);
+                tempNeighbours.put(p1, list);
+                
             }
-        } catch (FileNotFoundException e) {
+		} catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+		
+		randomizeProvinces(listOfProvinces, players);
+
+        neighbours =  new HashMap<String, ArrayList<String>>(tempNeighbours);
+
 	}
 	
 	/**
@@ -79,5 +93,26 @@ public class WorldMap {
 			return true;
 		}
 		return false;
+	}
+	
+	/**
+	 * Method to deal random provinces to the players at the start of a game.
+	 * Every time a province is given to a player, it is removed from the list of provinces.
+	 * 
+	 * @param List of all provinces
+	 * @param List of all players
+	 */
+	private void randomizeProvinces(ArrayList<String> provinceList, Player[] players){
+		ArrayList<String> temp = provinceList;
+		int nrOfPlayers = players.length, 
+			nrOfProvinces = provinceList.size();
+		
+		Random randGen = new Random();
+		while(!temp.isEmpty()){
+			for(Player player:players){
+				ownership.put(temp.remove(randGen.nextInt(nrOfProvinces)), player);
+				nrOfProvinces--;
+			}
+		}	
 	}
 }
