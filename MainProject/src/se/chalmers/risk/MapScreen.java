@@ -26,7 +26,7 @@ public class MapScreen extends AScreen {
 		bucket.width = 64;
 		bucket.height = 64;
 		
-		bucketImage = new Texture(Gdx.files.internal("Gfx/bucket.png"));
+		bucketImage = new Texture(Gdx.files.internal("Gfx/Bucket.png"));
 	}
 
 	@Override

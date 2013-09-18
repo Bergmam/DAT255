@@ -20,7 +20,7 @@ public class GDXGame extends Game {
 		batch = new SpriteBatch();
 		font = new BitmapFont();
 		
-		setScreen(new MapScreen(this));
+		setScreen(new MainMenu(this));
 
 	}
 
