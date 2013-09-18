@@ -19,6 +19,7 @@ import android.text.InputFilter.LengthFilter;
 
 public class WorldMap {
 
+	private final ArrayList<Province> allProvinces;
 	private HashMap<String, Player> ownership; 
 	// neighbours maps together each territory with all adjacent territories.
 	// It gets its information via the class constructor, which in turn reads all information
@@ -50,6 +51,7 @@ public class WorldMap {
             e.printStackTrace();
         }
 		
+		allProvinces = buildProvinces(listOfProvinces);
 		randomizeProvinces(listOfProvinces, players);
 
         neighbours =  new HashMap<String, ArrayList<String>>(tempNeighbours);
@@ -114,5 +116,20 @@ public class WorldMap {
 				nrOfProvinces--;
 			}
 		}	
+	}
+	
+	/**
+	 * Builds a list of Province objects from a list of province names
+	 * 
+	 * @param List of all province names
+	 * @return List of all province objects on the map
+	 */
+	
+	private ArrayList<Province> buildProvinces(ArrayList<String> nameList){
+		ArrayList<Province> provinceList = new ArrayList<Province>();
+		for(String s : nameList){
+			provinceList.add(new Province(s));
+		}
+		return provinceList;
 	}
 }
