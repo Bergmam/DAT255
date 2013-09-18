@@ -10,12 +10,6 @@ package se.chalmers.dat255.risk.model;
 public interface IGame {
 
 	/**
-	 * Method for changing the state of the game to the next state if it should
-	 * be changed.
-	 */
-	public void changePhase();
-
-	/**
 	 * Method for changing the turn to the next player in turn.
 	 */
 	public void changeTurn();

@@ -35,8 +35,11 @@ public class Game implements IGame {
 		battle = new BattleHandler();
 	}
 
-	@Override
-	public void changePhase() {
+	/**
+	 * Method for changing the state of the game to the next state if it should
+	 * be changed.
+	 */
+	private void changePhase() {
 		currentPhase++;
 	}
 
