@@ -1,5 +1,7 @@
 package se.chalmers.dat255.risk.model;
 
+import java.io.File;
+
 /**
  * The top game class. Controls flow between our lower classes, such as the
  * battle handler and the WorldMap.
@@ -26,8 +28,7 @@ public class Game implements GameInterface {
 		}
 		currentPhase = 1;
 
-		// TODO: Dont forget to change null!!!!!
-		worldMap = new WorldMap(null);
+		worldMap = new WorldMap(new File("neighbours.txt"));
 
 		battle = new BattleHandler();
 	}
