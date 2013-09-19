@@ -101,4 +101,12 @@ public class Player {
 	public String getName(){
 		return this.name;
 	}
+	
+	/**
+	 * Returns the cards on the players hand
+	 * @return The ArrayList of Cards.
+	 */
+	public ArrayList<Card> getCards(){
+		return cards;
+	}
 }
