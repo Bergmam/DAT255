@@ -10,11 +10,6 @@ package se.chalmers.dat255.risk.model;
 public interface IGame {
 
 	/**
-	 * Method for changing the turn to the next player in turn.
-	 */
-	public void changeTurn();
-
-	/**
 	 * Fetches the player who has the current turn.
 	 * 
 	 * @return the active player
@@ -32,7 +27,7 @@ public interface IGame {
 	 * @param defensive
 	 *            the province being attacked.
 	 */
-	public void attack(int offensiveDice, IProvince offensive,
+	public boolean attack(int offensiveDice, IProvince offensive,
 			IProvince defensive);
 
 	/**

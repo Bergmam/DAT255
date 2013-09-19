@@ -1,6 +1,7 @@
 package se.chalmers.dat255.risk.model;
 
 import java.io.File;
+import java.util.ArrayList;
 
 /**
  * The top game class. Controls flow between our lower classes, such as the
@@ -15,7 +16,7 @@ public class Game implements IGame {
 	private WorldMap worldMap;
 	private int bonus;
 	private BattleHandler battle;
-
+	private Deck deck;
 	/**
 	 * Creates a new Game.
 	 * lostArmies = 
@@ -31,7 +32,7 @@ public class Game implements IGame {
 		currentPhase = 1;
 
 		worldMap = new WorldMap(new File("neighbours.txt"), players);
-
+		//deck=Deck.getInstance(new ArrayList<String>().add(new Province("A").getId()), "5");//hårdkodat
 		battle = new BattleHandler();
 	}
 
@@ -40,14 +41,18 @@ public class Game implements IGame {
 	 * be changed.
 	 */
 	private void changePhase() {
-		currentPhase++;
+		if(currentPhase == 3){
+			changeTurn();
+			currentPhase = 1;
+		}
+		else{
+			currentPhase++;
+		}	
 	}
 
-	@Override
-	public void changeTurn() {
+	private void changeTurn() {
 		// TODO: Check this!
 		activePlayer = (activePlayer + 1) % players.length;
-		currentPhase = 1;
 	}
 	
 	@Override
@@ -58,25 +63,28 @@ public class Game implements IGame {
 	}
 
 	@Override
-	public void attack(int offensiveDice, IProvince offensive, IProvince defensive) {
+	public boolean attack(int offensiveDice, IProvince offensive, IProvince defensive) {
 		// TODO decide number of attackers
 		//		check if ok in another method
-		
-		// Counts the number of defending units
-		int defensiveDice = defensive.getUnits() == 1 ? 1 : 2;
-		
-		int[] result = battle.doBattle(offensiveDice,
-				defensiveDice);
-
-		offensive.removeUnits(result[0]);
-		defensive.removeUnits(result[1]);
-
-		if (defensive.getUnits() == 0) {
-			//TODO	move attacking units into 'defensive'
-			worldMap.changeOwner(defensive.getId(), getActivePlayer());
+		if(worldMap.isNeighbours(offensive.getId(), defensive.getId())){
 			
+			
+			// Counts the number of defending units
+			int defensiveDice = defensive.getUnits() == 1 ? 1 : 2;
+			
+			int[] result = battle.doBattle(offensiveDice,
+					defensiveDice);
+	
+			offensive.removeUnits(result[0]);
+			defensive.removeUnits(result[1]);
+	
+			if (defensive.getUnits() == 0) {
+				//TODO	move attacking units into 'defensive'
+				worldMap.changeOwner(defensive.getId(), getActivePlayer());
+			}
+			return true;
 		}
-
+		return false;
 	}
 
 	@Override
