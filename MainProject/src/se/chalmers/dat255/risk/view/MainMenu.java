@@ -1,16 +1,16 @@
-package se.chalmers.risk;
+package se.chalmers.dat255.risk.view;
+
+import se.chalmers.dat255.risk.GDXGame;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL10;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 
 public class MainMenu extends AScreen {
-	OrthographicCamera camera;
 
 	public MainMenu(GDXGame game) {
 		super(game);
-		camera = new OrthographicCamera();
 		camera.setToOrtho(false, 800, 480);
+		
 		
 	}
 	
@@ -19,16 +19,21 @@ public class MainMenu extends AScreen {
 		Gdx.gl.glClearColor(0, 0, 0.2f, 1);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 		
-		game.batch.begin();
-		game.font.draw(game.batch, "Welcome to Stolen code!!! ", 100, 150);
-		game.font.draw(game.batch, "Tap anywhere to begin!", 100, 100);
-		game.batch.end();
+		batch.begin();
+		font.draw(batch, "Welcome to Stolen code!!! ", 100, 150);
+		font.draw(batch, "Tap anywhere to begin!", 100, 100);
+		batch.end();
 
 		if (Gdx.input.isTouched()) {
 			game.setScreen(new MapScreen(game));
 			dispose();
 		}
 		
+	}
+	
+	@Override
+	public void dispose(){
+		super.dispose();
 	}
 
 }

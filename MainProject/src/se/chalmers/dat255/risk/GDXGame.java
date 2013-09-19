@@ -1,4 +1,6 @@
-package se.chalmers.risk;
+package se.chalmers.dat255.risk;
+
+import se.chalmers.dat255.risk.view.MainMenu;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -7,8 +9,6 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class GDXGame extends Game {
-	SpriteBatch batch;
-	BitmapFont font;
 	FPSLogger logger;
 
 	@Override
@@ -16,9 +16,6 @@ public class GDXGame extends Game {
 		Gdx.app.log("Risk", "creating game");
 
 		logger = new FPSLogger();
-
-		batch = new SpriteBatch();
-		font = new BitmapFont();
 		
 		setScreen(new MainMenu(this));
 
@@ -33,7 +30,8 @@ public class GDXGame extends Game {
 	@Override
 	public void render() {
 		super.render();
-		Gdx.app.log("Risk", "RenderingGame");
+		//Gdx.app.log("Risk", "RenderingGame");
+		logger.log();
 	}
 
 	@Override
@@ -50,8 +48,6 @@ public class GDXGame extends Game {
 	@Override
 	public void dispose() {
 		Gdx.app.log("Risk", "Destroying game");
-		batch.dispose();
-		font.dispose();
 
 	}
 

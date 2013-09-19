@@ -1,13 +1,24 @@
-package se.chalmers.risk;
+package se.chalmers.dat255.risk.view;
+
+import se.chalmers.dat255.risk.GDXGame;
 
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public abstract class AScreen implements Screen {
 
 	protected GDXGame game;
+	protected BitmapFont font;
+	protected SpriteBatch batch;
+	protected OrthographicCamera camera;
 	
 	public AScreen(GDXGame game) {
 		this.game = game;
+		font = new BitmapFont();
+		batch = new SpriteBatch();
+		camera = new OrthographicCamera();
 	}
 
 	@Override
@@ -48,7 +59,8 @@ public abstract class AScreen implements Screen {
 
 	@Override
 	public void dispose() {
-		// TODO Auto-generated method stub
+		font.dispose();
+		batch.dispose();
 		
 	}
 
