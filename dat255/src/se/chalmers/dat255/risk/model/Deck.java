@@ -24,7 +24,7 @@ public class Deck {
 	 * @param provinces, array with the names of all provinces.
 	 * @param nbrOfJokers, number of jokers in the deck.
 	 */
-	private Deck(ArrayList<String> provinces, int nbrOfJokers){
+	public Deck(ArrayList<String> provinces, int nbrOfJokers){
 		int infantry = provinces.size() / 3;
 		int cavalry = provinces.size() / 3;
 		
