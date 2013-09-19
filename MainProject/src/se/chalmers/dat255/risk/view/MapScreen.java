@@ -31,7 +31,6 @@ public class MapScreen extends AScreen {
 		bucketImage = new Texture(Gdx.files.internal("Gfx/bucket.png"));
 		a = new Actor();
 		a.addListener(new ProvinceListener());
-		
 		a.setBounds( 800 / 2 - 64 / 2, 20, 100, 100);
 		a.setSize(100, 100);
 		a.setColor(Color.BLUE);
@@ -60,6 +59,8 @@ public class MapScreen extends AScreen {
 		if(Gdx.input.isTouched()) {
 		    Vector3 touchPos = new Vector3();
 		    touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
+		    boolean t = a.hit(touchPos.x, touchPos.y, true) != null;
+		    Gdx.app.log("Actor",""+t);
 		    camera.unproject(touchPos);
 		    bucket.x = touchPos.x - 64 / 2;
 		    bucket.y= touchPos.y; 
