@@ -25,7 +25,7 @@ public class MainMenu extends AScreen {
 		batch.end();
 
 		if (Gdx.input.isTouched()) {
-			game.setScreen(new MapScreen(game));
+			game.setScreen(new GameScreen(game));
 			dispose();
 		}
 		
