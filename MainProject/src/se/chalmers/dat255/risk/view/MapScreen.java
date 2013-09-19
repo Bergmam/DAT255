@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
 
 public class MapScreen extends AScreen {
 	Texture bucketImage;
@@ -34,6 +35,8 @@ public class MapScreen extends AScreen {
 		a.setBounds( 800 / 2 - 64 / 2, 20, 100, 100);
 		a.setSize(100, 100);
 		a.setColor(Color.BLUE);
+	
+	
 		
 	}
 
@@ -50,6 +53,7 @@ public class MapScreen extends AScreen {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
 		camera.update();
+		a.draw(batch,11);
 
 		batch.setProjectionMatrix(camera.combined);
 		batch.begin();
@@ -61,10 +65,10 @@ public class MapScreen extends AScreen {
 		    touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
 		    boolean t = a.hit(touchPos.x, touchPos.y, true) != null;
 		    Gdx.app.log("Actor",""+t);
-		    camera.unproject(touchPos);
+		  /*  camera.unproject(touchPos);
 		    bucket.x = touchPos.x - 64 / 2;
 		    bucket.y= touchPos.y; 
-		 }
+		 */}
 
 
 	}

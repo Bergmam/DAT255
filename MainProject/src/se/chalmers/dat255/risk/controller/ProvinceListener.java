@@ -6,6 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 
 public class ProvinceListener extends InputListener {
+
 	
 	@Override
 	public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor){
