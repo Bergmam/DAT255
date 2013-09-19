@@ -2,11 +2,11 @@ package se.chalmers.dat255.risk.view;
 
 import se.chalmers.dat255.risk.controller.ProvinceListener;
 
-import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 
-public class ActorProvince extends Actor {
+public class ProvinceStage extends Stage {
 
-	public ActorProvince(){
+	public ProvinceStage(){
 		addListener(new ProvinceListener());
 		
 		
