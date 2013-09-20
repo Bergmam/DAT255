@@ -14,37 +14,43 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 public class ProvinceStage extends Stage {
 	private List<ProvinceView> actor;
 
-	public ProvinceStage(List <IProvince> provinces) {
+	public ProvinceStage(List<IProvince> provinces) {
 		actor = new ArrayList<ProvinceView>();
-		
-		for (int i = 0 ; i<provinces.size() ; i++){
-			ProvinceView provinceView = new ProvinceView(new Texture(Gdx.files.internal("Gfx/province.png")), provinces.get(i));
+
+		for (int i = 0; i < provinces.size(); i++) {
+			ProvinceView provinceView = new ProvinceView(new Texture(
+					Gdx.files.internal("Gfx/province.png")), new Texture(
+					Gdx.files.internal("Gfx/provinceChosen.png")),
+					provinces.get(i));
 			provinceView.addListener(new ProvinceListener());
 			actor.add(provinceView);
 		}
-		
+
 		float y = actor.get(0).getHeight();
 		float x = actor.get(0).getWidth();
-		
-		//correct placements 
-		//also we dont need table. it just line things up.
+
+		// correct placements
+		// also we dont need table. it just line things up.
 		actor.get(0).setPosition(0, 0);
-		actor.get(1).setPosition(getWidth()/2, getHeight()/2);
-		actor.get(2).setPosition(0, getHeight()/2);
-		actor.get(3).setPosition(getWidth()/2, 0);
-		/*setPositionFromCetre(actor.get(0),-x,-y);
-		setPositionFromCetre(actor.get(2),0,0);
-		setPositionFromCetre(actor.get(3),x,-y);
-		setPositionFromCetre(actor.get(1),-x,y); */
-		
-		System.out.println(""+Gdx.graphics.getWidth() + "=gdx anddddd " + x);
-		for (int i = 0 ; i<provinces.size() ; i++){
+		actor.get(1).setPosition(getWidth() / 2, getHeight() / 2);
+		actor.get(2).setPosition(0, getHeight() / 2);
+		actor.get(3).setPosition(getWidth() / 2, 0);
+		/*
+		 * setPositionFromCetre(actor.get(0),-x,-y);
+		 * setPositionFromCetre(actor.get(2),0,0);
+		 * setPositionFromCetre(actor.get(3),x,-y);
+		 * setPositionFromCetre(actor.get(1),-x,y);
+		 */
+
+		System.out.println("" + Gdx.graphics.getWidth() + "=gdx anddddd " + x);
+		for (int i = 0; i < provinces.size(); i++) {
 			addActor(actor.get(i));
 		}
 		Gdx.input.setInputProcessor(this);
 	}
-	
-	private void setPositionFromCetre(Actor actor,float f1,float f2){
-		actor.setPosition(Gdx.graphics.getWidth()/2 + f1, Gdx.graphics.getHeight()/2 + f1);
+
+	private void setPositionFromCetre(Actor actor, float f1, float f2) {
+		actor.setPosition(Gdx.graphics.getWidth() / 2 + f1,
+				Gdx.graphics.getHeight() / 2 + f1);
 	}
 }

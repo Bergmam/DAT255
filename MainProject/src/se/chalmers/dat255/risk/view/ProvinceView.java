@@ -27,17 +27,19 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 public class ProvinceView extends Image {
 	private Texture image;
+	private Texture image2;
+	private boolean checked = false;
 	private Color c;
 	private BitmapFont font = new BitmapFont();
 	private IProvince province;
 
-	public ProvinceView(Texture texture, IProvince province) {
+	public ProvinceView(Texture texture, Texture texture2, IProvince province) {
 		super(texture);
 		image = texture;
+		image2 = texture2;
 		this.province = province;
 		setSize(Gdx.graphics.getWidth() / 3, Gdx.graphics.getHeight() / 2);
-		c = Color.BLACK;
-
+		c = Color.GREEN;
 	}
 
 	public float getCenterX() {
@@ -55,16 +57,20 @@ public class ProvinceView extends Image {
 
 	// temp be able to change to owner color
 	public void changeColor() {
-		c = c == Color.BLUE ? Color.RED : Color.BLUE;
+		c = c == Color.GREEN ? Color.RED : Color.GREEN;
+	}
+
+	public void check() {
+		checked = !checked;
 	}
 
 	@Override
 	public void draw(SpriteBatch batch, float alpha) {
-		batch.setColor(c);
 		// needs better solution than static call
 		// scale to 1/4 of screen size
 		// Isn't this better?
-		batch.draw(image, getX(), getY(), getWidth(), getHeight());
+		batch.draw(checked ? image2 : image, getX(), getY(), getWidth(),
+				getHeight());
 		font.drawMultiLine(batch, "Country: " + province.getId() + "\nUnits: "
 				+ province.getUnits(), getCenterX() - (getWidth() / 3),
 				getCenterY());
