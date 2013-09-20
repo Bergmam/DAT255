@@ -29,8 +29,6 @@ public class GameScreen extends AScreen {
 	Rectangle bucket;
 	Actor a;
 	Stage stage;
-	Table table;
-	Button button;
 
 	public GameScreen(GDXGame game) {
 		super(game);
@@ -38,39 +36,17 @@ public class GameScreen extends AScreen {
 		
 		camera.setToOrtho(false, 800, 480);
 		batch = new SpriteBatch();
-		bucket = new Rectangle();
+	/*	bucket = new Rectangle();
 
 		bucket.x = 800 / 2 - 64 / 2;
 		bucket.y = 20;
 		bucket.width = 2;
 		bucket.height = 2;
-
-		stage = new Stage();
+*/
+		stage = new ProvinceStage();
 		Gdx.input.setInputProcessor(stage);
 		
-		table = new Table();
-		
-		TextButtonStyle buttonStyle = new TextButtonStyle();
-		buttonStyle.font = new BitmapFont();
-	    buttonStyle.fontColor = Color.WHITE;
-	    buttonStyle.pressedOffsetY = 1f;
-	    buttonStyle.downFontColor = new Color(0.8f, 0.8f, 0.8f, 1f);
-		button = new TextButton("Hello",buttonStyle);
-		button.addListener(new ClickListener(){
-			
-			@Override
-			public void clicked(InputEvent event, float float1, float float2){
-				Gdx.app.log("lololo", "in clicked");
-			};
-			
-		});
-		
-		
-		table.add(button);
-		table.add(a);
-		 table.setFillParent(true);
-		stage.addActor(table);
-		
+				
 		
 		bucketImage = new Texture(Gdx.files.internal("Gfx/bucket.png"));
 		a = new Actor();
@@ -102,12 +78,12 @@ public class GameScreen extends AScreen {
 		if (Gdx.input.isTouched()) {
 			Vector3 touchPos = new Vector3();
 			touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
-			boolean t = button.hit(touchPos.x, touchPos.y, true) != null;
+			/*boolean t = button.hit(touchPos.x, touchPos.y, true) != null;
 			Gdx.app.log("Actor", "" + t);
 			camera.unproject(touchPos);
 			//bucket.x = touchPos.x - 64 / 2;
 			//bucket.y = touchPos.y;
-			
+			*/
 		}
 
 	}
