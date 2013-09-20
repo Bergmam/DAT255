@@ -27,46 +27,46 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 public class ProvinceView extends Image {
 	private Texture image;
-	private Color  c;
+	private Color c;
 	private BitmapFont font = new BitmapFont();
-	private int units = 0;
 	private IProvince province;
-	
-	public ProvinceView(Texture texture, IProvince province){
+
+	public ProvinceView(Texture texture, IProvince province) {
 		super(texture);
 		image = texture;
 		this.province = province;
-		setSize(Gdx.graphics.getWidth()/3, Gdx.graphics.getHeight()/2);
+		setSize(Gdx.graphics.getWidth() / 3, Gdx.graphics.getHeight() / 2);
 		c = Color.BLACK;
-		
-	}
-	
-	public float getCenterX(){
-		return getX() + (getWidth()/2);
-	}
-	
-	public float getCenterY(){
-		return getY() +(getWidth()/2);
-		
-	}
-	public void addUnits(){
-		province.addUnits(1);
-	}
-	
-	//temp be able to change to owner color
-	public void changeColor(){
-		c = c==Color.BLUE ? Color.RED: Color.BLUE;
-	}
-	
-	@Override
-	public void draw(SpriteBatch batch, float alpha){
-		batch.setColor(c);
-		//needs better solution than static call
-		//scale to 1/4 of screen size
-		//Isn't this better?
-		batch.draw(image, getX(), getY(),getWidth(),getHeight());
-		font.draw(batch, "Units:"+ province.getUnits() +"Country :"+ province.getId(), getCenterX()-100, getCenterY());
-	
+
 	}
 
+	public float getCenterX() {
+		return getX() + (getWidth() / 2);
+	}
+
+	public float getCenterY() {
+		return getY() + (getWidth() / 2);
+
+	}
+
+	public void addUnits() {
+		province.addUnits(1);
+	}
+
+	// temp be able to change to owner color
+	public void changeColor() {
+		c = c == Color.BLUE ? Color.RED : Color.BLUE;
+	}
+
+	@Override
+	public void draw(SpriteBatch batch, float alpha) {
+		batch.setColor(c);
+		// needs better solution than static call
+		// scale to 1/4 of screen size
+		// Isn't this better?
+		batch.draw(image, getX(), getY(), getWidth(), getHeight());
+		font.drawMultiLine(batch, "Country: " + province.getId() + "\nUnits: "
+				+ province.getUnits(), getCenterX() - (getWidth() / 3),
+				getCenterY());
+	}
 }
