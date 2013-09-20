@@ -27,11 +27,10 @@ public class ProvinceStage extends Stage {
 		float y = actor.get(0).getHeight();
 		float x = actor.get(0).getWidth();
 		
-		//actor.get(0).setPosition(getWidth()/2-(float)0.01, getHeight()/2-(float)0.01);
-		actor.get(1).setPosition(getWidth()/2-actor.get(0).getCenterX(), getHeight()/2-actor.get(0).getCenterY());
-		actor.get(2).setPosition(getWidth()/2+actor.get(0).getCenterX(), getHeight()/2-actor.get(0).getCenterY());
-		actor.get(3).setPosition(getWidth()/2-actor.get(0).getCenterX(), getHeight()/2+actor.get(0).getCenterY());
-		
+		setPositionFromCetre(actor.get(0),0,0);
+		setPositionFromCetre(actor.get(1),-x,y);
+		setPositionFromCetre(actor.get(2),-x,-y);
+		setPositionFromCetre(actor.get(3),x,-y);
 		table = new Table();
 		this.addActor(table);
 		
@@ -39,5 +38,9 @@ public class ProvinceStage extends Stage {
 			addActor(actor.get(i));
 		}
 		Gdx.input.setInputProcessor(this);
+	}
+	
+	private void setPositionFromCetre(Actor actor,float f1,float f2){
+		actor.setPosition(getWidth()/2 + f1, getHeight()/2 + f1);
 	}
 }

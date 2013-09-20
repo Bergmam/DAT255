@@ -15,7 +15,7 @@ public class ProvinceView extends Image {
 	public ProvinceView(Texture texture){
 		super(texture);
 		image = texture;
-		setSize(100, 100);
+		setSize(200, 200);
 		c = Color.BLACK;
 		
 	}

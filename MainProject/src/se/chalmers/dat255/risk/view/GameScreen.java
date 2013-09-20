@@ -24,7 +24,6 @@ public class GameScreen extends AScreen {
 		// I dont really know why? something about province.png is not a powers of 2?
 		Texture.setEnforcePotImages(false);
 
-
 		camera.setToOrtho(false, 800, 480);
 		stage = new ProvinceStage(4);
 
