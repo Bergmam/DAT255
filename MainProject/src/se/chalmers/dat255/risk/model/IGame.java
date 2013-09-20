@@ -13,7 +13,7 @@ public interface IGame {
 	 * 
 	 * @return the active player
 	 */
-	public void newGame();
+	public void newGame(String[] nrOfPlayers) throws IllegalArgumentException;
 
 	
 	/**
