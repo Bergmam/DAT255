@@ -18,8 +18,13 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
  */
 public class GameScreen extends AScreen {
 	Stage stage;
+	
+	
+	// Later we will get this list from IGame, and than we just need IProvinces!
 	private List<IProvince> provinces= new ArrayList<IProvince>();
 
+	
+	
 	public GameScreen(GDXGame game) {
 		super(game);
 		//Create four provinceViews, 4 CardViews and one ChangePhaseButton.
