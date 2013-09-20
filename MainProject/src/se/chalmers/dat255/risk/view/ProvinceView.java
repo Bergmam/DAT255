@@ -1,5 +1,7 @@
 package se.chalmers.dat255.risk.view;
 
+import se.chalmers.dat255.risk.model.IProvince;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
@@ -24,15 +26,17 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
  */
 
 public class ProvinceView extends Image {
-	Texture image;
-	Color  c;
-	BitmapFont font = new BitmapFont();
-	int units = 0;
+	private Texture image;
+	private Color  c;
+	private BitmapFont font = new BitmapFont();
+	private int units = 0;
+	private IProvince province;
 	
-	public ProvinceView(Texture texture){
+	public ProvinceView(Texture texture, IProvince province){
 		super(texture);
 		image = texture;
-		setSize(200, 200);
+		this.province = province;
+		setSize(Gdx.graphics.getWidth()/3, Gdx.graphics.getHeight()/2);
 		c = Color.BLACK;
 		
 	}
@@ -46,7 +50,7 @@ public class ProvinceView extends Image {
 		
 	}
 	public void addUnits(){
-		units++;
+		province.addUnits(1);
 	}
 	
 	//temp be able to change to owner color
@@ -61,7 +65,7 @@ public class ProvinceView extends Image {
 		//scale to 1/4 of screen size
 		//Isn't this better?
 		batch.draw(image, getX(), getY(),getWidth(),getHeight());
-		font.draw(batch, ""+ units, getCenterX(), getCenterY());
+		font.draw(batch, ""+ province.getUnits(), getCenterX(), getCenterY());
 	
 	}
 

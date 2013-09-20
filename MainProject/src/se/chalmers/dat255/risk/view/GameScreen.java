@@ -1,10 +1,14 @@
 package se.chalmers.dat255.risk.view;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import se.chalmers.dat255.risk.GDXGame;
+import se.chalmers.dat255.risk.model.IProvince;
+import se.chalmers.dat255.risk.model.Province;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
@@ -14,13 +18,18 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
  */
 public class GameScreen extends AScreen {
 	Stage stage;
+	private List<IProvince> provinces= new ArrayList<IProvince>();
 
 	public GameScreen(GDXGame game) {
 		super(game);
 		//Create four provinceViews, 4 CardViews and one ChangePhaseButton.
-
+		
 		camera.setToOrtho(false, 800, 480);
-		stage = new ProvinceStage(4);
+		provinces.add(new Province("Ungern"));
+		provinces.add(new Province("Frankrike"));
+		provinces.add(new Province("Spanien"));
+		provinces.add(new Province("Sverige"));
+		stage = new ProvinceStage(provinces);
 
 	}
 
