@@ -8,13 +8,14 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
 public class ProvinceView extends Actor {
-	Texture image = new Texture(Gdx.files.internal("Gfx/bucket.png"));
+	Texture image;
 	Color  c;
 	BitmapFont font = new BitmapFont();
 	int units = 0;
 	
-	public ProvinceView(){
+	public ProvinceView(Texture texture){
 		super();
+		image = texture;
 		setSize(64, 64);
 		c = Color.BLUE;
 		

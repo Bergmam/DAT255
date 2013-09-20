@@ -1,41 +1,40 @@
 package se.chalmers.dat255.risk.view;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import se.chalmers.dat255.risk.controller.ProvinceListener;
 
-import com.badlogic.gdx.scenes.scene2d.Action;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
-import com.badlogic.gdx.scenes.scene2d.actions.ParallelAction;
-import com.badlogic.gdx.scenes.scene2d.actions.RotateToAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 
 public class ProvinceStage extends Stage {
-	Table table;
-	Actor a,b,c,d;
+	private Table table;
+	private List<Actor> actor;
 
-	public ProvinceStage() {
+	public ProvinceStage(int provinces) {
+		actor = new ArrayList<Actor>();
 		
-		a = new ProvinceView();
-		b = new ProvinceView();
-		c = new ProvinceView();
-		d = new ProvinceView();
+		for (int i = 0 ; i<provinces ; i++){
+			ProvinceView provinceView = new ProvinceView(new Texture(Gdx.files.internal("Gfx/bucket.png")));
+			provinceView.addListener(new ProvinceListener());
+			actor.add(provinceView);
+		}
 		
-		a.setPosition(0, 0);
-		b.setPosition(getWidth()-64, getHeight()-64);
-		c.setPosition(getWidth()-64, 0);
-		d.setPosition(0, getHeight()-64);
+		actor.get(0).setPosition(0, 0);
+		actor.get(1).setPosition(getWidth()-64, getHeight()-64);
+		actor.get(2).setPosition(getWidth()-64, 0);
+		actor.get(3).setPosition(0, getHeight()-64);
 		
-		a.addListener(new ProvinceListener());
-		b.addListener(new ProvinceListener());
-		c.addListener(new ProvinceListener());
-		d.addListener(new ProvinceListener());
 		table = new Table();
-
 		this.addActor(table);
-		addActor(a);
-		addActor(b);
-		addActor(c);
-		addActor(d);
+		
+		for (int i = 0 ; i<provinces ; i++){
+			addActor(actor.get(i));
+		}
+		Gdx.input.setInputProcessor(this);
 	}
 }

@@ -19,8 +19,7 @@ public class GameScreen extends AScreen {
 		//Create four provinceViews, 4 CardViews and one ChangePhaseButton.
 		
 		camera.setToOrtho(false, 800, 480);
-		stage = new ProvinceStage();
-		Gdx.input.setInputProcessor(stage);
+		stage = new ProvinceStage(4);
 		
 	}
 
