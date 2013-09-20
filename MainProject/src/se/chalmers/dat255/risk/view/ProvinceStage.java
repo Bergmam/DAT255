@@ -14,13 +14,11 @@ public class ProvinceStage extends Stage {
 	Actor a;
 
 	public ProvinceStage() {
-		a = new ProvinceView();
+		a = new ProvinceView(this);
 
 		a.addListener(new ProvinceListener());
 		a.setBounds(800 / 2 - 64 / 2, 20, 100, 100);
-
 		table = new Table();
-
 		table.row();
 		table.add(a);
 		table.setFillParent(true);
