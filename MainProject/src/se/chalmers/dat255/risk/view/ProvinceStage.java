@@ -27,10 +27,11 @@ public class ProvinceStage extends Stage {
 		float y = actor.get(0).getHeight();
 		float x = actor.get(0).getWidth();
 		
-		setPositionFromCetre(actor.get(0),0,0);
+		//setPositionFromCetre(actor.get(0),0,0);
 		setPositionFromCetre(actor.get(1),-x,y);
 		setPositionFromCetre(actor.get(2),-x,-y);
 		setPositionFromCetre(actor.get(3),x,-y);
+		
 		table = new Table();
 		this.addActor(table);
 		
