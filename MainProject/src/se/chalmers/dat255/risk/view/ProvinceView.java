@@ -1,22 +1,48 @@
 package se.chalmers.dat255.risk.view;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 
 public class ProvinceView extends Actor {
 	Texture image = new Texture(Gdx.files.internal("Gfx/bucket.png"));
+	Color  c;
+	BitmapFont font = new BitmapFont();
+	int units = 0;
 	
-	public ProvinceView(Stage st){
-		setStage(st);
-		setSize(50, 50);
+	public ProvinceView(){
+		super();
+		setSize(64, 64);
+		c = Color.BLUE;
+		
+	}
+	
+	public float getCenterX(){
+		return getX() + (getWidth()/2);
+	}
+	
+	public float getCenterY(){
+		return getY() +(getWidth()/2);
+		
+	}
+	public void addUnits(){
+		units++;
+	}
+	
+	//temp be able to change to owner color
+	public void changeColor(){
+		c = c==Color.BLUE ? Color.RED: Color.BLUE;
 	}
 	
 	@Override
 	public void draw(SpriteBatch batch, float alpha){
-		batch.draw(image,800 / 2 - 64 / 2, 20);
+		batch.setColor(c);
+		batch.draw(image, getX(), getY());
+		font.draw(batch, ""+ units, getCenterX(), getCenterY());
+		
 	}
 
 }

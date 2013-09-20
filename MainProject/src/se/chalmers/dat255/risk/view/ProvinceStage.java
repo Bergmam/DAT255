@@ -2,27 +2,40 @@ package se.chalmers.dat255.risk.view;
 
 import se.chalmers.dat255.risk.controller.ProvinceListener;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
+import com.badlogic.gdx.scenes.scene2d.actions.ParallelAction;
+import com.badlogic.gdx.scenes.scene2d.actions.RotateToAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 
 public class ProvinceStage extends Stage {
 	Table table;
-	Actor a;
+	Actor a,b,c,d;
 
 	public ProvinceStage() {
-		a = new ProvinceView(this);
-
+		
+		a = new ProvinceView();
+		b = new ProvinceView();
+		c = new ProvinceView();
+		d = new ProvinceView();
+		
+		a.setPosition(0, 0);
+		b.setPosition(getWidth()-64, getHeight()-64);
+		c.setPosition(getWidth()-64, 0);
+		d.setPosition(0, getHeight()-64);
+		
 		a.addListener(new ProvinceListener());
-		a.setBounds(800 / 2 - 64 / 2, 20, 100, 100);
+		b.addListener(new ProvinceListener());
+		c.addListener(new ProvinceListener());
+		d.addListener(new ProvinceListener());
 		table = new Table();
-		table.row();
-		table.add(a);
-		table.setFillParent(true);
-		this.addActor(table);
 
+		this.addActor(table);
+		addActor(a);
+		addActor(b);
+		addActor(c);
+		addActor(d);
 	}
 }
