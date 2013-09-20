@@ -4,6 +4,7 @@ import se.chalmers.dat255.risk.GDXGame;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
@@ -17,10 +18,16 @@ public class GameScreen extends AScreen {
 	public GameScreen(GDXGame game) {
 		super(game);
 		//Create four provinceViews, 4 CardViews and one ChangePhaseButton.
-		
+
+
+
+		// I dont really know why? something about province.png is not a powers of 2?
+		Texture.setEnforcePotImages(false);
+
+
 		camera.setToOrtho(false, 800, 480);
 		stage = new ProvinceStage(4);
-		
+
 	}
 
 	@Override
@@ -35,7 +42,7 @@ public class GameScreen extends AScreen {
 
 		camera.update();
 		stage.act(Gdx.graphics.getDeltaTime());
-	    stage.draw();
+		stage.draw();
 
 		if (Gdx.input.isTouched()) {
 			Vector3 touchPos = new Vector3();

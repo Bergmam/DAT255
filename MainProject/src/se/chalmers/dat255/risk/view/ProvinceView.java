@@ -1,23 +1,22 @@
 package se.chalmers.dat255.risk.view;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
-public class ProvinceView extends Actor {
+public class ProvinceView extends Image {
 	Texture image;
 	Color  c;
 	BitmapFont font = new BitmapFont();
 	int units = 0;
 	
 	public ProvinceView(Texture texture){
-		super();
+		super(texture);
 		image = texture;
-		setSize(64, 64);
-		c = Color.BLUE;
+		setSize(100, 100);
+		c = Color.BLACK;
 		
 	}
 	
@@ -38,12 +37,12 @@ public class ProvinceView extends Actor {
 		c = c==Color.BLUE ? Color.RED: Color.BLUE;
 	}
 	
-	@Override
+	/*@Override
 	public void draw(SpriteBatch batch, float alpha){
 		batch.setColor(c);
 		batch.draw(image, getX(), getY());
 		font.draw(batch, ""+ units, getCenterX(), getCenterY());
-		
-	}
+	
+	}*/
 
 }
