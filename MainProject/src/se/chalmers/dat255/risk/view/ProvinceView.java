@@ -1,5 +1,6 @@
 package se.chalmers.dat255.risk.view;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -53,12 +54,14 @@ public class ProvinceView extends Image {
 		c = c==Color.BLUE ? Color.RED: Color.BLUE;
 	}
 	
-	/*@Override
+	@Override
 	public void draw(SpriteBatch batch, float alpha){
 		batch.setColor(c);
-		batch.draw(image, getX(), getY());
+		//needs better solution than static call
+		//scale to 1/4 of screen size
+		batch.draw(image, getX(), getY(),Gdx.graphics.getWidth()/2,Gdx.graphics.getHeight()/2);
 		font.draw(batch, ""+ units, getCenterX(), getCenterY());
 	
-	}*/
+	}
 
 }
