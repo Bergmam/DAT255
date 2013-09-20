@@ -12,15 +12,7 @@ public class GameTest{
 	public void testGameConstructor(){
 		assertTrue(game.getActivePlayer().getName() == "Linnea");
 	}
-	
-	@Test
-	public void testChangeTurn(){
-		for(int i = 1; i < 100 ; i++ ){
-			game.changeTurn();
-			assertTrue(name[(i)%(name.length)]==game.getActivePlayer().getName());
-		}
-	}
-	
+
 	/*Detta måste testas i Province?
 	 * 
 	 * 

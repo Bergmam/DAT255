@@ -1,7 +1,6 @@
 package se.chalmers.dat255.risk.model;
 
 import java.io.File;
-import java.util.ArrayList;
 
 /**
  * The top game class. Controls flow between our lower classes, such as the

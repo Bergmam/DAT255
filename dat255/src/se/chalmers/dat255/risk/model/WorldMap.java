@@ -1,14 +1,11 @@
 package se.chalmers.dat255.risk.model;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
-import java.io.FileNotFoundException;
 import java.util.Scanner;
-
-import android.hardware.Camera.Size;
-import android.text.InputFilter.LengthFilter;
 
 /**
  * Contains Maps with relations for the provinces on the game board
