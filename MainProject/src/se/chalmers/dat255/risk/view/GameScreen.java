@@ -46,8 +46,6 @@ public class GameScreen extends AScreen {
 		stage = new ProvinceStage();
 		Gdx.input.setInputProcessor(stage);
 		
-				
-		
 		bucketImage = new Texture(Gdx.files.internal("Gfx/bucket.png"));
 		a = new Actor();
 		a.addListener(new ProvinceListener());
