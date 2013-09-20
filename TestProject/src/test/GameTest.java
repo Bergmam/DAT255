@@ -21,7 +21,10 @@ public class GameTest{
 		}
 	}
 	
-	/*@Test
+	/*Detta måste testas i Province?
+	 * 
+	 * 
+	 * @Test
 	public void testMoveUnits(){
 		IProvince prov1 = new Province("Mallorca");
 		IProvince prov2 = new Province("Budda");
