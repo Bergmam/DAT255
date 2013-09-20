@@ -24,23 +24,27 @@ public class ProvinceStage extends Stage {
 			actor.add(provinceView);
 		}
 		
-		/*float y = actor.get(0).getHeight();
+		float y = actor.get(0).getHeight();
 		float x = actor.get(0).getWidth();
 		
-		//setPositionFromCetre(actor.get(0),0,0);
+		/*
+		 //setPositionFromCetre(actor.get(0),0,0);
 		setPositionFromCetre(actor.get(1),-x,y);
-		setPositionFromCetre(actor.get(2),-x,-y);
-		setPositionFromCetre(actor.get(3),x,-y);
+		
+		
 		
 		table = new Table();
 		this.addActor(table);
 		*/
 		//correct placements 
 		//also we dont need table. it just line things up.
-		actor.get(0).setPosition(0, 0);
+		/*actor.get(0).setPosition(0, 0);
 		actor.get(1).setPosition(getWidth()/2, getHeight()/2);
 		actor.get(2).setPosition(0, getHeight()/2);
-		actor.get(3).setPosition(getWidth()/2, 0);
+		actor.get(3).setPosition(getWidth()/2, 0);*/
+		setPositionFromCetre(actor.get(0),-x,-y);
+		setPositionFromCetre(actor.get(2),0,0);
+		//setPositionFromCetre(actor.get(3),x,-y);
 		
 		for (int i = 0 ; i<provinces ; i++){
 			addActor(actor.get(i));
@@ -49,6 +53,6 @@ public class ProvinceStage extends Stage {
 	}
 	
 	private void setPositionFromCetre(Actor actor,float f1,float f2){
-		actor.setPosition(getWidth()/2 + f1, getHeight()/2 + f1);
+		actor.setPosition(Gdx.graphics.getWidth()/2 + f1, Gdx.graphics.getHeight()/2 + f1);
 	}
 }
