@@ -6,6 +6,22 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
+/*	Hej svejs!
+ * 	
+ *  Det känns väldigt fel att ha en int units i provinceView.
+ *  Jag föreslår att klassen implementerar Observer, eller
+ *  motsvarande, och att klassen observerar Players unit variabel.
+ *  Då kan man enkelt i en update metod uppdatera det GUI-värdet.
+ *  På så vis slipper man ha samma variabel på två ställen.
+ *  
+ *  Hade vart awesome att koppla ihop det inför kvällens inlämning
+ *  att truppantalet uppdateras i province-objektet när man klickar
+ *  på den, men det kanske är för tidskrävande?
+ *  
+ * Med vänlig hälsning
+ * Emil
+ */
+
 public class ProvinceView extends Image {
 	Texture image;
 	Color  c;
