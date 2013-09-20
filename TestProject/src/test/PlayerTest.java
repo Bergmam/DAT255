@@ -43,6 +43,7 @@ public class PlayerTest {
 		provinces.add("Hej");
 		provinces.add("Hejhopp");
 		provinces.add("Hejmamma");
+		Deck deck = Deck.getInstance(provinces, 2);
 		Player player = new Player(1, "Testare");
 		player.addCard();
 		player.addCard();
