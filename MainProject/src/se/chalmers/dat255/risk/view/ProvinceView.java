@@ -65,7 +65,8 @@ public class ProvinceView extends Image {
 		//scale to 1/4 of screen size
 		//Isn't this better?
 		batch.draw(image, getX(), getY(),getWidth(),getHeight());
-		font.draw(batch, ""+ province.getUnits(), getCenterX(), getCenterY());
+		font.draw(batch, "Units: "+ province.getUnits(), getCenterX(), getCenterY());
+		//font.draw(batch, "Country :"+ province.getId(), getCenterX(), getCenterY());
 	
 	}
 
