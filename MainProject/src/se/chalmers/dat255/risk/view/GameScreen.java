@@ -19,11 +19,6 @@ public class GameScreen extends AScreen {
 		super(game);
 		//Create four provinceViews, 4 CardViews and one ChangePhaseButton.
 
-
-
-		// I dont really know why? something about province.png is not a powers of 2?
-		//Texture.setEnforcePotImages(true);
-
 		camera.setToOrtho(false, 800, 480);
 		stage = new ProvinceStage(4);
 

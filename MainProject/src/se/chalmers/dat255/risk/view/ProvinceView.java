@@ -9,17 +9,17 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 /*	Hej svejs!
  * 	
- *  Det känns väldigt fel att ha en int units i provinceView.
- *  Jag föreslår att klassen implementerar Observer, eller
+ *  Det kï¿½nns vï¿½ldigt fel att ha en int units i provinceView.
+ *  Jag fï¿½reslï¿½r att klassen implementerar Observer, eller
  *  motsvarande, och att klassen observerar Players unit variabel.
- *  Då kan man enkelt i en update metod uppdatera det GUI-värdet.
- *  På så vis slipper man ha samma variabel på två ställen.
+ *  Dï¿½ kan man enkelt i en update metod uppdatera det GUI-vï¿½rdet.
+ *  Pï¿½ sï¿½ vis slipper man ha samma variabel pï¿½ tvï¿½ stï¿½llen.
  *  
- *  Hade vart awesome att koppla ihop det inför kvällens inlämning
- *  att truppantalet uppdateras i province-objektet när man klickar
- *  på den, men det kanske är för tidskrävande?
+ *  Hade vart awesome att koppla ihop det infï¿½r kvï¿½llens inlï¿½mning
+ *  att truppantalet uppdateras i province-objektet nï¿½r man klickar
+ *  pï¿½ den, men det kanske ï¿½r fï¿½r tidskrï¿½vande?
  *  
- * Med vänlig hälsning
+ * Med vï¿½nlig hï¿½lsning
  * Emil
  */
 
@@ -59,7 +59,8 @@ public class ProvinceView extends Image {
 		batch.setColor(c);
 		//needs better solution than static call
 		//scale to 1/4 of screen size
-		batch.draw(image, getX(), getY(),Gdx.graphics.getWidth()/2,Gdx.graphics.getHeight()/2);
+		//Isn't this better?
+		batch.draw(image, getX(), getY(),getWidth(),getHeight());
 		font.draw(batch, ""+ units, getCenterX(), getCenterY());
 	
 	}
