@@ -1,41 +1,56 @@
 package se.chalmers.dat255.risk.view;
 
-import se.chalmers.dat255.risk.controller.ProvinceListener;
+import java.util.ArrayList;
+import java.util.List;
 
-import com.badlogic.gdx.scenes.scene2d.Action;
+import se.chalmers.dat255.risk.controller.ProvinceListener;
+import se.chalmers.dat255.risk.model.IProvince;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
-import com.badlogic.gdx.scenes.scene2d.actions.ParallelAction;
-import com.badlogic.gdx.scenes.scene2d.actions.RotateToAction;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
 
 public class ProvinceStage extends Stage {
-	Table table;
-	Actor a,b,c,d;
+	private List<ProvinceView> actor;
 
-	public ProvinceStage() {
-		
-		a = new ProvinceView();
-		b = new ProvinceView();
-		c = new ProvinceView();
-		d = new ProvinceView();
-		
-		a.setPosition(0, 0);
-		b.setPosition(getWidth()-64, getHeight()-64);
-		c.setPosition(getWidth()-64, 0);
-		d.setPosition(0, getHeight()-64);
-		
-		a.addListener(new ProvinceListener());
-		b.addListener(new ProvinceListener());
-		c.addListener(new ProvinceListener());
-		d.addListener(new ProvinceListener());
-		table = new Table();
+	public ProvinceStage(List<IProvince> provinces) {
+		actor = new ArrayList<ProvinceView>();
 
-		this.addActor(table);
-		addActor(a);
-		addActor(b);
-		addActor(c);
-		addActor(d);
+		for (int i = 0; i < provinces.size(); i++) {
+			ProvinceView provinceView = new ProvinceView(new Texture(
+					Gdx.files.internal("Gfx/province.png")), new Texture(
+					Gdx.files.internal("Gfx/provinceChosen.png")),
+					provinces.get(i));
+			provinceView.addListener(new ProvinceListener());
+			actor.add(provinceView);
+		}
+
+		float y = actor.get(0).getHeight();
+		float x = actor.get(0).getWidth();
+
+		// correct placements
+		// also we dont need table. it just line things up.
+		actor.get(0).setPosition(0, 0);
+		actor.get(1).setPosition(getWidth() / 2, getHeight() / 2);
+		actor.get(2).setPosition(0, getHeight() / 2);
+		actor.get(3).setPosition(getWidth() / 2, 0);
+		/*
+		 * setPositionFromCetre(actor.get(0),-x,-y);
+		 * setPositionFromCetre(actor.get(2),0,0);
+		 * setPositionFromCetre(actor.get(3),x,-y);
+		 * setPositionFromCetre(actor.get(1),-x,y);
+		 */
+
+		System.out.println("" + Gdx.graphics.getWidth() + "=gdx anddddd " + x);
+		for (int i = 0; i < provinces.size(); i++) {
+			addActor(actor.get(i));
+		}
+		Gdx.input.setInputProcessor(this);
+	}
+
+	private void setPositionFromCetre(Actor actor, float f1, float f2) {
+		actor.setPosition(Gdx.graphics.getWidth() / 2 + f1,
+				Gdx.graphics.getHeight() / 2 + f1);
 	}
 }

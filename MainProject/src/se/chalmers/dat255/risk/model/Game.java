@@ -23,18 +23,14 @@ public class Game implements IGame {
 	 *            The ids of the players
 	 */
 	public Game(String[] playersId) {
-		players = new Player[playersId.length]; 
-		for (int i = 0; i < playersId.length; i++) {
-			players[i] = new Player(i, playersId[i]);
-		}
-		
-		currentPhase = 1;
-
-		worldMap = new WorldMap(new File("neighbours.txt"), players);
 		//deck=Deck.getInstance(new ArrayList<String>().add(new Province("A").getId()), "5");//hÃ¥rdkodat
 		battle = new BattleHandler();
+		newGame(playersId);
+
 	}
 
+	
+	
 	/**
 	 * Method for changing the state of the game to the next state if it should
 	 * be changed.
@@ -115,6 +111,34 @@ public class Game implements IGame {
 	@Override
 	public int getBonusUnitsLeft() {
 		return bonus;
+	}
+
+
+
+	@Override
+	public void newGame(String[] playersId) throws IllegalArgumentException {
+		int noOfPlayers=playersId.length;
+		if(noOfPlayers>=2 && noOfPlayers<=6){
+			  throw new IllegalArgumentException("The player number must be betwen 2 and 6");
+			}
+				
+			// THE PLAYERS
+			players = new Player[noOfPlayers]; 
+			for (int i = 0; i < noOfPlayers; i++) {
+				players[i] = new Player(i, playersId[i]);
+			}
+			// SETTING PHASE AND TURN
+			 currentPhase=1;
+			 activePlayer=0;
+			 players[activePlayer].setCurrent(true); // Player one knows it’s his turn
+		   	 
+			// SETTING UP GAMEBOARD RULES AND CREATING PROVINCES
+		   	worldMap= new WorldMap(new File("neighbours.txt"), players);
+
+			// SETTING UP DECK
+		//	deck = Deck.getInstanceOf(provinces, 6); // Hårdkodat antal wildcard 
+				 
+	//		refresh(); //BYTS MOT MOTSVARANDE I LIBGDX
 	}
 
 }

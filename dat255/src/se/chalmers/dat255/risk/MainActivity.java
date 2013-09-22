@@ -7,7 +7,7 @@ public class MainActivity extends AndroidApplication {
 	@Override
 	public void onCreate(android.os.Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		initialize(new GDXGame(), false);
+		initialize(new GDXGame(), true);
 	}
 
 }

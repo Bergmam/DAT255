@@ -11,7 +11,7 @@ public class ProvinceListener extends ClickListener {
 	@Override
 	public void clicked(InputEvent event, float x, float y){
 		if(event.getTarget() instanceof ProvinceView){
-			((ProvinceView)event.getTarget()).changeColor();
+			((ProvinceView)event.getTarget()).check();
 			((ProvinceView)event.getTarget()).addUnits();
 		}
 		Gdx.app.log("trololol", "province clicked");
