@@ -14,17 +14,10 @@
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
-	<linkedResources>
-		<link>
-			<name>assets</name>
-			<type>2</type>
-			<locationURI>ASSET_LOC/dat255/assets</locationURI>
-		</link>
-	</linkedResources>
 	<variableList>
 		<variable>
-			<name>ASSET_LOC</name>
-			<value>file:/C:/Users/Andreas/Documents/local/DAT255</value>
+			<name>ASSETS_LOC</name>
+			<value>$%7BPARENT-1-PROJECT_LOC%7D/dat255/assets</value>
 		</variable>
 	</variableList>
 </projectDescription>
