@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import se.chalmers.dat255.risk.GDXGame;
+import se.chalmers.dat255.risk.model.IGame;
 import se.chalmers.dat255.risk.model.IProvince;
-import se.chalmers.dat255.risk.model.Province;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
@@ -25,15 +25,11 @@ public class GameScreen extends AScreen {
 
 	
 	
-	public GameScreen(GDXGame game) {
-		super(game);
+	public GameScreen(GDXGame game, IGame model) {
+		super(game, model);
 		//Create four provinceViews, 4 CardViews and one ChangePhaseButton.
 		
 		camera.setToOrtho(false, 800, 480);
-		provinces.add(new Province("Ungern"));
-		provinces.add(new Province("Frankrike"));
-		provinces.add(new Province("Spanien"));
-		provinces.add(new Province("Sverige"));
 		stage = new ProvinceStage(provinces);
 
 	}

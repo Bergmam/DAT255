@@ -9,9 +9,14 @@ import com.badlogic.gdx.graphics.GL10;
 public class MainView extends AScreen {
 
 	public MainView(GDXGame game, IGame model) {
-		super(game);
+		super(game, model);
 		camera.setToOrtho(false, 800, 480);
 		
+		
+	}
+	
+	// returns the view that needs listeners
+	public void getViews(){
 		
 	}
 	
@@ -21,12 +26,11 @@ public class MainView extends AScreen {
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 		
 		batch.begin();
-		font.draw(batch, "Welcome to Stolen code!!! ", 100, 150);
 		font.draw(batch, "Tap anywhere to begin!", 100, 100);
 		batch.end();
 
 		if (Gdx.input.isTouched()) {
-			game.setScreen(new GameScreen(game));
+			game.setScreen(new GameScreen(game, model));
 			dispose();
 		}
 		
