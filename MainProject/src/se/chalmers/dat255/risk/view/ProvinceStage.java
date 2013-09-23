@@ -14,11 +14,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 public class ProvinceStage extends Stage {
 	private List<ProvinceView> actor;
+	Image a = new Image( new Texture(Gdx.files.internal("Gfx/RiskMap.png")));
 
 	public ProvinceStage(List<IProvince> provinces) {
 		actor = new ArrayList<ProvinceView>();
-		Texture wMap = new Texture(Gdx.files.internal("Gfx/RiskMap.png"));
-		Image a = new Image(wMap);
 		
 		for (int i = 0; i < provinces.size(); i++) {
 			ProvinceView provinceView = new ProvinceView(new Texture(
