@@ -17,7 +17,7 @@ public class Player {
 	public Player(int turnId, String name){
 		this.turnId = turnId;
 		this.name = name;	
-		cards = new ArrayList<Card>();
+		cards = new ArrayList<Card>();	
 	}
 	
 	/**
