@@ -23,6 +23,7 @@ public class WorldMap {
 	ArrayList<String> continent=new ArrayList<String>();
 	private HashMap<String, Player> ownership; 
 	int[] bonuses;
+	ArrayList<Continent> continents;
 	// neighbours maps together each territory with all adjacent territories.
 	// It gets its information via the class constructor, which in turn reads all information
 	// from a text file. 
@@ -98,6 +99,7 @@ public class WorldMap {
 		
 		ownership.put(provinceName, player);
 		player.gainProvince();
+		//
 	}
 
 	/**
@@ -155,37 +157,63 @@ public class WorldMap {
 		return bonuses[player.getId()];
 	}
 	
-	public int updateBonus(Province province){
+	public void updateBonus(Continent updateContinent){
+		updateContinent.update();
+		int continentBonus;
+		for(int i = 0; i < bonuses.length; i++)
+			bonuses[i]=0;
 		
-		return 0;
+		for(Continent continent:continents){
+			continentBonus=continent.getBonus();
+			if(continent.getContinentOwner()!=null)
+				bonuses[continent.getContinentOwner().getId()]=+continentBonus;
+		}
 	}
 	
+	/**
+	 * Class for representing continents.
+	 * Contains the name of the continent, all provinces in the continent,
+	 * how many bonus points the continent gives and who currently owns the continent.
+	 * 
+	 * Contains method for getting the bonus and the owner, and for updating who
+	 * currently owns the continent.
+	 *
+	 */
 	private class Continent {
 		String continentName;
-		HashMap<String, Integer> provinceToID;
 		String[] provinces;
 		int bonus;
+		Player owner = null;
 		
-		public Continent(String continentName, ArrayList<String> provinces, int bonus){
+		public Continent(String continentName, String[] provinces, int bonus){
 			this.continentName = continentName;
-	//		buildContinent(provinces);
+			this.provinces=provinces;
 			this.bonus = bonus;
 		}
 		
-		private void buildContinent(ArrayList<String> provinces){
-			int i = 0;
-			mapProvinces.put(provinces.get(i), i);
-			provinces[i]=world.getOwner();
+		public int getBonus(){
+			return bonus;
+		}
+
+		public Player getContinentOwner(){
+			return owner;
 		}
 		
+		/**
+		 * Updates who owns the Continent. Steps through the list of provinces 
+		 * in the continent and sees if the same person owns all of them.
+		 * Runs when someone takes a province from someone else.
+		 */
 		public void update(){
-			Player tempProvince = getOwner(provinces[0]);
+			Player tempProvinceOwner = getOwner(provinces[0]);
 			for(String province: provinces){
-				if(tempProvince != getOwner(province)){
-					return false
+				if(tempProvinceOwner != getOwner(province)){
+					owner = null;
+					return;
 				}
-				//Uppdatera tempprovince blabla
+				tempProvinceOwner=getOwner(province);
 			}
+			owner=tempProvinceOwner;
 		}
 	}
 }
