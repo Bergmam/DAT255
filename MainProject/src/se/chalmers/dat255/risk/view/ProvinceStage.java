@@ -16,7 +16,7 @@ public class ProvinceStage extends Stage {
 
 	public ProvinceStage(List<IProvince> provinces) {
 		actor = new ArrayList<ProvinceView>();
-
+		
 		for (int i = 0; i < provinces.size(); i++) {
 			ProvinceView provinceView = new ProvinceView(new Texture(
 					Gdx.files.internal("Gfx/province.png")), new Texture(
