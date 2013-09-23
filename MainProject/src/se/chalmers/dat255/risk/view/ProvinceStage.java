@@ -10,12 +10,15 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 public class ProvinceStage extends Stage {
 	private List<ProvinceView> actor;
 
 	public ProvinceStage(List<IProvince> provinces) {
 		actor = new ArrayList<ProvinceView>();
+		Texture wMap = new Texture(Gdx.files.internal("Gfx/RiskMap.png"));
+		Image a = new Image(wMap);
 		
 		for (int i = 0; i < provinces.size(); i++) {
 			ProvinceView provinceView = new ProvinceView(new Texture(
@@ -25,7 +28,7 @@ public class ProvinceStage extends Stage {
 			provinceView.addListener(new ProvinceListener());
 			actor.add(provinceView);
 		}
-
+		addActor(a);
 		float y = actor.get(0).getHeight();
 		float x = actor.get(0).getWidth();
 
@@ -44,7 +47,7 @@ public class ProvinceStage extends Stage {
 
 		System.out.println("" + Gdx.graphics.getWidth() + "=gdx anddddd " + x);
 		for (int i = 0; i < provinces.size(); i++) {
-			addActor(actor.get(i));
+			//addActor(actor.get(i));
 		}
 		Gdx.input.setInputProcessor(this);
 	}
