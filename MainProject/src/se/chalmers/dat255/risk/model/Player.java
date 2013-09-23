@@ -18,7 +18,7 @@ public class Player {
 	public Player(int turnId, String name){
 		this.turnId = turnId;
 		this.name = name;	
-		cards = new ArrayList<Card>();
+		cards = new ArrayList<Card>();	
 	}
 	
 	/**
@@ -115,4 +115,8 @@ public class Player {
 	public void setCurrent(Boolean current){
 		this.current=current;
 	}
+	public int getId(){
+		return turnId;
+	}
+	
 }

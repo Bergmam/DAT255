@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.Random;
 import java.util.Scanner;
 
+import com.badlogic.gdx.graphics.g3d.shaders.DefaultShader.Setters.Bones;
+
 /**
  * Contains Maps with relations for the provinces on the game board
  * and the players controlling them.
@@ -17,21 +19,23 @@ import java.util.Scanner;
 public class WorldMap {
 
 	private final ArrayList<Province> allProvinces;
+
+	ArrayList<String> continent=new ArrayList<String>();
 	private HashMap<String, Player> ownership; 
+	int[] bonuses;
 	// neighbours maps together each territory with all adjacent territories.
 	// It gets its information via the class constructor, which in turn reads all information
 	// from a text file. 
 	private final HashMap<String, ArrayList<String>> neighbours;
 	
 	
-	public WorldMap(File file, Player[] players){
+	public WorldMap(File provinceFile, File continentFile, Player[] players){
 		
 			HashMap<String, ArrayList<String>> tempNeighbours = new HashMap<String, ArrayList<String>>();
 			ArrayList<String> listOfProvinces = new ArrayList<String>();
 			ownership= new HashMap<String, Player>(); 
-			
 		try {
-            Scanner scanner = new Scanner(file);
+            Scanner scanner = new Scanner(provinceFile);
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
                 String[] array = line.split("-");
@@ -44,6 +48,21 @@ public class WorldMap {
                 tempNeighbours.put(p1, list);
                 
             }
+/*          scanner= new Scanner(continentFile);
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                String[] array = line.split("-");
+                int nrOfContinents=0;
+                ArrayList<String> continent = array[0];
+                listOfProvinces.add(p1);
+                ArrayList<String> list = new ArrayList<String>();
+                for(int i = 1; i < array.length; i++){
+                	list.add(array[i]);
+                }
+                tempNeighbours.put(p1, list);
+                
+            }
+*/
 		} catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -74,7 +93,9 @@ public class WorldMap {
 	 */
 	
 	public void changeOwner(String provinceName, Player player){
-		ownership.get(provinceName).loseProvince();
+		Player oldPlayer = ownership.get(provinceName);
+		oldPlayer.loseProvince();
+		
 		ownership.put(provinceName, player);
 		player.gainProvince();
 	}
@@ -128,5 +149,43 @@ public class WorldMap {
 			provinceList.add(new Province(s));
 		}
 		return provinceList;
+	}
+	
+	public int getBonus(Player player){
+		return bonuses[player.getId()];
+	}
+	
+	public int updateBonus(Province province){
+		
+		return 0;
+	}
+	
+	private class Continent {
+		String continentName;
+		HashMap<String, Integer> provinceToID;
+		String[] provinces;
+		int bonus;
+		
+		public Continent(String continentName, ArrayList<String> provinces, int bonus){
+			this.continentName = continentName;
+	//		buildContinent(provinces);
+			this.bonus = bonus;
+		}
+		
+		private void buildContinent(ArrayList<String> provinces){
+			int i = 0;
+			mapProvinces.put(provinces.get(i), i);
+			provinces[i]=world.getOwner();
+		}
+		
+		public void update(){
+			Player tempProvince = getOwner(provinces[0]);
+			for(String province: provinces){
+				if(tempProvince != getOwner(province)){
+					return false
+				}
+				//Uppdatera tempprovince blabla
+			}
+		}
 	}
 }
