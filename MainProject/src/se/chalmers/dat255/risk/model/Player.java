@@ -12,6 +12,7 @@ import java.util.ArrayList;
 public class Player {
 	private String name;
 	private int turnId, nrOfProvinces = 0;
+	private boolean current=false;
 	private ArrayList<Card> cards; // The cards the player currently has on his/her hand.
 	
 	public Player(int turnId, String name){
@@ -109,5 +110,9 @@ public class Player {
 	 */
 	public ArrayList<Card> getCards(){
 		return cards;
+	}
+	
+	public void setCurrent(Boolean current){
+		this.current=current;
 	}
 }

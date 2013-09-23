@@ -3,12 +3,19 @@ package se.chalmers.dat255.risk.model;
 /**
  * Interface for top class in the game risk
  * 
- * @author Emma Håkansson
  * @since 2013-09-13
  * 
  */
 public interface IGame {
 
+	/**
+	 * Sets up a new game.
+	 * 
+	 * @return the active player
+	 */
+	public void newGame(String[] nrOfPlayers) throws IllegalArgumentException;
+
+	
 	/**
 	 * Fetches the player who has the current turn.
 	 * 
