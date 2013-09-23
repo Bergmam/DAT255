@@ -115,4 +115,8 @@ public class Player {
 	public void setCurrent(Boolean current){
 		this.current=current;
 	}
+	public int getId(){
+		return turnId;
+	}
+	
 }
