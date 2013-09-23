@@ -6,7 +6,7 @@ import se.chalmers.dat255.risk.model.IGame;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL10;
 
-public class MainView extends AScreen {
+public class MainView extends AbstractScreen {
 
 	public MainView(GDXGame game, IGame model) {
 		super(game, model);

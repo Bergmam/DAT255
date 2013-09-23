@@ -13,12 +13,12 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 public class WorldStage extends Stage {
-	private List<ProvinceView> actor;
-	Image a = new Image( new Texture(Gdx.files.internal("Gfx/RiskMap.png")));
+	private List<AbstractView> actor;
+	Image a = new Image(new Texture(Gdx.files.internal("Gfx/RiskMap.png")));
 
 	public WorldStage(List<IProvince> provinces) {
-		actor = new ArrayList<ProvinceView>();
-		
+		actor = new ArrayList<AbstractView>();
+
 		for (int i = 0; i < provinces.size(); i++) {
 			ProvinceView provinceView = new ProvinceView(new Texture(
 					Gdx.files.internal("Gfx/province.png")), new Texture(
@@ -46,13 +46,21 @@ public class WorldStage extends Stage {
 
 		System.out.println("" + Gdx.graphics.getWidth() + "=gdx anddddd " + x);
 		for (int i = 0; i < provinces.size(); i++) {
-			//addActor(actor.get(i));
+			// addActor(actor.get(i));
 		}
+
 		Gdx.input.setInputProcessor(this);
 	}
 
 	private void setPositionFromCetre(Actor actor, float f1, float f2) {
 		actor.setPosition(Gdx.graphics.getWidth() / 2 + f1,
 				Gdx.graphics.getHeight() / 2 + f1);
+	}
+
+	@Override
+	public void dispose() {
+		super.dispose();
+		// TODO is this enough or do we need to dispose all of them?
+		actor.get(0).dispose();
 	}
 }

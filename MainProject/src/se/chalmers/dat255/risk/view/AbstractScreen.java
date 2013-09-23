@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-public abstract class AScreen implements Screen {
+public abstract class AbstractScreen implements Screen {
 
 	protected GDXGame game;
 	protected IGame model;
@@ -16,7 +16,7 @@ public abstract class AScreen implements Screen {
 	protected SpriteBatch batch;
 	protected OrthographicCamera camera;
 	
-	public AScreen(GDXGame game, IGame model) {
+	public AbstractScreen(GDXGame game, IGame model) {
 		this.game = game;
 		this.model = model;
 		font = new BitmapFont();
