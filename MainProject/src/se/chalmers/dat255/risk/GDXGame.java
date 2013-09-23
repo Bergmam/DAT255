@@ -1,6 +1,6 @@
 package se.chalmers.dat255.risk;
 
-import se.chalmers.dat255.risk.view.MainMenu;
+import se.chalmers.dat255.risk.view.MainView;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -14,8 +14,9 @@ public class GDXGame extends Game {
 		Gdx.app.log("Risk", "creating game");
 
 		logger = new FPSLogger();
-		
-		setScreen(new MainMenu(this));
+
+		setScreen(new MainView(this, new se.chalmers.dat255.risk.model.Game(
+				new String[] { "a", "b", "c", "d" })));
 
 	}
 
@@ -28,7 +29,7 @@ public class GDXGame extends Game {
 	@Override
 	public void render() {
 		super.render();
-		//Gdx.app.log("Risk", "RenderingGame");
+		// Gdx.app.log("Risk", "RenderingGame");
 		logger.log();
 	}
 
