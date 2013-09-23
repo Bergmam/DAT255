@@ -17,7 +17,9 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
  * 
  */
 public class GameScreen extends AScreen {
-	Stage stage;
+	private boolean isWorld;
+	private Stage worldStage;
+	private Stage cardStage;
 	
 	
 	// Later we will get this list from IGame, and than we just need IProvinces!
@@ -30,7 +32,9 @@ public class GameScreen extends AScreen {
 		//Create four provinceViews, 4 CardViews and one ChangePhaseButton.
 		
 		camera.setToOrtho(false, 800, 480);
-		stage = new ProvinceStage(provinces);
+		isWorld = true;
+		worldStage = new WorldStage(provinces);
+		cardStage = new CardStage();
 
 	}
 
@@ -45,15 +49,19 @@ public class GameScreen extends AScreen {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		camera.update();
-		stage.act(Gdx.graphics.getDeltaTime());
-		stage.draw();
+		getStage().act(Gdx.graphics.getDeltaTime());
+		getStage().draw();
 
-		if (Gdx.input.isTouched()) {
-			Vector3 touchPos = new Vector3();
-			touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
 
-		}
-
+	}
+	
+	public void changeStage(){
+		isWorld = !isWorld;
+		
+	}
+	
+	private Stage getStage(){
+		return isWorld? worldStage : cardStage;
 	}
 
 	@Override

@@ -12,11 +12,11 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
-public class ProvinceStage extends Stage {
+public class WorldStage extends Stage {
 	private List<ProvinceView> actor;
 	Image a = new Image( new Texture(Gdx.files.internal("Gfx/RiskMap.png")));
 
-	public ProvinceStage(List<IProvince> provinces) {
+	public WorldStage(List<IProvince> provinces) {
 		actor = new ArrayList<ProvinceView>();
 		
 		for (int i = 0; i < provinces.size(); i++) {
