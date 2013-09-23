@@ -23,7 +23,7 @@ public class GameScreen extends AbstractScreen {
 		super(game, model);
 		// Create four provinceViews, 4 CardViews and one ChangePhaseButton.
 
-		camera.setToOrtho(false, 800, 480);
+		camera.setToOrtho(false);
 		isWorld = true;
 		worldStage = new WorldStage(
 				/* TODO model.getProvinces() */new ArrayList<IProvince>());

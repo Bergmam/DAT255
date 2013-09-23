@@ -5,9 +5,7 @@ import se.chalmers.dat255.risk.model.IProvince;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 
 public class ProvinceView extends AbstractView {
@@ -46,6 +44,7 @@ public class ProvinceView extends AbstractView {
 	}
 
 	public void check() {
+		// TODO replace with methods in IProvince
 		checked = !checked;
 	}
 
