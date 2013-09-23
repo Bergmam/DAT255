@@ -13,10 +13,6 @@ public abstract class AbstractView extends Image implements PropertyChangeListen
 	protected static ShapeRenderer shape = new ShapeRenderer();
 	protected static BitmapFont font = new BitmapFont();
 	
-	public AbstractView(Texture t){
-		super(t);
-	}
-	
 	public void dispose(){
 		shape.dispose();
 		font.dispose();
