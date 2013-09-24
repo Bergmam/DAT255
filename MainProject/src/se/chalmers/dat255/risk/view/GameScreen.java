@@ -24,7 +24,7 @@ public class GameScreen extends AbstractScreen {
 
 	public GameScreen(GDXGame game, IGame model) {
 		super(game, model);
-		// Create four provinceViews, 4 CardViews and one ChangePhaseButton.
+		// Create four provinceViews, players CardViews and one ChangePhaseButton.
 
 		camera.setToOrtho(false);
 		isWorld = true;

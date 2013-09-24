@@ -5,7 +5,10 @@ import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.List;
 import se.chalmers.dat255.risk.model.Card;
+import se.chalmers.dat255.risk.model.Card.CardType;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
 /**
@@ -32,9 +35,19 @@ public class CardStage extends Stage implements PropertyChangeListener {
 	public CardStage(List<Card> cards) {
 		actor = new ArrayList<CardView>();
 		for (int i = 0; i < cards.size(); i++) {
-			actor.add(new CardView(cards.get(i)));
+			actor.add(new CardView(getTexture(cards.get(i)),cards.get(i)));
 		}
 
+	}
+
+	private Texture getTexture(Card card) {
+		// TODO Auto-generated method stub
+		if(card.getType()==CardType.ARTILLERY){
+			return new Texture(Gdx.files.internal("Gfx/card1.png"));
+		} else if (card.getType()==CardType.CAVALRY) {
+			return new Texture(Gdx.files.internal("Gfx/card1.png"));
+		}
+		return new Texture(Gdx.files.internal("Gfx/card3.png"));
 	}
 
 	@Override
