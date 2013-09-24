@@ -52,7 +52,7 @@ public class Game implements IGame {
 	
 	@Override
 	public void moveToProvince(int nbrOfUnits, IProvince from, IProvince goTo){
-		if(worldMap.getOwner(goTo.getId()) ==  getActivePlayer()){
+		if((worldMap.getOwner(goTo.getId()) ==  getActivePlayer()) && (worldMap.getOwner(goTo.getId()) ==  getActivePlayer())){
 			from.moveUnits(nbrOfUnits, goTo);
 		}		
 	}
