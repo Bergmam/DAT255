@@ -17,10 +17,14 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
  * 
  * Perhaps receiving all card player belonging to a player in the property
  * change and refresh all cardViews then?
- * 
+ */
+
+/*
  * I think we will add CardViews when player gets more card, 
  * and when using them we will destroy the cardViews. So we will get a propertyChange when
- * player removes this card from the hand.
+ * player removes this card from the hand. 
+ * 
+ * So we have one cardStage for every player and just changing the stage?
  */
 public class CardStage extends Stage implements PropertyChangeListener {
 	private List<CardView> actor;
