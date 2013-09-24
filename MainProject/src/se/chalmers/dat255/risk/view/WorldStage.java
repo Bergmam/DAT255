@@ -27,9 +27,9 @@ public class WorldStage extends Stage implements GestureListener {
 	private float initialZoom;
 
 	public WorldStage(List<IProvince> provinces) {
-		
+
 		Frustum fo = new Frustum();
-		
+
 		background = new Image(Resource.getInstance().backGround);
 		camera = new OrthographicCamera();
 		provinceGroup = new Group();
@@ -72,22 +72,15 @@ public class WorldStage extends Stage implements GestureListener {
 
 		enterStage();
 	}
-	
-	//may need to do this when switching to this stage in gamescreen
-	public void enterStage(){
+
+	// may need to do this when switching to this stage in gamescreen
+	public void enterStage() {
 		Gdx.input.setInputProcessor(gesture);
 	}
 
 	private void setPositionFromCetre(Actor actor, float f1, float f2) {
 		actor.setPosition(Gdx.graphics.getWidth() / 2 + f1,
 				Gdx.graphics.getHeight() / 2 + f1);
-	}
-
-	@Override
-	public void dispose() {
-		super.dispose();
-		// TODO is this enough or do we need to dispose all of them?
-		actor.get(0).dispose();
 	}
 
 	@Override
@@ -138,5 +131,10 @@ public class WorldStage extends Stage implements GestureListener {
 			Vector2 pointer1, Vector2 pointer2) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public void dispose() {
+		super.dispose();
 	}
 }

@@ -7,17 +7,27 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
-public abstract class AbstractView extends Image implements PropertyChangeListener{
-	
-	protected static ShapeRenderer shape = new ShapeRenderer();
-	protected static BitmapFont font = new BitmapFont();
+public abstract class AbstractView extends Image implements
+		PropertyChangeListener {
 
-	public void dispose(){
+	protected static ShapeRenderer shape;
+	protected static BitmapFont font;
+
+	public AbstractView() {
+		if (shape == null) {
+			shape = new ShapeRenderer();
+		}
+		if (font == null) {
+			font = new BitmapFont();
+		}
+	}
+
+	public void dispose() {
 		shape.dispose();
 		font.dispose();
 	}
-	
+
 	@Override
-	public void propertyChange(PropertyChangeEvent evt){
+	public void propertyChange(PropertyChangeEvent evt) {
 	}
 }
