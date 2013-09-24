@@ -6,6 +6,7 @@ import java.util.List;
 import se.chalmers.dat255.risk.GDXGame;
 import se.chalmers.dat255.risk.model.IGame;
 import se.chalmers.dat255.risk.model.IProvince;
+import se.chalmers.dat255.risk.model.Player;
 import se.chalmers.dat255.risk.model.Province;
 import se.chalmers.dat255.risk.view.resource.Resource;
 
@@ -21,7 +22,9 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 public class GameScreen extends AbstractScreen {
 	private boolean isWorld;
 	private Stage worldStage;
-	private Stage cardStage;
+	private List<Stage> cardStage;
+	// TODO: IPlayer ??
+	private Player[] players;
 	Texture bg = Resource.getInstance().backGround;
 
 	public GameScreen(GDXGame game, IGame model) {
@@ -29,6 +32,8 @@ public class GameScreen extends AbstractScreen {
 		// Create four provinceViews, players CardViews and one
 		// ChangePhaseButton.
 
+		players = model.getPlayer();
+		
 		isWorld = true;
 		
 		List<IProvince> a = new ArrayList<IProvince>();
@@ -36,7 +41,12 @@ public class GameScreen extends AbstractScreen {
 		
 		worldStage = new WorldStage(
 		/* TODO model.getProvinces() */a);
-		cardStage = new CardStage(model.getActivePlayer().getCards());
+		
+		//Creates a cardStage for every player
+		cardStage = new ArrayList<Stage>();
+		
+		for(Player i : players)
+		cardStage.add(new CardStage(i.getCards()));
 
 	}
 
@@ -63,7 +73,7 @@ public class GameScreen extends AbstractScreen {
 	}
 
 	private Stage getStage() {
-		return isWorld ? worldStage : cardStage;
+		return (Stage) (isWorld ? worldStage : cardStage);
 	}
 
 	@Override
