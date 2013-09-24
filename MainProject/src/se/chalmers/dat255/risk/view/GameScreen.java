@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import se.chalmers.dat255.risk.GDXGame;
-import se.chalmers.dat255.risk.model.Card;
-import se.chalmers.dat255.risk.model.Card.CardType;
 import se.chalmers.dat255.risk.model.IGame;
 import se.chalmers.dat255.risk.model.IProvince;
+import se.chalmers.dat255.risk.model.Province;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
 /**
@@ -24,12 +24,15 @@ public class GameScreen extends AbstractScreen {
 
 	public GameScreen(GDXGame game, IGame model) {
 		super(game, model);
-		// Create four provinceViews, players CardViews and one ChangePhaseButton.
+		// Create four provinceViews, players CardViews and one
+		// ChangePhaseButton.
 
 		camera.setToOrtho(false);
 		isWorld = true;
+		List<IProvince> a = new ArrayList<IProvince>();
+		a.add(new Province("Place"));
 		worldStage = new WorldStage(
-				/* TODO model.getProvinces() */new ArrayList<IProvince>());
+		/* TODO model.getProvinces() */a);
 		cardStage = new CardStage(model.getActivePlayer().getCards());
 
 	}
@@ -45,9 +48,9 @@ public class GameScreen extends AbstractScreen {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		camera.update();
+
 		getStage().act(Gdx.graphics.getDeltaTime());
 		getStage().draw();
-
 	}
 
 	public void changeStage() {

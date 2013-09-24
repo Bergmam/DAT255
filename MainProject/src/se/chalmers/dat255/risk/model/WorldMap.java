@@ -170,6 +170,10 @@ public class WorldMap {
 		}
 	}
 	
+	public ArrayList<Province> getProvinces(){
+		return allProvinces;
+	}
+	
 	/**
 	 * Class for representing continents.
 	 * Contains the name of the continent, all provinces in the continent,
@@ -215,5 +219,6 @@ public class WorldMap {
 			}
 			owner=tempProvinceOwner;
 		}
+		
 	}
 }
