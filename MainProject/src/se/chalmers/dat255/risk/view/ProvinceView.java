@@ -66,4 +66,8 @@ public class ProvinceView extends AbstractView {
 		 * getCenterY());
 		 */
 	}
+	
+	public IProvince getProvince(){
+		return province;
+	}
 }
