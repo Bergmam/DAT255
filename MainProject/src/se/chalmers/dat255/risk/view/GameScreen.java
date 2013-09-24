@@ -1,8 +1,11 @@
 package se.chalmers.dat255.risk.view;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import se.chalmers.dat255.risk.GDXGame;
+import se.chalmers.dat255.risk.model.Card;
+import se.chalmers.dat255.risk.model.Card.CardType;
 import se.chalmers.dat255.risk.model.IGame;
 import se.chalmers.dat255.risk.model.IProvince;
 
@@ -18,6 +21,7 @@ public class GameScreen extends AbstractScreen {
 	private boolean isWorld;
 	private Stage worldStage;
 	private Stage cardStage;
+	private List<Card> cards;
 
 	public GameScreen(GDXGame game, IGame model) {
 		super(game, model);
@@ -27,7 +31,8 @@ public class GameScreen extends AbstractScreen {
 		isWorld = true;
 		worldStage = new WorldStage(
 				/* TODO model.getProvinces() */new ArrayList<IProvince>());
-		cardStage = new CardStage();
+		cards.add(new Card(CardType.ARTILLERY, "Kreta"));
+		cardStage = new CardStage(cards);
 
 	}
 
