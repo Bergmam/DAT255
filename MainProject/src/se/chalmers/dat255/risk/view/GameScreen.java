@@ -22,10 +22,9 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
  */
 public class GameScreen extends AbstractScreen {
 	private boolean isWorld;
-	private Stage worldStage;
-	private List<Stage> cardStage;
+	private AbstractStage worldStage;
+	private List<AbstractStage> cardStage;
 	// TODO: IPlayer ??
-	Texture bg = Resource.getInstance().backGround;
 
 	public GameScreen(GDXGame game, IGame model) {
 		super(game, model);
@@ -41,7 +40,7 @@ public class GameScreen extends AbstractScreen {
 		/* TODO model.getProvinces() */a);
 
 		// Creates a cardStage for every player
-		cardStage = new ArrayList<Stage>();
+		cardStage = new ArrayList<AbstractStage>();
 
 		for (Player i : model.getPlayer())
 			cardStage.add(new CardStage(i.getCards()));
@@ -52,6 +51,10 @@ public class GameScreen extends AbstractScreen {
 	public void show() {
 
 	}
+	
+	public List<AbstractView> getViews(){
+		return worldStage.getViews();
+	}
 
 	@Override
 	public void render(float render) {
@@ -59,7 +62,7 @@ public class GameScreen extends AbstractScreen {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		camera.update();
-
+		
 		getStage().act(Gdx.graphics.getDeltaTime());
 		getStage().draw();
 
@@ -67,10 +70,10 @@ public class GameScreen extends AbstractScreen {
 
 	public void changeStage() {
 		isWorld = !isWorld;
-
+		getStage().enterStage();
 	}
 
-	private Stage getStage() {
+	private AbstractStage getStage() {
 		return isWorld ? worldStage : cardStage.get(model.getActivePlayer().getId());
 	}
 
@@ -79,6 +82,5 @@ public class GameScreen extends AbstractScreen {
 		super.dispose();
 		Resource.getInstance().dispose();
 		worldStage.dispose();
-		bg.dispose();
 	}
 }

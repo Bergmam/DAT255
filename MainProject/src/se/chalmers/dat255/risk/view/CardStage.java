@@ -2,14 +2,13 @@ package se.chalmers.dat255.risk.view;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.util.ArrayList;
 import java.util.List;
+
 import se.chalmers.dat255.risk.model.Card;
 import se.chalmers.dat255.risk.model.Card.CardType;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 
 /**
  * Stage for showing a players cards
@@ -29,19 +28,20 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
  * 
  * So we have one cardStage for every player and just changing the stage?
  */
-public class CardStage extends Stage implements PropertyChangeListener {
-	private List<CardView> actor;
+public class CardStage extends AbstractStage {
 	boolean clicked;
 
 	public CardStage(List<Card> cards) {
-		clicked = false;
+		super();
 		
-		actor = new ArrayList<CardView>();
+		clicked = false;
+	
 		for (int i = 0; i < cards.size(); i++) {
 			actor.add(new CardView(getTexture(cards.get(i)),cards.get(i)));
 		}
+		
 	}
-
+	
 	private Texture getTexture(Card card) {
 		// TODO Auto-generated method stub
 		if(card.getType()==CardType.ARTILLERY){
@@ -63,5 +63,11 @@ public class CardStage extends Stage implements PropertyChangeListener {
 	public void propertyChange(PropertyChangeEvent arg0) {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public void enterStage() {
+		Gdx.input.setInputProcessor(this);
+		
 	}
 }

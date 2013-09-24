@@ -1,6 +1,9 @@
 package se.chalmers.dat255.risk;
 
-import se.chalmers.dat255.risk.view.MainView;
+import se.chalmers.dat255.risk.controller.ProvinceListener;
+import se.chalmers.dat255.risk.view.AbstractView;
+import se.chalmers.dat255.risk.view.MainScreen;
+import se.chalmers.dat255.risk.view.ProvinceView;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -8,17 +11,22 @@ import com.badlogic.gdx.graphics.FPSLogger;
 
 public class GDXGame extends Game {
 	FPSLogger logger;
-	MainView main;
+	MainScreen main;
+	se.chalmers.dat255.risk.model.Game game;
 
 	@Override
 	public void create() {
 		Gdx.app.log("Risk", "creating game");
 
-		logger = new FPSLogger();
-		main = new MainView(this, new se.chalmers.dat255.risk.model.Game(
-				new String[] { "a", "b", "c", "d" }));
-		setScreen(main);
+		game = new se.chalmers.dat255.risk.model.Game(new String[] { "a", "b",
+				"c", "d" });
 
+		logger = new FPSLogger();
+		main = new MainScreen(this, game);
+		for (AbstractView v : main.getViews()) {
+			v.addListener(v instanceof ProvinceView? new ProvinceListener() : null);
+		}
+		setScreen(main);
 	}
 
 	@Override
