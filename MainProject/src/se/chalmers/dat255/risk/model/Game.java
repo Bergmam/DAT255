@@ -51,13 +51,14 @@ public class Game implements IGame {
 	}
 	
 	@Override
-	public void moveToProvince(int nbrOfUnits, IProvince from, IProvince goTo){
+	public void moveToProvince(int nrOfUnits, IProvince from, IProvince goTo){
 		if((worldMap.getOwner(goTo.getId()) ==  getActivePlayer()) 
-				&& (worldMap.getOwner(goTo.getId()) ==  getActivePlayer())){
+				&& (worldMap.getOwner(from.getId()) ==  getActivePlayer())){
 			if(worldMap.isNeighbours(from.getId(), goTo.getId())){
-				from.moveUnits(nbrOfUnits, goTo);
+				if(nrOfUnits- from.getUnits() > 0){
+					from.moveUnits(nrOfUnits, goTo);
+				}
 			}
-			
 		}		
 	}
 
