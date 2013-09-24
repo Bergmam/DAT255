@@ -22,8 +22,8 @@ public class WorldMap {
 
 	ArrayList<String> continent=new ArrayList<String>();
 	private HashMap<String, Player> ownership; 
-	int[] bonuses;
-	ArrayList<Continent> continents;
+	int[] bonuses; // Each id, corrseponds to a players continental bonus
+	ArrayList<Continent> continents; // All the continents that gives bonuses
 	// neighbours maps together each territory with all adjacent territories.
 	// It gets its information via the class constructor, which in turn reads all information
 	// from a text file. 
@@ -49,21 +49,21 @@ public class WorldMap {
                 tempNeighbours.put(p1, list);
                 
             }
-/*          scanner= new Scanner(continentFile);
-            while (scanner.hasNextLine()) {
-                String line = scanner.nextLine();
-                String[] array = line.split("-");
-                int nrOfContinents=0;
-                ArrayList<String> continent = array[0];
-                listOfProvinces.add(p1);
-                ArrayList<String> list = new ArrayList<String>();
-                for(int i = 1; i < array.length; i++){
-                	list.add(array[i]);
-                }
-                tempNeighbours.put(p1, list);
+          scanner= new Scanner(continentFile);
+          String itsProvinces[];
+          while (scanner.hasNextLine()) {
+        	  String line = scanner.nextLine();
+        	  String[] array = line.split("-");
+        	  itsProvinces=new String[array.length-2]; //Reserves space for all but bonus and the continent name
+
+        	  int nrOfContinents=0;
                 
-            }
-*/
+                for(int i = 2; i < array.length; i++){
+                    itsProvinces[i-2]=array[i];
+                }
+                continents.add(new Continent(array[0], itsProvinces, Integer.parseInt(array[0])));
+          }
+
 		} catch (FileNotFoundException e) {
             e.printStackTrace();
         }

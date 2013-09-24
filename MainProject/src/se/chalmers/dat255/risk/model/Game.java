@@ -52,7 +52,7 @@ public class Game implements IGame {
 	
 	@Override
 	public void moveToProvince(int nbrOfUnits, IProvince from, IProvince goTo){
-		if(worldMap.getOwner(goTo.getId()) ==  getActivePlayer()){
+		if((worldMap.getOwner(goTo.getId()) ==  getActivePlayer()) && (worldMap.getOwner(goTo.getId()) ==  getActivePlayer())){
 			from.moveUnits(nbrOfUnits, goTo);
 		}		
 	}
@@ -118,7 +118,7 @@ public class Game implements IGame {
 	@Override
 	public void newGame(String[] playersId) throws IllegalArgumentException {
 		int noOfPlayers=playersId.length;
-		if(noOfPlayers>=2 && noOfPlayers<=6){
+		if(noOfPlayers>=6 || noOfPlayers<=2){
 			  throw new IllegalArgumentException("The player number must be betwen 2 and 6");
 			}
 				
@@ -133,7 +133,7 @@ public class Game implements IGame {
 			 players[activePlayer].setCurrent(true); // Player one knows it’s his turn
 		   	 
 			// SETTING UP GAMEBOARD RULES AND CREATING PROVINCES
-		   	worldMap= new WorldMap(new File("neighbours.txt"), players);
+		   	worldMap= new WorldMap(new File("neighbours.txt"), new File("continents.txt"), players);
 
 			// SETTING UP DECK
 		//	deck = Deck.getInstanceOf(provinces, 6); // Hårdkodat antal wildcard 
