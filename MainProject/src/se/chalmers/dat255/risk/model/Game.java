@@ -1,6 +1,7 @@
 package se.chalmers.dat255.risk.model;
 
 import java.io.File;
+import java.util.ArrayList;
 
 /**
  * The top game class. Controls flow between our lower classes, such as the
@@ -171,6 +172,14 @@ public class Game implements IGame {
 	public Player[] getPlayer() {
 		// TODO Auto-generated method stub
 		return players;
+	}
+
+
+
+	@Override
+	public ArrayList<Province> getGameProvinces() {
+		// TODO Auto-generated method stub
+		return worldMap.getProvinces();
 	}
 
 }
