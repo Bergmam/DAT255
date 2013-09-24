@@ -165,4 +165,12 @@ public class Game implements IGame {
 		return currentPhase;
 	}
 
+
+
+	@Override
+	public Player[] getPlayer() {
+		// TODO Auto-generated method stub
+		return players;
+	}
+
 }
