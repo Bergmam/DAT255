@@ -37,8 +37,6 @@ public class WorldStage extends Stage {
 
 		addActor(backGround);
 
-		float y = actor.get(0).getHeight();
-		float x = actor.get(0).getWidth();
 		
 		/*
 		 * actor.get(0).setPosition(0, 0); actor.get(1).setPosition(getWidth() /
@@ -51,7 +49,6 @@ public class WorldStage extends Stage {
 		 * setPositionFromCetre(actor.get(1),-x,y);
 		 */
 
-		System.out.println("" + Gdx.graphics.getWidth() + "=gdx anddddd " + x);
 		for (int i = 0; i < provinces.size(); i++) {
 			// addActor(actor.get(i));
 		}
