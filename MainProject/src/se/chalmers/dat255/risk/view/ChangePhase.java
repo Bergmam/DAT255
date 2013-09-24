@@ -1,5 +1,7 @@
 package se.chalmers.dat255.risk.view;
 
-public class ChangePhase {
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+
+public class ChangePhase extends Image{
 
 }
