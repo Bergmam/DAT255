@@ -11,6 +11,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.input.GestureDetector.GestureListener;
+import com.badlogic.gdx.math.Frustum;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
@@ -23,19 +24,23 @@ public class WorldStage extends Stage implements GestureListener {
 	private Group provinceGroup;
 	private OrthographicCamera camera;
 	private GestureDetector gesture;
+	private float initialZoom;
 
 	public WorldStage(List<IProvince> provinces) {
-
+		
+		Frustum fo = new Frustum();
+		
 		background = new Image(Resource.getInstance().backGround);
 		camera = new OrthographicCamera();
 		provinceGroup = new Group();
 		gesture = new GestureDetector(this);
-		
-		/*
-		 * setCamera(camera); camera.position.set(background.getWidth() / 2,
-		 * background.getHeight() / 2, 0); //
-		 * Texture.setEnforcePotImages(false); Solves power of two?
-		 */
+		camera.setToOrtho(false);
+		setCamera(camera);
+
+		camera.position.set(background.getWidth() / 2,
+				background.getHeight() / 2, 0); //
+		// Texture.setEnforcePotImages(false); Solves power of two?
+
 		actor = new ArrayList<AbstractView>();
 
 		for (int i = 0; i < provinces.size(); i++) {
@@ -65,6 +70,11 @@ public class WorldStage extends Stage implements GestureListener {
 		}
 		addActor(provinceGroup);
 
+		enterStage();
+	}
+	
+	//may need to do this when switching to this stage in gamescreen
+	public void enterStage(){
 		Gdx.input.setInputProcessor(gesture);
 	}
 
@@ -82,7 +92,7 @@ public class WorldStage extends Stage implements GestureListener {
 
 	@Override
 	public boolean touchDown(float x, float y, int pointer, int button) {
-		// TODO Auto-generated method stub
+		initialZoom = camera.zoom;
 		return false;
 	}
 
@@ -106,21 +116,20 @@ public class WorldStage extends Stage implements GestureListener {
 
 	@Override
 	public boolean pan(float x, float y, float deltaX, float deltaY) {
-		Gdx.app.log("movment", "X: "+x +" Y: "+y);
-		if(x>=0&&x+Gdx.graphics.getWidth()<=background.getImageWidth()){
+		Gdx.app.log("movment", "X: " + x + " Y: " + y);
 		getCamera().position.x -= deltaX;
 		getCamera().position.y += deltaY;
-		}
+
 		return false;
 	}
 
 	@Override
 	public boolean zoom(float initialDistance, float distance) {
-		
-		 float ratio = initialDistance / distance;
-		 Gdx.app.log("movment","zoom: " + ratio);
-		 //camera.zoom += ratio;
-	        
+
+		float ratio = initialDistance / distance;
+
+		camera.zoom = initialZoom * ratio;
+
 		return false;
 	}
 
