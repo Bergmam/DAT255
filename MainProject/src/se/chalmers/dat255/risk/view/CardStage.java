@@ -52,6 +52,9 @@ public class CardStage extends Stage implements PropertyChangeListener {
 		return new Texture(Gdx.files.internal("Gfx/card3.png"));
 	}
 	
+	/*
+	 * IsCicked makes the button look like it have been clicked or not.
+	 */
 	public void isClicked(){
 		clicked =  !clicked;
 	}
