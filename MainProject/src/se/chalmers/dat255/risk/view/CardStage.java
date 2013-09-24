@@ -40,6 +40,14 @@ public class CardStage extends Stage implements PropertyChangeListener {
 		for (int i = 0; i < cards.size(); i++) {
 			actor.add(new CardView(getTexture(cards.get(i)),cards.get(i)));
 		}
+		
+		placeActors();
+		
+	}
+
+	private void placeActors() {
+		
+		
 	}
 
 	private Texture getTexture(Card card) {

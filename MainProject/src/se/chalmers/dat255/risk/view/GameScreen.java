@@ -33,6 +33,7 @@ public class GameScreen extends AbstractScreen {
 		// ChangePhaseButton.
 
 		players = model.getPlayer();
+		//players[0].addCard();
 		
 		isWorld = true;
 		
@@ -47,6 +48,7 @@ public class GameScreen extends AbstractScreen {
 		
 		for(Player i : players)
 		cardStage.add(new CardStage(i.getCards()));
+		//this.add(cardStage.get(0));
 
 	}
 
@@ -82,6 +84,7 @@ public class GameScreen extends AbstractScreen {
 		super.dispose();
 		Resource.getInstance().dispose();
 		worldStage.dispose();
+	//cardStage.get(0).dispose();
 		bg.dispose();
 	}
 }

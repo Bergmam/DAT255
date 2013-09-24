@@ -31,7 +31,6 @@ public class Game implements IGame {
 		//deck=Deck.getInstance(new ArrayList<String>().add(new Province("A").getId()), "5");//hÃ¥rdkodat
 		battle = new BattleHandler();
 		newGame(playersId);
-
 	}
 
 	
@@ -58,7 +57,7 @@ public class Game implements IGame {
 		activePlayer = (activePlayer + 1) % players.length;
 	}
 	/**	OBS OBS OBS OBS
-	 * Inte alls som den borde va i nuläget. Inmatning av antal hindrar fortsatt utveckling
+	 * Inte alls som den borde va i nulï¿½get. Inmatning av antal hindrar fortsatt utveckling
 	 */
 	@Override
 	public boolean moveToProvince(int nrOfUnits, IProvince from, IProvince goTo){
