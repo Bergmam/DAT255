@@ -4,6 +4,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.List;
+import se.chalmers.dat255.risk.model.Card;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
@@ -20,10 +21,10 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 public class CardStage extends Stage implements PropertyChangeListener {
 	private List<CardView> actor;
 
-	public CardStage() {
+	public CardStage(List<Card> cards) {
 		actor = new ArrayList<CardView>();
-		for (int i = 0; i < 5; i++) {
-			actor.add(new CardView());
+		for (int i = 0; i < cards.size(); i++) {
+			actor.add(new CardView(cards.get(i)));
 		}
 
 	}

@@ -7,13 +7,12 @@ public class CardView extends AbstractView {
 
 	private Card card;
 	
-	public CardView() {
-		//setSize();
-		
-		
-		
+	public CardView(Card card) {
+		this.card = card;
 	}
 	
-	
+	public Card getCard(){
+		return card;
+	}
 
 }

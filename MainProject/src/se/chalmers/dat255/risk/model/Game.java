@@ -130,13 +130,13 @@ public class Game implements IGame {
 			// SETTING PHASE AND TURN
 			 currentPhase=1;
 			 activePlayer=0;
-			 players[activePlayer].setCurrent(true); // Player one knows it’s his turn
+			 players[activePlayer].setCurrent(true); // Player one knows itï¿½s his turn
 		   	 
 			// SETTING UP GAMEBOARD RULES AND CREATING PROVINCES
 		   	worldMap= new WorldMap(new File("neighbours.txt"), new File("continents.txt"), players);
 
 			// SETTING UP DECK
-		//	deck = Deck.getInstanceOf(provinces, 6); // Hårdkodat antal wildcard 
+		//	deck = Deck.getInstanceOf(provinces, 6); // Hï¿½rdkodat antal wildcard 
 				 
 	//		refresh(); //BYTS MOT MOTSVARANDE I LIBGDX
 	}
