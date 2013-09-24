@@ -75,4 +75,8 @@ public class ProvinceView extends Image {
 				+ province.getUnits(), getCenterX() - (getWidth() / 3),
 				getCenterY());
 	}
+	
+	public IProvince getProvince(){
+		return province;
+	}
 }
