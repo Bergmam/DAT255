@@ -50,13 +50,17 @@ public class ProvinceView extends AbstractView {
 		 */
 
 		// TODO check if this works or if we should have a texture instead
-		// if we choose texture then the default draw in image should suffice
+		// if we choose texture then the default draw() in image should suffice
 		// if this works then we don't need to be an Image and could just become
 		// an Actor
 
-		shape.setColor(getColor());
 		shape.begin(ShapeType.Filled);
-		shape.circle(100, 100, 50);
+		if (checked) {
+			shape.setColor(Color.YELLOW);
+			shape.circle(getCenterX(), getCenterY(), 12);
+		}
+		shape.setColor(getColor());
+		shape.circle(getCenterX(), getCenterY(), 10);
 		shape.end();
 
 		/*
@@ -65,8 +69,8 @@ public class ProvinceView extends AbstractView {
 		 * getCenterY());
 		 */
 	}
-	
-	public IProvince getProvince(){
+
+	public IProvince getProvince() {
 		return province;
 	}
 }
