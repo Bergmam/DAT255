@@ -19,7 +19,6 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
  * 
  */
 public class GameScreen extends AbstractScreen {
-	private Player[] players;
 	private boolean isWorld;
 	private AbstractStage worldStage;
 	private List<Stage> cardStage;
@@ -29,8 +28,6 @@ public class GameScreen extends AbstractScreen {
 		super(game, model);
 		// Create four provinceViews, players CardViews and one
 		// ChangePhaseButton.
-		players = model.getPlayer();
-		//players[0].addCard();
 		
 		isWorld = true;
 
@@ -43,7 +40,7 @@ public class GameScreen extends AbstractScreen {
 		//Creates a cardStage for every player
 		cardStage = new ArrayList<Stage>();
 		
-		for(Player i : players)
+		for(Player i : model.getPlayer())
 		cardStage.add(new CardStage(i.getCards()));
 		//this.add(cardStage.get(0));
 
