@@ -29,7 +29,6 @@ public class ProvinceView extends AbstractView {
 
 	public float getCenterY() {
 		return getY() + (getWidth() / 2);
-
 	}
 
 	// TODO should be handled in controller

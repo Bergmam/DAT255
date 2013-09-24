@@ -31,13 +31,15 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
  */
 public class CardStage extends Stage implements PropertyChangeListener {
 	private List<CardView> actor;
+	boolean clicked;
 
 	public CardStage(List<Card> cards) {
+		clicked = false;
+		
 		actor = new ArrayList<CardView>();
 		for (int i = 0; i < cards.size(); i++) {
 			actor.add(new CardView(getTexture(cards.get(i)),cards.get(i)));
 		}
-
 	}
 
 	private Texture getTexture(Card card) {
@@ -48,6 +50,10 @@ public class CardStage extends Stage implements PropertyChangeListener {
 			return new Texture(Gdx.files.internal("Gfx/card1.png"));
 		}
 		return new Texture(Gdx.files.internal("Gfx/card3.png"));
+	}
+	
+	public void isClicked(){
+		clicked =  !clicked;
 	}
 
 	@Override
