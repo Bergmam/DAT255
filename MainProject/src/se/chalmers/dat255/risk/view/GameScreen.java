@@ -29,7 +29,6 @@ public class GameScreen extends AbstractScreen {
 		// Create four provinceViews, players CardViews and one
 		// ChangePhaseButton.
 
-		camera.setToOrtho(false);
 		isWorld = true;
 		
 		List<IProvince> a = new ArrayList<IProvince>();
@@ -50,7 +49,7 @@ public class GameScreen extends AbstractScreen {
 	public void render(float render) {
 		Gdx.gl.glClearColor(0f, 0f, 1f, 1f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
+		
 		camera.update();
 
 		getStage().act(Gdx.graphics.getDeltaTime());

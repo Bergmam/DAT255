@@ -60,7 +60,7 @@ public class ProvinceView extends AbstractView {
 			shape.circle(getCenterX(), getCenterY(), 12);
 		}
 		shape.setColor(getColor());
-		shape.circle(10, 10, 10);
+		shape.circle(getCenterX(), getCenterY(), 10);
 		shape.end();
 
 		/*
