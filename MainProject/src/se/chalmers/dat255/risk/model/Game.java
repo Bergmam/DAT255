@@ -11,11 +11,15 @@ import java.io.File;
 public class Game implements IGame {
 	private Player[] players;
 	private int activePlayer;
-	private int currentPhase;
+//	private int currentPhase;
 	private WorldMap worldMap;
 	private int bonus;
 	private BattleHandler battle;
 	private Deck deck;
+	
+	//CURRENT PHASE
+	private Phase currentPhase=Phase.F1;
+	
 	/**
 	 * Creates a new Game.
 	 * lostArmies = 
@@ -36,13 +40,16 @@ public class Game implements IGame {
 	 * be changed.
 	 */
 	private void changePhase() {
-		if(currentPhase == 3){
+		if(currentPhase == Phase.F3){
 			changeTurn();
-			currentPhase = 1;
+			currentPhase = Phase.F3;
+		}
+		else if(currentPhase== Phase.F1){
+			currentPhase=Phase.F2;
 		}
 		else{
-			currentPhase++;
-		}	
+			currentPhase=Phase.F3;
+		}
 	}
 
 	private void changeTurn() {
@@ -135,7 +142,7 @@ public class Game implements IGame {
 				players[i] = new Player(i, playersId[i]);
 			}
 			// SETTING PHASE AND TURN
-			 currentPhase=1;
+			 currentPhase=Phase.F1;
 			 activePlayer=0;
 			 players[activePlayer].setCurrent(true); // Player one knows it�s his turn
 		   	 
@@ -146,6 +153,14 @@ public class Game implements IGame {
 		//	deck = Deck.getInstanceOf(provinces, 6); // H�rdkodat antal wildcard 
 				 
 	//		refresh(); //BYTS MOT MOTSVARANDE I LIBGDX
+	}
+
+
+
+	@Override
+	public Phase getCurrentPhase() {
+		// TODO Auto-generated method stub
+		return currentPhase;
 	}
 
 }
