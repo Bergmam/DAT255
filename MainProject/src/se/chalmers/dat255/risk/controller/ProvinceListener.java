@@ -11,17 +11,15 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 public class ProvinceListener extends ClickListener {
 
 	IProvince oldClickedProvince;
-	IProvince movingFrom;//Used for F3 while moving troops
 	IGame	theGame;
-//	boolean movingTroops;//If in F3 and already choosed from where to where to move troops
 	@Override
 	public void clicked(InputEvent event, float x, float y){
 		if(event.getTarget() instanceof ProvinceView){
 			ProvinceView newClick =  ((ProvinceView)event.getTarget());
 			IProvince newClickedProvince = newClick.getProvince();
-			
 			newClick.check();
-			// TROOP REINFORCMENT, ONLY THE PLACEMENT
+
+			// TROOP REINFORCMENT PHASE 1, ONLY THE PLACEMENT
 			if(theGame.getCurrentPhase()==IGame.Phase.F1){
 				//PUT A SINGEL UNIT ON THIS PROVINCE IF OWNED
 			}
@@ -36,8 +34,7 @@ public class ProvinceListener extends ClickListener {
 			else if(theGame.getCurrentPhase()==IGame.Phase.F3){
 				if(oldClickedProvince!=null){
 						if(oldClickedProvince!=newClickedProvince){
-							if(theGame.moveToProvince(1, oldClickedProvince, newClickedProvince)){
-							} //I nuläget flyttas endast en trupp
+							theGame.moveToProvince(1, oldClickedProvince, newClickedProvince);// MAY BE INVALID INPUT, THEN NOTHING WILL HAPPEN
 						}
 				}
 				oldClickedProvince=newClickedProvince;
@@ -45,7 +42,6 @@ public class ProvinceListener extends ClickListener {
 		}
 	//	Gdx.app.log("trololol", "province clicked");
 		else if(event.getTarget() instanceof ChangePhase){
-		//	movingTroops=false;
 		}
 
 		
