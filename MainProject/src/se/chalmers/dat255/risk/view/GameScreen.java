@@ -1,6 +1,7 @@
 package se.chalmers.dat255.risk.view;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import se.chalmers.dat255.risk.GDXGame;
@@ -24,7 +25,6 @@ public class GameScreen extends AbstractScreen {
 	private Stage worldStage;
 	private List<Stage> cardStage;
 	// TODO: IPlayer ??
-	private Player[] players;
 	Texture bg = Resource.getInstance().backGround;
 
 	public GameScreen(GDXGame game, IGame model) {
@@ -32,21 +32,19 @@ public class GameScreen extends AbstractScreen {
 		// Create four provinceViews, players CardViews and one
 		// ChangePhaseButton.
 
-		players = model.getPlayer();
-		
 		isWorld = true;
-		
+
 		List<IProvince> a = new ArrayList<IProvince>();
 		a.add(new Province("Place"));
-		
+
 		worldStage = new WorldStage(
 		/* TODO model.getProvinces() */a);
-		
-		//Creates a cardStage for every player
+
+		// Creates a cardStage for every player
 		cardStage = new ArrayList<Stage>();
-		
-		for(Player i : players)
-		cardStage.add(new CardStage(i.getCards()));
+
+		for (Player i : model.getPlayer())
+			cardStage.add(new CardStage(i.getCards()));
 
 	}
 
@@ -59,12 +57,12 @@ public class GameScreen extends AbstractScreen {
 	public void render(float render) {
 		Gdx.gl.glClearColor(0f, 0f, 1f, 1f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		
+
 		camera.update();
 
 		getStage().act(Gdx.graphics.getDeltaTime());
 		getStage().draw();
-		
+
 	}
 
 	public void changeStage() {
@@ -73,12 +71,11 @@ public class GameScreen extends AbstractScreen {
 	}
 
 	private Stage getStage() {
-		return (Stage) (isWorld ? worldStage : cardStage);
+		return isWorld ? worldStage : cardStage.get(model.getActivePlayer().getId());
 	}
 
 	@Override
 	public void dispose() {
-		Gdx.app.log("tag", "here be dispose");
 		super.dispose();
 		Resource.getInstance().dispose();
 		worldStage.dispose();
