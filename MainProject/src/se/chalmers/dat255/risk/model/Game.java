@@ -56,7 +56,9 @@ public class Game implements IGame {
 		// TODO: Check this!
 		activePlayer = (activePlayer + 1) % players.length;
 	}
-	
+	/**	OBS OBS OBS OBS
+	 * Inte alls som den borde va i nuläget. Inmatning av antal hindrar fortsatt utveckling
+	 */
 	@Override
 	public boolean moveToProvince(int nrOfUnits, IProvince from, IProvince goTo){
 		if((worldMap.getOwner(goTo.getId()) ==  getActivePlayer()) 
