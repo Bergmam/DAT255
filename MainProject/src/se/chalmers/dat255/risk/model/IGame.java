@@ -74,6 +74,8 @@ public interface IGame {
 	 * @param goTo
 	 *            Province to move units to
 	 */
-	public void moveToProvince(int nbrOfUnits, IProvince from, IProvince goTo);
-
+	public boolean moveToProvince(int nbrOfUnits, IProvince from, IProvince goTo);
+	
+	
+	
 }
