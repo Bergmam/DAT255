@@ -23,7 +23,8 @@ public class WorldStage extends Stage {
 		background = new Image(Resource.getInstance().backGround);
 
 		provinceGroup = new Group();
-
+		getCamera().position.set(background.getWidth()/2, background.getHeight()/2, 0);
+		
 		// Texture.setEnforcePotImages(false); Solves power of two?
 
 		actor = new ArrayList<AbstractView>();
@@ -54,6 +55,7 @@ public class WorldStage extends Stage {
 			provinceGroup.addActor(actor.get(i));
 		}
 		addActor(provinceGroup);
+		
 		Gdx.input.setInputProcessor(this);
 	}
 

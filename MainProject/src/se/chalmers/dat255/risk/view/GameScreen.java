@@ -7,10 +7,11 @@ import se.chalmers.dat255.risk.GDXGame;
 import se.chalmers.dat255.risk.model.IGame;
 import se.chalmers.dat255.risk.model.IProvince;
 import se.chalmers.dat255.risk.model.Province;
+import se.chalmers.dat255.risk.view.resource.Resource;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
 /**
@@ -21,6 +22,7 @@ public class GameScreen extends AbstractScreen {
 	private boolean isWorld;
 	private Stage worldStage;
 	private Stage cardStage;
+	Texture bg = Resource.getInstance().backGround;
 
 	public GameScreen(GDXGame game, IGame model) {
 		super(game, model);
@@ -29,8 +31,10 @@ public class GameScreen extends AbstractScreen {
 
 		camera.setToOrtho(false);
 		isWorld = true;
+		
 		List<IProvince> a = new ArrayList<IProvince>();
 		a.add(new Province("Place"));
+		
 		worldStage = new WorldStage(
 		/* TODO model.getProvinces() */a);
 		cardStage = new CardStage(model.getActivePlayer().getCards());
@@ -51,6 +55,7 @@ public class GameScreen extends AbstractScreen {
 
 		getStage().act(Gdx.graphics.getDeltaTime());
 		getStage().draw();
+		
 	}
 
 	public void changeStage() {
