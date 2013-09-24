@@ -2,7 +2,6 @@ package se.chalmers.dat255.risk.view;
 
 import se.chalmers.dat255.risk.model.IProvince;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -19,7 +18,7 @@ public class ProvinceView extends AbstractView {
 		image = texture;
 		image2 = texture2;
 		this.province = province;
-		setSize(Gdx.graphics.getWidth() / 3, Gdx.graphics.getHeight() / 2);
+		setSize(10,10);
 		setColor(Color.GRAY);
 	}
 
@@ -55,12 +54,13 @@ public class ProvinceView extends AbstractView {
 		// an Actor
 
 		shape.begin(ShapeType.Filled);
+		shape.setProjectionMatrix(batch.getProjectionMatrix());
 		if (checked) {
 			shape.setColor(Color.YELLOW);
 			shape.circle(getCenterX(), getCenterY(), 12);
 		}
 		shape.setColor(getColor());
-		shape.circle(getCenterX(), getCenterY(), 10);
+		shape.circle(10, 10, 10);
 		shape.end();
 
 		/*
