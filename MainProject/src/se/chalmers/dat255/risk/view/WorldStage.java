@@ -4,7 +4,6 @@ import java.beans.PropertyChangeEvent;
 import java.util.ArrayList;
 import java.util.List;
 
-import se.chalmers.dat255.risk.controller.ProvinceListener;
 import se.chalmers.dat255.risk.model.IProvince;
 import se.chalmers.dat255.risk.view.resource.Resource;
 
@@ -13,6 +12,8 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.input.GestureDetector.GestureListener;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.math.collision.BoundingBox;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -23,6 +24,9 @@ public class WorldStage extends AbstractStage implements GestureListener {
 	private OrthographicCamera camera;
 	private GestureDetector gesture;
 	private float initialZoom;
+	private BoundingBox[] bounds;
+	private float width;
+	private float height;
 
 	public WorldStage(List<IProvince> provinces) {
 
@@ -32,6 +36,9 @@ public class WorldStage extends AbstractStage implements GestureListener {
 		gesture = new GestureDetector(this);
 		camera.setToOrtho(false);
 		setCamera(camera);
+
+		width = background.getImageWidth();
+		height = background.getImageHeight();
 
 		camera.position.set(background.getWidth() / 2,
 				background.getHeight() / 2, 0); //
@@ -53,7 +60,18 @@ public class WorldStage extends AbstractStage implements GestureListener {
 			provinceGroup.addActor(actor.get(i));
 		}
 		addActor(provinceGroup);
-		//addActor(new ChangePhase());
+		// addActor(new ChangePhase());
+
+		// add bounds for map
+		bounds = new BoundingBox[4];
+		bounds[0] = new BoundingBox(new Vector3(0, 0, 0), new Vector3(0,
+				height, 0));
+		bounds[1] = new BoundingBox(new Vector3(0, 0, 0), new Vector3(width, 0,
+				0));
+		bounds[2] = new BoundingBox(new Vector3(0, height, 0), new Vector3(
+				width, 0, 0));
+		bounds[3] = new BoundingBox(new Vector3(width, 0, 0), new Vector3(0,
+				height, 0));
 		enterStage();
 	}
 
@@ -89,10 +107,24 @@ public class WorldStage extends AbstractStage implements GestureListener {
 	@Override
 	public boolean pan(float x, float y, float deltaX, float deltaY) {
 		Gdx.app.log("movment", "X: " + x + " Y: " + y);
-		getCamera().position.x -= deltaX;
-		getCamera().position.y += deltaY;
-
+		if (inBounds()) {
+			getCamera().position.x -= deltaX;
+			getCamera().position.y += deltaY;
+		} else {
+			getCamera().position.x = x;
+			getCamera().position.y = y;
+		}
 		return false;
+	}
+
+	private boolean inBounds() {
+
+		for (int i = 0; i < bounds.length; i++) {
+			if (camera.frustum.boundsInFrustum(bounds[i])) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 	@Override
@@ -120,12 +152,12 @@ public class WorldStage extends AbstractStage implements GestureListener {
 	@Override
 	public void propertyChange(PropertyChangeEvent arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void enterStage() {
 		Gdx.input.setInputProcessor(gesture);
-		
+
 	}
 }
