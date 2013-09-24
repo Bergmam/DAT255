@@ -21,7 +21,6 @@ public class GameScreen extends AbstractScreen {
 	private boolean isWorld;
 	private Stage worldStage;
 	private Stage cardStage;
-	protected ShapeRenderer shape = new ShapeRenderer();
 
 	public GameScreen(GDXGame game, IGame model) {
 		super(game, model);

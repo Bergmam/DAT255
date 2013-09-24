@@ -15,15 +15,15 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 public class WorldStage extends Stage {
 	private List<AbstractView> actor;
-	Image backGround;
-	Group provinceGroup;
+	private Image background;
+	private Group provinceGroup;
 
 	public WorldStage(List<IProvince> provinces) {
-		
-		backGround = new Image(Resource.getInstance().backGround);
+
+		background = new Image(Resource.getInstance().backGround);
 
 		provinceGroup = new Group();
-		
+
 		// Texture.setEnforcePotImages(false); Solves power of two?
 
 		actor = new ArrayList<AbstractView>();
@@ -37,7 +37,7 @@ public class WorldStage extends Stage {
 
 		}
 
-		addActor(backGround);
+		addActor(background);
 
 		/*
 		 * actor.get(0).setPosition(0, 0); actor.get(1).setPosition(getWidth() /
