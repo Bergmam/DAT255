@@ -21,7 +21,6 @@ public class GameScreen extends AbstractScreen {
 	private boolean isWorld;
 	private Stage worldStage;
 	private Stage cardStage;
-	private List<Card> cards;
 
 	public GameScreen(GDXGame game, IGame model) {
 		super(game, model);
@@ -31,8 +30,7 @@ public class GameScreen extends AbstractScreen {
 		isWorld = true;
 		worldStage = new WorldStage(
 				/* TODO model.getProvinces() */new ArrayList<IProvince>());
-		cards.add(new Card(CardType.ARTILLERY, "Kreta"));
-		cardStage = new CardStage(cards);
+		cardStage = new CardStage(model.getActivePlayer().getCards());
 
 	}
 
