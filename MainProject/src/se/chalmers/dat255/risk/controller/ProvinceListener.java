@@ -21,27 +21,27 @@ public class ProvinceListener extends ClickListener {
 			IProvince newClickedProvince = newClick.getProvince();
 			
 			newClick.check();
-	//		newClick.addUnits();
-			//if(F1)
-//			((ProvinceView)event.getTarget()).addUnits();
-	/*		if(movingTroops){
-				if(newClickedProvince==oldClickedProvince){
-					theGame.moveToProvince(1, movingFrom, oldClickedProvince); //I nuläget flyttas endast en trupp
-				}
-				if{
-					movingTroops=false;
-					movingFrom=null;
-					oldClickedProvince=null;
-				}*/
-			
-			if(oldClickedProvince!=null){
-					if(oldClickedProvince!=newClickedProvince){
-						if(theGame.moveToProvince(1, oldClickedProvince, newClickedProvince)){
-					//		movingTroops=true;
-						} //I nuläget flyttas endast en trupp
-					}
+			// TROOP REINFORCMENT, ONLY THE PLACEMENT
+			if(theGame.getCurrentPhase()==IGame.Phase.F1){
+				//PUT A SINGEL UNIT ON THIS PROVINCE IF OWNED
 			}
-			oldClickedProvince=newClickedProvince;
+			// FIGHTING PHASE 2
+			else if(theGame.getCurrentPhase()==IGame.Phase.F2){
+				if(oldClickedProvince!=null){
+					// FIGHT IF SECOND PROVINCE CLICKED AND OWNED BY DIFFERENT PLAYER 
+					// AND ATTACKING PROVINCE OWNED BY MED
+				}
+			}
+			//	MOVING TROOPS IN PHASE 3
+			else if(theGame.getCurrentPhase()==IGame.Phase.F3){
+				if(oldClickedProvince!=null){
+						if(oldClickedProvince!=newClickedProvince){
+							if(theGame.moveToProvince(1, oldClickedProvince, newClickedProvince)){
+							} //I nuläget flyttas endast en trupp
+						}
+				}
+				oldClickedProvince=newClickedProvince;
+			}
 		}
 	//	Gdx.app.log("trololol", "province clicked");
 		else if(event.getTarget() instanceof ChangePhase){
