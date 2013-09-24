@@ -12,7 +12,6 @@ import se.chalmers.dat255.risk.view.resource.Resource;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
 /**
@@ -20,26 +19,24 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
  * 
  */
 public class GameScreen extends AbstractScreen {
+	private Player[] players;
 	private boolean isWorld;
-	private Stage worldStage;
+	private AbstractStage worldStage;
 	private List<Stage> cardStage;
 	// TODO: IPlayer ??
-	private Player[] players;
-	Texture bg = Resource.getInstance().backGround;
 
 	public GameScreen(GDXGame game, IGame model) {
 		super(game, model);
 		// Create four provinceViews, players CardViews and one
 		// ChangePhaseButton.
-
 		players = model.getPlayer();
 		//players[0].addCard();
 		
 		isWorld = true;
-		
+
 		List<IProvince> a = new ArrayList<IProvince>();
 		a.add(new Province("Place"));
-		
+
 		worldStage = new WorldStage(
 		/* TODO model.getProvinces() */a);
 		
@@ -56,35 +53,38 @@ public class GameScreen extends AbstractScreen {
 	public void show() {
 
 	}
+	
+	public List<AbstractView> getViews(){
+		return worldStage.getViews();
+	}
 
 	@Override
 	public void render(float render) {
 		Gdx.gl.glClearColor(0f, 0f, 1f, 1f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		
-		camera.update();
 
+		camera.update();
+		
 		getStage().act(Gdx.graphics.getDeltaTime());
 		getStage().draw();
-		
+
 	}
 
 	public void changeStage() {
 		isWorld = !isWorld;
-
+		getStage().enterStage();
 	}
 
-	private Stage getStage() {
-		return (Stage) (isWorld ? worldStage : cardStage);
+	private AbstractStage getStage() {
+		return (AbstractStage) (isWorld ? worldStage : cardStage.get(model.getActivePlayer().getId()));
 	}
 
 	@Override
 	public void dispose() {
-		Gdx.app.log("tag", "here be dispose");
 		super.dispose();
 		Resource.getInstance().dispose();
 		worldStage.dispose();
-	//cardStage.get(0).dispose();
-		bg.dispose();
+		//cardStage.get(0).dispose();
+		//Why This??  bg.dispose();
 	}
 }

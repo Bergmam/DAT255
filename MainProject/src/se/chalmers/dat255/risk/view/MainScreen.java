@@ -1,15 +1,17 @@
 package se.chalmers.dat255.risk.view;
 
+import java.util.List;
+
 import se.chalmers.dat255.risk.GDXGame;
 import se.chalmers.dat255.risk.model.IGame;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL10;
 
-public class MainView extends AbstractScreen {
+public class MainScreen extends AbstractScreen {
 
 	GameScreen screen;
-	public MainView(GDXGame game, IGame model) {
+	public MainScreen(GDXGame game, IGame model) {
 		super(game, model);
 		camera.setToOrtho(false);
 		screen = new GameScreen(game, model);
@@ -17,9 +19,10 @@ public class MainView extends AbstractScreen {
 	}
 
 	// returns the view that needs listeners
-	public void getViews() {
-
+	public List<AbstractView> getViews() {
+		return screen.getViews();
 	}
+	
 
 	@Override
 	public void render(float render) {
