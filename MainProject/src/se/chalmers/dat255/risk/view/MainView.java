@@ -8,9 +8,11 @@ import com.badlogic.gdx.graphics.GL10;
 
 public class MainView extends AbstractScreen {
 
+	GameScreen screen;
 	public MainView(GDXGame game, IGame model) {
 		super(game, model);
 		camera.setToOrtho(false);
+		screen = new GameScreen(game, model);
 
 	}
 
@@ -30,8 +32,8 @@ public class MainView extends AbstractScreen {
 		batch.end();
 
 		if (Gdx.input.isTouched()) {
-			game.setScreen(new GameScreen(game, model));
-			dispose();
+
+			game.setScreen(screen);
 		}
 
 	}
@@ -39,6 +41,7 @@ public class MainView extends AbstractScreen {
 	@Override
 	public void dispose() {
 		super.dispose();
+		screen.dispose();
 	}
 
 }

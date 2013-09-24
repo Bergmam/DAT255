@@ -68,7 +68,10 @@ public class GameScreen extends AbstractScreen {
 
 	@Override
 	public void dispose() {
+		Gdx.app.log("tag", "here be dispose");
 		super.dispose();
+		Resource.getInstance().dispose();
 		worldStage.dispose();
+		bg.dispose();
 	}
 }

@@ -8,15 +8,16 @@ import com.badlogic.gdx.graphics.FPSLogger;
 
 public class GDXGame extends Game {
 	FPSLogger logger;
+	MainView main;
 
 	@Override
 	public void create() {
 		Gdx.app.log("Risk", "creating game");
 
 		logger = new FPSLogger();
-
-		setScreen(new MainView(this, new se.chalmers.dat255.risk.model.Game(
-				new String[] { "a", "b", "c", "d" })));
+		main = new MainView(this, new se.chalmers.dat255.risk.model.Game(
+				new String[] { "a", "b", "c", "d" }));
+		setScreen(main);
 
 	}
 
@@ -47,7 +48,7 @@ public class GDXGame extends Game {
 	@Override
 	public void dispose() {
 		Gdx.app.log("Risk", "Destroying game");
-
+		main.dispose();
 	}
 
 }

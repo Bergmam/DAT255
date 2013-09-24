@@ -21,6 +21,10 @@ public class Resource {
 	}
 	
 	public void loadResources(){
-		
+		backGround = new Texture(Gdx.files.internal("Gfx/RiskMap.png"));
+	}
+	
+	public void dispose(){
+		backGround.dispose();
 	}
 }
