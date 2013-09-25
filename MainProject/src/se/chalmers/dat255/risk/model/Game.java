@@ -56,11 +56,12 @@ public class Game implements IGame {
 	}
 
 	private void changeTurn() {
-		// TODO: Check this!
 		activePlayer = (activePlayer + 1) % players.length;
 		oldClickedProvince=null;
 		movedTroops=false;
+		calcBonusUnits();
 	}
+
 	/**	OBS OBS OBS OBS
 	 * Inte alls som den borde va i nul�get. Inmatning av antal hindrar fortsatt utveckling
 	 */
@@ -98,6 +99,7 @@ public class Game implements IGame {
 		} else {
 			this.bonus = provinces/3;
 		}
+		this.bonus += worldMap.getBonus(getActivePlayer());
 	}
 
 	@Override
@@ -168,6 +170,9 @@ public class Game implements IGame {
 		// TROOP REINFORCMENT PHASE 1, ONLY THE PLACEMENT
 		if(getCurrentPhase()==IGame.Phase.F1){
 			//PUT A SINGEL UNIT ON THIS PROVINCE IF OWNED
+			if(worldMap.getOwner(newClickedProvince.getId()) == getActivePlayer()){
+			placeBonusUnits(1, newClickedProvince);
+			}
 		}
 		// FIGHTING PHASE 2
 		else if(getCurrentPhase()==IGame.Phase.F2){
