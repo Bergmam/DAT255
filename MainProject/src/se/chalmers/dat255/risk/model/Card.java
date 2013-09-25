@@ -11,7 +11,7 @@ package se.chalmers.dat255.risk.model;
  * @since 2013-09-16
  *
  */
-public class Card {
+public class Card implements ICard{
 	
 	private String provinceName;
 	private Card.CardType type;

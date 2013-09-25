@@ -20,7 +20,7 @@ public interface ICard {
 	 * Method for accessing the type of a card. 
 	 * @return
 	 */
-	public ICard.CardType getType();
+	public Card.CardType getType();
 	
 	public static enum CardType {INFANTRY, CAVALRY, ARTILLERY, JOKER}
 	

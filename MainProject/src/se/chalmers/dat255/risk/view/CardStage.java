@@ -5,6 +5,7 @@ import java.util.List;
 
 import se.chalmers.dat255.risk.model.Card;
 import se.chalmers.dat255.risk.model.Card.CardType;
+import se.chalmers.dat255.risk.model.ICard;
 import se.chalmers.dat255.risk.view.resource.Resource;
 
 import com.badlogic.gdx.Gdx;
@@ -33,7 +34,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 public class CardStage extends AbstractStage {
 	Image background;
 
-	public CardStage(List<Card> cards) {
+	public CardStage(List<ICard> cards) {
 		super();
 		background = new Image(Resource.getInstance().backGround);
 		addActor(background);
@@ -57,7 +58,7 @@ public class CardStage extends AbstractStage {
 		return actor;
 	}
 
-	private Texture getTexture(Card card) {
+	private Texture getTexture(ICard card) {
 		// TODO Auto-generated method stub
 		if (card.getType() == CardType.ARTILLERY) {
 			return new Texture(Gdx.files.internal("Gfx/card1.png"));
