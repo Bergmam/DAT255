@@ -76,7 +76,6 @@ public interface IGame {
 	 * @param goTo
 	 *            Province to move units to
 	 */
-	public boolean moveToProvince(int nbrOfUnits, IProvince from, IProvince goTo);
 	
 	public Phase getCurrentPhase();
 	
@@ -85,5 +84,7 @@ public interface IGame {
 	public Player[] getPlayer();
 	
 	public ArrayList<Province> getGameProvinces();
+	
+	public void handleProvinceClick(IProvince province);
 
 }

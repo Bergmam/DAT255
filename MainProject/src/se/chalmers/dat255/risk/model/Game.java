@@ -17,6 +17,8 @@ public class Game implements IGame {
 	private int bonus;
 	private BattleHandler battle;
 	private Deck deck;
+	private IProvince oldClickedProvince = null;
+	private boolean movedTroops =false; //F3
 	
 	//CURRENT PHASE
 	private Phase currentPhase=Phase.F1;
@@ -58,21 +60,8 @@ public class Game implements IGame {
 		activePlayer = (activePlayer + 1) % players.length;
 	}
 	/**	OBS OBS OBS OBS
-	 * Inte alls som den borde va i nuläget. Inmatning av antal hindrar fortsatt utveckling
+	 * Inte alls som den borde va i nulï¿½get. Inmatning av antal hindrar fortsatt utveckling
 	 */
-	@Override
-	public boolean moveToProvince(int nrOfUnits, IProvince from, IProvince goTo){
-		if((worldMap.getOwner(goTo.getId()) ==  getActivePlayer()) 
-				&& (worldMap.getOwner(from.getId()) ==  getActivePlayer())){
-			if(worldMap.isNeighbours(from.getId(), goTo.getId())){
-				if(nrOfUnits- from.getUnits() > 0){
-					from.moveUnits(nrOfUnits, goTo);
-					return true;
-				}
-			}
-		}
-		return false;
-	}
 
 	@Override
 	public boolean attack(int offensiveDice, IProvince offensive, IProvince defensive) {
@@ -180,6 +169,49 @@ public class Game implements IGame {
 	public ArrayList<Province> getGameProvinces() {
 		// TODO Auto-generated method stub
 		return worldMap.getProvinces();
+	}
+
+
+
+	@Override
+	public void handleProvinceClick(IProvince newClickedProvince) {
+		// TODO Auto-generated method stub
+		// TROOP REINFORCMENT PHASE 1, ONLY THE PLACEMENT
+		if(getCurrentPhase()==IGame.Phase.F1){
+			//PUT A SINGEL UNIT ON THIS PROVINCE IF OWNED
+		}
+		// FIGHTING PHASE 2
+		else if(getCurrentPhase()==IGame.Phase.F2){
+			if(oldClickedProvince!=null){
+				// FIGHT IF SECOND PROVINCE CLICKED AND OWNED BY DIFFERENT PLAYER 
+				// AND ATTACKING PROVINCE OWNED BY MED
+			}
+		}
+		//	MOVING TROOPS IN PHASE 3
+		else if(getCurrentPhase()==IGame.Phase.F3){
+			if(oldClickedProvince!=null){
+				if(oldClickedProvince!=newClickedProvince){
+					if((worldMap.getOwner(newClickedProvince.getId()) ==  getActivePlayer()) 
+							&& (worldMap.getOwner(oldClickedProvince.getId()) ==  getActivePlayer())){
+						if(worldMap.isNeighbours(oldClickedProvince.getId(), newClickedProvince.getId())){
+							//DONT FORGET TO ADD POP-UP
+							moveToProvince(1, oldClickedProvince, newClickedProvince);// MAY BE INVALID INPUT, THEN NOTHING WILL HAPPEN
+				
+						}
+					}
+				}
+			}
+			else{
+				oldClickedProvince=newClickedProvince;
+			}
+		}
+	
+	}
+
+	private void moveToProvince(int nrOfUnits, IProvince from, IProvince goTo){
+		if(nrOfUnits- from.getUnits() > 0){
+			from.moveUnits(nrOfUnits, goTo);
+		}
 	}
 
 }
