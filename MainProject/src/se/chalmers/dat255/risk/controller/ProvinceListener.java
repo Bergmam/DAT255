@@ -26,7 +26,7 @@ public class ProvinceListener extends ClickListener {
 			IProvince newClickedProvince = newClick.getProvince();
 			newClick.check();
 			theGame.handleProvinceClick(newClickedProvince);
-		}
+		} 
 	//	Gdx.app.log("trololol", "province clicked");
 	}
 }
