@@ -9,6 +9,7 @@ import se.chalmers.dat255.risk.view.resource.Resource;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.input.GestureDetector.GestureListener;
 import com.badlogic.gdx.math.Vector2;
@@ -16,7 +17,9 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.collision.BoundingBox;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
 public class WorldStage extends AbstractStage implements GestureListener {
 	private Image background;
@@ -27,6 +30,7 @@ public class WorldStage extends AbstractStage implements GestureListener {
 	private BoundingBox[] bounds;
 	private float width;
 	private float height;
+	private TextButton cardButton;
 
 	public WorldStage(List<IProvince> provinces) {
 
@@ -55,6 +59,11 @@ public class WorldStage extends AbstractStage implements GestureListener {
 		}
 
 		addActor(background);
+		
+		//cardButton = new TextButton("Cards", new TextButton.TextButtonStyle());
+		//cardButton.setBackground("Cards");
+		//cardButton.setColor(Color.GREEN);
+		//addActor(cardButton);
 
 		for (int i = 0; i < provinces.size(); i++) {
 			provinceGroup.addActor(actor.get(i));
