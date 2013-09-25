@@ -13,6 +13,8 @@ public class CardView extends AbstractView {
 	public CardView(Texture texture, Card card) {
 		image = new Image(texture);
 		this.card = card;
+		image.setScale(1000);
+		System.out.println(image.getHeight());
 	}
 	
 	public Card getCard(){

@@ -40,6 +40,10 @@ public class CardStage extends AbstractStage {
 			actor.add(new CardView(getTexture(cards.get(i)),cards.get(i)));
 		}
 		
+		actor.add(new CardView(getTexture(new Card(CardType.ARTILLERY,"Moskva")),new Card(CardType.ARTILLERY,"Moskva")));
+		
+		System.out.println("this is nnumber of cards: " + actor.size());
+		
 		placeActors();
 		
 	}
