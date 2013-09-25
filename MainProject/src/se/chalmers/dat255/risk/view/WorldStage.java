@@ -124,7 +124,7 @@ public class WorldStage extends AbstractStage implements GestureListener {
 
 		for (int i = 0; i < bounds.length; i++) {
 			if (camera.frustum.boundsInFrustum(bounds[i])) {
-				return false;
+				//return false;
 			}
 		}
 		return true;
