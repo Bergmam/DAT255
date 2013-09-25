@@ -187,8 +187,8 @@ public class Game implements IGame {
 				
 				// AND ATTACKING PROVINCE OWNED BY MED
 			}
-			else(){
-				
+			else{
+				oldClickedProvince=newClickedProvince;
 			}
 		}
 		//	MOVING TROOPS IN PHASE 3
@@ -210,12 +210,14 @@ public class Game implements IGame {
 		}
 	}
 	
-	private boolean checkProvinceOk(IProvince p1, IProvince p2, boolean sameOwner){
-		if(p1!=p2){
-			if(worldMap.isNeighbours(oldClickedProvince.getId(), newClickedProvince.getId())){
+	private boolean checkProvinceOk(IProvince from, IProvince to, boolean sameOwner){
+		if(from!=to){
+			if(worldMap.isNeighbours(from.getId(), to.getId())){
 				if(sameOwner){
-					return (worldMap.getOwner(p1.getId() ==  getActivePlayer()) 
-					&& (worldMap.getOwner(p2.getId()) ==  getActivePlayer())); 
+					return (worldMap.getOwner(from.getId()) ==  getActivePlayer()) && (worldMap.getOwner(to.getId()) ==  getActivePlayer()); 
+				}
+				else{
+					return (worldMap.getOwner(from.getId()) ==  getActivePlayer()) && (worldMap.getOwner(to.getId()) !=  getActivePlayer()); 
 				}
 			}
 		}
