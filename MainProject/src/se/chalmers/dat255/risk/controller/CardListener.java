@@ -14,7 +14,7 @@ public class CardListener extends ClickListener {
 			ProvinceView newClick =  ((ProvinceView)event.getTarget());
 			IProvince newClickedProvince = newClick.getProvince();
 			newClick.check();
-			theGame.handleProvinceClick(newClickedProvince);
+		//	theGame.handleProvinceClick(newClickedProvince);
 		}
 	//	Gdx.app.log("trololol", "province clicked");
 	}

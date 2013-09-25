@@ -21,6 +21,7 @@ public class GameScreen extends AbstractScreen {
 	private boolean isWorld;
 	private AbstractStage worldStage;
 	private List<AbstractStage> cardStage;
+	private UIStage uiStage;
 	// TODO: IPlayer ??
 
 	public GameScreen(GDXGame game, IGame model) {
@@ -42,7 +43,7 @@ public class GameScreen extends AbstractScreen {
 		for(Player i : model.getPlayer()){
 			cardStage.add(new CardStage(i.getCards()));
 		}
-
+		uiStage = new UIStage();
 	}
 
 	@Override
@@ -71,6 +72,8 @@ public class GameScreen extends AbstractScreen {
 		
 		getStage().act(Gdx.graphics.getDeltaTime());
 		getStage().draw();
+		uiStage.act(Gdx.graphics.getDeltaTime());
+		uiStage.draw();
 
 	}
 

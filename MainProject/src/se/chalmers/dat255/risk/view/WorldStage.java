@@ -34,7 +34,6 @@ public class WorldStage extends AbstractStage implements GestureListener {
 	private BoundingBox[] bounds;
 	private float width;
 	private float height;
-	private TextButton cardButton;
 
 	public WorldStage(List<IProvince> provinces) {
 
@@ -42,6 +41,7 @@ public class WorldStage extends AbstractStage implements GestureListener {
 		camera = new OrthographicCamera();
 		provinceGroup = new Group();
 		gesture = new GestureDetector(this);
+		
 		camera.setToOrtho(false);
 		setCamera(camera);
 
@@ -60,9 +60,10 @@ public class WorldStage extends AbstractStage implements GestureListener {
 			actor.add(provinceView);
 
 		}
-
+		
+		
 		addActor(background);
-
+		
 		// cardButton = new TextButton("Cards", new
 		// TextButton.TextButtonStyle());
 		// cardButton.setBackground("Cards");
