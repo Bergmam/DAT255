@@ -7,8 +7,6 @@ import java.util.HashMap;
 import java.util.Random;
 import java.util.Scanner;
 
-import com.badlogic.gdx.graphics.g3d.shaders.DefaultShader.Setters.Bones;
-
 /**
  * Contains Maps with relations for the provinces on the game board
  * and the players controlling them.
