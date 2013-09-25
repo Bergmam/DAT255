@@ -79,7 +79,7 @@ public interface IGame {
 	
 	public Phase getCurrentPhase();
 	
-	public static enum Phase {F1, F2, F3}
+	public static enum Phase {FBuild, F1, F2, F3}
 	
 	public Player[] getPlayer();
 	
