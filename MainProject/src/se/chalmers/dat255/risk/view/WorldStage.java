@@ -8,7 +8,10 @@ import se.chalmers.dat255.risk.model.IProvince;
 import se.chalmers.dat255.risk.view.resource.Resource;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.input.GestureDetector.GestureListener;
 import com.badlogic.gdx.math.Vector2;
@@ -16,8 +19,11 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.collision.BoundingBox;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Window.WindowStyle;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 public class WorldStage extends AbstractStage implements GestureListener {
 	private Image background;
@@ -31,7 +37,7 @@ public class WorldStage extends AbstractStage implements GestureListener {
 	private TextButton cardButton;
 
 	public WorldStage(List<IProvince> provinces) {
-		
+
 		background = new Image(Resource.getInstance().backGround);
 		camera = new OrthographicCamera();
 		provinceGroup = new Group();
@@ -56,11 +62,12 @@ public class WorldStage extends AbstractStage implements GestureListener {
 		}
 
 		addActor(background);
-		
-		//cardButton = new TextButton("Cards", new TextButton.TextButtonStyle());
-		//cardButton.setBackground("Cards");
-		//cardButton.setColor(Color.GREEN);
-		//addActor(cardButton);
+
+		// cardButton = new TextButton("Cards", new
+		// TextButton.TextButtonStyle());
+		// cardButton.setBackground("Cards");
+		// cardButton.setColor(Color.GREEN);
+		// addActor(cardButton);
 
 		for (int i = 0; i < provinces.size(); i++) {
 			provinceGroup.addActor(actor.get(i));
@@ -79,9 +86,16 @@ public class WorldStage extends AbstractStage implements GestureListener {
 		bounds[3] = new BoundingBox(new Vector3(width, 0, 0), new Vector3(0,
 				height, 0));
 		enterStage();
-		for(Vector3 d:bounds[2].getCorners()){
-			Gdx.app.log("tag", ""+d);
+		for (Vector3 d : bounds[2].getCorners()) {
+			Gdx.app.log("tag", "" + d);
 		}
+
+		Dialog d = new Dialog("ksbfkjsbf", new WindowStyle(new BitmapFont(),
+				Color.RED, new TextureRegionDrawable(new TextureRegion(
+						Resource.getInstance().bucket))));
+		d.size(50, 50);
+		d.setPosition(200, 200);
+		d.show(this);
 	}
 
 	private void setPositionFromCetre(Actor actor, float f1, float f2) {
@@ -115,13 +129,14 @@ public class WorldStage extends AbstractStage implements GestureListener {
 
 	@Override
 	public boolean pan(float x, float y, float deltaX, float deltaY) {
-		Gdx.app.log("movment", "X: " + x + " Y: " + y +" inbounds: "+inBounds());
+		Gdx.app.log("movment", "X: " + x + " Y: " + y + " inbounds: "
+				+ inBounds());
 		if (inBounds()) {
 			getCamera().position.x -= deltaX;
 			getCamera().position.y += deltaY;
 		} else {
-		//	getCamera().position.x = x;
-			//getCamera().position.y = y;
+			// getCamera().position.x = x;
+			// getCamera().position.y = y;
 		}
 		return false;
 	}
@@ -130,7 +145,7 @@ public class WorldStage extends AbstractStage implements GestureListener {
 
 		for (int i = 0; i < bounds.length; i++) {
 			if (camera.frustum.boundsInFrustum(bounds[i])) {
-				//return false;
+				// return false;
 			}
 		}
 		return true;

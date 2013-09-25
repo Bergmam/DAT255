@@ -16,7 +16,7 @@ public class Player {
 	private String name;
 	private int turnId, nrOfProvinces = 0;
 	private boolean current=false;
-	private ArrayList<Card> cards; // The cards the player currently has on his/her hand.
+	private ArrayList<ICard> cards; // The cards the player currently has on his/her hand.
 	
 	// ============== EVENT-CONSTANTS ==============
 	public final static String CARD_ADDED = "addedCard";
@@ -28,11 +28,12 @@ public class Player {
 	 * creating a player with a specified turn an name. 
 	 * @param turnId the players turn identification.
 	 * @param name the players name in the game
+	 * @param color the color of the player
 	 */
 	public Player(int turnId, String name){
 		this.turnId = turnId;
 		this.name = name;	
-		cards = new ArrayList<Card>();	
+		cards = new ArrayList<ICard>();	
 	}
 	
 	/**
@@ -47,7 +48,7 @@ public class Player {
 	 * Takes a card from the deck and puts on the players hand.
 	 */
 	public void addCard(){
-		Card newCard = Deck.giveCard();
+		ICard newCard = Deck.giveCard();
 		cards.add(newCard);
 		pcs.firePropertyChange(this.CARD_ADDED, null, newCard);
 	}
@@ -135,13 +136,14 @@ public class Player {
 	 * Returns the cards on the players hand
 	 * @return The ArrayList of Cards.
 	 */
-	public ArrayList<Card> getCards(){
+	public ArrayList<ICard> getCards(){
 		return cards;
 	}
 	
 	public void setCurrent(Boolean current){
 		this.current=current;
 	}
+	
 	public int getId(){
 		return turnId;
 	}

@@ -1,5 +1,7 @@
 package se.chalmers.dat255.risk.controller;
 
+import java.awt.Color;
+
 import se.chalmers.dat255.risk.model.IGame;
 import se.chalmers.dat255.risk.model.IProvince;
 import se.chalmers.dat255.risk.view.*;
