@@ -1,5 +1,7 @@
 package se.chalmers.dat255.risk.model;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 
 /**
@@ -10,11 +12,23 @@ import java.util.ArrayList;
  */
 
 public class Player {
+	private PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 	private String name;
 	private int turnId, nrOfProvinces = 0;
 	private boolean current=false;
 	private ArrayList<Card> cards; // The cards the player currently has on his/her hand.
 	
+	// ============== EVENT-CONSTANTS ==============
+	public final static String CARD_ADDED = "addedCard";
+	public final static String CARD_REMOVED = "addedCard";
+	// =============================================
+
+	
+	/**
+	 * creating a player with a specified turn an name. 
+	 * @param turnId the players turn identification.
+	 * @param name the players name in the game
+	 */
 	public Player(int turnId, String name){
 		this.turnId = turnId;
 		this.name = name;	
@@ -22,10 +36,20 @@ public class Player {
 	}
 	
 	/**
+	 * Adds a listener to this object
+	 * @param observer the listener of this object
+	 */
+	public void addListener(final PropertyChangeListener observer) {
+		this.pcs.addPropertyChangeListener(observer);
+	}
+	
+	/**
 	 * Takes a card from the deck and puts on the players hand.
 	 */
 	public void addCard(){
-		cards.add(Deck.giveCard());
+		Card newCard = Deck.giveCard();
+		cards.add(newCard);
+		pcs.firePropertyChange(this.CARD_ADDED, null, newCard);
 	}
 	
 	/**
@@ -59,6 +83,9 @@ public class Player {
 		Deck.discard(c1);
 		Deck.discard(c2);
 		Deck.discard(c3);
+		pcs.firePropertyChange(this.CARD_REMOVED, null, c1);
+		pcs.firePropertyChange(this.CARD_REMOVED, null, c2);
+		pcs.firePropertyChange(this.CARD_REMOVED, null, c3);
 	}
 
 	/**
