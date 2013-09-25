@@ -171,7 +171,7 @@ public class Game implements IGame {
 		if(getCurrentPhase()==IGame.Phase.F1){
 			//PUT A SINGEL UNIT ON THIS PROVINCE IF OWNED
 			if(worldMap.getOwner(newClickedProvince.getId()) == getActivePlayer()){
-			placeBonusUnits(1, newClickedProvince);
+				placeBonusUnits(1, newClickedProvince);
 			}
 		}
 		// FIGHTING PHASE 2
@@ -224,7 +224,7 @@ public class Game implements IGame {
 	}
 	
 	private void battle(IProvince from, IProvince to){
-		//POP-UP for nr of Offensive dice
+		//POP-UP for nr of Offensive dice, untill implemented you may only attack with one
 		int nrOfDices=1;
 		//if(nrofdice>from.getUnits())
 		if(from.getUnits()>1){
