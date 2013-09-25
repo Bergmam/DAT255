@@ -21,6 +21,9 @@ public class Game implements IGame {
 	private boolean movedTroops =false; //F3
 	private boolean firstProvinceConqueredThisTurn=true;
 	
+	private ICard card1=null;
+	private ICard card2=null;
+	
 	//CURRENT PHASE
 	private Phase currentPhase=Phase.F1;
 	
@@ -240,5 +243,36 @@ public class Game implements IGame {
 			}
 		}
 	}
+
+
+
+	@Override
+	public void handleCardClick(ICard card) {
+		// TODO Auto-generated method stub
+		if(card2!=null){
+			getActivePlayer().exchangeCard((Card) card1, (Card) card2, (Card) card);
+			card1=null;
+			card2=null;
+		}
+		else{
+			if(card1==null){
+				card1=card;
+			}
+			else{
+				card2=card;
+			}
+		}
+		
+	}
+
+
+
+	@Override
+	public void handlePhaseClick() {
+		// TODO Auto-generated method stub
+
+		
+	}
+	
 		
 }
