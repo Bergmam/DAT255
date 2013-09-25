@@ -37,8 +37,8 @@ public class WorldStage extends AbstractStage implements GestureListener {
 		camera.setToOrtho(false);
 		setCamera(camera);
 
-		width = background.getImageWidth();
-		height = background.getImageHeight();
+		width = background.getWidth();
+		height = background.getHeight();
 
 		camera.position.set(background.getWidth() / 2,
 				background.getHeight() / 2, 0); //
@@ -69,9 +69,9 @@ public class WorldStage extends AbstractStage implements GestureListener {
 		bounds[1] = new BoundingBox(new Vector3(0, 0, 0), new Vector3(width, 0,
 				0));
 		bounds[2] = new BoundingBox(new Vector3(0, height, 0), new Vector3(
-				width, 0, 0));
+				width, height, 0));
 		bounds[3] = new BoundingBox(new Vector3(width, 0, 0), new Vector3(0,
-				height, 0));
+				height, 0));Gdx.app.log("tag",""+bounds[2].getDimensions()+" "+height);
 		enterStage();
 	}
 
@@ -106,13 +106,13 @@ public class WorldStage extends AbstractStage implements GestureListener {
 
 	@Override
 	public boolean pan(float x, float y, float deltaX, float deltaY) {
-		Gdx.app.log("movment", "X: " + x + " Y: " + y);
+		Gdx.app.log("movment", "X: " + x + " Y: " + y +" inbounds: "+inBounds());
 		if (inBounds()) {
 			getCamera().position.x -= deltaX;
 			getCamera().position.y += deltaY;
 		} else {
-			getCamera().position.x = x;
-			getCamera().position.y = y;
+		//	getCamera().position.x = x;
+			//getCamera().position.y = y;
 		}
 		return false;
 	}
