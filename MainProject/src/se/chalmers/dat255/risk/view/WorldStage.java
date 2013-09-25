@@ -9,7 +9,6 @@ import se.chalmers.dat255.risk.view.resource.Resource;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.input.GestureDetector.GestureListener;
 import com.badlogic.gdx.math.Vector2;
@@ -17,7 +16,6 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.collision.BoundingBox;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
@@ -52,8 +50,7 @@ public class WorldStage extends AbstractStage implements GestureListener {
 
 		for (int i = 0; i < provinces.size(); i++) {
 			Gdx.app.log("ProvinceView", "create ProvinceView");
-			ProvinceView provinceView = new ProvinceView(null, null,
-					provinces.get(i));
+			ProvinceView provinceView = new ProvinceView(provinces.get(i));
 			actor.add(provinceView);
 
 		}

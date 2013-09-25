@@ -11,7 +11,8 @@ public class Resource {
 	public Texture card1 = new Texture(Gdx.files.internal("Gfx/card1.png"));
 	public Texture card2 = new Texture(Gdx.files.internal("Gfx/card1.png")); //Will be card2 later.
 	public Texture card3 = new Texture(Gdx.files.internal("Gfx/card3.jpg"));
-			
+	public Texture bucket = new Texture(Gdx.files.internal("Gfx/bucket.png"));
+	
 	public static Resource getInstance(){
 		if(instance == null){
 			instance = new Resource();

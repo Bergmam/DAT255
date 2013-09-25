@@ -11,6 +11,7 @@ public class CardView extends AbstractView {
 	private Card card;
 	
 	public CardView(Texture texture, Card card) {
+		super(texture, null);
 		image = new Image(texture);
 		this.card = card;
 		image.setScale(1000);

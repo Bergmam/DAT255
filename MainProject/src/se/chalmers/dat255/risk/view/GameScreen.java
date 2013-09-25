@@ -53,7 +53,7 @@ public class GameScreen extends AbstractScreen {
 	
 	public List<AbstractView> getViews(){
 		return worldStage.getViews();
-	}
+	} 
 
 	@Override
 	public void render(float render) {

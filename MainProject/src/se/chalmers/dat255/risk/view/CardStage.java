@@ -62,12 +62,6 @@ public class CardStage extends AbstractStage {
 		return new Texture(Gdx.files.internal("Gfx/card3.png"));
 	}
 	
-	/*
-	 * IsCicked makes the button look like it have been clicked or not.
-	 */
-	public void isClicked(){
-		clicked =  !clicked;
-	}
 
 	@Override
 	public void propertyChange(PropertyChangeEvent arg0) {
