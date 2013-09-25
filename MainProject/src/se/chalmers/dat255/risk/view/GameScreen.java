@@ -40,9 +40,9 @@ public class GameScreen extends AbstractScreen {
 		//Creates a cardStage for every player
 		cardStage = new ArrayList<AbstractStage>();
 		
-		for(Player i : model.getPlayer())
-		cardStage.add(new CardStage(i.getCards()));
-		//this.add(cardStage.get(0));
+		for(Player i : model.getPlayer()){
+			cardStage.add(new CardStage(i.getCards()));
+		}
 
 	}
 
@@ -81,7 +81,7 @@ public class GameScreen extends AbstractScreen {
 		super.dispose();
 		Resource.getInstance().dispose();
 		worldStage.dispose();
-		//cardStage.get(0).dispose();
+		cardStage.get(0).dispose();
 		//Why This??  bg.dispose();
 	}
 }
