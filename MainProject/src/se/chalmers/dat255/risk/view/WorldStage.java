@@ -33,7 +33,7 @@ public class WorldStage extends AbstractStage implements GestureListener {
 	private TextButton cardButton;
 
 	public WorldStage(List<IProvince> provinces) {
-
+		
 		background = new Image(Resource.getInstance().backGround);
 		camera = new OrthographicCamera();
 		provinceGroup = new Group();
@@ -80,8 +80,11 @@ public class WorldStage extends AbstractStage implements GestureListener {
 		bounds[2] = new BoundingBox(new Vector3(0, height, 0), new Vector3(
 				width, height, 0));
 		bounds[3] = new BoundingBox(new Vector3(width, 0, 0), new Vector3(0,
-				height, 0));Gdx.app.log("tag",""+bounds[2].getDimensions()+" "+height);
+				height, 0));
 		enterStage();
+		for(Vector3 d:bounds[2].getCorners()){
+			Gdx.app.log("tag", ""+d);
+		}
 	}
 
 	private void setPositionFromCetre(Actor actor, float f1, float f2) {
@@ -130,7 +133,7 @@ public class WorldStage extends AbstractStage implements GestureListener {
 
 		for (int i = 0; i < bounds.length; i++) {
 			if (camera.frustum.boundsInFrustum(bounds[i])) {
-				return false;
+				//return false;
 			}
 		}
 		return true;
