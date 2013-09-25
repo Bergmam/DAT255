@@ -172,13 +172,13 @@ public class Game implements IGame {
 		// FIGHTING PHASE 2
 		else if(getCurrentPhase()==IGame.Phase.F2){
 			if(oldClickedProvince!=null){
-				// FIGHT IF SECOND PROVINCE CLICKED AND OWNED BY DIFFERENT PLAYER 
+				// FIGHT IF TWO PROVINCE CLICKED AND OWNED BY DIFFERENT PLAYER 
+				// AND ATTACKING PROVINCE OWNED BY ME
 				if(checkProvinceOk(oldClickedProvince, newClickedProvince, false)){
 					battle(oldClickedProvince, newClickedProvince);
 				}
-				
-				
-				// AND ATTACKING PROVINCE OWNED BY MED
+
+				oldClickedProvince=null;
 			}
 			else{
 				oldClickedProvince=newClickedProvince;
@@ -220,11 +220,15 @@ public class Game implements IGame {
 	
 	private void battle(IProvince from, IProvince to){
 		//POP-UP for nr of Offensive dice
-		attack(1, from, to); 
-		if (to.getUnits() == 0) {
-			worldMap.changeOwner(to.getId(), getActivePlayer());
-			//TODO	move attacking units into 'defensive'
-
+		int nrOfDices=1;
+		//if(nrofdice>from.getUnits())
+		if(from.getUnits()>1){
+			attack(nrOfDices, from, to); 
+			if (to.getUnits() == 0) {
+				worldMap.changeOwner(to.getId(), getActivePlayer());
+				//TODO	move attacking units into 'defensive'
+	
+			}
 		}
 	}
 		
