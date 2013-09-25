@@ -21,7 +21,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 public class GameScreen extends AbstractScreen {
 	private boolean isWorld;
 	private AbstractStage worldStage;
-	private List<Stage> cardStage;
+	private List<AbstractStage> cardStage;
 	// TODO: IPlayer ??
 
 	public GameScreen(GDXGame game, IGame model) {
@@ -38,7 +38,7 @@ public class GameScreen extends AbstractScreen {
 		/* TODO model.getProvinces() */a);
 		
 		//Creates a cardStage for every player
-		cardStage = new ArrayList<Stage>();
+		cardStage = new ArrayList<AbstractStage>();
 		
 		for(Player i : model.getPlayer()){
 			cardStage.add(new CardStage(i.getCards()));
@@ -73,7 +73,7 @@ public class GameScreen extends AbstractScreen {
 	}
 
 	private AbstractStage getStage() {
-		return (AbstractStage) (isWorld ? worldStage : cardStage.get(model.getActivePlayer().getId()));
+		return isWorld ? worldStage : cardStage.get(model.getActivePlayer().getId());
 	}
 
 	@Override
