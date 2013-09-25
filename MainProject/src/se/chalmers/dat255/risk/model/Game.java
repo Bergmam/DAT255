@@ -34,7 +34,6 @@ public class Game implements IGame {
 		//deck=Deck.getInstance(new ArrayList<String>().add(new Province("A").getId()), "5");//hårdkodat
 		battle = new BattleHandler();
 		newGame(playersId);
-
 	}
 
 	
