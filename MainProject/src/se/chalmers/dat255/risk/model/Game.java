@@ -69,9 +69,6 @@ public class Game implements IGame {
 	public boolean attack(int offensiveDice, IProvince offensive, IProvince defensive) {
 		// TODO decide number of attackers
 		//		check if ok in another method
-		if(worldMap.isNeighbours(offensive.getId(), defensive.getId())){
-			
-			
 			// Counts the number of defending units
 			int defensiveDice = defensive.getUnits() == 1 ? 1 : 2;
 			
@@ -80,14 +77,7 @@ public class Game implements IGame {
 	
 			offensive.removeUnits(result[0]);
 			defensive.removeUnits(result[1]);
-	
-			if (defensive.getUnits() == 0) {
-				//TODO	move attacking units into 'defensive'
-				worldMap.changeOwner(defensive.getId(), getActivePlayer());
-			}
 			return true;
-		}
-		return false;
 	}
 
 	@Override
@@ -183,12 +173,16 @@ public class Game implements IGame {
 		else if(getCurrentPhase()==IGame.Phase.F2){
 			if(oldClickedProvince!=null){
 				// FIGHT IF SECOND PROVINCE CLICKED AND OWNED BY DIFFERENT PLAYER 
+				if(checkProvinceOk(oldClickedProvince, newClickedProvince, false)){
+					battle(oldClickedProvince, newClickedProvince);
+				}
 				
 				
 				// AND ATTACKING PROVINCE OWNED BY MED
 			}
 			else{
 				oldClickedProvince=newClickedProvince;
+				
 			}
 		}
 		//	MOVING TROOPS IN PHASE 3
@@ -222,6 +216,16 @@ public class Game implements IGame {
 			}
 		}
 		return false;
+	}
+	
+	private void battle(IProvince from, IProvince to){
+		//POP-UP for nr of Offensive dice
+		attack(1, from, to); 
+		if (to.getUnits() == 0) {
+			worldMap.changeOwner(to.getId(), getActivePlayer());
+			//TODO	move attacking units into 'defensive'
+
+		}
 	}
 		
 }
