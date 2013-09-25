@@ -28,6 +28,7 @@ public class Player {
 	 * creating a player with a specified turn an name. 
 	 * @param turnId the players turn identification.
 	 * @param name the players name in the game
+	 * @param color the color of the player
 	 */
 	public Player(int turnId, String name){
 		this.turnId = turnId;
@@ -142,6 +143,7 @@ public class Player {
 	public void setCurrent(Boolean current){
 		this.current=current;
 	}
+	
 	public int getId(){
 		return turnId;
 	}

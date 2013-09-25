@@ -48,4 +48,15 @@ public interface IProvince {
 	 */
 	public String getId();
 
+	/**
+	 * returns the province current color.
+	 * @return color of the province
+	 */
+	String getColor();
+
+	/**
+	 * set the province current color.
+	 */
+	void setColor(String color);
+
 }

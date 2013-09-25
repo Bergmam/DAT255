@@ -148,7 +148,9 @@ public class WorldMap {
 	private ArrayList<Province> buildProvinces(ArrayList<String> nameList){
 		ArrayList<Province> provinceList = new ArrayList<Province>();
 		for(String s : nameList){
-			provinceList.add(new Province(s));
+			Province province = new Province(s);
+			province.setColor(PlayerColor.getStringColor(this.getOwner(s).getId()));
+			provinceList.add(province);
 		}
 		return provinceList;
 	}
