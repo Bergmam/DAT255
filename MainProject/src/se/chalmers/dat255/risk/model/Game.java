@@ -58,6 +58,8 @@ public class Game implements IGame {
 	private void changeTurn() {
 		// TODO: Check this!
 		activePlayer = (activePlayer + 1) % players.length;
+		oldClickedProvince=null;
+		movedTroops=false;
 	}
 	/**	OBS OBS OBS OBS
 	 * Inte alls som den borde va i nul�get. Inmatning av antal hindrar fortsatt utveckling
@@ -156,13 +158,11 @@ public class Game implements IGame {
 	}
 
 
-
 	@Override
 	public Player[] getPlayer() {
 		// TODO Auto-generated method stub
 		return players;
 	}
-
 
 
 	@Override
@@ -171,8 +171,7 @@ public class Game implements IGame {
 		return worldMap.getProvinces();
 	}
 
-
-
+	
 	@Override
 	public void handleProvinceClick(IProvince newClickedProvince) {
 		// TODO Auto-generated method stub
@@ -184,34 +183,43 @@ public class Game implements IGame {
 		else if(getCurrentPhase()==IGame.Phase.F2){
 			if(oldClickedProvince!=null){
 				// FIGHT IF SECOND PROVINCE CLICKED AND OWNED BY DIFFERENT PLAYER 
+				
+				
 				// AND ATTACKING PROVINCE OWNED BY MED
+			}
+			else(){
+				
 			}
 		}
 		//	MOVING TROOPS IN PHASE 3
 		else if(getCurrentPhase()==IGame.Phase.F3){
 			if(oldClickedProvince!=null){
-				if(oldClickedProvince!=newClickedProvince){
-					if((worldMap.getOwner(newClickedProvince.getId()) ==  getActivePlayer()) 
-							&& (worldMap.getOwner(oldClickedProvince.getId()) ==  getActivePlayer())){
-						if(worldMap.isNeighbours(oldClickedProvince.getId(), newClickedProvince.getId())){
-							//DONT FORGET TO ADD POP-UP
-							moveToProvince(1, oldClickedProvince, newClickedProvince);// MAY BE INVALID INPUT, THEN NOTHING WILL HAPPEN
-				
-						}
-					}
+				if(checkProvinceOk(oldClickedProvince, newClickedProvince, true)){
+				//DONT FORGET TO ADD POP-UP
+					moveToProvince(1, oldClickedProvince, newClickedProvince);// MAY BE INVALID INPUT, THEN NOTHING WILL HAPPEN
 				}
 			}
 			else{
 				oldClickedProvince=newClickedProvince;
 			}
 		}
-	
 	}
-
 	private void moveToProvince(int nrOfUnits, IProvince from, IProvince goTo){
 		if(nrOfUnits- from.getUnits() > 0){
 			from.moveUnits(nrOfUnits, goTo);
 		}
 	}
-
+	
+	private boolean checkProvinceOk(IProvince p1, IProvince p2, boolean sameOwner){
+		if(p1!=p2){
+			if(worldMap.isNeighbours(oldClickedProvince.getId(), newClickedProvince.getId())){
+				if(sameOwner){
+					return (worldMap.getOwner(p1.getId() ==  getActivePlayer()) 
+					&& (worldMap.getOwner(p2.getId()) ==  getActivePlayer())); 
+				}
+			}
+		}
+		return false;
+	}
+		
 }
