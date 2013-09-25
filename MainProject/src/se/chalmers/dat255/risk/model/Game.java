@@ -19,6 +19,7 @@ public class Game implements IGame {
 	private Deck deck;
 	private IProvince oldClickedProvince = null;
 	private boolean movedTroops =false; //F3
+	private boolean firstProvinceConqueredThisTurn=true;
 	
 	//CURRENT PHASE
 	private Phase currentPhase=Phase.F1;
@@ -59,6 +60,7 @@ public class Game implements IGame {
 		activePlayer = (activePlayer + 1) % players.length;
 		oldClickedProvince=null;
 		movedTroops=false;
+		firstProvinceConqueredThisTurn=true;
 		calcBonusUnits();
 	}
 
@@ -232,7 +234,10 @@ public class Game implements IGame {
 			if (to.getUnits() == 0) {
 				worldMap.changeOwner(to.getId(), getActivePlayer());
 				//TODO	move attacking units into 'defensive'
-	
+				if(firstProvinceConqueredThisTurn){
+					getActivePlayer().addCard();
+					firstProvinceConqueredThisTurn=false;
+				}
 			}
 		}
 	}
