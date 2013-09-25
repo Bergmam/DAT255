@@ -87,4 +87,8 @@ public interface IGame {
 	
 	public void handleProvinceClick(IProvince province);
 
+	public void handleCardClick(ICard province);
+	
+	public void handlePhaseClick();
+	
 }
