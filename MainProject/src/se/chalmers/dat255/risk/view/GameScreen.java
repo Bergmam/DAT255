@@ -12,7 +12,6 @@ import se.chalmers.dat255.risk.view.resource.Resource;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 
 /**
  * shows the gameboard, including provinces, cards and buttons.
@@ -52,7 +51,15 @@ public class GameScreen extends AbstractScreen {
 	}
 	
 	public List<AbstractView> getViews(){
-		return worldStage.getViews();
+		List<AbstractView> tmp = new ArrayList<AbstractView>();
+		
+		tmp.addAll(worldStage.getViews());
+		
+		for(AbstractStage s : cardStage){
+			tmp.addAll(s.getViews());
+		}
+		
+		return tmp;
 	} 
 
 	@Override

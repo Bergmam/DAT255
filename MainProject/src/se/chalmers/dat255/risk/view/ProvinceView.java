@@ -27,19 +27,19 @@ public class ProvinceView extends AbstractView {
 	}
 
 	@Override
-	public void draw(SpriteBatch batch, float alpha) {		
-		
-		 batch.setColor(Color.RED); batch.draw(isClicked ? imageDown : imageUp, getX(),
-		 getY(), getWidth(), getHeight());
-		
+	public void draw(SpriteBatch batch, float alpha) {
+
+		batch.setColor(Color.RED);
+		batch.draw(isClicked ? imageDown : imageUp, getX(), getY(), getWidth(),
+				getHeight());
 
 		// TODO check if this works or if we should have a texture instead
 		// if we choose texture then the default draw() in image should suffice
 		// if this works then we don't need to be an Image and could just become
 		// an Actor
 
-
-		 /* font.drawMultiLine(batch, "Country: " + province.getId() +
+		/*
+		 * font.drawMultiLine(batch, "Country: " + province.getId() +
 		 * "\nUnits: " + province.getUnits(), getCenterX() - (getWidth() / 3),
 		 * getCenterY());
 		 */
