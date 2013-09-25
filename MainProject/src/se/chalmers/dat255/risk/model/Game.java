@@ -162,7 +162,7 @@ public class Game implements IGame {
 			 bonus = startingTroopNr - getActivePlayer().getNrOfProvinces();
 		   	 
 			// SETTING UP GAMEBOARD RULES AND CREATING PROVINCES
-		   	worldMap= new WorldMap(new File("neighbours.txt"), new File("continents.txt"), players);
+		   	worldMap= new WorldMap(new File("Gfx/neighbours.txt"), new File("Gfx/continents.txt"), players);
 
 			// SETTING UP DECK
 		//	deck = Deck.getInstanceOf(provinces, 6); // H�rdkodat antal wildcard 
