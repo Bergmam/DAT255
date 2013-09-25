@@ -10,8 +10,13 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 public class ProvinceListener extends ClickListener {
 
-	//IProvince oldClickedProvince;
 	IGame	theGame;
+	
+	/**
+	 *	If we want to highlight the province that logic can/should
+	 *	be in this method.
+	 *  
+	 */
 	@Override
 	public void clicked(InputEvent event, float x, float y){
 		if(event.getTarget() instanceof ProvinceView){
@@ -21,10 +26,5 @@ public class ProvinceListener extends ClickListener {
 			theGame.handleProvinceClick(newClickedProvince);
 		}
 	//	Gdx.app.log("trololol", "province clicked");
-		else if(event.getTarget() instanceof ChangePhase){
-		}
-
-		
 	}
-
 }
