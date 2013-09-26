@@ -2,15 +2,15 @@ package se.chalmers.dat255.risk.view;
 
 import java.beans.PropertyChangeEvent;
 
-import com.badlogic.gdx.scenes.scene2d.Stage;
+import se.chalmers.dat255.risk.model.IGame;
 
 public class UIStage extends AbstractStage{
 
 	private ChangePhase phase;
 	
-	public UIStage(){
+	public UIStage(IGame model){
 		
-		phase = new ChangePhase();
+		phase = new ChangePhase(model);
 		phase.setPosition(getWidth()-phase.getWidth(), 0);
 		addActor(phase);
 		

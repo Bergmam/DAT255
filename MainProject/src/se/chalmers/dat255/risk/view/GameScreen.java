@@ -43,7 +43,7 @@ public class GameScreen extends AbstractScreen {
 		for(Player i : model.getPlayer()){
 			cardStage.add(new CardStage(i.getCards()));
 		}
-		uiStage = new UIStage();
+		uiStage = new UIStage(model);
 	}
 
 	@Override

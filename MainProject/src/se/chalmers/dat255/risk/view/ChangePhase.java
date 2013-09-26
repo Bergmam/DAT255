@@ -1,46 +1,62 @@
 package se.chalmers.dat255.risk.view;
 
+import se.chalmers.dat255.risk.model.Game;
+import se.chalmers.dat255.risk.model.IGame;
 import se.chalmers.dat255.risk.view.resource.Resource;
 
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
-public class ChangePhase extends TextButton{
-	static Drawable image = new TextureRegionDrawable(new TextureRegion(Resource.getInstance().bucket));
-	
-	private static int PHASE1 = 1;
-	private static int PHASE2 = 2;
-	private static int PHASE3 = 3;
-	private static int ATTACK = 4;
-	private static int NEXT = 5;	
-	
-	private int current;
-	
-	public ChangePhase() {
-		super("", new TextButtonStyle(image,image,image, new BitmapFont() ));
-		size(64,64);		
+public class ChangePhase extends AbstractView {
+
+	private IGame model;
+	public static String PHASE1 = "PHASE1";// placing units, show number of
+											// units left to place and then
+											// "Next Phase"
+	public static String PHASE2 = "PHASE2";// show "Next Phase"
+	public static String PHASE3 = "PHASE3";// show "End Turn"
+	public static String NEXT = "NEXT";// "Next Phase"
+
+	private	String current;
+
+	public ChangePhase(IGame model) {
+		super(Resource.getInstance().bucket, Resource.getInstance().bucket);
+		this.model = model;
+		size(64, 64);
 	}
-	
-	public void setStyle(){
-		
+
+	public void setStyle() {
+
 	}
-	
-	public void setCurrent(int i){
-		current = i;
+
+	public void setCurrent(String s) {
+		current = s;
 	}
-	
-	private String getString(){
-		
+
+	private String getString() {
+
 		return null;
-		
+
+	}
+
+	private String getText() {
+		if (current == PHASE1) {
+			return "" + model.getBonusUnitsLeft();
+		} else if (current == PHASE2) {
+			return "Next Phase";
+		} else if (current == PHASE3) {
+			return "End Turn";
+		} else if (current == NEXT) {
+
+		}
+
+		return "value not found";
 	}
 
 	@Override
-	public void draw(SpriteBatch batch, float alpha){
-		
+	public void draw(SpriteBatch batch, float alpha) {
+		super.draw(batch, alpha);
+
+		font.draw(batch, "" + getText(), getX(), getY());
 	}
+
 }

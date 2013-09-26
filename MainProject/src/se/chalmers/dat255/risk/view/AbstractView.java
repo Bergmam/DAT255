@@ -26,6 +26,8 @@ public abstract class AbstractView extends Actor implements
 
 	public void dispose() {
 		font.dispose();
+		imageUp.dispose();
+		imageDown.dispose();
 	}
 
 	@Override
