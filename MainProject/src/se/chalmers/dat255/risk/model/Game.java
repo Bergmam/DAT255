@@ -172,7 +172,9 @@ public class Game implements IGame {
 		   	for(Province i : worldMap.getProvinces()){
 		   		provinces.add(i.getId());
 		   	}
-			deck = Deck.getInstance(provinces, 6); // H�rdkodat antal wildcard 
+			deck = Deck.getInstance();
+			System.out.println("thiiiiiiiiiiiiiiis" + deck);
+			deck.CreateCards(provinces, 6);// H�rdkodat antal wildcard 
 				 
 	//		refresh(); //BYTS MOT MOTSVARANDE I LIBGDX
 	}

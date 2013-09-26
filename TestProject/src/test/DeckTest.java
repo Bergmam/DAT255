@@ -44,43 +44,44 @@ public class DeckTest {
 		stringList4.add("Turkmänistan");
 		
 		deck1 = new Deck(stringList1, 3);
-		deck2 = new Deck(stringList2, 0);
-		deck3 = new Deck(stringList3, 5);
-		deck4 = new Deck(stringList4, 3);
 		
 		//constructor test with deck1
-		int jokers1 = 0;
-		int artillery1 = 0;
-		int cavalry1 = 0;
-		int infantry1 = 0;
-		LinkedList<Card> deck1List = deck1.getDeckList();
-		for(int i = 0; i < deck1.getSize(); i++){
-			assertTrue(deck1List.get(i) != null);
-			if(deck1List.get(i).getType() == Card.CardType.JOKER){
-				jokers1++;
-			}
-			if(deck1List.get(i).getType() == Card.CardType.ARTILLERY){
-				artillery1++;
-			}
-			if(deck1List.get(i).getType() == Card.CardType.CAVALRY){
-				cavalry1++;
-			}
-			if(deck1List.get(i).getType() == Card.CardType.INFANTRY){
-				infantry1++;
-			}
-		}
-		assertTrue(jokers1 == 3);
-		assertTrue(artillery1 == 1);
-		assertTrue(cavalry1 == 1);
-		assertTrue(infantry1 == 1);
+				int jokers1 = 0;
+				int artillery1 = 0;
+				int cavalry1 = 0;
+				int infantry1 = 0;
+				LinkedList<ICard> deck1List = deck1.getDeckList();
+				
+				for(int i = 0; i < deck1.getSize(); i++){
+					assertTrue(deck1List.get(i) != null);
+					if(deck1List.get(i).getType() == Card.CardType.JOKER){
+						System.out.println("Joker");
+						jokers1++;
+					}
+					if(deck1List.get(i).getType() == Card.CardType.ARTILLERY){
+						System.out.println("artillery");
+						artillery1++;
+					}
+					if(deck1List.get(i).getType() == Card.CardType.CAVALRY){
+						cavalry1++;
+					}
+					if(deck1List.get(i).getType() == Card.CardType.INFANTRY){
+						infantry1++;
+					}
+				}
+				assertTrue(jokers1 == 3);
+				assertTrue(artillery1 == 1);
+				assertTrue(cavalry1 == 1);
+				assertTrue(infantry1 == 1);		
 		
+		deck2 = new Deck(stringList2, 0);		
 		
 		//constructor test with deck2
 		int jokers2 = 0;
 		int artillery2 = 0;
 		int cavalry2 = 0;
 		int infantry2 = 0;
-		LinkedList<Card> deck2List = deck1.getDeckList();
+		LinkedList<ICard> deck2List = deck1.getDeckList();
 		for(int i = 0; i < deck2.getSize(); i++){
 			assertTrue(deck2List.get(i) != null);
 			if(deck2List.get(i).getType() == Card.CardType.JOKER){
@@ -100,8 +101,20 @@ public class DeckTest {
 		assertTrue(artillery2 == 4);
 		assertTrue(cavalry2 == 3);
 		assertTrue(infantry2 == 3);
+		
+		deck4 = new Deck(stringList4, 3);
+		System.out.println("so this is it?" + stringList4.size());
+		assertTrue(deck4.getSize()==4);
+		
+		deck3 = new Deck(stringList3, 5);
+		assertTrue(deck3.getSize()==20);
+		
+		//Because we just want one deck, when we make a new deck the 
+		//previous decks is equal to the 
 
 	}
+
+	
 
 	@Test
 	public void testGiveCard() {
@@ -114,9 +127,9 @@ public class DeckTest {
 
 	@Test
 	public void testDiscard() {
-		Card card1 = deck2.giveCard();
-		Card card2 = deck2.giveCard();
-		Card card3 = deck2.giveCard();
+		ICard card1 = deck2.giveCard();
+		ICard card2 = deck2.giveCard();
+		ICard card3 = deck2.giveCard();
 		deck2.discard(card1);
 		deck2.discard(card1);
 		deck2.discard(card1);

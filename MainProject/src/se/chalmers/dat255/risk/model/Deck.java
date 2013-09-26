@@ -17,13 +17,15 @@ public class Deck {
 	private static LinkedList<ICard> deck = new LinkedList<ICard>();
 	private static LinkedList<ICard> discardPile = new LinkedList<ICard>();
 
+	private Deck(){}
+	
 	/**
-	 * Constructs a deck given an array containing the names of all provinces 
+	 * Constructs the cards in the deck given an array containing the names of all provinces 
 	 * in the game and the number of jokers there should be in the deck.
 	 * @param provinces, array with the names of all provinces.
 	 * @param nbrOfJokers, number of jokers in the deck.
 	 */
-	public Deck(ArrayList<String> provinces, int nbrOfJokers){
+	public void CreateCards(ArrayList<String> provinces, int nbrOfJokers){
 		int infantry = provinces.size() / 3;
 		int cavalry = provinces.size() / 3;
 		
@@ -52,6 +54,9 @@ public class Deck {
 	 * @return the top card in the deck.
 	 */
 	public static ICard giveCard(){
+		if(deck.isEmpty()){
+			recycleCards();
+		}
 		return deck.removeFirst();
 	}
 	
@@ -69,8 +74,11 @@ public class Deck {
 	 */
 	public static void recycleCards(){
 		if(deck.size() == 0){
-			deck = discardPile;
+			System.out.println("is it empty? " + deck.size());
+			deck = (LinkedList<ICard>) discardPile.clone();
+			System.out.println("is it empty? " + discardPile.size());
 			discardPile.clear();
+			System.out.println("is it empty? " + deck.size());
 			Collections.shuffle(deck);
 		}else{
 			//If there are cards left in the deck, the recycled ones are added to the bottom of the deck.
@@ -94,12 +102,10 @@ public class Deck {
 		return discardPile;
 	}
 	
-	public static Deck getInstance(ArrayList<String> provinces, int nbrOfJokers){
-		if(INSTANCE != null){
-			return INSTANCE;
+	public static Deck getInstance(){
+		if(INSTANCE == null){
+			INSTANCE = new Deck();
 		}
-		INSTANCE = new Deck(provinces, nbrOfJokers);
 		return INSTANCE;
-			
 	}
 }
