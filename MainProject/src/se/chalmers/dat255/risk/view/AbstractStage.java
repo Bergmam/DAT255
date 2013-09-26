@@ -11,6 +11,7 @@ public abstract class AbstractStage extends Stage implements PropertyChangeListe
 	protected List<AbstractView> actor;
 	
 	
+	
 	public AbstractStage(){
 		actor = new ArrayList<AbstractView>();
 	}
@@ -20,4 +21,5 @@ public abstract class AbstractStage extends Stage implements PropertyChangeListe
 	}
 
 	public abstract InputProcessor getProcessor();
+	
 }

@@ -4,13 +4,15 @@ import java.beans.PropertyChangeEvent;
 
 import com.badlogic.gdx.InputProcessor;
 
+import se.chalmers.dat255.risk.controller.SwitchListener;
 import se.chalmers.dat255.risk.model.IGame;
 
 public class UIStage extends AbstractStage{
 
 	private ChangePhase phase;
 	private SwitchButton switchButton;
-	
+	private boolean renderWorld;
+
 	public UIStage(IGame model){
 		
 		phase = new ChangePhase(model);
@@ -22,6 +24,16 @@ public class UIStage extends AbstractStage{
 		addActor(phase);
 		addActor(switchButton);
 		
+		renderWorld = true;
+		
+	}
+	
+	public boolean renderWorld(){
+		return renderWorld;
+	}
+	
+	public void switchRender(){
+		renderWorld = !renderWorld;
 	}
 
 	@Override
