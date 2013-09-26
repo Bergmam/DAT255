@@ -16,7 +16,7 @@ import java.util.Scanner;
 
 public class WorldMap {
 
-	private final ArrayList<Province> allProvinces;
+	private final ArrayList<IProvince> allProvinces;
 
 	ArrayList<String> continent=new ArrayList<String>();
 	private HashMap<String, Player> ownership; 
@@ -69,7 +69,7 @@ public class WorldMap {
 		
 		allProvinces = buildProvinces(listOfProvinces);
 		randomizeProvinces(listOfProvinces, players);
-		for(Province province : allProvinces){
+		for(IProvince province : allProvinces){
 			province.setColor(PlayerColor.getStringColor(this.getOwner(province.getId()).getId()));
 		}
 
@@ -147,8 +147,8 @@ public class WorldMap {
 	 * @return List of all province objects on the map
 	 */
 	
-	private ArrayList<Province> buildProvinces(ArrayList<String> nameList){
-		ArrayList<Province> provinceList = new ArrayList<Province>();
+	private ArrayList<IProvince> buildProvinces(ArrayList<String> nameList){
+		ArrayList<IProvince> provinceList = new ArrayList<IProvince>();
 		for(String s : nameList){
 			provinceList.add(new Province(s));
 		}
@@ -172,7 +172,7 @@ public class WorldMap {
 		}
 	}
 	
-	public ArrayList<Province> getProvinces(){
+	public ArrayList<IProvince> getProvinces(){
 		return allProvinces;
 	}
 	

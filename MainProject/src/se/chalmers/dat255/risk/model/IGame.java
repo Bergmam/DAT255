@@ -83,7 +83,7 @@ public interface IGame {
 	
 	public Player[] getPlayer();
 	
-	public ArrayList<Province> getGameProvinces();
+	public ArrayList<IProvince> getGameProvinces();
 	
 	public void handleProvinceClick(IProvince province);
 

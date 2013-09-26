@@ -169,7 +169,7 @@ public class Game implements IGame {
 
 			// SETTING UP DECK
 		   	ArrayList<String> provinces = new ArrayList<String>();
-		   	for(Province i : worldMap.getProvinces()){
+		   	for(IProvince i : worldMap.getProvinces()){
 		   		provinces.add(i.getId());
 		   	}
 			deck = Deck.getInstance();
@@ -196,7 +196,7 @@ public class Game implements IGame {
 
 
 	@Override
-	public ArrayList<Province> getGameProvinces() {
+	public ArrayList<IProvince> getGameProvinces() {
 		// TODO Auto-generated method stub
 		return worldMap.getProvinces();
 	}
