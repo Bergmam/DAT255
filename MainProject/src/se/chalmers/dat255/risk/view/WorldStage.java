@@ -8,6 +8,8 @@ import se.chalmers.dat255.risk.model.IProvince;
 import se.chalmers.dat255.risk.view.resource.Resource;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -21,7 +23,6 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Window.WindowStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
@@ -29,22 +30,22 @@ public class WorldStage extends AbstractStage implements GestureListener {
 	private Image background;
 	private Group provinceGroup;
 	private OrthographicCamera camera;
-	private GestureDetector gesture;
 	private float initialZoom;
 	private BoundingBox[] bounds;
 	private float width;
 	private float height;
-
+	private InputMultiplexer multi;
+	
 	public WorldStage(List<IProvince> provinces) {
-
+		
 		background = new Image(Resource.getInstance().backGround);
 		camera = new OrthographicCamera();
 		provinceGroup = new Group();
-		gesture = new GestureDetector(this);
 		
+		multi = new InputMultiplexer(new GestureDetector(this), this);
 		camera.setToOrtho(false);
 		setCamera(camera);
-
+		
 		width = background.getWidth();
 		height = background.getHeight();
 
@@ -86,7 +87,6 @@ public class WorldStage extends AbstractStage implements GestureListener {
 				width, height, 0));
 		bounds[3] = new BoundingBox(new Vector3(width, 0, 0), new Vector3(0,
 				height, 0));
-		enterStage();
 		for (Vector3 d : bounds[2].getCorners()) {
 			Gdx.app.log("tag", "" + d);
 		}
@@ -96,17 +96,18 @@ public class WorldStage extends AbstractStage implements GestureListener {
 						Resource.getInstance().bucket))));
 		d.size(50, 50);
 		d.setPosition(200, 200);
-		d.show(this);
 	}
-
-	private void setPositionFromCetre(Actor actor, float f1, float f2) {
-		actor.setPosition(Gdx.graphics.getWidth() / 2 + f1,
-				Gdx.graphics.getHeight() / 2 + f1);
+	
+	@Override
+	public InputProcessor getProcessor(){
+		return multi;
 	}
 
 	@Override
 	public boolean touchDown(float x, float y, int pointer, int button) {
 		initialZoom = camera.zoom;
+		super.touchDown((int) x,(int) y, pointer, button);
+		
 		return false;
 	}
 
@@ -177,12 +178,6 @@ public class WorldStage extends AbstractStage implements GestureListener {
 	@Override
 	public void propertyChange(PropertyChangeEvent arg0) {
 		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void enterStage() {
-		Gdx.input.setInputProcessor(gesture);
 
 	}
 }

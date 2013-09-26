@@ -1,10 +1,13 @@
 package se.chalmers.dat255.risk.view;
 
-import se.chalmers.dat255.risk.model.Game;
 import se.chalmers.dat255.risk.model.IGame;
 import se.chalmers.dat255.risk.view.resource.Resource;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 
 public class ChangePhase extends AbstractView {
 
@@ -16,31 +19,34 @@ public class ChangePhase extends AbstractView {
 	public static String PHASE3 = "PHASE3";// show "End Turn"
 	public static String NEXT = "NEXT";// "Next Phase"
 
-	private	String current;
+	private String current = PHASE1;
+
+	private Label label;
 
 	public ChangePhase(IGame model) {
 		super(Resource.getInstance().bucket, Resource.getInstance().bucket);
 		this.model = model;
-		size(64, 64);
-	}
-
-	public void setStyle() {
+		size(width, height);
+		setPosition(Gdx.graphics.getWidth()-getWidth(),0);
+		label = new Label(getText(), new LabelStyle(font, Color.RED));
+		label.setPosition(getX(), getY() + getHeight()/2);
 
 	}
 
 	public void setCurrent(String s) {
 		current = s;
+		label.setText(getText());
 	}
-
-	private String getString() {
-
-		return null;
-
+	
+	@Override
+	public void check() {
+		super.check();
+		super.check();
 	}
 
 	private String getText() {
 		if (current == PHASE1) {
-			return "" + model.getBonusUnitsLeft();
+			return "Units: " + model.getBonusUnitsLeft();
 		} else if (current == PHASE2) {
 			return "Next Phase";
 		} else if (current == PHASE3) {
@@ -55,8 +61,7 @@ public class ChangePhase extends AbstractView {
 	@Override
 	public void draw(SpriteBatch batch, float alpha) {
 		super.draw(batch, alpha);
-
-		font.draw(batch, "" + getText(), getX(), getY());
+		label.draw(batch, alpha);
 	}
 
 }

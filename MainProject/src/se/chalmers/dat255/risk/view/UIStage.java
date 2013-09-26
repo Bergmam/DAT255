@@ -2,17 +2,25 @@ package se.chalmers.dat255.risk.view;
 
 import java.beans.PropertyChangeEvent;
 
+import com.badlogic.gdx.InputProcessor;
+
 import se.chalmers.dat255.risk.model.IGame;
 
 public class UIStage extends AbstractStage{
 
 	private ChangePhase phase;
+	private SwitchButton switchButton;
 	
 	public UIStage(IGame model){
 		
 		phase = new ChangePhase(model);
-		phase.setPosition(getWidth()-phase.getWidth(), 0);
+		actor.add(phase);
+		
+		switchButton = new SwitchButton();
+		actor.add(switchButton);
+		
 		addActor(phase);
+		addActor(switchButton);
 		
 	}
 
@@ -23,9 +31,8 @@ public class UIStage extends AbstractStage{
 	}
 
 	@Override
-	public void enterStage() {
-		// TODO Auto-generated method stub
-		
+	public InputProcessor getProcessor() {
+		return this;
 	}
 	
 }

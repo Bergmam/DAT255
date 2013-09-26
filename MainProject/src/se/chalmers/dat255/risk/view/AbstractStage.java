@@ -4,6 +4,7 @@ import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
 public abstract class AbstractStage extends Stage implements PropertyChangeListener{
@@ -18,7 +19,5 @@ public abstract class AbstractStage extends Stage implements PropertyChangeListe
 		return actor;
 	}
 
-	// may need to do this when switching to this stage in gamescreen
-	public abstract void enterStage();
-
+	public abstract InputProcessor getProcessor();
 }

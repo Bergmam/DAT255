@@ -9,6 +9,7 @@ import se.chalmers.dat255.risk.model.ICard;
 import se.chalmers.dat255.risk.view.resource.Resource;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -75,8 +76,7 @@ public class CardStage extends AbstractStage {
 	}
 
 	@Override
-	public void enterStage() {
-		Gdx.input.setInputProcessor(this);
-
+	public InputProcessor getProcessor() {
+		return this;
 	}
 }
