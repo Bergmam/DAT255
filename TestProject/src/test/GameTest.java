@@ -2,6 +2,8 @@ package test;
 
 import static org.junit.Assert.*;
 import se.chalmers.dat255.risk.model.*;
+import se.chalmers.dat255.risk.model.IGame.Phase;
+
 import org.junit.Test;
 
 public class GameTest{
@@ -38,6 +40,19 @@ public class GameTest{
 		assertTrue(game2.getBonusUnitsLeft() == 20 + (6-game2.getPlayer().length)*5-game2.getActivePlayer().getNrOfProvinces() );
 		assertTrue(game3.getBonusUnitsLeft() == 20 + (6-game3.getPlayer().length)*5-game3.getActivePlayer().getNrOfProvinces() );
 		assertTrue(game4.getBonusUnitsLeft() == 20 + (6-game4.getPlayer().length)*5-game4.getActivePlayer().getNrOfProvinces() );
+	}
+	
+	@Test
+	public void testChangePhase(){
+		assertTrue(game.getCurrentPhase()==Phase.FBuild);
+		
+			//Not implemented yet!
+		
+	}
+	
+	@Test
+	public void testPlaceOutBounsUnits(){
+		// Cannot test this if I dont know which diffrent provinces the players have got.
 	}
 
 	/*Detta måste testas i Province?

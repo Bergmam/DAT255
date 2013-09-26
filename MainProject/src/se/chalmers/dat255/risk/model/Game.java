@@ -58,7 +58,7 @@ public class Game implements IGame {
 		}
 		else if(currentPhase == Phase.F3){
 			changeTurn();
-			currentPhase = Phase.F3;
+			currentPhase = Phase.F1;
 		}
 		else if(currentPhase== Phase.F1){
 			currentPhase=Phase.F2;
@@ -85,6 +85,14 @@ public class Game implements IGame {
 		// TODO decide number of attackers
 		//		check if ok in another method
 			// Counts the number of defending units
+		
+		/* Hur många tärningar man väljer att slå komer från kontrollern,
+		 * och där borde det vara omöjligt att välja fler än man kan.
+		 * Så kontrollern kommer att säga attack med hur många tärningar
+		 * spearen vill. Eller tycker ni inte det låter rimligt?
+		 * Linnea
+		 */
+		
 			int defensiveDice = defensive.getUnits() == 1 ? 1 : 2;
 			
 			int[] result = battle.doBattle(offensiveDice,
@@ -118,6 +126,7 @@ public class Game implements IGame {
 
 	@Override
 	public void placeBonusUnits(int units, IProvince province) {
+		//Maybe private function??
 		province.addUnits(units);
 		bonus = bonus - units;
 	}
