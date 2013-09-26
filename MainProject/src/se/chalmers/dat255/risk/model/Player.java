@@ -77,7 +77,7 @@ public class Player {
 	/**
 	 * Throws away three cards on the players hand. Used by the exhangeCard method.
 	 */
-	private void removeCard(Card c1, Card c2, Card c3){
+	private void removeCard(ICard c1, ICard c2, ICard c3){
 		cards.remove(c1);
 		cards.remove(c2); 
 		cards.remove(c3); 		

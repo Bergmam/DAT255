@@ -15,8 +15,8 @@ public class Deck {
 
 	private static Deck INSTANCE = null;
 	
-	private static LinkedList<Card> deck = new LinkedList<Card>();
-	private static LinkedList<Card> discardPile = new LinkedList<Card>();
+	private static LinkedList<ICard> deck = new LinkedList<ICard>();
+	private static LinkedList<ICard> discardPile = new LinkedList<ICard>();
 
 	/**
 	 * Constructs a deck given an array containing the names of all provinces 
@@ -52,7 +52,7 @@ public class Deck {
 	 * Method for dealing a card.
 	 * @return the top card in the deck.
 	 */
-	public static Card giveCard(){
+	public static ICard giveCard(){
 		return deck.removeFirst();
 	}
 	
@@ -60,7 +60,7 @@ public class Deck {
 	 * Method which adds the given card to the list of discarded cards.
 	 * @param card, the card being discarded.
 	 */
-	public static void discard(Card card){
+	public static void discard(ICard card){
 		discardPile.add(card);
 	}
 	
@@ -75,7 +75,7 @@ public class Deck {
 			Collections.shuffle(deck);
 		}else{
 			//If there are cards left in the deck, the recycled ones are added to the bottom of the deck.
-			for(Card c : discardPile){
+			for(ICard c : discardPile){
 				deck.add(c);
 			}
 			Collections.shuffle(deck);
@@ -87,11 +87,11 @@ public class Deck {
 		return deck.size();
 	}
 	
-	public static LinkedList<Card> getDeckList(){
+	public static LinkedList<ICard> getDeckList(){
 		return deck;
 	}
 	
-	public static LinkedList<Card> getDiscard(){
+	public static LinkedList<ICard> getDiscard(){
 		return discardPile;
 	}
 	

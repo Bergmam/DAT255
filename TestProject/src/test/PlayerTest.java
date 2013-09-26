@@ -48,9 +48,9 @@ public class PlayerTest {
 		player.addCard();
 		player.addCard();
 		player.addCard();
-		Card card1 = player.getCards().get(2);
-		Card card2 = player.getCards().get(1);
-		Card card3 = player.getCards().get(0);
+		ICard card1 = player.getCards().get(2);
+		ICard card2 = player.getCards().get(1);
+		ICard card3 = player.getCards().get(0);
 		assertTrue(player.exchangeCard(card1, card2, card3));
 	}
 
