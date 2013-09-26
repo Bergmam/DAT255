@@ -14,7 +14,6 @@ import java.util.LinkedList;
 public class Deck {
 
 	private static Deck INSTANCE = null;
-	
 	private static LinkedList<ICard> deck = new LinkedList<ICard>();
 	private static LinkedList<ICard> discardPile = new LinkedList<ICard>();
 

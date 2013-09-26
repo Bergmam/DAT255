@@ -1,15 +1,14 @@
 package test;
 
+import static org.junit.Assert.assertTrue;
+
 import java.util.ArrayList;
 
-import se.chalmers.dat255.risk.model.Card;
-import se.chalmers.dat255.risk.model.Card.CardType;
-import se.chalmers.dat255.risk.model.Deck;
-import se.chalmers.dat255.risk.model.Player;
-import static org.junit.Assert.*;
-
 import org.junit.Test;
-import org.junit.runner.RunWith;
+
+import se.chalmers.dat255.risk.model.Deck;
+import se.chalmers.dat255.risk.model.ICard;
+import se.chalmers.dat255.risk.model.Player;
 
 
 public class PlayerTest {
