@@ -31,14 +31,10 @@ public class GameScreen extends AbstractScreen {
 		super(game, model);
 		// Create four provinceViews, players CardViews and one
 		// ChangePhaseButton.
-		
+
 		isWorld = true;
 
-		List<IProvince> a = new ArrayList<IProvince>();
-		a.add(new Province("Place"));
-
-		worldStage = new WorldStage(
-		/* TODO model.getProvinces() */a);
+		worldStage = new WorldStage(model.getGameProvinces());
 
 		// Creates a cardStage for every player
 		cardStage = new ArrayList<AbstractStage>();
@@ -61,8 +57,8 @@ public class GameScreen extends AbstractScreen {
 	public List<AbstractView> getViews() {
 		List<AbstractView> tmp = new ArrayList<AbstractView>();
 
-	//	tmp.addAll(worldStage.getViews());
-	//	tmp.addAll(uiStage.getViews());
+		tmp.addAll(worldStage.getViews());
+		tmp.addAll(uiStage.getViews());
 		for (AbstractStage s : cardStage) {
 			tmp.addAll(s.getViews());
 		}
@@ -76,9 +72,16 @@ public class GameScreen extends AbstractScreen {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		camera.update();
+		checkStageChange();
 		getStage().draw();
 		uiStage.draw();
 
+	}
+	
+	private void checkStageChange(){
+		if(isWorld != uiStage.renderWorld()){
+			changeStage();
+		}
 	}
 
 	public void changeStage() {
@@ -89,8 +92,8 @@ public class GameScreen extends AbstractScreen {
 	}
 
 	private AbstractStage getStage() {
-		return uiStage.renderWorld() ? worldStage : cardStage.get(model.getActivePlayer()
-				.getId());
+		return isWorld ? worldStage : cardStage.get(model
+				.getActivePlayer().getId());
 	}
 
 	@Override

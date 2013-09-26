@@ -1,5 +1,6 @@
 package se.chalmers.dat255.risk.view;
 
+import se.chalmers.dat255.risk.controller.SwitchListener;
 import se.chalmers.dat255.risk.view.resource.Resource;
 
 import com.badlogic.gdx.graphics.Color;
@@ -22,7 +23,6 @@ public class SwitchButton extends AbstractView {
 		size(width, height);
 		label = new Label(current, new LabelStyle(font, Color.RED));
 		label.setPosition(getX(), getY() + getHeight()/2);
-		
 	}
 
 	public String getText() {

@@ -37,15 +37,15 @@ public class CardStage extends AbstractStage {
 
 	public CardStage(List<ICard> cards) {
 		super();
-		background = new Image(Resource.getInstance().backGround);
+		background = new Image(Resource.getInstance().bg2);
 		addActor(background);
 		
 		for (int i = 0; i < cards.size(); i++) {
-			actor.add(new CardView(getTexture(cards.get(i)), cards.get(i)));
+			actor.add(new CardView(getTexture(cards.get(i)), null, cards.get(i)));
 		}
 
 		actor.add(new CardView(
-				getTexture(new Card(CardType.ARTILLERY, "Moskva")), new Card(
+				getTexture(new Card(CardType.ARTILLERY, "Moskva")),null, new Card(
 						CardType.ARTILLERY, "Moskva")));
 
 		System.out.println("this is nnumber of cards: " + actor.size());
@@ -60,19 +60,16 @@ public class CardStage extends AbstractStage {
 	}
 
 	private Texture getTexture(ICard card) {
-		// TODO Auto-generated method stub
 		if (card.getType() == CardType.ARTILLERY) {
-			return new Texture(Gdx.files.internal("Gfx/card1.png"));
+			return Resource.getInstance().card1;
 		} else if (card.getType() == CardType.CAVALRY) {
-			return new Texture(Gdx.files.internal("Gfx/card1.png"));
+			return Resource.getInstance().card2;
 		}
-		return new Texture(Gdx.files.internal("Gfx/card3.png"));
+		return Resource.getInstance().card3;
 	}
 
 	@Override
 	public void propertyChange(PropertyChangeEvent arg0) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
