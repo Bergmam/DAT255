@@ -74,7 +74,6 @@ public class WorldMap {
 		}
 
         neighbours =  new HashMap<String, ArrayList<String>>(tempNeighbours);
-
 	}
 	
 	/**
