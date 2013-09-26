@@ -5,14 +5,13 @@ import java.util.List;
 
 import se.chalmers.dat255.risk.GDXGame;
 import se.chalmers.dat255.risk.model.IGame;
-import se.chalmers.dat255.risk.model.IProvince;
 import se.chalmers.dat255.risk.model.Player;
-import se.chalmers.dat255.risk.model.Province;
 import se.chalmers.dat255.risk.view.resource.Resource;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.math.Vector2;
 
 /**
  * shows the gameboard, including provinces, cards and buttons.
@@ -73,11 +72,10 @@ public class GameScreen extends AbstractScreen {
 		checkStageChange();
 		getStage().draw();
 		uiStage.draw();
-
 	}
-	
-	private void checkStageChange(){
-		if(isWorld != uiStage.renderWorld()){
+
+	private void checkStageChange() {
+		if (isWorld != uiStage.renderWorld()) {
 			changeStage();
 		}
 	}
@@ -90,8 +88,8 @@ public class GameScreen extends AbstractScreen {
 	}
 
 	private AbstractStage getStage() {
-		return isWorld ? worldStage : cardStages.get(model
-				.getActivePlayer().getId());
+		return isWorld ? worldStage : cardStages.get(model.getActivePlayer()
+				.getId());
 	}
 
 	@Override
@@ -100,7 +98,8 @@ public class GameScreen extends AbstractScreen {
 		Resource.getInstance().dispose();
 		worldStage.dispose();
 		uiStage.dispose();
-		for(AbstractStage s: cardStages){
+		int i = 0;
+		for (AbstractStage s : cardStages) {
 			s.dispose();
 		}
 	}

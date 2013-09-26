@@ -22,11 +22,11 @@ public class CardStage extends AbstractStage {
 
 	public CardStage(List<ICard> cards) {
 		super();
-		background = new Image(Resource.getInstance().bg2);
+		background = new Image(Resource.getInstance().cardStageBg2);
 		addActor(background);
 
 		for (int i = 0; i < 5; i++) {
-			actor.add(new CardView());
+			actor.add(new CardView(Resource.getInstance().cardHolder,Resource.getInstance().cardHolder));
 		}
 
 		for (int i = 0; i<cards.size(); i++) {

@@ -15,7 +15,6 @@ public class ProvinceView extends AbstractView {
 		super(Resource.getInstance().bucket, Resource.getInstance().bucket);
 		this.province = province;
 		setSize(width, height);
-		setPosition(100, 100);
 	}
 
 	public float getCenterX() {
