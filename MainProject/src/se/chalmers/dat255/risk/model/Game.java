@@ -37,6 +37,7 @@ public class Game implements IGame {
 		//deck=Deck.getInstance(new ArrayList<String>().add(new Province("A").getId()), "5");//hårdkodat
 		battle = new BattleHandler();
 		newGame(playersId);
+		System.out.println("number of cards ====== " + deck.getSize());
 	}
 
 	
@@ -163,9 +164,17 @@ public class Game implements IGame {
 		   	 
 			// SETTING UP GAMEBOARD RULES AND CREATING PROVINCES
 		   	worldMap= new WorldMap(new File("Gfx/neighbours.txt"), new File("Gfx/continents.txt"), players);
+		   	for(Player i : players)
+		   	System.out.println(i.getName());
 
 			// SETTING UP DECK
-		//	deck = Deck.getInstanceOf(provinces, 6); // H�rdkodat antal wildcard 
+		   	ArrayList<String> provinces = new ArrayList<String>();
+		   	for(IProvince i : worldMap.getProvinces()){
+		   		provinces.add(i.getId());
+		   	}
+			deck = Deck.getInstance();
+			System.out.println("thiiiiiiiiiiiiiiis" + deck);
+			deck.CreateCards(provinces, 6);// H�rdkodat antal wildcard 
 				 
 	//		refresh(); //BYTS MOT MOTSVARANDE I LIBGDX
 	}
@@ -187,7 +196,7 @@ public class Game implements IGame {
 
 
 	@Override
-	public ArrayList<Province> getGameProvinces() {
+	public ArrayList<IProvince> getGameProvinces() {
 		// TODO Auto-generated method stub
 		return worldMap.getProvinces();
 	}

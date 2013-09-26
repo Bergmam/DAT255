@@ -77,7 +77,7 @@ public class Player {
 	/**
 	 * Throws away three cards on the players hand. Used by the exhangeCard method.
 	 */
-	private void removeCard(Card c1, Card c2, Card c3){
+	private void removeCard(ICard c1, ICard c2, ICard c3){
 		cards.remove(c1);
 		cards.remove(c2); 
 		cards.remove(c3); 		
@@ -95,14 +95,14 @@ public class Player {
 	 * Also makes sure you can only trade in one Joker at a time.
 	 */
 	
-	public boolean exchangeCard(Card c1, Card c2, Card c3){
-		ArrayList<Card> exhangeList = new ArrayList<Card>();
+	public boolean exchangeCard(ICard c1, ICard c2, ICard c3){
+		ArrayList<ICard> exhangeList = new ArrayList<ICard>();
 		exhangeList.add(c1);
 		exhangeList.add(c2);
 		exhangeList.add(c3);
 		int nrOfJokers = 0;
 		// Makes sure you can't trade in more then one Joker together with other cards.
-		for(Card c : exhangeList){
+		for(ICard c : exhangeList){
 			if(c.getType() == Card.CardType.JOKER){
 				nrOfJokers++;
 			}
