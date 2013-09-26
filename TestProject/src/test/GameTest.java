@@ -5,12 +5,26 @@ import se.chalmers.dat255.risk.model.*;
 import org.junit.Test;
 
 public class GameTest{
-	String[] name = new String[]{"Linnea","Andreas","Emil,Bergman","Christoffer","Emma"};
+	String[] name = new String[]{"Linnea","Andreas","Emil","Bergman","Christoffer","Emma"};
 	Game game = new Game (name);
 	
 	@Test
 	public void testGameConstructor(){
+		String[] name1 = new String[]{"Christoffer","Emma"};
+		Game game1 = new Game (name1);
+		String[] name2 = new String[]{"Andreas","Emil","Bergman","Christoffer","Emma"};
+		Game game2 = new Game (name2);
+		
+		//Check if number of player is correct,
+		//System.out.println("number of players: " +game1.getPlayer()[4].getName());
+		assertTrue(game.getPlayer().length == 6);
+		assertTrue(game1.getPlayer().length == 2);
+		assertTrue(game2.getPlayer().length == 5);
+		
+		//Checks if the active player is correct
 		assertTrue(game.getActivePlayer().getName() == "Linnea");
+		
+		//Check how many troops each player gets when the game begins 
 	}
 
 	/*Detta måste testas i Province?

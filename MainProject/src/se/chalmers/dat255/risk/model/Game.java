@@ -37,7 +37,6 @@ public class Game implements IGame {
 		//deck=Deck.getInstance(new ArrayList<String>().add(new Province("A").getId()), "5");//hårdkodat
 		battle = new BattleHandler();
 		newGame(playersId);
-		System.out.println("number of cards ====== " + deck.getSize());
 	}
 
 	
@@ -133,7 +132,7 @@ public class Game implements IGame {
 	@Override
 	public void newGame(String[] playersId) throws IllegalArgumentException {
 		int noOfPlayers=playersId.length;
-		if(noOfPlayers>=6 || noOfPlayers<=2){
+		if(noOfPlayers>6 || noOfPlayers<2){
 			  throw new IllegalArgumentException("The player number must be betwen 2 and 6");
 			}
 				
@@ -164,8 +163,6 @@ public class Game implements IGame {
 		   	 
 			// SETTING UP GAMEBOARD RULES AND CREATING PROVINCES
 		   	worldMap= new WorldMap(new File("Gfx/neighbours.txt"), new File("Gfx/continents.txt"), players);
-		   	for(Player i : players)
-		   	System.out.println(i.getName());
 
 			// SETTING UP DECK
 		   	ArrayList<String> provinces = new ArrayList<String>();
@@ -173,7 +170,6 @@ public class Game implements IGame {
 		   		provinces.add(i.getId());
 		   	}
 			deck = Deck.getInstance();
-			System.out.println("thiiiiiiiiiiiiiiis" + deck);
 			deck.CreateCards(provinces, 6);// H�rdkodat antal wildcard 
 				 
 	//		refresh(); //BYTS MOT MOTSVARANDE I LIBGDX
