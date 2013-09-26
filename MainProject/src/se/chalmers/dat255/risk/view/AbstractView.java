@@ -18,18 +18,17 @@ public abstract class AbstractView extends Actor implements
 	protected float width;
 	protected float height;
 
+	// pretty much only for cardview
+	public AbstractView(){
+		font = new BitmapFont();
+	}
+	
 	public AbstractView(Texture iU, Texture iD) {
 		imageUp = iU;
 		imageDown = iD;
 		width = iU.getWidth();
 		height = iU.getHeight();
 		font = new BitmapFont();
-	}
-
-	public void dispose() {
-		font.dispose();
-		imageUp.dispose();
-		imageDown.dispose();
 	}
 
 	@Override
@@ -46,5 +45,11 @@ public abstract class AbstractView extends Actor implements
 	@Override
 	public void draw(SpriteBatch batch, float alpha){
 		batch.draw(isClicked ? imageDown : imageUp ,getX(),getY());
+	}
+
+	public void dispose() {
+		font.dispose();
+		imageUp.dispose();
+		imageDown.dispose();
 	}
 }

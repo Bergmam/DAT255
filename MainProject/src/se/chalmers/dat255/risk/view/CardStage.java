@@ -17,21 +17,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 /**
  * Stage for showing a players cards
  */
-/*
- * listen to player? what to do when switching player? have lists for all
- * player?
- * 
- * Perhaps receiving all card player belonging to a player in the property
- * change and refresh all cardViews then?
- */
-
-/*
- * I think we will add CardViews when player gets more card, and when using them
- * we will destroy the cardViews. So we will get a propertyChange when player
- * removes this card from the hand.
- * 
- * So we have one cardStage for every player and just changing the stage?
- */
 public class CardStage extends AbstractStage {
 	Image background;
 
@@ -39,23 +24,22 @@ public class CardStage extends AbstractStage {
 		super();
 		background = new Image(Resource.getInstance().bg2);
 		addActor(background);
-		
-		for (int i = 0; i < cards.size(); i++) {
-			actor.add(new CardView(getTexture(cards.get(i)), null, cards.get(i)));
+
+		for (int i = 0; i < 5; i++) {
+			actor.add(new CardView());
 		}
 
-		actor.add(new CardView(
-				getTexture(new Card(CardType.ARTILLERY, "Moskva")),null, new Card(
-						CardType.ARTILLERY, "Moskva")));
-
+		for (int i = 0; i<cards.size(); i++) {
+			((CardView)actor.get(i)).addCard(getTexture(cards.get(i)), getTexture(cards.get(i)), cards.get(i));
+		}
 		System.out.println("this is nnumber of cards: " + actor.size());
 
 		for (Actor a : actor) {
 			addActor(a);
 		}
 	}
-	
-	public List<AbstractView> getViews(){
+
+	public List<AbstractView> getViews() {
 		return actor;
 	}
 

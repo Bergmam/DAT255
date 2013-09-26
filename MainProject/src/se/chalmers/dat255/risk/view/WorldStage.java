@@ -35,49 +35,39 @@ public class WorldStage extends AbstractStage implements GestureListener {
 	private float width;
 	private float height;
 	private InputMultiplexer multi;
-	
+
 	public WorldStage(List<IProvince> provinces) {
-		
+
 		background = new Image(Resource.getInstance().backGround);
 		camera = new OrthographicCamera();
 		provinceGroup = new Group();
-		
+
 		multi = new InputMultiplexer(new GestureDetector(this), this);
 		camera.setToOrtho(false);
 		setCamera(camera);
-		
+
 		width = background.getWidth();
 		height = background.getHeight();
 
 		camera.position.set(background.getWidth() / 2,
-				background.getHeight() / 2, 0); //
-		// Texture.setEnforcePotImages(false); Solves power of two?
+				background.getHeight() / 2, 0);
 
 		actor = new ArrayList<AbstractView>();
 
 		for (int i = 0; i < provinces.size(); i++) {
-			Gdx.app.log("ProvinceView", "create ProvinceView");
 			ProvinceView provinceView = new ProvinceView(provinces.get(i));
 			actor.add(provinceView);
-
+			Gdx.app.log("Create", "Province: " + provinceView.getProvince().getId());
 		}
-		
-		
+
 		addActor(background);
-		
-		// cardButton = new TextButton("Cards", new
-		// TextButton.TextButtonStyle());
-		// cardButton.setBackground("Cards");
-		// cardButton.setColor(Color.GREEN);
-		// addActor(cardButton);
 
 		for (int i = 0; i < provinces.size(); i++) {
 			provinceGroup.addActor(actor.get(i));
 		}
 		addActor(provinceGroup);
-		// addActor(new ChangePhase());
 
-		// add bounds for map
+		// attempt to add bounds for map =)
 		bounds = new BoundingBox[4];
 		bounds[0] = new BoundingBox(new Vector3(0, 0, 0), new Vector3(0,
 				height, 0));
@@ -87,27 +77,23 @@ public class WorldStage extends AbstractStage implements GestureListener {
 				width, height, 0));
 		bounds[3] = new BoundingBox(new Vector3(width, 0, 0), new Vector3(0,
 				height, 0));
-		for (Vector3 d : bounds[2].getCorners()) {
-			Gdx.app.log("tag", "" + d);
-		}
+		/*
+		 * for (Vector3 d : bounds[2].getCorners()) { Gdx.app.log("tag", "" +
+		 * d); }
+		 */
 
-		Dialog d = new Dialog("ksbfkjsbf", new WindowStyle(new BitmapFont(),
-				Color.RED, new TextureRegionDrawable(new TextureRegion(
-						Resource.getInstance().bucket))));
-		d.size(50, 50);
-		d.setPosition(200, 200);
 	}
-	
+
 	@Override
-	public InputProcessor getProcessor(){
+	public InputProcessor getProcessor() {
 		return multi;
 	}
 
 	@Override
 	public boolean touchDown(float x, float y, int pointer, int button) {
 		initialZoom = camera.zoom;
-		super.touchDown((int) x,(int) y, pointer, button);
-		
+		super.touchDown((int) x, (int) y, pointer, button);
+
 		return false;
 	}
 
@@ -168,11 +154,6 @@ public class WorldStage extends AbstractStage implements GestureListener {
 			Vector2 pointer1, Vector2 pointer2) {
 		// TODO Auto-generated method stub
 		return false;
-	}
-
-	@Override
-	public void dispose() {
-		super.dispose();
 	}
 
 	@Override

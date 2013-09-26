@@ -22,4 +22,10 @@ public abstract class AbstractStage extends Stage implements PropertyChangeListe
 
 	public abstract InputProcessor getProcessor();
 	
+	public void dispose(){
+		super.dispose();
+		for(AbstractView v : actor){
+			v.dispose();
+		}
+	}
 }

@@ -21,7 +21,7 @@ import com.badlogic.gdx.graphics.GL20;
 public class GameScreen extends AbstractScreen {
 	private boolean isWorld;
 	private AbstractStage worldStage;
-	private List<AbstractStage> cardStage;
+	private List<AbstractStage> cardStages;
 	private UIStage uiStage;
 	private InputMultiplexer multi;
 
@@ -29,18 +29,16 @@ public class GameScreen extends AbstractScreen {
 
 	public GameScreen(GDXGame game, IGame model) {
 		super(game, model);
-		// Create four provinceViews, players CardViews and one
-		// ChangePhaseButton.
 
 		isWorld = true;
 
 		worldStage = new WorldStage(model.getGameProvinces());
 
 		// Creates a cardStage for every player
-		cardStage = new ArrayList<AbstractStage>();
+		cardStages = new ArrayList<AbstractStage>();
 
 		for (Player i : model.getPlayer()) {
-			cardStage.add(new CardStage(i.getCards()));
+			cardStages.add(new CardStage(i.getCards()));
 		}
 		uiStage = new UIStage(model);
 
@@ -59,7 +57,7 @@ public class GameScreen extends AbstractScreen {
 
 		tmp.addAll(worldStage.getViews());
 		tmp.addAll(uiStage.getViews());
-		for (AbstractStage s : cardStage) {
+		for (AbstractStage s : cardStages) {
 			tmp.addAll(s.getViews());
 		}
 
@@ -92,7 +90,7 @@ public class GameScreen extends AbstractScreen {
 	}
 
 	private AbstractStage getStage() {
-		return isWorld ? worldStage : cardStage.get(model
+		return isWorld ? worldStage : cardStages.get(model
 				.getActivePlayer().getId());
 	}
 
@@ -101,5 +99,9 @@ public class GameScreen extends AbstractScreen {
 		super.dispose();
 		Resource.getInstance().dispose();
 		worldStage.dispose();
+		uiStage.dispose();
+		for(AbstractStage s: cardStages){
+			s.dispose();
+		}
 	}
 }
