@@ -1,6 +1,5 @@
 package se.chalmers.dat255.risk.model;
 
-import se.chalmers.dat255.risk.model.Card.CardType;
 
 public interface ICard {
 	/**

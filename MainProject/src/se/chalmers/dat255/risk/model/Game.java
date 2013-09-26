@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class Game implements IGame {
 	private Player[] players;
-	private int activePlayer;
+	private int activePlayer, startingTroopNr;
 //	private int currentPhase;
 	private WorldMap worldMap;
 	private int bonus;
@@ -20,6 +20,9 @@ public class Game implements IGame {
 	private IProvince oldClickedProvince = null;
 	private boolean movedTroops =false; //F3
 	private boolean firstProvinceConqueredThisTurn=true;
+	
+	private ICard card1=null;
+	private ICard card2=null;
 	
 	//CURRENT PHASE
 	private Phase currentPhase=Phase.F1;
@@ -43,7 +46,17 @@ public class Game implements IGame {
 	 * be changed.
 	 */
 	private void changePhase() {
-		if(currentPhase == Phase.F3){
+		if(currentPhase == Phase.FBuild){
+			if(getActivePlayer() == players[players.length - 1]){
+				changeTurn();
+				currentPhase = Phase.F1;
+			}
+			else{
+				activePlayer = (activePlayer + 1) % players.length;
+				bonus = startingTroopNr - getActivePlayer().getNrOfProvinces();
+			}
+		}
+		else if(currentPhase == Phase.F3){
 			changeTurn();
 			currentPhase = Phase.F3;
 		}
@@ -132,9 +145,24 @@ public class Game implements IGame {
 			 currentPhase=Phase.F1;
 			 activePlayer=0;
 			 players[activePlayer].setCurrent(true); // Player one knows it�s his turn
+			 
+			 // INITIALIZING STARTING NUMBER OF TROOPS
+			 switch(players.length){
+			 case 2: startingTroopNr = 40;
+				 break;
+			 case 3: startingTroopNr = 35;
+				 break;
+			 case 4: startingTroopNr = 30;
+				 break;
+			 case 5: startingTroopNr = 25;
+				 break;
+			 case 6: startingTroopNr = 20;
+				 break;
+			 }
+			 bonus = startingTroopNr - getActivePlayer().getNrOfProvinces();
 		   	 
 			// SETTING UP GAMEBOARD RULES AND CREATING PROVINCES
-		   	worldMap= new WorldMap(new File("neighbours.txt"), new File("continents.txt"), players);
+		   	worldMap= new WorldMap(new File("Gfx/neighbours.txt"), new File("Gfx/continents.txt"), players);
 
 			// SETTING UP DECK
 		//	deck = Deck.getInstanceOf(provinces, 6); // H�rdkodat antal wildcard 
@@ -168,6 +196,7 @@ public class Game implements IGame {
 	@Override
 	public void handleProvinceClick(IProvince newClickedProvince) {
 		// TODO Auto-generated method stub
+		
 		// TROOP REINFORCMENT PHASE 1, ONLY THE PLACEMENT
 		if(getCurrentPhase()==IGame.Phase.F1){
 			//PUT A SINGEL UNIT ON THIS PROVINCE IF OWNED
@@ -201,6 +230,12 @@ public class Game implements IGame {
 			}
 			else{
 				oldClickedProvince=newClickedProvince;
+			}
+		}
+		// Placing troops in build phase
+		else if(getCurrentPhase() == IGame.Phase.FBuild){
+			if(worldMap.getOwner(newClickedProvince.getId()) == getActivePlayer()){
+				placeBonusUnits(1, newClickedProvince);
 			}
 		}
 	}
@@ -240,5 +275,36 @@ public class Game implements IGame {
 			}
 		}
 	}
+
+
+	@Override
+	public void handleCardClick(ICard card) {
+		// TODO Auto-generated method stub
+		if(card2!=null){
+			getActivePlayer().exchangeCard((Card) card1, (Card) card2, (Card) card);
+			card1=null;
+			card2=null;
+		}
+		else{
+			if(card1==null){
+				card1=card;
+			}
+			else{
+				card2=card;
+			}
+		}		
+	}
+
+
+	@Override
+	public void handlePhaseClick() {
+		// TODO Auto-generated method stub
+		// Ska kolla så att spelaren är klar med alla sina 
+		// "actions" och kan byta fas.
+		// När du är i FBuild, så måste du kolla så att det är tomt 
+		// i bonus innan du "byter fas" = kör changePhase.
+		
+	}
+	
 		
 }

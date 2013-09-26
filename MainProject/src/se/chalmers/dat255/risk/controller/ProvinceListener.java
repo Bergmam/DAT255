@@ -1,12 +1,9 @@
 package se.chalmers.dat255.risk.controller;
 
-import java.awt.Color;
-
 import se.chalmers.dat255.risk.model.IGame;
 import se.chalmers.dat255.risk.model.IProvince;
-import se.chalmers.dat255.risk.view.*;
+import se.chalmers.dat255.risk.view.ProvinceView;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 

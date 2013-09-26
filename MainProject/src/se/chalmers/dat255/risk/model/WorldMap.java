@@ -7,8 +7,6 @@ import java.util.HashMap;
 import java.util.Random;
 import java.util.Scanner;
 
-import com.badlogic.gdx.graphics.g3d.shaders.DefaultShader.Setters.Bones;
-
 /**
  * Contains Maps with relations for the provinces on the game board
  * and the players controlling them.
@@ -49,6 +47,7 @@ public class WorldMap {
                 tempNeighbours.put(p1, list);
                 
             }
+          continents = new ArrayList<Continent>();
           scanner= new Scanner(continentFile);
           String itsProvinces[];
           while (scanner.hasNextLine()) {
@@ -70,6 +69,9 @@ public class WorldMap {
 		
 		allProvinces = buildProvinces(listOfProvinces);
 		randomizeProvinces(listOfProvinces, players);
+		for(Province province : allProvinces){
+			province.setColor(PlayerColor.getStringColor(this.getOwner(province.getId()).getId()));
+		}
 
         neighbours =  new HashMap<String, ArrayList<String>>(tempNeighbours);
 
@@ -132,6 +134,7 @@ public class WorldMap {
 		Random randGen = new Random();
 		while(!temp.isEmpty()){
 			for(Player player:players){
+				if(nrOfProvinces >0)
 				ownership.put(temp.remove(randGen.nextInt(nrOfProvinces)), player);
 				nrOfProvinces--;
 			}
@@ -148,9 +151,7 @@ public class WorldMap {
 	private ArrayList<Province> buildProvinces(ArrayList<String> nameList){
 		ArrayList<Province> provinceList = new ArrayList<Province>();
 		for(String s : nameList){
-			Province province = new Province(s);
-			province.setColor(PlayerColor.getStringColor(this.getOwner(s).getId()));
-			provinceList.add(province);
+			provinceList.add(new Province(s));
 		}
 		return provinceList;
 	}
