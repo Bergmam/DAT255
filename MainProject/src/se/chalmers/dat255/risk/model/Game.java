@@ -25,7 +25,7 @@ public class Game implements IGame {
 	private ICard card2=null;
 	
 	//CURRENT PHASE
-	private Phase currentPhase=Phase.F1;
+	private Phase currentPhase=Phase.FBuild;
 	
 	/**
 	 * Creates a new Game.

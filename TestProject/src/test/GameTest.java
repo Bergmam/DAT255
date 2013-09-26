@@ -44,10 +44,8 @@ public class GameTest{
 	
 	@Test
 	public void testChangePhase(){
-		assertTrue(game.getCurrentPhase()==Phase.FBuild);
-		
+		assertTrue(game.getCurrentPhase()==Phase.F1); // FBuild?
 			//Not implemented yet!
-		
 	}
 	
 	@Test
