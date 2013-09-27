@@ -11,6 +11,10 @@ public class ProvinceListener extends ClickListener {
 
 	IGame	theGame;
 	
+	public ProvinceListener(IGame theGame){
+		this.theGame = theGame;
+	}
+	
 	/**
 	 *	If we want to highlight the province that logic can/should
 	 *	be in this method.
