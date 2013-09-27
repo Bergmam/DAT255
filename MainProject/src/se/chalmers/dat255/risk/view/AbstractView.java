@@ -17,11 +17,6 @@ public abstract class AbstractView extends Actor implements
 	protected Texture imageDown;
 	protected float width;
 	protected float height;
-
-	// pretty much only for cardview
-	public AbstractView(){
-		font = new BitmapFont();
-	}
 	
 	public AbstractView(Texture iU, Texture iD) {
 		imageUp = iU;

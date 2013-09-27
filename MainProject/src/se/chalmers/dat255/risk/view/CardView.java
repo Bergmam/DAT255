@@ -2,7 +2,9 @@ package se.chalmers.dat255.risk.view;
 
 import se.chalmers.dat255.risk.model.ICard;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 
 public class CardView extends AbstractView {
@@ -11,7 +13,7 @@ public class CardView extends AbstractView {
 	public CardView(Texture normal, Texture checked) {
 		super(normal, checked);
 		setPosition(100, 100);
-		setSize(imageUp.getWidth(), imageUp.getHeight());
+		setSize(Gdx.graphics.getWidth()/5,4*(Gdx.graphics.getHeight()/9));
 	}
 	public void addCard(Texture normal, Texture checked, ICard card){
 		this.card = card;
@@ -20,5 +22,11 @@ public class CardView extends AbstractView {
 	
 	public ICard getCard(){
 		return card;
+	}
+	
+	@Override
+	public void draw(SpriteBatch batch, float alpha){
+		batch.draw(isClicked ? imageDown : imageUp ,getX(),getY(),getWidth(),getHeight());
+		
 	}
 }
