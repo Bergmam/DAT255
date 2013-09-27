@@ -1,6 +1,6 @@
 package se.chalmers.dat255.risk;
 
-import se.chalmers.dat255.risk.view.MainMenu;
+import se.chalmers.dat255.risk.controller.ScreenManager;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -8,15 +8,18 @@ import com.badlogic.gdx.graphics.FPSLogger;
 
 public class GDXGame extends Game {
 	FPSLogger logger;
+	ScreenManager manager;
 
 	@Override
 	public void create() {
+	
 		Gdx.app.log("Risk", "creating game");
-
+	
 		logger = new FPSLogger();
+		manager = ScreenManager.getInstance();
+		manager.instantiate(this);
+		manager.changeScreen();
 		
-		setScreen(new MainMenu(this));
-
 	}
 
 	@Override
@@ -28,7 +31,7 @@ public class GDXGame extends Game {
 	@Override
 	public void render() {
 		super.render();
-		//Gdx.app.log("Risk", "RenderingGame");
+		// Gdx.app.log("Risk", "RenderingGame");
 		logger.log();
 	}
 
@@ -46,7 +49,7 @@ public class GDXGame extends Game {
 	@Override
 	public void dispose() {
 		Gdx.app.log("Risk", "Destroying game");
-
+		manager.dispose();
 	}
 
 }

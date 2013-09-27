@@ -1,5 +1,7 @@
 package se.chalmers.dat255.risk.model;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 
 /**
@@ -10,22 +12,45 @@ import java.util.ArrayList;
  */
 
 public class Player {
+	private PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 	private String name;
 	private int turnId, nrOfProvinces = 0;
 	private boolean current=false;
-	private ArrayList<Card> cards; // The cards the player currently has on his/her hand.
+	private ArrayList<ICard> cards; // The cards the player currently has on his/her hand.
 	
+	// ============== EVENT-CONSTANTS ==============
+	public final static String CARD_ADDED = "addedCard";
+	public final static String CARD_REMOVED = "addedCard";
+	// =============================================
+
+	
+	/**
+	 * creating a player with a specified turn an name. 
+	 * @param turnId the players turn identification.
+	 * @param name the players name in the game
+	 * @param color the color of the player
+	 */
 	public Player(int turnId, String name){
 		this.turnId = turnId;
 		this.name = name;	
-		cards = new ArrayList<Card>();
+		cards = new ArrayList<ICard>();	
+	}
+	
+	/**
+	 * Adds a listener to this object
+	 * @param observer the listener of this object
+	 */
+	public void addListener(final PropertyChangeListener observer) {
+		this.pcs.addPropertyChangeListener(observer);
 	}
 	
 	/**
 	 * Takes a card from the deck and puts on the players hand.
 	 */
 	public void addCard(){
-		cards.add(Deck.giveCard());
+		ICard newCard = Deck.giveCard();
+		cards.add(newCard);
+		pcs.firePropertyChange(this.CARD_ADDED, null, newCard);
 	}
 	
 	/**
@@ -52,13 +77,16 @@ public class Player {
 	/**
 	 * Throws away three cards on the players hand. Used by the exhangeCard method.
 	 */
-	private void removeCard(Card c1, Card c2, Card c3){
+	private void removeCard(ICard c1, ICard c2, ICard c3){
 		cards.remove(c1);
 		cards.remove(c2); 
 		cards.remove(c3); 		
 		Deck.discard(c1);
 		Deck.discard(c2);
 		Deck.discard(c3);
+		pcs.firePropertyChange(this.CARD_REMOVED, null, c1);
+		pcs.firePropertyChange(this.CARD_REMOVED, null, c2);
+		pcs.firePropertyChange(this.CARD_REMOVED, null, c3);
 	}
 
 	/**
@@ -67,14 +95,14 @@ public class Player {
 	 * Also makes sure you can only trade in one Joker at a time.
 	 */
 	
-	public boolean exchangeCard(Card c1, Card c2, Card c3){
-		ArrayList<Card> exhangeList = new ArrayList<Card>();
+	public boolean exchangeCard(ICard c1, ICard c2, ICard c3){
+		ArrayList<ICard> exhangeList = new ArrayList<ICard>();
 		exhangeList.add(c1);
 		exhangeList.add(c2);
 		exhangeList.add(c3);
 		int nrOfJokers = 0;
 		// Makes sure you can't trade in more then one Joker together with other cards.
-		for(Card c : exhangeList){
+		for(ICard c : exhangeList){
 			if(c.getType() == Card.CardType.JOKER){
 				nrOfJokers++;
 			}
@@ -108,11 +136,16 @@ public class Player {
 	 * Returns the cards on the players hand
 	 * @return The ArrayList of Cards.
 	 */
-	public ArrayList<Card> getCards(){
+	public ArrayList<ICard> getCards(){
 		return cards;
 	}
 	
 	public void setCurrent(Boolean current){
 		this.current=current;
 	}
+	
+	public int getId(){
+		return turnId;
+	}
+	
 }

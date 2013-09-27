@@ -1,21 +1,21 @@
 package se.chalmers.dat255.risk.view;
 
-import se.chalmers.dat255.risk.GDXGame;
+import se.chalmers.dat255.risk.model.IGame;
 
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-public abstract class AScreen implements Screen {
+public abstract class AbstractScreen implements Screen {
 
-	protected GDXGame game;
+	protected IGame model;
 	protected BitmapFont font;
 	protected SpriteBatch batch;
 	protected OrthographicCamera camera;
 	
-	public AScreen(GDXGame game) {
-		this.game = game;
+	public AbstractScreen(IGame model) {
+		this.model = model;
 		font = new BitmapFont();
 		batch = new SpriteBatch();
 		camera = new OrthographicCamera();
@@ -60,8 +60,7 @@ public abstract class AScreen implements Screen {
 	@Override
 	public void dispose() {
 		font.dispose();
-		batch.dispose();
-		
+		batch.dispose();		
 	}
 
 }

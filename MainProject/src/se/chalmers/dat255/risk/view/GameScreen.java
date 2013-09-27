@@ -1,46 +1,65 @@
 package se.chalmers.dat255.risk.view;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import se.chalmers.dat255.risk.GDXGame;
-import se.chalmers.dat255.risk.model.IProvince;
-import se.chalmers.dat255.risk.model.Province;
+import se.chalmers.dat255.risk.model.IGame;
+import se.chalmers.dat255.risk.model.Player;
+import se.chalmers.dat255.risk.view.resource.Resource;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 
 /**
  * shows the gameboard, including provinces, cards and buttons.
  * 
  */
-public class GameScreen extends AScreen {
-	Stage stage;
-	
-	
-	// Later we will get this list from IGame, and than we just need IProvinces!
-	private List<IProvince> provinces= new ArrayList<IProvince>();
+public class GameScreen extends AbstractScreen {
+	private boolean isWorld;
+	private AbstractStage worldStage;
+	private List<AbstractStage> cardStages;
+	private UIStage uiStage;
+	private InputMultiplexer multi;
 
-	
-	
-	public GameScreen(GDXGame game) {
-		super(game);
-		//Create four provinceViews, 4 CardViews and one ChangePhaseButton.
-		
-		camera.setToOrtho(false, 800, 480);
-		provinces.add(new Province("Ungern"));
-		provinces.add(new Province("Frankrike"));
-		provinces.add(new Province("Spanien"));
-		provinces.add(new Province("Sverige"));
-		stage = new ProvinceStage(provinces);
+	// TODO: IPlayer ??
 
+	public GameScreen(IGame model) {
+		super(model);
+
+		isWorld = true;
+
+		worldStage = new WorldStage(model.getGameProvinces(), Resource.getInstance().cords);
+
+		// Creates a cardStage for every player
+		cardStages = new ArrayList<AbstractStage>();
+
+		for (Player i : model.getPlayer()) {
+			cardStages.add(new CardStage(i.getCards()));
+		}
+		uiStage = new UIStage(model);
+
+		multi = new InputMultiplexer(uiStage, worldStage.getProcessor());
+
+		Gdx.input.setInputProcessor(multi);
 	}
 
 	@Override
 	public void show() {
 
+	}
+
+	public List<AbstractView> getViews() {
+		List<AbstractView> tmp = new ArrayList<AbstractView>();
+
+		tmp.addAll(worldStage.getViews());
+		tmp.addAll(uiStage.getViews());
+		for (AbstractStage s : cardStages) {
+			tmp.addAll(s.getViews());
+		}
+
+		return tmp;
 	}
 
 	@Override
@@ -49,19 +68,38 @@ public class GameScreen extends AScreen {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		camera.update();
-		stage.act(Gdx.graphics.getDeltaTime());
-		stage.draw();
+		checkStageChange();
+		getStage().draw();
+		uiStage.draw();
+	}
 
-		if (Gdx.input.isTouched()) {
-			Vector3 touchPos = new Vector3();
-			touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
-
+	private void checkStageChange() {
+		if (isWorld != uiStage.renderWorld()) {
+			changeStage();
 		}
+	}
 
+	public void changeStage() {
+		multi.removeProcessor(getStage().getProcessor());
+		isWorld = !isWorld;
+		multi.addProcessor(getStage().getProcessor());
+
+	}
+
+	private AbstractStage getStage() {
+		return isWorld ? worldStage : cardStages.get(model.getActivePlayer()
+				.getId());
 	}
 
 	@Override
 	public void dispose() {
 		super.dispose();
+		Resource.getInstance().dispose();
+		worldStage.dispose();
+		uiStage.dispose();
+		int i = 0;
+		for (AbstractStage s : cardStages) {
+			s.dispose();
+		}
 	}
 }

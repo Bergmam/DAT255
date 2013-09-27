@@ -1,5 +1,7 @@
 package se.chalmers.dat255.risk.model;
 
+import java.util.ArrayList;
+
 /**
  * Interface for top class in the game risk
  * 
@@ -74,6 +76,22 @@ public interface IGame {
 	 * @param goTo
 	 *            Province to move units to
 	 */
-	public void moveToProvince(int nbrOfUnits, IProvince from, IProvince goTo);
+	
+	public Phase getCurrentPhase();
+	
+	public static enum Phase {FBuild, F1, F2, F3}
+	
+	public Player[] getPlayer();
+	
+	public ArrayList<IProvince> getGameProvinces();
+	
+	public void handleProvinceClick(IProvince province);
 
+	public void handleCardClick(ICard province);
+	
+	public void handlePhaseClick();
+	
+	public Phase getPhase();
+	
+	public int getOwner(String provinceName);
 }
