@@ -1,5 +1,7 @@
 package se.chalmers.dat255.risk.view.resource;
 
+import java.io.File;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 
