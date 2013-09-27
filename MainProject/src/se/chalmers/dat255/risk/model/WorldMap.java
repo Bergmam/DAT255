@@ -114,6 +114,7 @@ public class WorldMap {
 		player.gainProvince();
 		//
 	}
+	
 
 	/**
 	 * Checks if two territories are adjacent.
