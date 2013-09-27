@@ -10,10 +10,11 @@ public class ProvinceView extends AbstractView {
 
 	private IProvince province;
 
-	public ProvinceView(IProvince province) {
+	public ProvinceView(IProvince province, int x, int y) {
 		super(Resource.getInstance().bucket, Resource.getInstance().bucket);
 		this.province = province;
 		setSize(width, height);
+		setPosition(x, y);
 	}
 
 	public float getCenterX() {
