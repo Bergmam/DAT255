@@ -10,14 +10,12 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public abstract class AbstractScreen implements Screen {
 
-	protected GDXGame game;
 	protected IGame model;
 	protected BitmapFont font;
 	protected SpriteBatch batch;
 	protected OrthographicCamera camera;
 	
-	public AbstractScreen(GDXGame game, IGame model) {
-		this.game = game;
+	public AbstractScreen(IGame model) {
 		this.model = model;
 		font = new BitmapFont();
 		batch = new SpriteBatch();

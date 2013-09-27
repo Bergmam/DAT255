@@ -3,6 +3,7 @@ package se.chalmers.dat255.risk.view;
 import java.util.List;
 
 import se.chalmers.dat255.risk.GDXGame;
+import se.chalmers.dat255.risk.controller.ScreenManager;
 import se.chalmers.dat255.risk.model.IGame;
 
 import com.badlogic.gdx.Gdx;
@@ -10,19 +11,11 @@ import com.badlogic.gdx.graphics.GL10;
 
 public class MainScreen extends AbstractScreen {
 
-	GameScreen screen;
-	public MainScreen(GDXGame game, IGame model) {
-		super(game, model);
+	public MainScreen(IGame model) {
+		super(model);
 		camera.setToOrtho(false);
-		screen = new GameScreen(game, model);
 
 	}
-
-	// returns the view that needs listeners
-	public List<AbstractView> getViews() {
-		return screen.getViews();
-	}
-	
 
 	@Override
 	public void render(float render) {
@@ -36,7 +29,7 @@ public class MainScreen extends AbstractScreen {
 
 		if (Gdx.input.isTouched()) {
 
-			game.setScreen(screen);
+			ScreenManager.getInstance().changeScreen();
 		}
 
 	}
@@ -44,7 +37,6 @@ public class MainScreen extends AbstractScreen {
 	@Override
 	public void dispose() {
 		super.dispose();
-		screen.dispose();
 	}
 
 }

@@ -16,7 +16,8 @@ public class GDXGame extends Game {
 		Gdx.app.log("Risk", "creating game");
 	
 		logger = new FPSLogger();
-		manager = new ScreenManager(this);
+		manager = ScreenManager.getInstance();
+		manager.changeScreen();
 		
 	}
 

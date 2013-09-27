@@ -26,8 +26,8 @@ public class GameScreen extends AbstractScreen {
 
 	// TODO: IPlayer ??
 
-	public GameScreen(GDXGame game, IGame model) {
-		super(game, model);
+	public GameScreen(IGame model) {
+		super(model);
 
 		isWorld = true;
 
