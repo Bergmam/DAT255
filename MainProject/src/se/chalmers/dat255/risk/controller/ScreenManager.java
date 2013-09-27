@@ -1,5 +1,6 @@
 package se.chalmers.dat255.risk.controller;
 
+import se.chalmers.dat255.risk.GDXGame;
 import se.chalmers.dat255.risk.model.Game;
 import se.chalmers.dat255.risk.model.IGame;
 import se.chalmers.dat255.risk.view.AbstractView;
@@ -15,6 +16,7 @@ public class ScreenManager {
 	private MainScreen main;
 	private GameScreen screen;
 	private IGame model;
+	GDXGame game;
 
 	private ScreenManager() {
 		
@@ -34,7 +36,7 @@ public class ScreenManager {
 				v.addListener(new SwitchListener());
 			}
 		}
-		changeScreen();
+		//changeScreen();
 	}
 	
 	public static ScreenManager getInstance(){
@@ -46,10 +48,13 @@ public class ScreenManager {
 	public void dispose(){
 		main.dispose();
 	}
+	
+	public void instantiate(GDXGame game){
+		this.game = game;
+	}
 
 	public void changeScreen() {
-		// TODO Auto-generated method stub
-		
+		game.setScreen(game.getScreen() == main? screen:main);
 	}
 	
 }
