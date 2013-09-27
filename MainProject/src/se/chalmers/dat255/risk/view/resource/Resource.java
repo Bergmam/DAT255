@@ -3,6 +3,7 @@ package se.chalmers.dat255.risk.view.resource;
 import java.io.File;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 
 public class Resource {
@@ -16,6 +17,9 @@ public class Resource {
 	public Texture card3 = new Texture(Gdx.files.internal("Gfx/card3.jpg"));
 	public Texture bucket = new Texture(Gdx.files.internal("Gfx/bucket.png"));
 	public Texture cardHolder = new Texture(Gdx.files.internal("Gfx/RiskCard.jpg"));
+	public File neighbours = Gdx.files.internal("Gfx/neighbours.txt)").file();
+	public File cords = Gdx.files.internal("Gfx/Cords.txt)").file();
+	public File continents = Gdx.files.internal("Gfx/continents.txt)").file();
 	
 	public static Resource getInstance(){
 		if(instance == null){

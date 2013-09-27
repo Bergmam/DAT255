@@ -30,7 +30,7 @@ public class GameScreen extends AbstractScreen {
 
 		isWorld = true;
 
-		worldStage = new WorldStage(model.getGameProvinces(), Gdx.files.internal("Gfx/Cords.txt").file());
+		worldStage = new WorldStage(model.getGameProvinces(), Resource.getInstance().cords);
 
 		// Creates a cardStage for every player
 		cardStages = new ArrayList<AbstractStage>();
