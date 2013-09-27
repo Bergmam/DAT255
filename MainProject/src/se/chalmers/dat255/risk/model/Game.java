@@ -3,6 +3,8 @@ package se.chalmers.dat255.risk.model;
 import java.io.File;
 import java.util.ArrayList;
 
+import se.chalmers.dat255.risk.view.resource.Resource;
+
 import com.badlogic.gdx.Gdx;
 
 /**
@@ -173,7 +175,7 @@ public class Game implements IGame {
 			 bonus = startingTroopNr - getActivePlayer().getNrOfProvinces();
 		   	 
 			// SETTING UP GAMEBOARD RULES AND CREATING PROVINCES
-		   	worldMap= new WorldMap(Gdx.files.internal("Gfx/neighbours.txt").file(), Gdx.files.internal("Gfx/continents.txt").file(), players);
+		   	worldMap= new WorldMap(Resource.getInstance().neighbours, Resource.getInstance().continents, players);
 
 			// SETTING UP DECK
 		   	ArrayList<String> provinces = new ArrayList<String>();
@@ -214,7 +216,7 @@ public class Game implements IGame {
 		// TODO Auto-generated method stub
 		
 		// TROOP REINFORCMENT PHASE 1, ONLY THE PLACEMENT
-		if(getCurrentPhase()==IGame.Phase.F1){
+		if(getCurrentPhase()==IGame.Phase.F1 && bonus>0){
 			//PUT A SINGEL UNIT ON THIS PROVINCE IF OWNED
 			if(worldMap.getOwner(newClickedProvince.getId()) == getActivePlayer()){
 				placeBonusUnits(1, newClickedProvince);
@@ -250,7 +252,8 @@ public class Game implements IGame {
 		}
 		// Placing troops in build phase
 		else if(getCurrentPhase() == IGame.Phase.FBuild){
-			if(worldMap.getOwner(newClickedProvince.getId()) == getActivePlayer()){
+			if(worldMap.getOwner(newClickedProvince.getId()) == getActivePlayer() && 
+					bonus>0){
 				placeBonusUnits(1, newClickedProvince);
 			}
 		}
