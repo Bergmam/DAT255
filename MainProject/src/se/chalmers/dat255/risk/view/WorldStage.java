@@ -58,8 +58,10 @@ public class WorldStage extends AbstractStage implements GestureListener {
 				String[] array = line.split("-");
 				String xCord = array[0];
 				String yCord = array[1];
+				int intXCord = Integer.parseInt(xCord);
+				int intYCord = Integer.parseInt(yCord);
 				ProvinceView provinceView = new ProvinceView(provinces.get(i),
-						Integer.getInteger(xCord), Integer.getInteger(yCord));
+						intXCord, intYCord);
 				actor.add(provinceView);
 				i++;
 			}
