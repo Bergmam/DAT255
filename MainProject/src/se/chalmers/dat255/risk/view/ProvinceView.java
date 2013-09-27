@@ -19,22 +19,20 @@ public class ProvinceView extends AbstractView {
 	}
 
 	public float getCenterX() {
-		return getX() + (getWidth() / 2);
+		return getX() + (getWidth() / 4);
 	}
 
 	public float getCenterY() {
-		return getY() + (getWidth() / 2);
+		return getY() + (getWidth() / 4);
 	}
 
 	@Override
 	public void draw(SpriteBatch batch, float alpha) {
 		//color stuff is tmp untikl we get better images
-		java.awt.Color color =java.awt.Color.getColor(province.getColor());
 		
-		//batch.setColor(new Color(c));
 		batch.draw(isClicked? imageUp : imageDown, getX(), getY(), width/2,height/2);
-		super.draw(batch, alpha);
-		
+		font.setColor(Color.RED);
+		font.draw(batch, ""+province.getUnits(), getCenterX(), getCenterY());
 	}
 
 	public IProvince getProvince() {
