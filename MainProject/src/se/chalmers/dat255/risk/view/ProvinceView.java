@@ -2,6 +2,8 @@ package se.chalmers.dat255.risk.view;
 
 
 import se.chalmers.dat255.risk.model.IProvince;
+import se.chalmers.dat255.risk.view.resource.ColorHandler;
+import se.chalmers.dat255.risk.view.resource.PlayerColor;
 import se.chalmers.dat255.risk.view.resource.Resource;
 
 import com.badlogic.gdx.graphics.Color;
@@ -28,8 +30,8 @@ public class ProvinceView extends AbstractView {
 
 	@Override
 	public void draw(SpriteBatch batch, float alpha) {
-		//color stuff is tmp untikl we get better images
 		
+		batch.setColor(ColorHandler.getInstance().getColor(province.getId()));
 		batch.draw(isClicked? imageUp : imageDown, getX(), getY(), width/2,height/2);
 		font.setColor(Color.RED);
 		font.draw(batch, ""+province.getUnits(), getCenterX(), getCenterY());

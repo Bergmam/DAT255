@@ -10,6 +10,7 @@ import se.chalmers.dat255.risk.view.GameScreen;
 import se.chalmers.dat255.risk.view.MainScreen;
 import se.chalmers.dat255.risk.view.ProvinceView;
 import se.chalmers.dat255.risk.view.SwitchButton;
+import se.chalmers.dat255.risk.view.resource.ColorHandler;
 
 public class ScreenManager {
 	private static ScreenManager instance;
@@ -24,7 +25,7 @@ public class ScreenManager {
 				"c", "d" });
 		main = new MainScreen(model);
 		screen = new GameScreen( model);
-		
+		ColorHandler.getInstance().instantiate(model);
 		for (AbstractView v : screen.getViews()) {
 			if (v instanceof ProvinceView) {
 				v.addListener(new ProvinceListener(model));

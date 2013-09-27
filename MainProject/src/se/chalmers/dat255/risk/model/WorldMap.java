@@ -7,6 +7,9 @@ import java.util.Random;
 import java.util.Scanner;
 
 import com.badlogic.gdx.files.FileHandle;
+import se.chalmers.dat255.risk.view.resource.PlayerColor;
+
+import com.badlogic.gdx.Gdx;
 
 /**
  * Contains Maps with relations for the provinces on the game board and the
@@ -72,10 +75,7 @@ public class WorldMap {
 
 		allProvinces = buildProvinces(listOfProvinces);
 		randomizeProvinces(listOfProvinces, players);
-		for (IProvince province : allProvinces) {
-			province.setColor(PlayerColor.getStringColor(this.getOwner(
-					province.getId()).getId()));
-		}
+
 		
 		
 		
@@ -124,6 +124,7 @@ public class WorldMap {
 
 		allProvinces = buildProvinces(listOfProvinces);
 		randomizeProvinces(listOfProvinces, players);
+<<<<<<< HEAD
 		for (IProvince province : allProvinces) {
 			province.setColor(PlayerColor.getStringColor(this.getOwner(
 					province.getId()).getId()));
@@ -161,6 +162,7 @@ public class WorldMap {
 		player.gainProvince();
 		//
 	}
+	
 
 	/**
 	 * Checks if two territories are adjacent.

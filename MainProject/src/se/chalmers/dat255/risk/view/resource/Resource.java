@@ -1,7 +1,5 @@
 package se.chalmers.dat255.risk.view.resource;
 
-import java.io.File;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
@@ -9,40 +7,47 @@ import com.badlogic.gdx.graphics.Texture;
 public class Resource {
 
 	private static Resource instance;
-	
-	public Texture backGround = new Texture(Gdx.files.internal("Gfx/RiskMap1.png"));
-	public Texture cardStageBg2 = new Texture(Gdx.files.internal("Gfx/RiskMap.png")); 
+
+	public Texture backGround = new Texture(
+			Gdx.files.internal("Gfx/RiskMap1.png"));
+	public Texture cardStageBg2 = new Texture(
+			Gdx.files.internal("Gfx/RiskMap.png"));
 	public Texture card1 = new Texture(Gdx.files.internal("Gfx/card1.png"));
-	public Texture card2 = new Texture(Gdx.files.internal("Gfx/card1.png")); //Will be card2 later.
+	public Texture card2 = new Texture(Gdx.files.internal("Gfx/card1.png")); // Will
+																				// be
+																				// card2
+																				// later.
 	public Texture card3 = new Texture(Gdx.files.internal("Gfx/card3.jpg"));
 	public Texture bucket = new Texture(Gdx.files.internal("Gfx/bucket.png"));
 	public Texture cardHolder = new Texture(Gdx.files.internal("Gfx/RiskCard.jpg"));
 	public FileHandle neighbours = Gdx.files.internal("Gfx/neighbours.txt");
 	public FileHandle cords = Gdx.files.internal("Gfx/Cords.txt");
 	public FileHandle continents = Gdx.files.internal("Gfx/continents.txt");
-	
-	public static Resource getInstance(){
-		if(instance == null){
+
+	public static Resource getInstance() {
+		if (instance == null) {
 			instance = new Resource();
 		}
 		return instance;
 	}
-	
-	public Resource(){
+
+	public Resource() {
 		loadResources();
 	}
-	
-	public void loadResources(){
+
+	public void loadResources() {
 		backGround = new Texture(Gdx.files.internal("Gfx/RiskMap1.png"));
 		card1 = new Texture(Gdx.files.internal("Gfx/card1.png"));
-		card2 = new Texture(Gdx.files.internal("Gfx/card1.png")); //Will be card2 later.
+		card2 = new Texture(Gdx.files.internal("Gfx/card1.png")); // Will be
+																	// card2
+																	// later.
 		card3 = new Texture(Gdx.files.internal("Gfx/card3.jpg"));
 		bucket = new Texture(Gdx.files.internal("Gfx/bucket.png"));
-		cardStageBg2 = new Texture(Gdx.files.internal("Gfx/RiskMap.png")); 
+		cardStageBg2 = new Texture(Gdx.files.internal("Gfx/RiskMap.png"));
 		cardHolder = new Texture(Gdx.files.internal("Gfx/RiskCard.jpg"));
 	}
-	
-	public void dispose(){
+
+	public void dispose() {
 		backGround.dispose();
 	}
 }

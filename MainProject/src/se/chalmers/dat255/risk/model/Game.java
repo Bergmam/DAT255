@@ -1,11 +1,8 @@
 package se.chalmers.dat255.risk.model;
 
-import java.io.File;
 import java.util.ArrayList;
 
 import se.chalmers.dat255.risk.view.resource.Resource;
-
-import com.badlogic.gdx.Gdx;
 
 /**
  * The top game class. Controls flow between our lower classes, such as the
@@ -175,7 +172,7 @@ public class Game implements IGame {
 			 bonus = startingTroopNr - getActivePlayer().getNrOfProvinces();
 		   	 
 			// SETTING UP GAMEBOARD RULES AND CREATING PROVINCES
-		   	worldMap= new WorldMap(Resource.getInstance().neighbours, Resource.getInstance().continents, players);
+		   	worldMap= new WorldMap(Resource.getInstance().neighbours, Resource.getInstance().continents,players);
 
 			// SETTING UP DECK
 		   	ArrayList<String> provinces = new ArrayList<String>();
@@ -344,6 +341,14 @@ public class Game implements IGame {
 	public Phase getPhase() {
 		// TODO Auto-generated method stub
 		return currentPhase;
+	}
+
+
+
+	@Override
+	public int getOwner(String provinceName) {
+		// TODO Auto-generated method stub
+		return worldMap.getOwner(provinceName).getId();
 	}
 	
 		
