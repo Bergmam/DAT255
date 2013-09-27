@@ -25,7 +25,7 @@ public class Game implements IGame {
 	private ICard card2=null;
 	
 	//CURRENT PHASE
-	private Phase currentPhase=Phase.F1;
+	private Phase currentPhase=Phase.FBuild;
 	
 	/**
 	 * Creates a new Game.
@@ -37,7 +37,6 @@ public class Game implements IGame {
 		//deck=Deck.getInstance(new ArrayList<String>().add(new Province("A").getId()), "5");//hårdkodat
 		battle = new BattleHandler();
 		newGame(playersId);
-		System.out.println("number of cards ====== " + deck.getSize());
 	}
 
 	
@@ -59,7 +58,7 @@ public class Game implements IGame {
 		}
 		else if(currentPhase == Phase.F3){
 			changeTurn();
-			currentPhase = Phase.F3;
+			currentPhase = Phase.F1;
 		}
 		else if(currentPhase== Phase.F1){
 			currentPhase=Phase.F2;
@@ -86,6 +85,14 @@ public class Game implements IGame {
 		// TODO decide number of attackers
 		//		check if ok in another method
 			// Counts the number of defending units
+		
+		/* Hur många tärningar man väljer att slå komer från kontrollern,
+		 * och där borde det vara omöjligt att välja fler än man kan.
+		 * Så kontrollern kommer att säga attack med hur många tärningar
+		 * spearen vill. Eller tycker ni inte det låter rimligt?
+		 * Linnea
+		 */
+		
 			int defensiveDice = defensive.getUnits() == 1 ? 1 : 2;
 			
 			int[] result = battle.doBattle(offensiveDice,
@@ -119,6 +126,7 @@ public class Game implements IGame {
 
 	@Override
 	public void placeBonusUnits(int units, IProvince province) {
+		//Maybe private function??
 		province.addUnits(units);
 		bonus = bonus - units;
 	}
@@ -133,7 +141,7 @@ public class Game implements IGame {
 	@Override
 	public void newGame(String[] playersId) throws IllegalArgumentException {
 		int noOfPlayers=playersId.length;
-		if(noOfPlayers>=6 || noOfPlayers<=2){
+		if(noOfPlayers>6 || noOfPlayers<2){
 			  throw new IllegalArgumentException("The player number must be betwen 2 and 6");
 			}
 				
@@ -164,8 +172,6 @@ public class Game implements IGame {
 		   	 
 			// SETTING UP GAMEBOARD RULES AND CREATING PROVINCES
 		   	worldMap= new WorldMap(new File("Gfx/neighbours.txt"), new File("Gfx/continents.txt"), players);
-		   	for(Player i : players)
-		   	System.out.println(i.getName());
 
 			// SETTING UP DECK
 		   	ArrayList<String> provinces = new ArrayList<String>();
@@ -173,7 +179,6 @@ public class Game implements IGame {
 		   		provinces.add(i.getId());
 		   	}
 			deck = Deck.getInstance();
-			System.out.println("thiiiiiiiiiiiiiiis" + deck);
 			deck.CreateCards(provinces, 6);// H�rdkodat antal wildcard 
 				 
 	//		refresh(); //BYTS MOT MOTSVARANDE I LIBGDX

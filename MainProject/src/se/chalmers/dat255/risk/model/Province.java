@@ -8,7 +8,7 @@ package se.chalmers.dat255.risk.model;
 public class Province implements IProvince{
 	private int units;
 	private String id;
-	private String color="WHITE";
+	private String color=PlayerColor.WHITE;
 	
 	/**
 	 * Creates a new Province
