@@ -1,6 +1,5 @@
 package se.chalmers.dat255.risk.view;
 
-import se.chalmers.dat255.risk.GDXGame;
 import se.chalmers.dat255.risk.model.IGame;
 
 import com.badlogic.gdx.Screen;

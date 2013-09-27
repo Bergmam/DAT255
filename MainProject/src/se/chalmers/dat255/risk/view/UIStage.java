@@ -2,10 +2,9 @@ package se.chalmers.dat255.risk.view;
 
 import java.beans.PropertyChangeEvent;
 
-import com.badlogic.gdx.InputProcessor;
-
-import se.chalmers.dat255.risk.controller.SwitchListener;
 import se.chalmers.dat255.risk.model.IGame;
+
+import com.badlogic.gdx.InputProcessor;
 
 public class UIStage extends AbstractStage{
 

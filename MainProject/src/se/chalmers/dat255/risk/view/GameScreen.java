@@ -3,7 +3,6 @@ package se.chalmers.dat255.risk.view;
 import java.util.ArrayList;
 import java.util.List;
 
-import se.chalmers.dat255.risk.GDXGame;
 import se.chalmers.dat255.risk.model.IGame;
 import se.chalmers.dat255.risk.model.Player;
 import se.chalmers.dat255.risk.view.resource.Resource;
@@ -11,7 +10,6 @@ import se.chalmers.dat255.risk.view.resource.Resource;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.math.Vector2;
 
 /**
  * shows the gameboard, including provinces, cards and buttons.
