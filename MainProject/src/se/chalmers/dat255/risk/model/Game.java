@@ -296,6 +296,8 @@ public class Game implements IGame {
 		// TODO Auto-generated method stub
 		if(card2!=null){
 			getActivePlayer().exchangeCard((Card) card1, (Card) card2, (Card) card);
+			// GIVE BONUS
+			//Check if extra bonus from owned province cards
 			card1=null;
 			card2=null;
 		}
@@ -314,6 +316,17 @@ public class Game implements IGame {
 	public void handlePhaseClick() {
 		// TODO Auto-generated method stub
 		// Ska kolla så att spelaren är klar med alla sina 
+		if(currentPhase == Phase.FBuild || currentPhase == Phase.F1){
+			if(bonus==0 && getActivePlayer().getCards().size() <5){
+				changePhase();
+			}
+		}
+		else if(currentPhase == Phase.F2){
+			changePhase();
+		}
+		else if(currentPhase == Phase.F3){
+			changePhase();
+		}
 		// "actions" och kan byta fas.
 		// När du är i FBuild, så måste du kolla så att det är tomt 
 		// i bonus innan du "byter fas" = kör changePhase.
