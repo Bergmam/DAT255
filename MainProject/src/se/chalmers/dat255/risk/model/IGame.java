@@ -93,4 +93,5 @@ public interface IGame {
 	
 	public Phase getPhase();
 	
+	public int getOwner(String provinceName);
 }

@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.Random;
 import java.util.Scanner;
 
+import se.chalmers.dat255.risk.view.resource.PlayerColor;
+
 import com.badlogic.gdx.Gdx;
 
 /**
@@ -77,10 +79,6 @@ public class WorldMap {
 
 		allProvinces = buildProvinces(listOfProvinces);
 		randomizeProvinces(listOfProvinces, players);
-		for (IProvince province : allProvinces) {
-			province.setColor(PlayerColor.getStringColor(this.getOwner(
-					province.getId()).getId()));
-		}
 
 		neighbours = new HashMap<String, ArrayList<String>>(tempNeighbours);
 	}
