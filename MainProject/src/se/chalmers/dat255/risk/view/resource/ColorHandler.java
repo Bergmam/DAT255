@@ -31,7 +31,7 @@ public class ColorHandler {
 	public Color getColor(int i){
 		switch (i){
 			case 0: return Color.CYAN;
-			case 1: return Color.YELLOW;
+			case 1: return Color.GRAY;
 			case 2: return Color.GREEN;
 			case 3: return Color.BLUE;
 			case 4: return Color.BLACK;
