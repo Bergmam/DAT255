@@ -11,6 +11,11 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 public class CardListener extends ClickListener {
 	IGame theGame;
+	
+	public CardListener(IGame theGame){
+		this.theGame = theGame;
+	}
+	
 	@Override
 	public void clicked(InputEvent event, float x, float y){
 		if(event.getTarget() instanceof CardView){
