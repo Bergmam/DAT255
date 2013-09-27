@@ -334,6 +334,14 @@ public class Game implements IGame {
 		// i bonus innan du "byter fas" = kör changePhase.
 		
 	}
+
+
+
+	@Override
+	public Phase getPhase() {
+		// TODO Auto-generated method stub
+		return currentPhase;
+	}
 	
 		
 }

@@ -1,6 +1,7 @@
 package se.chalmers.dat255.risk.view;
 
 import se.chalmers.dat255.risk.model.IGame;
+import se.chalmers.dat255.risk.model.IGame.Phase;
 import se.chalmers.dat255.risk.view.resource.Resource;
 
 import com.badlogic.gdx.Gdx;
@@ -15,13 +16,13 @@ public class ChangePhase extends AbstractView {
 	
 	//By adding more strings here, you can add more behavior
 	// as long as the strings are added in getText as well
-	public static String PHASE1 = "PHASE1";// placing units, show number of
+	//public static String PHASE1 = "PHASE1";// placing units, show number of
 											// units left to place and then
 											// "Next Phase"
-	public static String PHASE2 = "PHASE2";// show "Next Phase"
-	public static String PHASE3 = "PHASE3";// show "End Turn"
+//	public static String PHASE2 = "PHASE2";// show "Next Phase"
+	//public static String PHASE3 = "PHASE3";// show "End Turn"
 
-	private String current = PHASE1;
+//	private String current = PHASE1;
 
 	private Label label;
 
@@ -40,7 +41,7 @@ public class ChangePhase extends AbstractView {
 	 * the class will not be used
 	 * @param s use one of the static strings in this class
 	 */
-	public void setCurrent(String s) {
+/**	public void setCurrent(String s) {
 		current = s;
 		label.setText(getText());
 	}
@@ -48,7 +49,7 @@ public class ChangePhase extends AbstractView {
 	public String getCurrent() {
 		return current;
 	}
-
+*/
 	@Override
 	public void check() {
 		super.check();
@@ -56,11 +57,11 @@ public class ChangePhase extends AbstractView {
 	}
 
 	private String getText() {
-		if (current == PHASE1) {
+		if ((model.getPhase() == Phase.F1) || (model.getPhase() == Phase.FBuild) ) {
 			return "Units: " + model.getBonusUnitsLeft();
-		} else if (current == PHASE2) {
+		} else if (model.getPhase() == Phase.F2) {
 			return "Next Phase";
-		} else if (current == PHASE3) {
+		} else if (model.getPhase() == Phase.F3) {
 			return "End Turn";
 		}
 		return "value not found";
@@ -68,6 +69,7 @@ public class ChangePhase extends AbstractView {
 
 	@Override
 	public void draw(SpriteBatch batch, float alpha) {
+		label.setText(getText());
 		super.draw(batch, alpha);
 		label.draw(batch, alpha);
 	}
