@@ -3,6 +3,8 @@ package se.chalmers.dat255.risk.model;
 import java.io.File;
 import java.util.ArrayList;
 
+import com.badlogic.gdx.Gdx;
+
 /**
  * The top game class. Controls flow between our lower classes, such as the
  * battle handler and the WorldMap.
@@ -171,7 +173,7 @@ public class Game implements IGame {
 			 bonus = startingTroopNr - getActivePlayer().getNrOfProvinces();
 		   	 
 			// SETTING UP GAMEBOARD RULES AND CREATING PROVINCES
-		   	worldMap= new WorldMap(new File("Gfx/neighbours.txt"), new File("Gfx/continents.txt"), players);
+		   	worldMap= new WorldMap(Gdx.files.internal("Gfx/neighbours.txt").file(), Gdx.files.internal("Gfx/continents.txt").file(), players);
 
 			// SETTING UP DECK
 		   	ArrayList<String> provinces = new ArrayList<String>();
