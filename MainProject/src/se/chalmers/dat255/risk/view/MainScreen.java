@@ -1,8 +1,5 @@
 package se.chalmers.dat255.risk.view;
 
-import java.util.List;
-
-import se.chalmers.dat255.risk.GDXGame;
 import se.chalmers.dat255.risk.controller.ScreenManager;
 import se.chalmers.dat255.risk.model.IGame;
 

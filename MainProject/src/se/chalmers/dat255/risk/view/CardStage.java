@@ -3,12 +3,10 @@ package se.chalmers.dat255.risk.view;
 import java.beans.PropertyChangeEvent;
 import java.util.List;
 
-import se.chalmers.dat255.risk.model.Card;
 import se.chalmers.dat255.risk.model.Card.CardType;
 import se.chalmers.dat255.risk.model.ICard;
 import se.chalmers.dat255.risk.view.resource.Resource;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Actor;

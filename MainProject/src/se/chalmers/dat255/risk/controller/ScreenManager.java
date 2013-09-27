@@ -25,9 +25,9 @@ public class ScreenManager {
 		
 		for (AbstractView v : screen.getViews()) {
 			if (v instanceof ProvinceView) {
-				v.addListener(new ProvinceListener());
+				v.addListener(new ProvinceListener(model));
 			} else if (v instanceof CardView) {
-				v.addListener(new CardListener());
+				v.addListener(new CardListener(model));
 			} else if (v instanceof ChangePhase) {
 				v.addListener(new ChangePhaseListener());
 			} else if (v instanceof SwitchButton) {

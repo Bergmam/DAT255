@@ -5,10 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import se.chalmers.dat255.risk.model.IProvince;
-import se.chalmers.dat255.risk.model.Province;
 import se.chalmers.dat255.risk.view.resource.Resource;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.OrthographicCamera;
