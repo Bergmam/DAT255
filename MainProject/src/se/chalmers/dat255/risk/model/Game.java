@@ -152,7 +152,7 @@ public class Game implements IGame {
 				players[i] = new Player(i, playersId[i]);
 			}
 			// SETTING PHASE AND TURN
-			 currentPhase=Phase.F1;
+			 currentPhase=Phase.FBuild;
 			 activePlayer=0;
 			 players[activePlayer].setCurrent(true); // Player one knows it�s his turn
 			 

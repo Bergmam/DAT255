@@ -13,13 +13,14 @@ public class Resource {
 	public Texture cardStageBg2 = new Texture(
 			Gdx.files.internal("Gfx/RiskMap.png"));
 	public Texture card1 = new Texture(Gdx.files.internal("Gfx/card1.png"));
-	public Texture card2 = new Texture(Gdx.files.internal("Gfx/card1.png")); // Will
-																				// be
-																				// card2
-																				// later.
+	public Texture card2 = new Texture(Gdx.files.internal("Gfx/card1.png"));
 	public Texture card3 = new Texture(Gdx.files.internal("Gfx/card3.jpg"));
-	public Texture bucket = new Texture(Gdx.files.internal("Gfx/bucket.png"));
-	public Texture cardHolder = new Texture(Gdx.files.internal("Gfx/RiskCard.jpg"));
+	public Texture bucket = new Texture(Gdx.files.internal("Gfx/diamond.png"));
+	public Texture cardHolder = new Texture(
+			Gdx.files.internal("Gfx/RiskCard.jpg"));
+	public Texture circle = new Texture(Gdx.files.internal("Gfx/circle3.png"));
+	public Texture triangle = new Texture(
+			Gdx.files.internal("Gfx/triangle.png"));
 	public FileHandle neighbours = Gdx.files.internal("Gfx/neighbours.txt");
 	public FileHandle cords = Gdx.files.internal("Gfx/Cords.txt");
 	public FileHandle continents = Gdx.files.internal("Gfx/continents.txt");
@@ -42,9 +43,13 @@ public class Resource {
 																	// card2
 																	// later.
 		card3 = new Texture(Gdx.files.internal("Gfx/card3.jpg"));
-		bucket = new Texture(Gdx.files.internal("Gfx/bucket.png"));
-		cardStageBg2 = new Texture(Gdx.files.internal("Gfx/RiskMap.png"));
+		bucket = new Texture(Gdx.files.internal("Gfx/diamond.png"));
 		cardHolder = new Texture(Gdx.files.internal("Gfx/RiskCard.jpg"));
+		circle = new Texture(Gdx.files.internal("Gfx/circle3.png"));
+		triangle = new Texture(Gdx.files.internal("Gfx/triangle.png"));
+		neighbours = Gdx.files.internal("Gfx/neighbours.txt");
+		cords = Gdx.files.internal("Gfx/Cords.txt");
+		continents = Gdx.files.internal("Gfx/continents.txt");
 	}
 
 	public void dispose() {

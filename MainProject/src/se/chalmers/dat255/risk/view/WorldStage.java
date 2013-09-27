@@ -26,7 +26,6 @@ public class WorldStage extends AbstractStage implements GestureListener {
 	private Group provinceGroup;
 	private OrthographicCamera camera;
 	private float initialZoom;
-	private BoundingBox[] bounds;
 	private float width;
 	private float height;
 	private InputMultiplexer multi;
@@ -52,10 +51,10 @@ public class WorldStage extends AbstractStage implements GestureListener {
 		String wholeFile = positionsOnMap.readString();
 		String[] array = wholeFile.split("\\n");
 		int temp = 0;
-		for(String line : array){
+		for (String line : array) {
 			String[] lines = line.split("-");
-			String xCord = lines[0];
-			String yCord = lines[1];
+			String xCord = lines[0].trim();
+			String yCord = lines[1].trim();
 			int intXCord = Integer.parseInt(xCord);
 			int intYCord = Integer.parseInt(yCord);
 			ProvinceView provinceView = new ProvinceView(provinces.get(temp),
@@ -64,27 +63,17 @@ public class WorldStage extends AbstractStage implements GestureListener {
 			temp++;
 		}
 
-
-		/*try {
-			Scanner scanner = new Scanner(positionsOnMap);
-			int i = 0;
-			while (scanner.hasNextLine()) {
-				String line = scanner.nextLine();
-				String[] array = line.split("-");
-				String xCord = array[0];
-				String yCord = array[1];
-				int intXCord = Integer.parseInt(xCord);
-				int intYCord = Integer.parseInt(yCord);
-				ProvinceView provinceView = new ProvinceView(provinces.get(i),
-						intXCord, intYCord);
-				actor.add(provinceView);
-				i++;
-			}
-			scanner.close();
-
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}*/
+		/*
+		 * try { Scanner scanner = new Scanner(positionsOnMap); int i = 0; while
+		 * (scanner.hasNextLine()) { String line = scanner.nextLine(); String[]
+		 * array = line.split("-"); String xCord = array[0]; String yCord =
+		 * array[1]; int intXCord = Integer.parseInt(xCord); int intYCord =
+		 * Integer.parseInt(yCord); ProvinceView provinceView = new
+		 * ProvinceView(provinces.get(i), intXCord, intYCord);
+		 * actor.add(provinceView); i++; } scanner.close();
+		 * 
+		 * } catch (FileNotFoundException e) { e.printStackTrace(); }
+		 */
 
 		for (int i = 0; i < actor.size(); i++) {
 			provinceGroup.addActor(actor.get(i));
@@ -134,7 +123,9 @@ public class WorldStage extends AbstractStage implements GestureListener {
 	public boolean zoom(float initialDistance, float distance) {
 
 		float ratio = initialDistance / distance;
-		Gdx.app.log("zoom", "value is" + camera.zoom);
+		if (initialZoom * ratio >= 0.5f && initialZoom * ratio <= 2.5f) {
+			camera.zoom = initialZoom * ratio;
+		}
 		calcCam();
 
 		return false;

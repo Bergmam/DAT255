@@ -9,25 +9,33 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 public class ProvinceListener extends ClickListener {
 
-	IGame	theGame;
-	
-	public ProvinceListener(IGame theGame){
+	private IGame theGame;
+
+	public ProvinceListener(IGame theGame) {
 		this.theGame = theGame;
 	}
-	
+
 	/**
-	 *	If we want to highlight the province that logic can/should
-	 *	be in this method.
-	 *  
+	 * If we want to highlight the province that logic can/should be in this
+	 * method.
+	 * 
 	 */
 	@Override
-	public void clicked(InputEvent event, float x, float y){
-		if(event.getTarget() instanceof ProvinceView){
-			ProvinceView newClick =  ((ProvinceView)event.getTarget());
+	public void clicked(InputEvent event, float x, float y) {
+		if (event.getTarget() instanceof ProvinceView) {
+			ProvinceView newClick = ((ProvinceView) event.getTarget());
 			IProvince newClickedProvince = newClick.getProvince();
-			newClick.check();
+
+			if (theGame.getActivePlayer().getId() == theGame
+					.getOwner(newClickedProvince.getId())) {
+				newClick.check();
+				if (theGame.getCurrentPhase() == IGame.Phase.F1
+						|| theGame.getCurrentPhase() == IGame.Phase.FBuild) {
+					newClick.check();
+
+				}
+			}
 			theGame.handleProvinceClick(newClickedProvince);
-		} 
-	//	Gdx.app.log("trololol", "province clicked");
+		}
 	}
 }
