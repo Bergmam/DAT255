@@ -214,7 +214,7 @@ public class Game implements IGame {
 		// TODO Auto-generated method stub
 		
 		// TROOP REINFORCMENT PHASE 1, ONLY THE PLACEMENT
-		if(getCurrentPhase()==IGame.Phase.F1){
+		if(getCurrentPhase()==IGame.Phase.F1 && bonus>0){
 			//PUT A SINGEL UNIT ON THIS PROVINCE IF OWNED
 			if(worldMap.getOwner(newClickedProvince.getId()) == getActivePlayer()){
 				placeBonusUnits(1, newClickedProvince);
@@ -250,7 +250,8 @@ public class Game implements IGame {
 		}
 		// Placing troops in build phase
 		else if(getCurrentPhase() == IGame.Phase.FBuild){
-			if(worldMap.getOwner(newClickedProvince.getId()) == getActivePlayer()){
+			if(worldMap.getOwner(newClickedProvince.getId()) == getActivePlayer() && 
+					bonus>0){
 				placeBonusUnits(1, newClickedProvince);
 			}
 		}
@@ -333,6 +334,14 @@ public class Game implements IGame {
 		// När du är i FBuild, så måste du kolla så att det är tomt 
 		// i bonus innan du "byter fas" = kör changePhase.
 		
+	}
+
+
+
+	@Override
+	public Phase getPhase() {
+		// TODO Auto-generated method stub
+		return currentPhase;
 	}
 	
 		

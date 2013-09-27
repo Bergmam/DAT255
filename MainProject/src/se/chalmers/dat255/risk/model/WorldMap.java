@@ -35,6 +35,7 @@ public class WorldMap {
 		HashMap<String, ArrayList<String>> tempNeighbours = new HashMap<String, ArrayList<String>>();
 		ArrayList<String> listOfProvinces = new ArrayList<String>();
 		ownership = new HashMap<String, Player>();
+		bonuses=new int[players.length];
 		try {
 			Scanner scanner = new Scanner(provinceFile);
 			while (scanner.hasNextLine()) {

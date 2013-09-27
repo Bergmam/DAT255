@@ -91,4 +91,6 @@ public interface IGame {
 	
 	public void handlePhaseClick();
 	
+	public Phase getPhase();
+	
 }
