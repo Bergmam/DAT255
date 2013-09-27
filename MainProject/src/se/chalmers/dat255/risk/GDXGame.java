@@ -1,9 +1,15 @@
 package se.chalmers.dat255.risk;
 
+import se.chalmers.dat255.risk.controller.CardListener;
+import se.chalmers.dat255.risk.controller.ChangePhaseListener;
 import se.chalmers.dat255.risk.controller.ProvinceListener;
+import se.chalmers.dat255.risk.controller.SwitchListener;
 import se.chalmers.dat255.risk.view.AbstractView;
+import se.chalmers.dat255.risk.view.CardView;
+import se.chalmers.dat255.risk.view.ChangePhase;
 import se.chalmers.dat255.risk.view.MainScreen;
 import se.chalmers.dat255.risk.view.ProvinceView;
+import se.chalmers.dat255.risk.view.SwitchButton;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -24,7 +30,15 @@ public class GDXGame extends Game {
 		logger = new FPSLogger();
 		main = new MainScreen(this, game);
 		for (AbstractView v : main.getViews()) {
-			v.addListener(v instanceof ProvinceView? new ProvinceListener() : null);
+			if (v instanceof ProvinceView) {
+				v.addListener(new ProvinceListener());
+			} else if (v instanceof CardView) {
+				v.addListener(new CardListener());
+			} else if (v instanceof ChangePhase) {
+				v.addListener(new ChangePhaseListener());
+			} else if (v instanceof SwitchButton) {
+				v.addListener(new SwitchListener());
+			}
 		}
 		setScreen(main);
 	}
