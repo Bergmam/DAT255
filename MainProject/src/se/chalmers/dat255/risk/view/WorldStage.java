@@ -117,9 +117,9 @@ public class WorldStage extends AbstractStage implements GestureListener {
 	public boolean zoom(float initialDistance, float distance) {
 
 		float ratio = initialDistance / distance;
-		Gdx.app.log("zoom", "value is"+camera.zoom);
-		camera.zoom = initialZoom * ratio;
+		Gdx.app.log("zoom", "value is" + camera.zoom);
 		calcCam();
+
 		return false;
 	}
 
@@ -129,7 +129,8 @@ public class WorldStage extends AbstractStage implements GestureListener {
 		return false;
 	}
 
-	/* This method is taken from this Url:
+	/*
+	 * This method is taken from this Url:
 	 * 
 	 * http://stackoverflow.com/questions/12039465/keep-libgdx-camera-inside-
 	 * boundaries-when-panning-and-zooming
