@@ -21,8 +21,8 @@ public class ScreenManager {
 
 	private ScreenManager() {
 		
-		model = new Game(new String[] { "a", "b",
-				"c", "d" });
+		model = new Game(new String[] { "Anders", "Beta",
+				"Cookie", "Dumbo" });
 		main = new MainScreen(model);
 		screen = new GameScreen( model);
 		ColorHandler.getInstance().instantiate(model);
