@@ -63,8 +63,7 @@ public abstract class AbstractScreen implements Screen {
 	@Override
 	public void dispose() {
 		font.dispose();
-		batch.dispose();
-		
+		batch.dispose();		
 	}
 
 }
