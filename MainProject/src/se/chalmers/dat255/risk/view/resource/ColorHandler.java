@@ -24,7 +24,19 @@ public class ColorHandler {
 		this.game = game;
 	}
 	
-	public Color getColor(String provinceName){
-		return PlayerColor.getColor(game.getOwner(provinceName));
+	public Color getProvinceColor(String provinceName){
+		return getColor(game.getOwner(provinceName));
+	}
+	
+	public Color getColor(int i){
+		switch (i){
+			case 0: return Color.CYAN;
+			case 1: return Color.GRAY;
+			case 2: return Color.GREEN;
+			case 3: return Color.BLUE;
+			case 4: return Color.BLACK;
+			case 5: return Color.ORANGE;
+			default: return Color.WHITE;
+		}
 	}
 }

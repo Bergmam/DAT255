@@ -31,7 +31,7 @@ public class ProvinceView extends AbstractView {
 	@Override
 	public void draw(SpriteBatch batch, float alpha) {
 		
-		batch.setColor(ColorHandler.getInstance().getColor(province.getId()));
+		batch.setColor(ColorHandler.getInstance().getProvinceColor(province.getId()));
 		batch.draw(isClicked? imageUp : imageDown, getX(), getY(), width/2,height/2);
 		font.setColor(Color.RED);
 		font.draw(batch, ""+province.getUnits(), getCenterX(), getCenterY());
