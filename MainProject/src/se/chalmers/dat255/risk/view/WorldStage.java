@@ -1,6 +1,7 @@
 package se.chalmers.dat255.risk.view;
 
 import java.beans.PropertyChangeEvent;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,6 +10,7 @@ import java.util.Scanner;
 import se.chalmers.dat255.risk.model.IProvince;
 import se.chalmers.dat255.risk.view.resource.Resource;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -30,7 +32,7 @@ public class WorldStage extends AbstractStage implements GestureListener {
 	private float height;
 	private InputMultiplexer multi;
 
-	public WorldStage(List<IProvince> provinces, java.io.File positionsOnMap) {
+	public WorldStage(List<IProvince> provinces, File positionsOnMap) {
 
 		background = new Image(Resource.getInstance().backGround);
 		camera = new OrthographicCamera();
@@ -49,28 +51,30 @@ public class WorldStage extends AbstractStage implements GestureListener {
 		actor = new ArrayList<AbstractView>();
 
 		try {
-            Scanner scanner = new Scanner(positionsOnMap);
-            int i=0;
-            while (scanner.hasNextLine()) {
-                String line = scanner.nextLine();
-                String[] array = line.split("-");
-                String xCord = array[0];
-                String yCord = array[1];
-    			ProvinceView provinceView = new ProvinceView(provinces.get(i), Integer.getInteger(xCord), Integer.getInteger(yCord));
-    			actor.add(provinceView);
-    			i++;
-            }
-            scanner.close();
+			Scanner scanner = new Scanner(positionsOnMap);
+			int i = 0;
+			while (scanner.hasNextLine()) {
+				String line = scanner.nextLine();
+				String[] array = line.split("-");
+				String xCord = array[0];
+				String yCord = array[1];
+				ProvinceView provinceView = new ProvinceView(provinces.get(i),
+						Integer.getInteger(xCord), Integer.getInteger(yCord));
+				actor.add(provinceView);
+				i++;
+			}
+			scanner.close();
 
 		} catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-		
-		addActor(background);
+			e.printStackTrace();
+		}
 
-		for (int i = 0; i < provinces.size(); i++) {
+		
+
+		for (int i = 0; i < actor.size(); i++) {
 			provinceGroup.addActor(actor.get(i));
 		}
+		addActor(background);
 		addActor(provinceGroup);
 
 		// attempt to add bounds for map =)
@@ -121,13 +125,27 @@ public class WorldStage extends AbstractStage implements GestureListener {
 
 	@Override
 	public boolean pan(float x, float y, float deltaX, float deltaY) {
-		if (inBounds()) {
-			getCamera().position.x -= deltaX;
-			getCamera().position.y += deltaY;
-		} else {
-			// getCamera().position.x = x;
-			// getCamera().position.y = y;
+		float tmpx = camera.position.x;
+		float tmpy = camera.position.y;
+	
+		if(deltaX < 0){
+			if(tmpx < width - Gdx.graphics.getWidth()/2)
+				camera.position.x -= deltaX;
+		}else{
+			if(tmpx > Gdx.graphics.getWidth()/2){
+				camera.position.x -= deltaX;
+			}
+			
 		}
+		
+		if (tmpx >= camera.viewportWidth/2 && tmpx <= width) {
+			getCamera().position.x -= deltaX;
+		}
+		if (getCamera().position.y > 0 && deltaY > getCamera().position.y) {
+			getCamera().position.y += deltaY;
+		}
+		
+		
 		return false;
 	}
 
