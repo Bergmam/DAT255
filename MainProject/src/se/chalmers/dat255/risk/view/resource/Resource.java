@@ -17,9 +17,9 @@ public class Resource {
 	public Texture card3 = new Texture(Gdx.files.internal("Gfx/card3.jpg"));
 	public Texture bucket = new Texture(Gdx.files.internal("Gfx/bucket.png"));
 	public Texture cardHolder = new Texture(Gdx.files.internal("Gfx/RiskCard.jpg"));
-	public File neighbours = Gdx.files.internal("Gfx/neighbours.txt)").file();
-	public File cords = Gdx.files.internal("Gfx/Cords.txt)").file();
-	public File continents = Gdx.files.internal("Gfx/continents.txt)").file();
+	public FileHandle neighbours = Gdx.files.internal("Gfx/neighbours.txt");
+	public FileHandle cords = Gdx.files.internal("Gfx/Cords.txt");
+	public FileHandle continents = Gdx.files.internal("Gfx/continents.txt");
 	
 	public static Resource getInstance(){
 		if(instance == null){

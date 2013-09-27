@@ -1,7 +1,6 @@
 package se.chalmers.dat255.risk.view;
 
 import java.beans.PropertyChangeEvent;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,11 +12,11 @@ import se.chalmers.dat255.risk.view.resource.Resource;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.input.GestureDetector.GestureListener;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.collision.BoundingBox;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -32,7 +31,7 @@ public class WorldStage extends AbstractStage implements GestureListener {
 	private float height;
 	private InputMultiplexer multi;
 
-	public WorldStage(List<IProvince> provinces, File positionsOnMap) {
+	public WorldStage(List<IProvince> provinces, FileHandle positionsOnMap) {
 
 		background = new Image(Resource.getInstance().backGround);
 		camera = new OrthographicCamera();
@@ -50,7 +49,23 @@ public class WorldStage extends AbstractStage implements GestureListener {
 
 		actor = new ArrayList<AbstractView>();
 
-		try {
+		String wholeFile = positionsOnMap.readString();
+		String[] array = wholeFile.split("\\n");
+		int temp = 0;
+		for(String line : array){
+			String[] lines = line.split("-");
+			String xCord = lines[0];
+			String yCord = lines[1];
+			int intXCord = Integer.parseInt(xCord);
+			int intYCord = Integer.parseInt(yCord);
+			ProvinceView provinceView = new ProvinceView(provinces.get(temp),
+					intXCord, intYCord);
+			actor.add(provinceView);
+			temp++;
+		}
+
+
+		/*try {
 			Scanner scanner = new Scanner(positionsOnMap);
 			int i = 0;
 			while (scanner.hasNextLine()) {
@@ -69,7 +84,7 @@ public class WorldStage extends AbstractStage implements GestureListener {
 
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
-		}
+		}*/
 
 		for (int i = 0; i < actor.size(); i++) {
 			provinceGroup.addActor(actor.get(i));
@@ -146,7 +161,7 @@ public class WorldStage extends AbstractStage implements GestureListener {
 		Vector2 camMin = new Vector2(camera.viewportWidth,
 				camera.viewportHeight);
 		camMin.scl(camera.zoom / 2); // bring to center and scale by the zoom
-										// level
+		// level
 		Vector2 camMax = new Vector2(width, height);
 		camMax.sub(camMin); // bring to center
 
