@@ -71,29 +71,11 @@ public class WorldStage extends AbstractStage implements GestureListener {
 			e.printStackTrace();
 		}
 
-		
-
 		for (int i = 0; i < actor.size(); i++) {
 			provinceGroup.addActor(actor.get(i));
 		}
 		addActor(background);
 		addActor(provinceGroup);
-
-		// attempt to add bounds for map =)
-		bounds = new BoundingBox[4];
-		bounds[0] = new BoundingBox(new Vector3(0, 0, 0), new Vector3(0,
-				height, 0));
-		bounds[1] = new BoundingBox(new Vector3(0, 0, 0), new Vector3(width, 0,
-				0));
-		bounds[2] = new BoundingBox(new Vector3(0, height, 0), new Vector3(
-				width, height, 0));
-		bounds[3] = new BoundingBox(new Vector3(width, 0, 0), new Vector3(0,
-				height, 0));
-		/*
-		 * for (Vector3 d : bounds[2].getCorners()) { Gdx.app.log("tag", "" +
-		 * d); }
-		 */
-
 	}
 
 	@Override
@@ -127,47 +109,19 @@ public class WorldStage extends AbstractStage implements GestureListener {
 
 	@Override
 	public boolean pan(float x, float y, float deltaX, float deltaY) {
-		float tmpx = camera.position.x;
-		float tmpy = camera.position.y;
-	
-		if(deltaX < 0){
-			if(tmpx < width - Gdx.graphics.getWidth()/2)
-				camera.position.x -= deltaX;
-		}else{
-			if(tmpx > Gdx.graphics.getWidth()/2){
-				camera.position.x -= deltaX;
-			}
-			
-		}
-		
-		if (tmpx >= camera.viewportWidth/2 && tmpx <= width) {
-			getCamera().position.x -= deltaX;
-		}
-		if (getCamera().position.y > 0 && deltaY > getCamera().position.y) {
-			getCamera().position.y += deltaY;
-		}
-		
-		
+		camera.position.y += deltaY;
+		camera.position.x -= deltaX;
+		calcCam();
 		return false;
-	}
-
-	private boolean inBounds() {
-
-		for (int i = 0; i < bounds.length; i++) {
-			if (camera.frustum.boundsInFrustum(bounds[i])) {
-				// return false;
-			}
-		}
-		return true;
 	}
 
 	@Override
 	public boolean zoom(float initialDistance, float distance) {
 
 		float ratio = initialDistance / distance;
-
+		Gdx.app.log("zoom", "value is"+camera.zoom);
 		camera.zoom = initialZoom * ratio;
-
+		calcCam();
 		return false;
 	}
 
@@ -175,6 +129,32 @@ public class WorldStage extends AbstractStage implements GestureListener {
 	public boolean pinch(Vector2 initialPointer1, Vector2 initialPointer2,
 			Vector2 pointer1, Vector2 pointer2) {
 		return false;
+	}
+
+	/* This method is taken from this Url:
+	 * 
+	 * http://stackoverflow.com/questions/12039465/keep-libgdx-camera-inside-
+	 * boundaries-when-panning-and-zooming
+	 * 
+	 * and the code was supplied by user: Sean Clifford.
+	 */
+	private void calcCam() {
+		float camX = camera.position.x;
+		float camY = camera.position.y;
+
+		Vector2 camMin = new Vector2(camera.viewportWidth,
+				camera.viewportHeight);
+		camMin.scl(camera.zoom / 2); // bring to center and scale by the zoom
+										// level
+		Vector2 camMax = new Vector2(width, height);
+		camMax.sub(camMin); // bring to center
+
+		// keep camera within borders
+		camX = Math.min(camMax.x, Math.max(camX, camMin.x));
+		camY = Math.min(camMax.y, Math.max(camY, camMin.y));
+
+		camera.position.set(camX, camY, camera.position.z);
+
 	}
 
 	@Override
