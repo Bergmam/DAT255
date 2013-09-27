@@ -11,6 +11,10 @@ public class ChangePhaseListener extends ClickListener{
 
 	IGame theGame;
 	
+	public ChangePhaseListener(IGame theGame){
+		this.theGame = theGame;
+	}
+	
 	@Override
 	public void clicked(InputEvent event, float x, float y){
 		if(event.getTarget() instanceof ChangePhase){

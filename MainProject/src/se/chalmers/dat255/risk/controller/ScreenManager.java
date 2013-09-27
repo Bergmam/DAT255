@@ -29,7 +29,7 @@ public class ScreenManager {
 			} else if (v instanceof CardView) {
 				v.addListener(new CardListener(model));
 			} else if (v instanceof ChangePhase) {
-				v.addListener(new ChangePhaseListener());
+				v.addListener(new ChangePhaseListener(model));
 			} else if (v instanceof SwitchButton) {
 				v.addListener(new SwitchListener());
 			}
