@@ -1,8 +1,10 @@
 package se.chalmers.dat255.risk.view;
 
 import java.beans.PropertyChangeEvent;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 import se.chalmers.dat255.risk.model.IProvince;
 import se.chalmers.dat255.risk.view.resource.Resource;
@@ -28,7 +30,7 @@ public class WorldStage extends AbstractStage implements GestureListener {
 	private float height;
 	private InputMultiplexer multi;
 
-	public WorldStage(List<IProvince> provinces) {
+	public WorldStage(List<IProvince> provinces, java.io.File positionsOnMap) {
 
 		background = new Image(Resource.getInstance().backGround);
 		camera = new OrthographicCamera();
@@ -46,10 +48,23 @@ public class WorldStage extends AbstractStage implements GestureListener {
 
 		actor = new ArrayList<AbstractView>();
 
-		for (int i = 0; i < provinces.size(); i++) {
-			ProvinceView provinceView = new ProvinceView(provinces.get(i));
-			actor.add(provinceView);
-		}
+		try {
+            Scanner scanner = new Scanner(positionsOnMap);
+            int i=0;
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                String[] array = line.split("-");
+                String xCord = array[0];
+                String yCord = array[1];
+    			ProvinceView provinceView = new ProvinceView(provinces.get(i), Integer.getInteger(xCord), Integer.getInteger(yCord));
+    			actor.add(provinceView);
+    			i++;
+            }
+            scanner.close();
+
+		} catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
 		
 		addActor(background);
 

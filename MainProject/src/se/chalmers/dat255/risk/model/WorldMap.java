@@ -62,6 +62,7 @@ public class WorldMap {
                 }
                 continents.add(new Continent(array[0], itsProvinces, Integer.parseInt(array[0])));
           }
+          scanner.close();
 
 		} catch (FileNotFoundException e) {
             e.printStackTrace();

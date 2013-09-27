@@ -1,5 +1,6 @@
 package se.chalmers.dat255.risk.view;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,7 +30,7 @@ public class GameScreen extends AbstractScreen {
 
 		isWorld = true;
 
-		worldStage = new WorldStage(model.getGameProvinces());
+		worldStage = new WorldStage(model.getGameProvinces(), new File("Cords.txt"));
 
 		// Creates a cardStage for every player
 		cardStages = new ArrayList<AbstractStage>();
