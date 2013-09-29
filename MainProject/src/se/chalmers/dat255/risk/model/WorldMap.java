@@ -1,15 +1,9 @@
 package se.chalmers.dat255.risk.model;
 
-import java.io.FileNotFoundException;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
-import java.util.Scanner;
-
-import com.badlogic.gdx.files.FileHandle;
-import se.chalmers.dat255.risk.view.resource.PlayerColor;
-
-import com.badlogic.gdx.Gdx;
 
 /**
  * Contains Maps with relations for the provinces on the game board and the
@@ -32,14 +26,13 @@ public class WorldMap {
 	// from a text file.
 	private final HashMap<String, ArrayList<String>> neighbours;
 
-	public WorldMap(FileHandle provinceFile, FileHandle continentFile, Player[] players) {
+	public WorldMap(String provinceFile, String continentFile, Player[] players) {
 
 		HashMap<String, ArrayList<String>> tempNeighbours = new HashMap<String, ArrayList<String>>();
 		ArrayList<String> listOfProvinces = new ArrayList<String>();
 		ownership = new HashMap<String, Player>();
 		bonuses=new int[players.length];
-		String pFile = provinceFile.readString();  
-		String[] pLines = pFile.split("\\n");
+		String[] pLines = provinceFile.split("\\n");
 		for(String pLine : pLines){
 				String[] array = pLine.split("-");
 				String p1 = array[0];
@@ -53,8 +46,7 @@ public class WorldMap {
 			}
 			continents = new ArrayList<Continent>();
 			//scanner = new Scanner(continentFile);
-			String cFile = continentFile.readString();
-			String[] cLines = cFile.split("\\n");
+			String[] cLines = continentFile.split("\\n");
 			String itsProvinces[];
 			for (String line : cLines) {
 				String[] array = line.split("-");
@@ -124,7 +116,6 @@ public class WorldMap {
 
 		allProvinces = buildProvinces(listOfProvinces);
 		randomizeProvinces(listOfProvinces, players);
-<<<<<<< HEAD
 		for (IProvince province : allProvinces) {
 			province.setColor(PlayerColor.getStringColor(this.getOwner(
 					province.getId()).getId()));
