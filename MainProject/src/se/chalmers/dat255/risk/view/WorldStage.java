@@ -35,7 +35,6 @@ public class WorldStage extends AbstractStage implements GestureListener {
 		background = new Image(Resource.getInstance().backGround);
 		camera = new OrthographicCamera();
 		provinceGroup = new Group();
-
 		multi = new InputMultiplexer(new GestureDetector(this), this);
 		camera.setToOrtho(false);
 		setCamera(camera);
@@ -121,13 +120,24 @@ public class WorldStage extends AbstractStage implements GestureListener {
 
 	@Override
 	public boolean zoom(float initialDistance, float distance) {
-
 		float ratio = initialDistance / distance;
 		if (initialZoom * ratio >= 0.5f && initialZoom * ratio <= 2.5f) {
 			camera.zoom = initialZoom * ratio;
 		}
 		calcCam();
 
+		return false;
+	}
+
+	@Override
+	public boolean scrolled(int amount) {
+		initialZoom = camera.zoom;
+		float ratio = amount < 0 ? 0.9f : 1.1f;
+		if (initialZoom * ratio >= 0.5f && initialZoom * ratio <= 1.33f) {
+			camera.zoom = initialZoom * ratio;
+		}
+
+		calcCam();
 		return false;
 	}
 
