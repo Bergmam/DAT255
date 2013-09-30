@@ -9,19 +9,20 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 
 public class SwitchButton extends AbstractView {
 
-	private static String cards = "Show Cards";
-	private static String map = "Show Map";
+	private static String cards = "Cards";
+	private static String map = "Map";
 	private Label label;
 
 	private String current;
 
 	public SwitchButton() {
-		super(Resource.getInstance().bucket, Resource.getInstance().bucket);
+		super(Resource.getInstance().diamond, Resource.getInstance().diamond);
 		current = cards;
 		setPosition(0,0);
 		size(width, height);
 		label = new Label(current, new LabelStyle(font, Color.RED));
-		label.setPosition(getX(), getY() + getHeight()/2);
+		label.setPosition(getX()+label.getWidth()/4, getY() + getHeight()/3);
+		//scale = 1.3f*width;
 	}
 
 	public String getText() {
