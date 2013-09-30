@@ -17,7 +17,7 @@ public abstract class AbstractView extends Actor implements
 	protected Texture imageDown;
 	protected float width;
 	protected float height;
-	
+
 	public AbstractView(Texture iU, Texture iD) {
 		imageUp = iU;
 		imageDown = iD;
@@ -29,20 +29,21 @@ public abstract class AbstractView extends Actor implements
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
 	}
-	
+
 	/*
 	 * IsCicked makes the button look like it have been clicked or not.
 	 */
-	public void check(){
-		isClicked =  !isClicked;
-	}
-	
-	@Override
-	public void draw(SpriteBatch batch, float alpha){
-		batch.draw(isClicked ? imageDown : imageUp ,getX(),getY());
+	public void check() {
+		isClicked = !isClicked;
 	}
 
-	public void setImages(Texture iU, Texture iD){
+	@Override
+	public void draw(SpriteBatch batch, float alpha) {
+		batch.draw(isClicked ? imageDown : imageUp, getX(), getY(),
+				getScaleX(), getScaleY());
+	}
+
+	public void setImages(Texture iU, Texture iD) {
 		imageUp = iU;
 		imageDown = iD;
 	}

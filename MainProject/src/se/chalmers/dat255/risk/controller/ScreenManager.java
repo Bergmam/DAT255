@@ -11,6 +11,8 @@ import se.chalmers.dat255.risk.view.MainScreen;
 import se.chalmers.dat255.risk.view.ProvinceView;
 import se.chalmers.dat255.risk.view.SwitchButton;
 import se.chalmers.dat255.risk.view.resource.ColorHandler;
+import se.chalmers.dat255.risk.view.resource.Resource;
+import sun.security.util.Resources;
 
 public class ScreenManager {
 	private static ScreenManager instance;
@@ -20,11 +22,15 @@ public class ScreenManager {
 	GDXGame game;
 
 	private ScreenManager() {
-		
-		model = new Game(new String[] { "Anders", "Beta",
-				"Cookie", "Dumbo" });
+
+		Resource.getInstance();
+
+		model = new Game(new String[] { "Anders", "Beta", "Cookie", "Dumbo" },
+				Resource.getInstance().neighborsFile,
+				Resource.getInstance().continentsFile);
+
 		main = new MainScreen(model);
-		screen = new GameScreen( model);
+		screen = new GameScreen(model);
 		ColorHandler.getInstance().instantiate(model);
 		for (AbstractView v : screen.getViews()) {
 			if (v instanceof ProvinceView) {
@@ -37,25 +43,26 @@ public class ScreenManager {
 				v.addListener(new SwitchListener());
 			}
 		}
-		//changeScreen();
+		// changeScreen();
 	}
-	
-	public static ScreenManager getInstance(){
-		if(instance == null){
+
+	public static ScreenManager getInstance() {
+		if (instance == null) {
 			instance = new ScreenManager();
 		}
 		return instance;
 	}
-	public void dispose(){
+
+	public void dispose() {
 		main.dispose();
 	}
-	
-	public void instantiate(GDXGame game){
+
+	public void instantiate(GDXGame game) {
 		this.game = game;
 	}
 
 	public void changeScreen() {
-		game.setScreen(game.getScreen() == main? screen:main);
+		game.setScreen(game.getScreen() == main ? screen : main);
 	}
-	
+
 }
