@@ -17,7 +17,7 @@ public class Resource {
 	public Texture card1 = new Texture(Gdx.files.internal("Gfx/card1.png"));
 	public Texture card2 = new Texture(Gdx.files.internal("Gfx/card1.png"));
 	public Texture card3 = new Texture(Gdx.files.internal("Gfx/card3.jpg"));
-	public Texture bucket = new Texture(Gdx.files.internal("Gfx/diamond.png"));
+	public Texture diamond = new Texture(Gdx.files.internal("Gfx/diamond.png"));
 	public Texture cardHolder = new Texture(
 			Gdx.files.internal("Gfx/RiskCard.jpg"));
 	public Texture circle = new Texture(Gdx.files.internal("Gfx/circle3.png"));
@@ -48,7 +48,7 @@ public class Resource {
 																	// card2
 																	// later.
 		card3 = new Texture(Gdx.files.internal("Gfx/card3.jpg"));
-		bucket = new Texture(Gdx.files.internal("Gfx/diamond.png"));
+		diamond = new Texture(Gdx.files.internal("Gfx/diamond.png"));
 		cardHolder = new Texture(Gdx.files.internal("Gfx/RiskCard.jpg"));
 		circle = new Texture(Gdx.files.internal("Gfx/circle3.png"));
 		triangle = new Texture(Gdx.files.internal("Gfx/triangle.png"));
