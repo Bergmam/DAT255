@@ -1,5 +1,7 @@
 package se.chalmers.dat255.risk.view.resource;
 
+import java.io.File;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
@@ -24,6 +26,9 @@ public class Resource {
 	public FileHandle neighbours = Gdx.files.internal("Gfx/neighbours.txt");
 	public FileHandle cords = Gdx.files.internal("Gfx/Cords.txt");
 	public FileHandle continents = Gdx.files.internal("Gfx/continents.txt");
+
+	public String neighborsFile;
+	public String continentsFile;
 
 	public static Resource getInstance() {
 		if (instance == null) {
@@ -50,6 +55,10 @@ public class Resource {
 		neighbours = Gdx.files.internal("Gfx/neighbours.txt");
 		cords = Gdx.files.internal("Gfx/Cords.txt");
 		continents = Gdx.files.internal("Gfx/continents.txt");
+
+		neighborsFile = neighbours.readString();
+		continentsFile = continents.readString();
+
 	}
 
 	public void dispose() {

@@ -1,9 +1,7 @@
 package se.chalmers.dat255.risk.view;
 
-
 import se.chalmers.dat255.risk.model.IProvince;
 import se.chalmers.dat255.risk.view.resource.ColorHandler;
-import se.chalmers.dat255.risk.view.resource.PlayerColor;
 import se.chalmers.dat255.risk.view.resource.Resource;
 
 import com.badlogic.gdx.graphics.Color;
@@ -16,8 +14,9 @@ public class ProvinceView extends AbstractView {
 	public ProvinceView(IProvince province, int x, int y) {
 		super(Resource.getInstance().circle, Resource.getInstance().triangle);
 		this.province = province;
-		setSize(width, height);
+		setSize(width/2, height/2);
 		setPosition(x, y);
+		setScale(width / 2, height / 2);
 	}
 
 	public float getCenterX() {
@@ -30,11 +29,12 @@ public class ProvinceView extends AbstractView {
 
 	@Override
 	public void draw(SpriteBatch batch, float alpha) {
-		
-		batch.setColor(ColorHandler.getInstance().getProvinceColor(province.getId()));
-		batch.draw(isClicked? imageDown : imageUp, getX(), getY(), width/2,height/2);
+
+		batch.setColor(ColorHandler.getInstance().getProvinceColor(
+				province.getId()));
+		super.draw(batch, alpha);
 		font.setColor(Color.RED);
-		font.draw(batch, ""+province.getUnits(), getCenterX(), getCenterY());
+		font.draw(batch, "" + province.getUnits(), getCenterX(), getCenterY());
 	}
 
 	public IProvince getProvince() {
