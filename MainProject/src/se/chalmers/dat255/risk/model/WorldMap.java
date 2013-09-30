@@ -34,6 +34,8 @@ public class WorldMap {
 
 	public WorldMap(FileHandle provinceFile, FileHandle continentFile, Player[] players) {
 
+		
+		//Later we will get an String[] input with all provinçes, We dont want to have an FileHandle in Model!!!
 		HashMap<String, ArrayList<String>> tempNeighbours = new HashMap<String, ArrayList<String>>();
 		ArrayList<String> listOfProvinces = new ArrayList<String>();
 		ownership = new HashMap<String, Player>();
@@ -52,17 +54,12 @@ public class WorldMap {
 
 			}
 			continents = new ArrayList<Continent>();
-			//scanner = new Scanner(continentFile);
 			String cFile = continentFile.readString();
 			String[] cLines = cFile.split("\\n");
 			String itsProvinces[];
 			for (String line : cLines) {
 				String[] array = line.split("-");
-				itsProvinces = new String[array.length - 2]; // Reserves space
-				// for all but
-				// bonus and the
-				// continent
-				// name
+				itsProvinces = new String[array.length - 2]; 
 
 				int nrOfContinents = 0;
 
@@ -78,57 +75,6 @@ public class WorldMap {
 
 		
 		
-		
-		/*HashMap<String, ArrayList<String>> tempNeighbours = new HashMap<String, ArrayList<String>>();
-		ArrayList<String> listOfProvinces = new ArrayList<String>();
-		ownership = new HashMap<String, Player>();
-		bonuses=new int[players.length];
-		try {
-			Scanner scanner = new Scanner(provinceFile);
-			while (scanner.hasNextLine()) {
-				String line = scanner.nextLine();
-				String[] array = line.split("-");
-				String p1 = array[0];
-				listOfProvinces.add(p1);
-				ArrayList<String> list = new ArrayList<String>();
-				for (int i = 1; i < array.length; i++) {
-					list.add(array[i]);
-				}
-				tempNeighbours.put(p1, list);
-
-			}
-			continents = new ArrayList<Continent>();
-			scanner = new Scanner(continentFile);
-			String itsProvinces[];
-			while (scanner.hasNextLine()) {
-				String line = scanner.nextLine();
-				String[] array = line.split("-");
-				itsProvinces = new String[array.length - 2]; // Reserves space
-				// for all but
-				// bonus and the
-				// continent
-				// name
-
-				int nrOfContinents = 0;
-
-				for (int i = 2; i < array.length; i++) {
-					itsProvinces[i - 2] = array[i];
-				}
-				continents.add(new Continent(array[0], itsProvinces, Integer
-						.parseInt(array[0])));
-			}
-
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-
-		allProvinces = buildProvinces(listOfProvinces);
-		randomizeProvinces(listOfProvinces, players);
-<<<<<<< HEAD
-		for (IProvince province : allProvinces) {
-			province.setColor(PlayerColor.getStringColor(this.getOwner(
-					province.getId()).getId()));
-		}*/
 
 		neighbours = new HashMap<String, ArrayList<String>>(tempNeighbours);
 	}
