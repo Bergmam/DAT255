@@ -27,7 +27,7 @@ public class ChangePhase extends AbstractView {
 	private Label label;
 
 	public ChangePhase(IGame model) {
-		super(Resource.getInstance().diamond, Resource.getInstance().diamond);
+		super(Resource.getInstance().triangle, Resource.getInstance().triangle);
 		this.model = model;
 		size(width, height);
 		setPosition(Gdx.graphics.getWidth() - getWidth(), 0);
@@ -49,11 +49,6 @@ public class ChangePhase extends AbstractView {
 	 * 
 	 * public String getCurrent() { return current; }
 	 */
-	@Override
-	public void check() {
-		super.check();
-		super.check();
-	}
 
 	private String getText() {
 		if ((model.getPhase() == Phase.F1)
@@ -80,6 +75,7 @@ public class ChangePhase extends AbstractView {
 
 	@Override
 	public void draw(SpriteBatch batch, float alpha) {
+		batch.setColor(isClicked? Color.DARK_GRAY: Color.BLACK);
 		label.setText(getText());
 		label.setPosition(getTextX(), getTextY());
 		super.draw(batch, alpha);

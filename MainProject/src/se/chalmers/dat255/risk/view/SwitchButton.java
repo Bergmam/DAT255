@@ -16,7 +16,7 @@ public class SwitchButton extends AbstractView {
 	private String current;
 
 	public SwitchButton() {
-		super(Resource.getInstance().diamond, Resource.getInstance().diamond);
+		super(Resource.getInstance().triangle, Resource.getInstance().triangle);
 		current = cards;
 		setPosition(0,0);
 		size(width, height);
@@ -29,19 +29,13 @@ public class SwitchButton extends AbstractView {
 		return current;
 	}
 
-	@Override
-	public void check() {
-		super.check();
-		switchText();
-		super.check();
-	}
-
-	private void switchText() {
+	public void switchText() {
 		label.setText(current = current.equals(cards) ? map : cards);
 	}
 
 	@Override
 	public void draw(SpriteBatch batch, float alpha) {
+		batch.setColor(isClicked? Color.DARK_GRAY: Color.BLACK);
 		super.draw(batch, alpha);
 		label.draw(batch, alpha);
 	}
