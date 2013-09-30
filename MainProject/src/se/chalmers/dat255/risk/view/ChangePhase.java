@@ -58,6 +58,9 @@ public class ChangePhase extends AbstractView {
 
 	private String getText() {
 		if ((model.getPhase() == Phase.F1) || (model.getPhase() == Phase.FBuild) ) {
+			if(model.getBonusUnitsLeft() == 0){
+				return "Next";
+			}
 			return "Units: " + model.getBonusUnitsLeft();
 		} else if (model.getPhase() == Phase.F2) {
 			return "Next Phase";
