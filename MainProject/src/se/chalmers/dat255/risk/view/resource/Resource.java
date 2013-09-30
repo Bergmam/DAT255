@@ -27,8 +27,8 @@ public class Resource {
 	public FileHandle cords = Gdx.files.internal("Gfx/Cords.txt");
 	public FileHandle continents = Gdx.files.internal("Gfx/continents.txt");
 
-	public String neighborsFile;
-	public String continentsFile;
+	public String neighborsFile = neighbours.readString();
+	public String continentsFile = continents.readString();
 
 	public static Resource getInstance() {
 		if (instance == null) {
