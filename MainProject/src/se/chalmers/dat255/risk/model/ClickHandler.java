@@ -10,8 +10,8 @@ public class ClickHandler {
 	boolean movedTroops = false;
 	boolean firstProvinceConqueredThisTurn = true;
 	
-	public ClickHandler(){
-		phaseHandler=new TurnAndPhaseManager();
+	public ClickHandler(TurnAndPhaseManager phaseHandler){
+		this.phaseHandler=phaseHandler;
 	}
 	
 	
@@ -31,7 +31,8 @@ public class ClickHandler {
 		if (currentPhase == Phase.FBuild || currentPhase == Phase.F1) {
 			// CHECKS IF I'M ALLOWED TO PRESS CHANGE PHASE
 			if (bonusUnitsLeft == 0 && currentPlayer.getCards().size() < 5) {
-				System.out.println("HAMNAR JAG ENS HÄR????");
+				System.out.println("F0 -> F0");
+				System.out.println("ClickHandler: Current player is " + phaseHandler.getActivePlayer());
 				return phaseHandler.changePhase(currentPlayer, players);
 			}
 		}

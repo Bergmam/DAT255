@@ -33,10 +33,10 @@ public class TurnAndPhaseManager {
 				currentPhase = Phase.F1;
 				return 0; // Special, no need to compute troops
 			} else {
-				System.out.println("Old active player: " + activePlayer);
+				System.out.println("Old active player: " + getActivePlayer());
 				System.out.println("Number of players: " + players.length);
 				changeTurn(players);
-				System.out.println("New active player: " + activePlayer);
+				System.out.println("New active player: " + getActivePlayer());
 				return 2;
 			}
 		} else if (currentPhase == Phase.F3) {
@@ -52,6 +52,7 @@ public class TurnAndPhaseManager {
 	
 	private void changeTurn(Player[] players) {
 		activePlayer = (activePlayer + 1) % players.length;
+		System.out.println("Nu pillades det med activePlayer och det nya värdet är: " + activePlayer);
 	}
 	
 	public int getActivePlayer(){

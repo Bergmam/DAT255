@@ -120,8 +120,9 @@ public class Game implements IGame {
 
 	@Override
 	public void newGame(String[] playersId) throws IllegalArgumentException {
-		clickHandler=new ClickHandler();
 		phaseHandler=new TurnAndPhaseManager();
+		clickHandler=new ClickHandler(phaseHandler);
+
 		
 		int noOfPlayers = playersId.length;
 		if (noOfPlayers > 6 || noOfPlayers < 2) {
