@@ -2,7 +2,7 @@ package se.chalmers.dat255.risk.model;
 
 import java.util.ArrayList;
 
-import se.chalmers.dat255.risk.model.PhaseHandler.Phase;
+import se.chalmers.dat255.risk.model.TurnAndPhaseManager.Phase;
 
 /**
  * Interface for top class in the game risk
