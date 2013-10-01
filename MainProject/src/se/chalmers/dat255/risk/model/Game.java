@@ -243,7 +243,7 @@ public class Game implements IGame {
 			if (worldMap.getOwner(newClickedProvince.getId()) == getActivePlayer()
 					&& bonus > 0) {
 				placeBonusUnits(1, newClickedProvince);
-				System.out.print("Current player active is player " + phaseHandler.getActivePlayer());
+				System.out.print("Current player active is player " + phaseHandler.getActivePlayer() + "\n");
 			}
 		}
 	}
@@ -312,7 +312,10 @@ public class Game implements IGame {
 		// TODO Auto-generated method stub
 		int result = changePhase();
 		if(result == 2){
+			System.out.println("PhaseHandler: New active player " + phaseHandler.getActivePlayer());
+			System.out.println("Game: New active player " + getActivePlayer().getId());
 			bonus = startingTroopNr - getActivePlayer().getNrOfProvinces();
+			
 		}
 		else if(result == 0){
 			calcBonusUnits();

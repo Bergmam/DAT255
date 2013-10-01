@@ -40,6 +40,7 @@ public class ClickHandler {
 //		resetVariables();
 		return result;
 		}
+		System.out.println("Most empty bonus before changing phase!");
 		return -1;
 			// "actions" och kan byta fas.
 		

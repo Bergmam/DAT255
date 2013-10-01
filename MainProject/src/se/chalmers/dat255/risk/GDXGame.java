@@ -32,7 +32,7 @@ public class GDXGame extends Game {
 	public void render() {
 		super.render();
 		// Gdx.app.log("Risk", "RenderingGame");
-		logger.log();
+//		logger.log();
 	}
 
 	@Override
