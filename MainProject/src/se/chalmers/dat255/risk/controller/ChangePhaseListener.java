@@ -16,12 +16,19 @@ public class ChangePhaseListener extends ClickListener{
 	}
 	
 	@Override
+	public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+		if(event.getTarget() instanceof ChangePhase){
+			((ChangePhase) event.getTarget()).check();
+		}
+		return super.touchDown(event, x, y, pointer, button);
+	}
+	
+	@Override
 	public void clicked(InputEvent event, float x, float y){
 		if(event.getTarget() instanceof ChangePhase){
 			ChangePhase newClick =  ((ChangePhase) event.getTarget());
 			newClick.check();
 			theGame.handlePhaseClick();
 		} 
-	//	Gdx.app.log("trololol", "province clicked");
 	}
 }

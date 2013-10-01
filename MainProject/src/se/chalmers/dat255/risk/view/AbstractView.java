@@ -18,6 +18,7 @@ public abstract class AbstractView extends Actor implements
 	protected Texture imageDown;
 	protected float width;
 	protected float height;
+	protected float scale;
 
 	public AbstractView(Texture iU, Texture iD) {
 		imageUp = iU;
@@ -25,6 +26,7 @@ public abstract class AbstractView extends Actor implements
 		width = iU.getWidth();
 		height = iU.getHeight();
 		font = new BitmapFont();
+		scale = width;
 	}
 
 	@Override
@@ -40,7 +42,7 @@ public abstract class AbstractView extends Actor implements
 
 	@Override
 	public void draw(SpriteBatch batch, float alpha) {
-		batch.draw(isClicked ? imageDown : imageUp, getX(), getY());
+		batch.draw(isClicked ? imageDown : imageUp, getX(), getY(),scale,scale);
 	}
 
 	public void setImages(Texture iU, Texture iD) {

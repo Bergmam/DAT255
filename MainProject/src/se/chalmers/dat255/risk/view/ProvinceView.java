@@ -14,16 +14,17 @@ public class ProvinceView extends AbstractView {
 	public ProvinceView(IProvince province, int x, int y) {
 		super(Resource.getInstance().circle, Resource.getInstance().triangle);
 		this.province = province;
-		setSize(width, height);
+		setSize(width/2, height/2);
 		setPosition(x, y);
+		scale = width/2;
 	}
 
-	public float getCenterX() {
-		return getX() + (getWidth() / 4);
+	private float getTextX() {
+		return getX() + (width / 8);
 	}
 
-	public float getCenterY() {
-		return getY() + (getWidth() / 4);
+	private float getTextY() {
+		return getY() + (height / 3);
 	}
 
 	@Override
@@ -31,10 +32,9 @@ public class ProvinceView extends AbstractView {
 
 		batch.setColor(ColorHandler.getInstance().getProvinceColor(
 				province.getId()));
-		batch.draw(isClicked ? imageDown : imageUp, getX(), getY(), width / 2,
-				height / 2);
+		super.draw(batch, alpha);
 		font.setColor(Color.RED);
-		font.draw(batch, "" + province.getUnits(), getCenterX(), getCenterY());
+		font.draw(batch, "" + province.getUnits(), getTextX(), getTextY());
 	}
 
 	public IProvince getProvince() {
