@@ -8,18 +8,20 @@ import org.junit.Test;
 
 public class GameTest{
 	String[] name = new String[]{"Linnea","Andreas","Emil","Bergman","Christoffer","Emma"};
-	Game game = new Game (name);
+	String provinces = "A-B-C-D-E" +"\n" + "B-A-C-E" +"\n" + "C-A-D" + "\n" + "D-A-C-E" + "\n" + "E-A-B-D";
+	String continents = "3-A-B-C" +"\n" + "2-D-E";
+	Game game = new Game (name,provinces,continents);
 	
 	@Test
 	public void testGameConstructor(){
 		String[] name1 = new String[]{"Christoffer","Emma"};
-		Game game1 = new Game (name1);
+		Game game1 = new Game (name1,provinces,continents);
 		String[] name2 = new String[]{"Andreas","Emil","Bergman"};
-		Game game2 = new Game (name2);
+		Game game2 = new Game (name2,provinces,continents);
 		String[] name3 = new String[]{"Andreas","Emil","Bergman","Christoffer"};
-		Game game3 = new Game (name3);
+		Game game3 = new Game (name3,provinces,continents);
 		String[] name4 = new String[]{"Andreas","Emil","Bergman","Christoffer","Emma"};
-		Game game4 = new Game (name4);
+		Game game4 = new Game (name4,provinces,continents);
 		
 		//Check if number of player is correct,
 		//System.out.println("number of players: " +game1.getPlayer()[4].getName());
@@ -44,7 +46,7 @@ public class GameTest{
 	
 	@Test
 	public void testChangePhase(){
-		assertTrue(game.getCurrentPhase()==Phase.F1); // FBuild?
+		assertTrue(game.getCurrentPhase()==Phase.FBuild); 
 			//Not implemented yet!
 	}
 	
