@@ -13,13 +13,19 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.input.GestureDetector.GestureListener;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.collision.BoundingBox;
 import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Window.WindowStyle;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 public class WorldStage extends AbstractStage implements GestureListener {
 	private Image background;
@@ -37,7 +43,7 @@ public class WorldStage extends AbstractStage implements GestureListener {
 		provinceGroup = new Group();
 		multi = new InputMultiplexer(new GestureDetector(this), this);
 		camera.setToOrtho(false);
-		
+
 		setCamera(camera);
 
 		width = background.getWidth();
@@ -78,10 +84,9 @@ public class WorldStage extends AbstractStage implements GestureListener {
 		for (int i = 0; i < actor.size(); i++) {
 			provinceGroup.addActor(actor.get(i));
 		}
-		
+
 		addActor(background);
 		addActor(provinceGroup);
-		
 	}
 
 	@Override
@@ -136,8 +141,7 @@ public class WorldStage extends AbstractStage implements GestureListener {
 	public boolean scrolled(int amount) {
 		initialZoom = camera.zoom;
 		float ratio = amount < 0 ? 0.9f : 1.1f;
-		if (initialZoom * ratio >= 0.5f
-				&& initialZoom * ratio <= 1.33){
+		if (initialZoom * ratio >= 0.5f && initialZoom * ratio <= 1.33) {
 			camera.zoom = initialZoom * ratio;
 		}
 
