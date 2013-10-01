@@ -13,13 +13,19 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.input.GestureDetector.GestureListener;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.collision.BoundingBox;
 import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Window.WindowStyle;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 public class WorldStage extends AbstractStage implements GestureListener {
 	private Image background;
@@ -29,6 +35,7 @@ public class WorldStage extends AbstractStage implements GestureListener {
 	private float width;
 	private float height;
 	private InputMultiplexer multi;
+	private PopUp pop;
 
 	public WorldStage(List<IProvince> provinces, FileHandle positionsOnMap) {
 
@@ -81,6 +88,9 @@ public class WorldStage extends AbstractStage implements GestureListener {
 		
 		addActor(background);
 		addActor(provinceGroup);
+		
+		PopUp pop = new PopUp("This be PopUp");
+		addActor(pop);
 		
 	}
 
