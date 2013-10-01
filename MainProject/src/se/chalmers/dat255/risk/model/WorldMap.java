@@ -37,7 +37,8 @@ public class WorldMap {
 	 *            bonus, followed by the provinces in the continent, separeted
 	 *            with "-" Example: 3-A-B-C, a continents that gives the bonus 3
 	 *            and contains the provinces A,B,C
-	 * @param players players
+	 * @param players
+	 *            players
 	 */
 	public WorldMap(String provinceString, String continentFile,
 			Player[] players) {
