@@ -1,15 +1,18 @@
 package se.chalmers.dat255.risk.view.resource;
 
-import java.io.File;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 public class Resource {
 
 	private static Resource instance;
 
+	public TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("pack/uiskin.atlas"));
+	public Skin skin = new Skin(Gdx.files.internal("pack/uiskin.json"));
+	
 	public Texture backGround = new Texture(
 			Gdx.files.internal("Gfx/RiskMap1.png"));
 	public Texture cardStageBg2 = new Texture(
@@ -42,6 +45,8 @@ public class Resource {
 	}
 
 	public void loadResources() {
+		//skin.addRegions(atlas);
+
 		backGround = new Texture(Gdx.files.internal("Gfx/RiskMap1.png"));
 		card1 = new Texture(Gdx.files.internal("Gfx/card1.png"));
 		card2 = new Texture(Gdx.files.internal("Gfx/card1.png")); // Will be

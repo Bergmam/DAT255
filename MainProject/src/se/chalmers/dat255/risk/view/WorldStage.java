@@ -35,7 +35,6 @@ public class WorldStage extends AbstractStage implements GestureListener {
 	private float width;
 	private float height;
 	private InputMultiplexer multi;
-	private PopUp pop;
 
 	public WorldStage(List<IProvince> provinces, FileHandle positionsOnMap) {
 
@@ -44,7 +43,7 @@ public class WorldStage extends AbstractStage implements GestureListener {
 		provinceGroup = new Group();
 		multi = new InputMultiplexer(new GestureDetector(this), this);
 		camera.setToOrtho(false);
-		
+
 		setCamera(camera);
 
 		width = background.getWidth();
@@ -85,13 +84,9 @@ public class WorldStage extends AbstractStage implements GestureListener {
 		for (int i = 0; i < actor.size(); i++) {
 			provinceGroup.addActor(actor.get(i));
 		}
-		
+
 		addActor(background);
 		addActor(provinceGroup);
-		
-		PopUp pop = new PopUp("This be PopUp");
-		addActor(pop);
-		
 	}
 
 	@Override
@@ -146,8 +141,7 @@ public class WorldStage extends AbstractStage implements GestureListener {
 	public boolean scrolled(int amount) {
 		initialZoom = camera.zoom;
 		float ratio = amount < 0 ? 0.9f : 1.1f;
-		if (initialZoom * ratio >= 0.5f
-				&& initialZoom * ratio <= 1.33){
+		if (initialZoom * ratio >= 0.5f && initialZoom * ratio <= 1.33) {
 			camera.zoom = initialZoom * ratio;
 		}
 

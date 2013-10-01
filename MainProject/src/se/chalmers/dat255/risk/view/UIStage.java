@@ -26,7 +26,8 @@ public class UIStage extends AbstractStage {
 	private Label label;
 	private IGame model;
 	private ColorHandler color;
-
+	private PopUp pop;
+	
 	public UIStage(IGame model) {
 		this.model = model;
 		phase = new ChangePhase(model);
@@ -50,6 +51,19 @@ public class UIStage extends AbstractStage {
 				Gdx.graphics.getHeight() - label.getHeight() - 10);
 
 		addActor(label);
+		
+		PopUp pop = new PopUp("Attack");
+		pop.setModal(true);
+		//pop.setVisible(false);
+		addActor(pop);
+		
+	}
+	
+	public void showPopUp(String title, int slideStop){
+		pop.setVisible(true);
+		pop.setTitle(title);
+		pop.setSliderStop(slideStop);
+	
 
 	}
 
