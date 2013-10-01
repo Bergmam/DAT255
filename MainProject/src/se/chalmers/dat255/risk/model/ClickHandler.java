@@ -31,19 +31,25 @@ public class ClickHandler {
 		if (currentPhase == Phase.FBuild || currentPhase == Phase.F1) {
 			// CHECKS IF I'M ALLOWED TO PRESS CHANGE PHASE
 			if (bonusUnitsLeft == 0 && currentPlayer.getCards().size() < 5) {
+				System.out.println("HAMNAR JAG ENS H�R????");
 				return phaseHandler.changePhase(currentPlayer, players);
 			}
 		}
+		else if(currentPhase == Phase.F2 || currentPhase == Phase.F3){
 		int result = phaseHandler.changePhase(currentPlayer, players);
-		resetVariables();
+//		resetVariables();
 		return result;
+		}
+		return -1;
 			// "actions" och kan byta fas.
 		
 		// När du är i FBuild, så måste du kolla så att det är tomt
 		// i bonus innan du "byter fas" = kör changePhase.
 
 	}
-
+/**
+ * Anv�nds inte i nuvarande implementation
+ */
 	private void resetVariables(){
 		oldClickedProvince = null;
 		movedTroops = false;
