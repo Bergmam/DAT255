@@ -20,7 +20,6 @@ WorldMap worldMap = new WorldMap(provinces,continents,players);
 	@Test
 	public void testConstructor(){
 		// This I took from the file
-		System.out.println("number of provinces = " + worldMap.getProvinces().size());
 		assertTrue(worldMap.getProvinces().size() == 5);
 	}
 	
