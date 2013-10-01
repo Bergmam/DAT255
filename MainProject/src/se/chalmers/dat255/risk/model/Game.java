@@ -2,6 +2,7 @@ package se.chalmers.dat255.risk.model;
 
 import java.util.ArrayList;
 
+import se.chalmers.dat255.risk.model.PhaseHandler.Phase;
 import se.chalmers.dat255.risk.view.resource.Resource;
 
 /**
@@ -15,6 +16,8 @@ public class Game implements IGame {
 	private int activePlayer, startingTroopNr;
 	// private int currentPhase;
 	private WorldMap worldMap;
+	private ClickHandler clickHandler;
+	private PhaseHandler phaseHandler;
 	private int bonus;
 	private BattleHandler battle;
 	private Deck deck;
@@ -26,7 +29,6 @@ public class Game implements IGame {
 	private ICard card2 = null;
 
 	// CURRENT PHASE
-	private Phase currentPhase = Phase.FBuild;
 
 	private String continentsFile;
 	private String neighboursFile;
@@ -50,31 +52,8 @@ public class Game implements IGame {
 	 * Method for changing the state of the game to the next state if it should
 	 * be changed.
 	 */
-	private void changePhase() {
-		if (currentPhase == Phase.FBuild) {
-			if (getActivePlayer() == players[players.length - 1]) {
-				changeTurn();
-				currentPhase = Phase.F1;
-			} else {
-				activePlayer = (activePlayer + 1) % players.length;
-				bonus = startingTroopNr - getActivePlayer().getNrOfProvinces();
-			}
-		} else if (currentPhase == Phase.F3) {
-			changeTurn();
-			currentPhase = Phase.F1;
-		} else if (currentPhase == Phase.F1) {
-			currentPhase = Phase.F2;
-		} else {
-			currentPhase = Phase.F3;
-		}
-	}
-
-	private void changeTurn() {
-		activePlayer = (activePlayer + 1) % players.length;
-		oldClickedProvince = null;
-		movedTroops = false;
-		firstProvinceConqueredThisTurn = true;
-		calcBonusUnits();
+	public int changePhase() {
+		return clickHandler.handlePhaseClick(getActivePlayer(), bonus, players);
 	}
 
 	/**
@@ -152,7 +131,7 @@ public class Game implements IGame {
 			players[i] = new Player(i, playersId[i]);
 		}
 		// SETTING PHASE AND TURN
-		currentPhase = Phase.FBuild;
+	//	currentPhase = Phase.FBuild;
 		activePlayer = 0;
 		players[activePlayer].setCurrent(true); // Player one knows it�s his
 												// turn
@@ -179,7 +158,8 @@ public class Game implements IGame {
 
 		// SETTING UP GAMEBOARD RULES AND CREATING PROVINCES
 		worldMap = new WorldMap(neighboursFile, continentsFile, players);
-
+		clickHandler=new ClickHandler();
+		phaseHandler=new PhaseHandler();
 		// SETTING UP DECK
 		ArrayList<String> provinces = new ArrayList<String>();
 		for (IProvince i : worldMap.getProvinces()) {
@@ -194,7 +174,7 @@ public class Game implements IGame {
 	@Override
 	public Phase getCurrentPhase() {
 		// TODO Auto-generated method stub
-		return currentPhase;
+		return phaseHandler.getPhase();
 	}
 
 	@Override
@@ -214,14 +194,14 @@ public class Game implements IGame {
 		// TODO Auto-generated method stub
 
 		// TROOP REINFORCMENT PHASE 1, ONLY THE PLACEMENT
-		if (getCurrentPhase() == IGame.Phase.F1 && bonus > 0) {
+		if (getCurrentPhase() == Phase.F1 && bonus > 0) {
 			// PUT A SINGEL UNIT ON THIS PROVINCE IF OWNED
 			if (worldMap.getOwner(newClickedProvince.getId()) == getActivePlayer()) {
 				placeBonusUnits(1, newClickedProvince);
 			}
 		}
 		// FIGHTING PHASE 2
-		else if (getCurrentPhase() == IGame.Phase.F2) {
+		else if (getCurrentPhase() == Phase.F2) {
 			if (oldClickedProvince != null) {
 				// FIGHT IF TWO PROVINCE CLICKED AND OWNED BY DIFFERENT PLAYER
 				// AND ATTACKING PROVINCE OWNED BY ME
@@ -237,7 +217,7 @@ public class Game implements IGame {
 			}
 		}
 		// MOVING TROOPS IN PHASE 3
-		else if (getCurrentPhase() == IGame.Phase.F3) {
+		else if (getCurrentPhase() == Phase.F3) {
 			if (oldClickedProvince != null) {
 				if (checkProvinceOk(oldClickedProvince, newClickedProvince,
 						true)) {
@@ -256,7 +236,7 @@ public class Game implements IGame {
 			}
 		}
 		// Placing troops in build phase
-		else if (getCurrentPhase() == IGame.Phase.FBuild) {
+		else if (getCurrentPhase() == Phase.FBuild) {
 			if (worldMap.getOwner(newClickedProvince.getId()) == getActivePlayer()
 					&& bonus > 0) {
 				placeBonusUnits(1, newClickedProvince);
@@ -326,26 +306,20 @@ public class Game implements IGame {
 	@Override
 	public void handlePhaseClick() {
 		// TODO Auto-generated method stub
-		// Ska kolla så att spelaren är klar med alla sina
-		if (currentPhase == Phase.FBuild || currentPhase == Phase.F1) {
-			if (bonus == 0 && getActivePlayer().getCards().size() < 5) {
-				changePhase();
-			}
-		} else if (currentPhase == Phase.F2) {
-			changePhase();
-		} else if (currentPhase == Phase.F3) {
-			changePhase();
+		int result = changePhase();
+		if(result == 2){
+			bonus = startingTroopNr - getActivePlayer().getNrOfProvinces();
 		}
-		// "actions" och kan byta fas.
-		// När du är i FBuild, så måste du kolla så att det är tomt
-		// i bonus innan du "byter fas" = kör changePhase.
-
+		else if(result == 0){
+			calcBonusUnits();
+		}
 	}
 
 	@Override
 	public Phase getPhase() {
 		// TODO Auto-generated method stub
-		return currentPhase;
+		return phaseHandler.getPhase();
+
 	}
 
 	@Override
