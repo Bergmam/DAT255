@@ -216,10 +216,15 @@ public class Game implements IGame {
 						false)) {
 					battle(oldClickedProvince, newClickedProvince);
 				}
+				else{
+					flushTemps();
+				}
+			//	
+			} else if(myProvince(newClickedProvince.getId())) {
 
-				oldClickedProvince = null;
-			} else {
 				oldClickedProvince = newClickedProvince;
+				System.out.println("Moving from: " + oldClickedProvince.getId());
+
 
 			}
 		}
@@ -238,8 +243,10 @@ public class Game implements IGame {
 																				// WILL
 																				// HAPPEN
 				}
-			} else {
+			} else if(myProvince(newClickedProvince.getId())) {
 				oldClickedProvince = newClickedProvince;
+				System.out.println("Moving from: " + oldClickedProvince.getId());
+
 			}
 		}
 		// Placing troops in build phase
@@ -252,6 +259,17 @@ public class Game implements IGame {
 		}
 	}
 
+	private void flushTemps(){
+		oldClickedProvince=null;
+		card1=null;
+		card2=null;
+	}
+	
+	private boolean myProvince(String province){
+		return getActivePlayer()==worldMap.getOwner(province);
+	}
+	
+	
 	private void moveToProvince(int nrOfUnits, IProvince from, IProvince goTo) {
 		if (from.getUnits() - nrOfUnits  > 0) {
 			from.moveUnits(nrOfUnits, goTo);
