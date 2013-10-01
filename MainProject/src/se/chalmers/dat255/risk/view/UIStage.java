@@ -53,7 +53,7 @@ public class UIStage extends AbstractStage {
 		addActor(label);
 		
 		PopUp pop = new PopUp("Attack");
-		pop.setModal(true);
+		//pop.setModal(true);
 		//pop.setVisible(false);
 		addActor(pop);
 		

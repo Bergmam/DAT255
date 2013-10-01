@@ -17,7 +17,7 @@ public class PopUp extends Window {
 	public PopUp(String title) {
 		super(title, Resource.getInstance().skin);
 		setPosition(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2);
-		setModal(true);
+		//setModal(true);
 		slider = new Slider(0, 5, 1, false, Resource.getInstance().skin);
 		add("Choose how many \n to attack with", "default");
 		addActor(slider);
