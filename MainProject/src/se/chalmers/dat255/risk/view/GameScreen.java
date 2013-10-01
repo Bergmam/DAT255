@@ -1,6 +1,5 @@
 package se.chalmers.dat255.risk.view;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,12 +41,13 @@ public class GameScreen extends AbstractScreen {
 
 		multi = new InputMultiplexer(uiStage, worldStage.getProcessor());
 
-		Gdx.input.setInputProcessor(multi);
+		
+		
 	}
 
 	@Override
 	public void show() {
-
+		Gdx.input.setInputProcessor(multi);
 	}
 
 	public List<AbstractView> getViews() {
