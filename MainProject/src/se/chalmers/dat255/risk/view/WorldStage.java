@@ -78,9 +78,9 @@ public class WorldStage extends AbstractStage implements GestureListener {
 		for (int i = 0; i < actor.size(); i++) {
 			provinceGroup.addActor(actor.get(i));
 		}
+		
 		addActor(background);
 		addActor(provinceGroup);
-		new PopUp("lolololol").show(this);
 		
 	}
 

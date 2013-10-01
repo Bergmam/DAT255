@@ -44,6 +44,10 @@ public class UIStage extends AbstractStage {
 				Gdx.graphics.getHeight() - label.getHeight()-10);
 
 		addActor(label);
+		
+		//PopUp pop = new PopUp("lolololol");
+		//addActor(pop);
+		//pop.show(this);
 	}
 
 	public boolean renderWorld() {
