@@ -17,8 +17,10 @@ public class PopUp extends Dialog {
 		super(title, new WindowStyle(new BitmapFont(), Color.RED,
 				new TextureRegionDrawable(new TextureRegion(
 						Resource.getInstance().cardHolder))));
-		setPosition(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-		
+		setPosition(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2);
+		setSize(100, 100);
 	}
+	
+	
 
 }

@@ -2,6 +2,7 @@ package se.chalmers.dat255.risk.controller;
 
 import se.chalmers.dat255.risk.model.IGame;
 import se.chalmers.dat255.risk.model.IProvince;
+import se.chalmers.dat255.risk.model.TurnAndPhaseManager.Phase;
 import se.chalmers.dat255.risk.view.ProvinceView;
 
 import com.badlogic.gdx.Gdx;
@@ -31,8 +32,8 @@ public class ProvinceListener extends ClickListener {
 			if (theGame.getActivePlayer().getId() == theGame
 					.getOwner(newClickedProvince.getId())) {
 				newClick.check();
-				if (theGame.getCurrentPhase() == IGame.Phase.F1
-						|| theGame.getCurrentPhase() == IGame.Phase.FBuild) {
+				if (theGame.getCurrentPhase() == Phase.F1
+						|| theGame.getCurrentPhase() == Phase.FBuild) {
 					newClick.check();
 
 				}

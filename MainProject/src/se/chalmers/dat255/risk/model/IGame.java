@@ -2,6 +2,8 @@ package se.chalmers.dat255.risk.model;
 
 import java.util.ArrayList;
 
+import se.chalmers.dat255.risk.model.TurnAndPhaseManager.Phase;
+
 /**
  * Interface for top class in the game risk
  * 
@@ -78,9 +80,7 @@ public interface IGame {
 	 */
 	
 	public Phase getCurrentPhase();
-	
-	public static enum Phase {FBuild, F1, F2, F3}
-	
+		
 	public Player[] getPlayer();
 	
 	public ArrayList<IProvince> getGameProvinces();
