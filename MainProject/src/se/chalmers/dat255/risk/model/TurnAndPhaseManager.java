@@ -35,7 +35,7 @@ public class TurnAndPhaseManager {
 			} else {
 				System.out.println("Old active player: " + activePlayer);
 				System.out.println("Number of players: " + players.length);
-				activePlayer = (activePlayer + 1) % players.length;
+				changeTurn(players);
 				System.out.println("New active player: " + activePlayer);
 				return 2;
 			}
@@ -52,7 +52,6 @@ public class TurnAndPhaseManager {
 	
 	private void changeTurn(Player[] players) {
 		activePlayer = (activePlayer + 1) % players.length;
-
 	}
 	
 	public int getActivePlayer(){
