@@ -1,10 +1,11 @@
 package test;
 
-import static org.junit.Assert.*;
-import se.chalmers.dat255.risk.model.*;
-import se.chalmers.dat255.risk.model.IGame.Phase;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
+
+import se.chalmers.dat255.risk.model.Game;
+import se.chalmers.dat255.risk.model.TurnAndPhaseManager;
 
 public class GameTest{
 	String[] name = new String[]{"Linnea","Andreas","Emil","Bergman","Christoffer","Emma"};
@@ -46,7 +47,7 @@ public class GameTest{
 	
 	@Test
 	public void testChangePhase(){
-		assertTrue(game.getCurrentPhase()==Phase.FBuild); 
+		assertTrue(game.getCurrentPhase()==TurnAndPhaseManager.Phase.FBuild); 
 			//Not implemented yet!
 	}
 	
