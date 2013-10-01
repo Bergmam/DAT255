@@ -250,7 +250,7 @@ public class Game implements IGame {
 	}
 
 	private void moveToProvince(int nrOfUnits, IProvince from, IProvince goTo) {
-		if (nrOfUnits - from.getUnits() > 0) {
+		if (from.getUnits() - nrOfUnits  > 0) {
 			from.moveUnits(nrOfUnits, goTo);
 		}
 	}
@@ -281,9 +281,11 @@ public class Game implements IGame {
 			if (to.getUnits() == 0) {
 				worldMap.changeOwner(to.getId(), getActivePlayer());
 				// TODO move attacking units into 'defensive'
+				moveToProvince(1, from, to);
 				if (firstProvinceConqueredThisTurn) {
 					getActivePlayer().addCard();
 					firstProvinceConqueredThisTurn = false;
+					System.out.println("Du fick ett kort");
 				}
 			}
 		}
