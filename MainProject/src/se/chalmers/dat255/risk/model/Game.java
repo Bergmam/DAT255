@@ -159,8 +159,11 @@ public class Game implements IGame {
 			startingTroopNr = 20;
 			break;
 		}
-		bonus = startingTroopNr - getActivePlayer().getNrOfProvinces();
 
+		///////////////////// ONLY FOR DEV ///////////////////////////
+		//bonus = startingTroopNr - getActivePlayer().getNrOfProvinces();
+		bonus=3;
+		//////////////////// ONLY FOR DEV //////////////////////////
 		// SETTING UP GAMEBOARD RULES AND CREATING PROVINCES
 		worldMap = new WorldMap(neighboursFile, continentsFile, players);
 

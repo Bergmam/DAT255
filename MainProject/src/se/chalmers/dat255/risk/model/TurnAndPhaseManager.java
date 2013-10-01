@@ -9,7 +9,10 @@ public class TurnAndPhaseManager {
 	
 	
 	public TurnAndPhaseManager(){
-		currentPhase=Phase.FBuild;
+////////////////DEV ////////////////////
+	//	currentPhase=Phase.FBuild;
+		currentPhase=Phase.F1;
+////////////////DEV ///////////////////			
 		activePlayer=0;
 	}
 	public static enum Phase {FBuild, F1, F2, F3}	

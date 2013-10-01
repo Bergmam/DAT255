@@ -18,7 +18,10 @@ public class Province implements IProvince{
 	 */
 	public Province(String province){
 		id=province;
-		units=1;  // Have do be atleast one soldier
+//////////////// DEV ////////////////////
+//		units=1;
+		units=5;
+//////////////// DEV ///////////////////		
 	}
 	
 	@Override
