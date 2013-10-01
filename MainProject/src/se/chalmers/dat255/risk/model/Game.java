@@ -86,6 +86,7 @@ public class Game implements IGame {
 
 	@Override
 	public Player getActivePlayer() {
+	//	System.out.println("Current turn: " + phaseHandler.getActivePlayer());
 		return players[phaseHandler.getActivePlayer()];
 	}
 
@@ -242,6 +243,7 @@ public class Game implements IGame {
 			if (worldMap.getOwner(newClickedProvince.getId()) == getActivePlayer()
 					&& bonus > 0) {
 				placeBonusUnits(1, newClickedProvince);
+				System.out.print("Current player active is player " + phaseHandler.getActivePlayer());
 			}
 		}
 	}
