@@ -37,6 +37,7 @@ public class WorldStage extends AbstractStage implements GestureListener {
 		provinceGroup = new Group();
 		multi = new InputMultiplexer(new GestureDetector(this), this);
 		camera.setToOrtho(false);
+		
 		setCamera(camera);
 
 		width = background.getWidth();
@@ -79,6 +80,8 @@ public class WorldStage extends AbstractStage implements GestureListener {
 		}
 		addActor(background);
 		addActor(provinceGroup);
+		new PopUp("lolololol").show(this);
+		
 	}
 
 	@Override
@@ -133,7 +136,8 @@ public class WorldStage extends AbstractStage implements GestureListener {
 	public boolean scrolled(int amount) {
 		initialZoom = camera.zoom;
 		float ratio = amount < 0 ? 0.9f : 1.1f;
-		if (initialZoom * ratio >= 0.5f && initialZoom * ratio <= 1.33f) {
+		if (initialZoom * ratio >= 0.5f
+				&& initialZoom * ratio <= 1.33){
 			camera.zoom = initialZoom * ratio;
 		}
 
