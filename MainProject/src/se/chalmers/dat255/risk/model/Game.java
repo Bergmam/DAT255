@@ -2,7 +2,7 @@ package se.chalmers.dat255.risk.model;
 
 import java.util.ArrayList;
 
-import se.chalmers.dat255.risk.model.PhaseHandler.Phase;
+import se.chalmers.dat255.risk.model.TurnAndPhaseManager.Phase;
 import se.chalmers.dat255.risk.view.resource.Resource;
 
 /**
@@ -13,11 +13,11 @@ import se.chalmers.dat255.risk.view.resource.Resource;
 
 public class Game implements IGame {
 	private Player[] players;
-	private int activePlayer, startingTroopNr;
+	private int startingTroopNr;
 	// private int currentPhase;
 	private WorldMap worldMap;
 	private ClickHandler clickHandler;
-	private PhaseHandler phaseHandler;
+	private TurnAndPhaseManager phaseHandler;
 	private int bonus;
 	private BattleHandler battle;
 	private Deck deck;
@@ -86,7 +86,8 @@ public class Game implements IGame {
 
 	@Override
 	public Player getActivePlayer() {
-		return players[activePlayer];
+	//	System.out.println("Current turn: " + phaseHandler.getActivePlayer());
+		return players[phaseHandler.getActivePlayer()];
 	}
 
 	@Override
@@ -119,6 +120,9 @@ public class Game implements IGame {
 
 	@Override
 	public void newGame(String[] playersId) throws IllegalArgumentException {
+		clickHandler=new ClickHandler();
+		phaseHandler=new TurnAndPhaseManager();
+		
 		int noOfPlayers = playersId.length;
 		if (noOfPlayers > 6 || noOfPlayers < 2) {
 			throw new IllegalArgumentException(
@@ -132,8 +136,8 @@ public class Game implements IGame {
 		}
 		// SETTING PHASE AND TURN
 	//	currentPhase = Phase.FBuild;
-		activePlayer = 0;
-		players[activePlayer].setCurrent(true); // Player one knows it�s his
+	//	activePlayer = 0;
+		players[phaseHandler.getActivePlayer()].setCurrent(true); // Player one knows it�s his
 												// turn
 
 		// INITIALIZING STARTING NUMBER OF TROOPS
@@ -158,8 +162,7 @@ public class Game implements IGame {
 
 		// SETTING UP GAMEBOARD RULES AND CREATING PROVINCES
 		worldMap = new WorldMap(neighboursFile, continentsFile, players);
-		clickHandler=new ClickHandler();
-		phaseHandler=new PhaseHandler();
+
 		// SETTING UP DECK
 		ArrayList<String> provinces = new ArrayList<String>();
 		for (IProvince i : worldMap.getProvinces()) {
@@ -240,6 +243,7 @@ public class Game implements IGame {
 			if (worldMap.getOwner(newClickedProvince.getId()) == getActivePlayer()
 					&& bonus > 0) {
 				placeBonusUnits(1, newClickedProvince);
+				System.out.print("Current player active is player " + phaseHandler.getActivePlayer());
 			}
 		}
 	}

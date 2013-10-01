@@ -1,17 +1,17 @@
 package se.chalmers.dat255.risk.model;
 
-import se.chalmers.dat255.risk.model.PhaseHandler;
-import se.chalmers.dat255.risk.model.PhaseHandler.Phase;
+import se.chalmers.dat255.risk.model.TurnAndPhaseManager;
+import se.chalmers.dat255.risk.model.TurnAndPhaseManager.Phase;
 
 public class ClickHandler {
-	PhaseHandler phaseHandler;
+	TurnAndPhaseManager phaseHandler;
 	
 	IProvince oldClickedProvince = null;
 	boolean movedTroops = false;
 	boolean firstProvinceConqueredThisTurn = true;
 	
 	public ClickHandler(){
-		phaseHandler=new PhaseHandler();
+		phaseHandler=new TurnAndPhaseManager();
 	}
 	
 	

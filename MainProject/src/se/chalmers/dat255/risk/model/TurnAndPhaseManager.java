@@ -1,14 +1,14 @@
 package se.chalmers.dat255.risk.model;
 
-public class PhaseHandler {
+public class TurnAndPhaseManager {
 	private int activePlayer;
-	private Phase currentPhase = Phase.FBuild;
+	private Phase currentPhase;
 
 
 	// CLICK VARIABLES
 	
 	
-	public PhaseHandler(){
+	public TurnAndPhaseManager(){
 		currentPhase=Phase.FBuild;
 		activePlayer=0;
 	}
@@ -33,7 +33,10 @@ public class PhaseHandler {
 				currentPhase = Phase.F1;
 				return 0; // Special, no need to compute troops
 			} else {
+				System.out.println("Old active player: " + activePlayer);
+				System.out.println("Number of players: " + players.length);
 				activePlayer = (activePlayer + 1) % players.length;
+				System.out.println("New active player: " + activePlayer);
 				return 2;
 			}
 		} else if (currentPhase == Phase.F3) {
@@ -50,5 +53,9 @@ public class PhaseHandler {
 	private void changeTurn(Player[] players) {
 		activePlayer = (activePlayer + 1) % players.length;
 
+	}
+	
+	public int getActivePlayer(){
+		return activePlayer;
 	}
 }
