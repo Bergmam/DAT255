@@ -72,12 +72,6 @@ public class Game implements IGame {
 		// check if ok in another method
 		// Counts the number of defending units
 
-		/*
-		 * Hur många tärningar man väljer att slå komer från kontrollern,
-		 * och där borde det vara omöjligt att välja fler än man kan. Så
-		 * kontrollern kommer att säga attack med hur många tärningar spearen
-		 * vill. Eller tycker ni inte det låter rimligt? Linnea
-		 */
 
 		int defensiveDice = defensive.getUnits() == 1 ? 1 : 2;
 
