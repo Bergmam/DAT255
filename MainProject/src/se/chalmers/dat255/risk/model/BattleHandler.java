@@ -27,7 +27,7 @@ public class BattleHandler {
 		int[] diceOffensive = rollDice(offensive);
 		
 		for (int i = 0; (i < defensive) && (i < offensive); i++) {
-			if (diceOffensive[i] < diceDefensive[i]) {
+			if (diceOffensive[i] <= diceDefensive[i]) {
 				lostArmies[0]++;
 			} else {
 				lostArmies[1]++;
