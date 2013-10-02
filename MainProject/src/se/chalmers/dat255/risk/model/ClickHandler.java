@@ -19,7 +19,7 @@ public class ClickHandler {
 	
 	
 	/*
-	 * 
+	 * Makes the exange of three card, when you've chosen three good cards.
 	 */
 	public void handleCardClick(ICard card, Player currentPlayer) {
 		// TODO Auto-generated method stub
