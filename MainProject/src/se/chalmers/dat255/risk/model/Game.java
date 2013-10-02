@@ -1,5 +1,6 @@
 package se.chalmers.dat255.risk.model;
 
+import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
@@ -317,7 +318,7 @@ public class Game implements IGame {
 
 	private void battle(IProvince from, IProvince to) {
 		// POP-UP for nr of Offensive dice, untill implemented you may only
-		// attack with one
+		// attack with one //TODO pcs.firePropertyChange("Attack", from, null);
 		
 		int nrOfDices = from.getUnits()-1;
 		if(nrOfDices>3){

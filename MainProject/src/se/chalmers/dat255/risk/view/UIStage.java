@@ -2,14 +2,13 @@ package se.chalmers.dat255.risk.view;
 
 import java.beans.PropertyChangeEvent;
 
-import se.chalmers.dat255.risk.controller.PopUpListener;
 import se.chalmers.dat255.risk.model.IGame;
+import se.chalmers.dat255.risk.model.IProvince;
 import se.chalmers.dat255.risk.view.resource.ColorHandler;
 import se.chalmers.dat255.risk.view.resource.Resource;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 
 public class UIStage extends AbstractStage {
@@ -57,9 +56,9 @@ public class UIStage extends AbstractStage {
 		return pop;
 	}
 
-	public void showPopUp(String[] strings, int value) {
+	public void showPopUp(String title, String msg, int value) {
 		pop.setSliderStop(value);
-		pop.setTexts(strings[0], strings[1]);
+		pop.setTexts(title, msg);
 		addActor(pop);
 	}
 
@@ -72,8 +71,14 @@ public class UIStage extends AbstractStage {
 	}
 
 	@Override
-	public void propertyChange(PropertyChangeEvent arg0) {
+	public void propertyChange(PropertyChangeEvent event) {
 		// TODO mainly for PopUp
+		if (event.getPropertyName().equalsIgnoreCase("Attack")) {
+			IProvince p = (IProvince) event.getNewValue();
+			showPopUp("Attack",
+					"Chose how many units \nyou want to attack with",
+					p.getUnits());
+		}
 
 	}
 
