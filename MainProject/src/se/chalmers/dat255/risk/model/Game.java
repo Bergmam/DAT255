@@ -209,7 +209,15 @@ public class Game implements IGame {
 		}
 		// FIGHTING PHASE 2
 		else if (getCurrentPhase() == Phase.F2) {
-			if (oldClickedProvince != null) {
+			if(myProvince(newClickedProvince.getId())) {
+
+				oldClickedProvince = newClickedProvince;
+				System.out.println("Moving from: " + oldClickedProvince.getId());
+
+
+			}
+
+			else if (oldClickedProvince != null) {
 				// FIGHT IF TWO PROVINCE CLICKED AND OWNED BY DIFFERENT PLAYER
 				// AND ATTACKING PROVINCE OWNED BY ME
 				if (checkProvinceOk(oldClickedProvince, newClickedProvince,
@@ -220,13 +228,11 @@ public class Game implements IGame {
 					flushTemps();
 				}
 			//	
-			} else if(myProvince(newClickedProvince.getId())) {
-
-				oldClickedProvince = newClickedProvince;
-				System.out.println("Moving from: " + oldClickedProvince.getId());
-
-
 			}
+			if(oldClickedProvince==null){
+				System.out.println("Moving from: -");
+			}
+			
 		}
 		// MOVING TROOPS IN PHASE 3
 		else if (getCurrentPhase() == Phase.F3) {
@@ -257,6 +263,13 @@ public class Game implements IGame {
 				System.out.print("Current player active is player " + phaseHandler.getActivePlayer() + "\n");
 			}
 		}
+		
+		
+		
+		
+		
+		
+
 	}
 
 	private void flushTemps(){

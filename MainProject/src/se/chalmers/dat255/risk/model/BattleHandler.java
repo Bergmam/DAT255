@@ -8,8 +8,8 @@ import java.util.Random;
  */
 public class BattleHandler {
 	private Random generator = new Random();
-	private int[] diceOffensive;
-	private int[] diceDefensive;
+	//private int[] diceOffensive;
+	//private int[] diceDefensive;
 
 	/**
 	 * Handles the attack between two provinces.
@@ -23,17 +23,17 @@ public class BattleHandler {
 
 	public int[] doBattle(int offensive, int defensive) {
 		int[] lostArmies = new int[2];
-		diceDefensive = rollDice(defensive);
-		diceOffensive = rollDice(offensive);
+		int[] diceDefensive = rollDice(defensive);
+		int[] diceOffensive = rollDice(offensive);
 		
-		
-		for (int i = 0; i < defensive; i++) {
+		for (int i = 0; (i < defensive) && (i < offensive); i++) {
 			if (diceOffensive[i] < diceDefensive[i]) {
 				lostArmies[0]++;
 			} else {
 				lostArmies[1]++;
 			}
 		}
+		//flushVariables();
 		return lostArmies;
 	}
 
@@ -45,7 +45,7 @@ public class BattleHandler {
 	 * @return the two largest dice.
 	 */
 	private int[] rollDice(int armies) {
-		Random generator = new Random();
+	//	Random generator = new Random();
 		int[] dice = new int[2];
 		for (int i = 0; i < armies; i++) {
 			int newDice = generator.nextInt(6) + 1;
@@ -59,4 +59,9 @@ public class BattleHandler {
 
 		return dice;
 	}
+	
+	/*private void flushVariables(){
+		diceDefensive=null;
+		diceOffensive=null;
+	}*/
 }
