@@ -84,6 +84,7 @@ public class ScreenManager extends ClickListener {
 
 			if (s.equalsIgnoreCase("startButton")) {
 				changeScreen(screen);
+				System.out.println("You have touched the stratButton");
 			}
 
 		}
