@@ -24,10 +24,10 @@ public class Game implements IGame {
 	private IProvince oldClickedProvince = null;
 	private boolean movedTroops = false; // F3
 	private boolean firstProvinceConqueredThisTurn = true;
-
+/*
 	private ICard card1 = null;
 	private ICard card2 = null;
-
+*/
 	// CURRENT PHASE
 
 	private String continentsFile;
@@ -236,12 +236,18 @@ public class Game implements IGame {
 		}
 		// MOVING TROOPS IN PHASE 3
 		else if (getCurrentPhase() == Phase.F3) {
-			if (oldClickedProvince != null) {
+			if(myProvince(newClickedProvince.getId()) && oldClickedProvince==null) {
+				oldClickedProvince = newClickedProvince;
+				System.out.println("Moving from: " + oldClickedProvince.getId());
+
+			}
+
+			else if (oldClickedProvince != null) {
 				if (checkProvinceOk(oldClickedProvince, newClickedProvince,
 						true)) {
 					// DONT FORGET TO ADD POP-UP
 					moveToProvince(1, oldClickedProvince, newClickedProvince);// MAY
-																				// BE
+					flushTemps();															// BE
 																				// INVALID
 																				// INPUT,
 																				// THEN
@@ -249,12 +255,7 @@ public class Game implements IGame {
 																				// WILL
 																				// HAPPEN
 				}
-			} else if(myProvince(newClickedProvince.getId())) {
-				oldClickedProvince = newClickedProvince;
-				System.out.println("Moving from: " + oldClickedProvince.getId());
-
-			}
-		}
+			} 		}
 		// Placing troops in build phase
 		else if (getCurrentPhase() == Phase.FBuild) {
 			if (worldMap.getOwner(newClickedProvince.getId()) == getActivePlayer()
@@ -274,8 +275,8 @@ public class Game implements IGame {
 
 	private void flushTemps(){
 		oldClickedProvince=null;
-		card1=null;
-		card2=null;
+	/*	card1=null;
+		card2=null;*/
 	}
 	
 	private boolean myProvince(String province){
@@ -285,6 +286,7 @@ public class Game implements IGame {
 	
 	private void moveToProvince(int nrOfUnits, IProvince from, IProvince goTo) {
 		if (from.getUnits() - nrOfUnits  > 0) {
+			System.out.println("" + from.getUnits() + " units moved from " + from.getId() + " to " + goTo.getId());
 			from.moveUnits(nrOfUnits, goTo);
 		}
 	}
@@ -333,7 +335,13 @@ public class Game implements IGame {
 	@Override
 	public void handleCardClick(ICard card) {
 		// TODO Auto-generated method stub
-		if (card2 != null) {
+		clickHandler.handleCardClick(card, getActivePlayer());
+		// HAVE TO FIX BONUSES //
+		
+		
+		
+		
+	/*	if (card2 != null) {
 			getActivePlayer().exchangeCard((Card) card1, (Card) card2,
 					(Card) card);
 			// GIVE BONUS
@@ -346,7 +354,7 @@ public class Game implements IGame {
 			} else {
 				card2 = card;
 			}
-		}
+		}*/
 	}
 
 	@Override
