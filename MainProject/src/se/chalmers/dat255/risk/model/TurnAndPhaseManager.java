@@ -45,6 +45,7 @@ public class TurnAndPhaseManager {
 		} else if (currentPhase == Phase.F3) {
 			changeTurn(players);
 			currentPhase = Phase.F1;
+			return 0;
 		} else if (currentPhase == Phase.F1) {
 			currentPhase = Phase.F2;
 		} else {
