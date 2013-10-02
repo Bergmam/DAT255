@@ -49,6 +49,7 @@ public class PopUp extends Dialog {
 
 	public void setSliderStop(int stop) {
 		slider.setRange(1, stop);
+		slider.setValue(1);
 	}
 
 	public void setTexts(String title, String msg) {

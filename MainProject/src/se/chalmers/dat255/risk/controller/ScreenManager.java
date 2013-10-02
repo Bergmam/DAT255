@@ -36,8 +36,6 @@ public class ScreenManager extends ClickListener {
 
 		main = new MainScreen(model);
 		screen = new GameScreen(model);
-	
-		screen.getPopUp().setListener(new PopUpListener(model));
 		
 		ColorHandler.getInstance().instantiate(model);
 		for (AbstractView v : screen.getViews()) {
@@ -51,6 +49,8 @@ public class ScreenManager extends ClickListener {
 				v.addListener(new SwitchListener());
 			}
 		}
+		
+		screen.getPopUp().setListener(new PopUpListener(model));
 
 		main.getButton().addListener(this);
 	}
