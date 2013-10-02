@@ -35,7 +35,7 @@ public class GameScreen extends AbstractScreen {
 		// Creates a cardStage for every player
 		cardStages = new ArrayList<AbstractStage>();
 
-		for (Player i : model.getPlayer()) {
+		for (Player i : model.getPlayers()) {
 			cardStages.add(new CardStage(i.getCards()));
 		}
 		uiStage = new UIStage(model);

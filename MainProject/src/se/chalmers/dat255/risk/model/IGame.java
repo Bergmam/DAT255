@@ -1,5 +1,6 @@
 package se.chalmers.dat255.risk.model;
 
+import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 
 import se.chalmers.dat255.risk.model.TurnAndPhaseManager.Phase;
@@ -13,9 +14,10 @@ import se.chalmers.dat255.risk.model.TurnAndPhaseManager.Phase;
 public interface IGame {
 
 	/**
-	 * Sets up a new game.
+	 * Sets up a new game
 	 * 
-	 * @return the active player
+	 * @param nrOfPlayers field with all player names
+	 * @throws IllegalArgumentException if nbrOfPlayers is smaller than 2 or larger than 6
 	 */
 	public void newGame(String[] nrOfPlayers) throws IllegalArgumentException;
 
@@ -57,7 +59,7 @@ public interface IGame {
 	 * the province the player chooses to place them.
 	 * 
 	 * @param units
-	 *            , the number of units being placed
+	 *             the number of units being placed
 	 */
 	public void placeBonusUnits(int units, IProvince province);
 
@@ -79,19 +81,55 @@ public interface IGame {
 	 *            Province to move units to
 	 */
 	
+	/**
+	 * Fetches the phase the game is in
+	 * 
+	 * @return the current Phase
+	 */
 	public Phase getCurrentPhase();
 		
-	public Player[] getPlayer();
+	/**
+	 * Fetches all players
+	 * @return an array with all players
+	 */
+	public Player[] getPlayers();
 	
+	/**
+	 * Retrieves all provinces
+	 * @return an arrayList with all provinces in the game
+	 */
 	public ArrayList<IProvince> getGameProvinces();
 	
+	/**
+	 * Determines what should be done with the chosen province
+	 * 
+	 * @param province province to be handled
+	 */
 	public void handleProvinceClick(IProvince province);
 
+	/**
+	 * Determines what should be done with the chosen card
+	 * 
+	 * @param province card to be handled
+	 */
 	public void handleCardClick(ICard province);
 	
+	/**
+	 * Determines if the game should change phase
+	 */
 	public void handlePhaseClick();
 	
-	public Phase getPhase();
-	
+	/**
+	 * Method for finding the owner of an province 
+	 * @param provinceName the name of the province
+	 * @return the turnId of the owner
+	 */
 	public int getOwner(String provinceName);
+	
+	/**
+	 * Adds a listener to receive events
+	 * 
+	 * @param listener listener for events
+	 */
+	public void addListener(PropertyChangeListener listener);
 }
