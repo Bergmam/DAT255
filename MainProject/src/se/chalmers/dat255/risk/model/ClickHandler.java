@@ -4,14 +4,26 @@ import se.chalmers.dat255.risk.model.TurnAndPhaseManager;
 import se.chalmers.dat255.risk.model.TurnAndPhaseManager.Phase;
 
 public class ClickHandler {
-	TurnAndPhaseManager phaseHandler;
+	private TurnAndPhaseManager phaseHandler;
+	private CardExanger cardExanger;
+	private IProvince oldClickedProvince = null;
+	private boolean movedTroops = false;
+	private boolean firstProvinceConqueredThisTurn = true;
+
 	
-	IProvince oldClickedProvince = null;
-	boolean movedTroops = false;
-	boolean firstProvinceConqueredThisTurn = true;
 	
 	public ClickHandler(TurnAndPhaseManager phaseHandler){
 		this.phaseHandler=phaseHandler;
+		cardExanger=new CardExanger();
+	}
+	
+	
+	/*
+	 * 
+	 */
+	public void handleCardClick(ICard card, Player currentPlayer) {
+		// TODO Auto-generated method stub
+		cardExanger.makeExange(card, currentPlayer);
 	}
 	
 	
