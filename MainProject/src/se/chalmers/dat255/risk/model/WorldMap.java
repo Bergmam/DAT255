@@ -164,6 +164,7 @@ public class WorldMap {
 				if (nrOfProvinces > 0)
 					ownership.put(temp.remove(randGen.nextInt(nrOfProvinces)),
 							player);
+				player.gainProvince();
 				nrOfProvinces--;
 			}
 		}

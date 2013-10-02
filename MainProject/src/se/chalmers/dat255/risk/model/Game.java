@@ -98,12 +98,17 @@ public class Game implements IGame {
 	@Override
 	public void calcBonusUnits() {
 		int provinces = getActivePlayer().getNrOfProvinces();
+		System.out.println("You have " + provinces + " provinces");
 		if (provinces <= 9) {
 			this.bonus = 3;
 		} else {
+			System.out.println("The bonus you will recive this round is: " + bonus);
 			this.bonus = provinces / 3;
+			System.out.println("The bonus you will recive this round is: " + bonus);
 		}
+
 		this.bonus += worldMap.getBonus(getActivePlayer());
+		System.out.println("The bonus you will recive this round is: " + bonus);
 	}
 
 	@Override
