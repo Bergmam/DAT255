@@ -308,7 +308,12 @@ public class Game implements IGame {
 	private void battle(IProvince from, IProvince to) {
 		// POP-UP for nr of Offensive dice, untill implemented you may only
 		// attack with one
-		int nrOfDices = 1;
+		
+		int nrOfDices = from.getUnits()-1;
+		if(nrOfDices>3){
+			nrOfDices=3;
+		}
+		
 		// if(nrofdice>from.getUnits())
 		if (from.getUnits() > 1) {
 			attack(nrOfDices, from, to);
