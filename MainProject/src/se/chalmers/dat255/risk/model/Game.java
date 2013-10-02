@@ -23,7 +23,7 @@ public class Game implements IGame {
 	private int bonus;
 	private BattleHandler battle;
 	private Deck deck;
-	private IProvince oldClickedProvince = null;
+	private IProvince oldClickedProvince, secondProvince;
 	private boolean movedTroops = false; // F3
 	private boolean firstProvinceConqueredThisTurn = true;
 	private PropertyChangeSupport pcs;
@@ -230,8 +230,9 @@ public class Game implements IGame {
 				// FIGHT IF TWO PROVINCE CLICKED AND OWNED BY DIFFERENT PLAYER
 				// AND ATTACKING PROVINCE OWNED BY ME
 				if (checkProvinceOk(oldClickedProvince, newClickedProvince,
-						false)) {
-					battle(oldClickedProvince, newClickedProvince);
+						false)) {secondProvince = newClickedProvince;
+						pcs.firePropertyChange("Attack", oldClickedProvince, secondProvince);
+					//battle(oldClickedProvince, newClickedProvince);
 				}
 				else{
 					flushTemps();
@@ -283,7 +284,10 @@ public class Game implements IGame {
 	}
 
 	private void flushTemps(){
+		oldClickedProvince.setActive(false);
 		oldClickedProvince=null;
+		secondProvince.setActive(false);
+		secondProvince=null;
 	/*	card1=null;
 		card2=null;*/
 	}
@@ -316,22 +320,19 @@ public class Game implements IGame {
 		return false;
 	}
 
-	private void battle(IProvince from, IProvince to) {
+	public void battle(int nbrOfDice) {
 		// POP-UP for nr of Offensive dice, untill implemented you may only
-		// attack with one //TODO pcs.firePropertyChange("Attack", from, null);
+		// attack with one 
 		
-		int nrOfDices = from.getUnits()-1;
-		if(nrOfDices>3){
-			nrOfDices=3;
-		}
+	
 		
 		// if(nrofdice>from.getUnits())
-		if (from.getUnits() > 1) {
-			attack(nrOfDices, from, to);
-			if (to.getUnits() == 0) {
-				worldMap.changeOwner(to.getId(), getActivePlayer());
+		if (oldClickedProvince.getUnits() > 1) {
+			attack(nbrOfDice, oldClickedProvince, secondProvince);
+			if (secondProvince.getUnits() == 0) {
+				worldMap.changeOwner(secondProvince.getId(), getActivePlayer());
 				// TODO move attacking units into 'defensive'
-				moveToProvince(1, from, to);
+				moveToProvince(1, oldClickedProvince, secondProvince);
 				if (firstProvinceConqueredThisTurn) {
 					getActivePlayer().addCard();
 					firstProvinceConqueredThisTurn = false;
