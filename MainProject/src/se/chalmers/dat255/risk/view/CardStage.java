@@ -34,7 +34,6 @@ public class CardStage extends AbstractStage {
 					getTexture(cards.get(i)), cards.get(i));
 		}
 		
-		System.out.println("this is nnumber of cards: " + actor.size());
 		
 		for (Actor a : actor) {
 			addActor(a);

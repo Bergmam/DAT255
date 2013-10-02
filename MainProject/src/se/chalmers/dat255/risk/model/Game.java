@@ -65,8 +65,7 @@ public class Game implements IGame {
 	 * antal hindrar fortsatt utveckling
 	 */
 
-	@Override
-	public boolean attack(int offensiveDice, IProvince offensive,
+	private boolean attack(int offensiveDice, IProvince offensive,
 			IProvince defensive) {
 		// TODO decide number of attackers
 		// check if ok in another method
@@ -219,10 +218,12 @@ public class Game implements IGame {
 		// FIGHTING PHASE 2
 		else if (getCurrentPhase() == Phase.F2) {
 			if(myProvince(newClickedProvince.getId())) {
-
+				if(oldClickedProvince!=null){
+					oldClickedProvince.setActive(false);
+				}
 				oldClickedProvince = newClickedProvince;
 				System.out.println("Moving from: " + oldClickedProvince.getId());
-
+				oldClickedProvince.setActive(true);
 
 			}
 
@@ -230,8 +231,10 @@ public class Game implements IGame {
 				// FIGHT IF TWO PROVINCE CLICKED AND OWNED BY DIFFERENT PLAYER
 				// AND ATTACKING PROVINCE OWNED BY ME
 				if (checkProvinceOk(oldClickedProvince, newClickedProvince,
-						false)) {secondProvince = newClickedProvince;
-						pcs.firePropertyChange("Attack", oldClickedProvince, secondProvince);
+						false)) {
+					secondProvince = newClickedProvince;
+					secondProvince.setActive(true);
+					pcs.firePropertyChange("Attack", oldClickedProvince, secondProvince);
 					//battle(oldClickedProvince, newClickedProvince);
 				}
 				else{
@@ -284,9 +287,13 @@ public class Game implements IGame {
 	}
 
 	private void flushTemps(){
-		oldClickedProvince.setActive(false);
+		if(oldClickedProvince!=null){
+			oldClickedProvince.setActive(false);
+		}
 		oldClickedProvince=null;
-		secondProvince.setActive(false);
+		if(secondProvince!=null){
+		secondProvince.setActive(false);	
+		}
 		secondProvince=null;
 	/*	card1=null;
 		card2=null;*/

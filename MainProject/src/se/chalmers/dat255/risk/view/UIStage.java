@@ -47,7 +47,7 @@ public class UIStage extends AbstractStage {
 		addActor(label);
 
 		pop = new PopUp("Attack");
-		// addActor(pop);// the show() method doesn't seem to work for some
+		//addActor(pop);// the show() method doesn't seem to work for some
 		// reason
 
 	}

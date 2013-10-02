@@ -29,19 +29,8 @@ public interface IGame {
 	 */
 	public Player getActivePlayer();
 
-	/**
-	 * Method for handling going in to battle and register the result of the
-	 * battle.
-	 * 
-	 * @param offensiveDice
-	 *            number of attacking units.
-	 * @param offensive
-	 *            the attacking province.
-	 * @param defensive
-	 *            the province being attacked.
-	 */
-	public boolean attack(int offensiveDice, IProvince offensive,
-			IProvince defensive);
+	
+	public void battle(int nbrOfDice);
 
 	/**
 	 * Method for handing a card from the deck to the active player.
