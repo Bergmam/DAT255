@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import se.chalmers.dat255.risk.controller.PopUpListener;
 import se.chalmers.dat255.risk.model.IProvince;
 import se.chalmers.dat255.risk.view.resource.Resource;
 
@@ -87,6 +88,7 @@ public class WorldStage extends AbstractStage implements GestureListener {
 
 		addActor(background);
 		addActor(provinceGroup);
+		
 	}
 
 	@Override
