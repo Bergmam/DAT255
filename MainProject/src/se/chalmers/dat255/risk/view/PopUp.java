@@ -55,6 +55,7 @@ public class PopUp extends Dialog {
 	public void setTexts(String title, String msg) {
 		setTitle(title);
 		label.setText(msg);
+		
 	}
 
 	public void setListener(ClickListener listener) {
