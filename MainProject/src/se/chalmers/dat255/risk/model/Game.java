@@ -232,6 +232,8 @@ public class Game implements IGame {
 				// AND ATTACKING PROVINCE OWNED BY ME
 				if (checkProvinceOk(oldClickedProvince, newClickedProvince,
 						false)) {
+					//saving second province to be used later after 
+					//nbr of dices has been decided by the user
 					secondProvince = newClickedProvince;
 					secondProvince.setActive(true);
 					pcs.firePropertyChange("Attack", oldClickedProvince, secondProvince);
