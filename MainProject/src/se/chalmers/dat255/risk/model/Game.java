@@ -373,7 +373,10 @@ public class Game implements IGame {
 			
 		}
 		else if(result == 0){
+			worldMap.updateBonus();
+
 			calcBonusUnits();
+
 		}
 	}
 

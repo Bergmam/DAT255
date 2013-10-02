@@ -190,16 +190,17 @@ public class WorldMap {
 		return bonuses[player.getId()];
 	}
 
-	public void updateBonus(Continent updateContinent) {
-		updateContinent.update();
+	public void updateBonus() { //in parameter Continent updateContinent
+		//updateContinent.update();
 		int continentBonus;
 		for (int i = 0; i < bonuses.length; i++)
-			bonuses[i] = 0;
-
-		for (Continent continent : continents) {
+			bonuses[i] = 0; // Emptys
+		System.out.println("1. Kom jag hit");
+		for (Continent continent : continents) { //Fils
+			continent.update();
 			continentBonus = continent.getBonus();
 			if (continent.getContinentOwner() != null)
-				bonuses[continent.getContinentOwner().getId()] = +continentBonus;
+				bonuses[continent.getContinentOwner().getId()] =+ continentBonus;
 		}
 	}
 
@@ -251,6 +252,7 @@ public class WorldMap {
 				tempProvinceOwner = getOwner(province);
 			}
 			owner = tempProvinceOwner;
+			System.out.println(continentName + " has a new owner: " + owner.getName());
 		}
 
 	}
