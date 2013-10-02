@@ -1,9 +1,10 @@
 package se.chalmers.dat255.risk.model;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 
 import se.chalmers.dat255.risk.model.TurnAndPhaseManager.Phase;
-import se.chalmers.dat255.risk.view.resource.Resource;
 
 /**
  * The top game class. Controls flow between our lower classes, such as the
@@ -24,6 +25,7 @@ public class Game implements IGame {
 	private IProvince oldClickedProvince = null;
 	private boolean movedTroops = false; // F3
 	private boolean firstProvinceConqueredThisTurn = true;
+	private PropertyChangeSupport pcs;
 /*
 	private ICard card1 = null;
 	private ICard card2 = null;
@@ -45,6 +47,7 @@ public class Game implements IGame {
 		battle = new BattleHandler();
 		this.neighboursFile = neighboursFile;
 		this.continentsFile = continentsFile;
+		pcs = new PropertyChangeSupport(this);
 		newGame(playersId);
 	}
 
@@ -190,7 +193,7 @@ public class Game implements IGame {
 	}
 
 	@Override
-	public Player[] getPlayer() {
+	public Player[] getPlayers() {
 		// TODO Auto-generated method stub
 		return players;
 	}
@@ -381,16 +384,15 @@ public class Game implements IGame {
 	}
 
 	@Override
-	public Phase getPhase() {
-		// TODO Auto-generated method stub
-		return phaseHandler.getPhase();
-
-	}
-
-	@Override
 	public int getOwner(String provinceName) {
 		// TODO Auto-generated method stub
 		return worldMap.getOwner(provinceName).getId();
+	}
+
+	@Override
+	public void addListener(PropertyChangeListener listener) {
+		pcs.addPropertyChangeListener(listener);
+		
 	}
 
 }

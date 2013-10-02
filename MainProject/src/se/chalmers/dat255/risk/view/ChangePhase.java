@@ -50,15 +50,15 @@ public class ChangePhase extends AbstractView {
 	 */
 
 	private String getText() {
-		if ((model.getPhase() == se.chalmers.dat255.risk.model.TurnAndPhaseManager.Phase.F1)
-				|| (model.getPhase() == se.chalmers.dat255.risk.model.TurnAndPhaseManager.Phase.FBuild)) {
+		if ((model.getCurrentPhase() == se.chalmers.dat255.risk.model.TurnAndPhaseManager.Phase.F1)
+				|| (model.getCurrentPhase() == se.chalmers.dat255.risk.model.TurnAndPhaseManager.Phase.FBuild)) {
 			if (model.getBonusUnitsLeft() == 0) {
 				return "Next";
 			}
 			return "Units: " + model.getBonusUnitsLeft();
-		} else if (model.getPhase() == se.chalmers.dat255.risk.model.TurnAndPhaseManager.Phase.F2) {
+		} else if (model.getCurrentPhase() == se.chalmers.dat255.risk.model.TurnAndPhaseManager.Phase.F2) {
 			return "Next Phase";
-		} else if (model.getPhase() == se.chalmers.dat255.risk.model.TurnAndPhaseManager.Phase.F3) {
+		} else if (model.getCurrentPhase() == se.chalmers.dat255.risk.model.TurnAndPhaseManager.Phase.F3) {
 			return "End Turn";
 		}
 		return "value not found";

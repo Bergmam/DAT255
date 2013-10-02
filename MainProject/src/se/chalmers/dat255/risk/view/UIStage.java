@@ -24,6 +24,7 @@ public class UIStage extends AbstractStage {
 
 	public UIStage(IGame model) {
 		this.model = model;
+		model.addListener(this);
 		phase = new ChangePhase(model);
 		actor.add(phase);
 
