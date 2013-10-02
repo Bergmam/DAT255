@@ -254,7 +254,7 @@ public class Game implements IGame {
 			else if (oldClickedProvince != null) {
 				if (checkProvinceOk(oldClickedProvince, newClickedProvince,
 						true)) {
-					// DONT FORGET TO ADD POP-UP
+					// DONT FORGET TO ADD POP-UP//TODO pcs.firePropertyChange("Movement", oldClickedProvince.getUnits(), 1);
 					moveToProvince(1, oldClickedProvince, newClickedProvince);// MAY
 					flushTemps();															// BE
 																				// INVALID
