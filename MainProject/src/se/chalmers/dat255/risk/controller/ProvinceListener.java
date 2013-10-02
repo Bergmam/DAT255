@@ -28,16 +28,8 @@ public class ProvinceListener extends ClickListener {
 			
 			ProvinceView newClick = ((ProvinceView) event.getTarget());
 			IProvince newClickedProvince = newClick.getProvince();
-		//	Gdx.app.log("werf", "provinceListener" + newClickedProvince.getId());
-			if (theGame.getActivePlayer().getId() == theGame
-					.getOwner(newClickedProvince.getId())) {
-				newClick.check();
-				if (theGame.getCurrentPhase() == Phase.F1
-						|| theGame.getCurrentPhase() == Phase.FBuild) {
-					newClick.check();
-
-				}
-			}
+			// removed if logic here because activity is now represented
+			// in the province and should be handled in the model
 			theGame.handleProvinceClick(newClickedProvince);
 		}
 	}
