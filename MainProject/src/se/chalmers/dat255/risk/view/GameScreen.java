@@ -1,6 +1,5 @@
 package se.chalmers.dat255.risk.view;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,6 +10,7 @@ import se.chalmers.dat255.risk.view.resource.Resource;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 
 /**
  * shows the gameboard, including provinces, cards and buttons.
@@ -42,12 +42,17 @@ public class GameScreen extends AbstractScreen {
 
 		multi = new InputMultiplexer(uiStage, worldStage.getProcessor());
 
-		Gdx.input.setInputProcessor(multi);
+		
+		
 	}
 
 	@Override
 	public void show() {
-
+		Gdx.input.setInputProcessor(multi);
+	}
+	
+	public PopUp getPopUp(){
+		return uiStage.getPopUp();
 	}
 
 	public List<AbstractView> getViews() {

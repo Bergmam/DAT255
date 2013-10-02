@@ -12,14 +12,19 @@ import se.chalmers.dat255.risk.view.ProvinceView;
 import se.chalmers.dat255.risk.view.SwitchButton;
 import se.chalmers.dat255.risk.view.resource.ColorHandler;
 import se.chalmers.dat255.risk.view.resource.Resource;
-import sun.security.util.Resources;
 
-public class ScreenManager {
+import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+
+public class ScreenManager extends ClickListener {
 	private static ScreenManager instance;
 	private MainScreen main;
 	private GameScreen screen;
 	private IGame model;
-	GDXGame game;
+	private GDXGame game;
 
 	private ScreenManager() {
 
@@ -31,6 +36,7 @@ public class ScreenManager {
 
 		main = new MainScreen(model);
 		screen = new GameScreen(model);
+		
 		ColorHandler.getInstance().instantiate(model);
 		for (AbstractView v : screen.getViews()) {
 			if (v instanceof ProvinceView) {
@@ -43,7 +49,10 @@ public class ScreenManager {
 				v.addListener(new SwitchListener());
 			}
 		}
-		// changeScreen();
+		
+		screen.getPopUp().setListener(new PopUpListener(model));
+
+		main.getButton().addListener(this);
 	}
 
 	public static ScreenManager getInstance() {
@@ -55,14 +64,28 @@ public class ScreenManager {
 
 	public void dispose() {
 		main.dispose();
+		screen.dispose();
 	}
 
 	public void instantiate(GDXGame game) {
 		this.game = game;
+		changeScreen(main);
 	}
 
-	public void changeScreen() {
-		game.setScreen(game.getScreen() == main ? screen : main);
+	public void changeScreen(Screen screen) {
+		game.setScreen(screen);
 	}
 
+	@Override
+	public void clicked(InputEvent event, float x, float y) {
+		if (event.getTarget() instanceof Button) {
+			Button b = (Button) event.getTarget();
+			String s = b.getName();
+
+			if (s.equalsIgnoreCase("startButton")) {
+				changeScreen(screen);
+			}
+
+		}
+	}
 }
