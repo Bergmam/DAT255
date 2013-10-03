@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import se.chalmers.dat255.risk.model.Card;
@@ -15,8 +16,8 @@ public class DeckTest {
 
 	Deck deck;
 
-	@Test
-	public void testCreateDeck() {
+	@Before
+	public void beforeTests() {
 		ArrayList<String> stringList1 = new ArrayList<String>();
 		stringList1.add("Sweden");
 		stringList1.add("'Merica");
@@ -38,6 +39,10 @@ public class DeckTest {
 		deck = Deck.getInstance();
 		deck.CreateCards(stringList1, 3);
 
+	} 
+	
+	@Test 
+	public void testNumberOfCardsInType(){
 		// constructor test with deck1
 		int jokers1 = 0;
 		int artillery1 = 0;
