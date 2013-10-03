@@ -139,8 +139,6 @@ public class WorldMap {
 	 */
 	public boolean isNeighbours(String provinceName1, String provinceName2) {
 		ArrayList<String> list = neighbours.get(provinceName1);
-		for(String i : list)
-			System.out.println(i);
 		if (list.contains(provinceName2)) {
 			return true;
 		}

@@ -192,8 +192,6 @@ public class Game implements IGame {
 	@Override
 	public void handleProvinceClick(IProvince newClickedProvince) {
 		// TODO Auto-generated method stub
-		System.out
-		.println("Moving " + newClickedProvince.getId());
 		// TROOP REINFORCMENT PHASE 1, ONLY THE PLACEMENT
 		if (getCurrentPhase() == Phase.F1 && bonus > 0) {
 			// PUT A SINGEL UNIT ON THIS PROVINCE IF OWNED
@@ -204,10 +202,7 @@ public class Game implements IGame {
 		// FIGHTING PHASE 2
 		else if (getCurrentPhase() == Phase.F2) {
 			if (myProvince(newClickedProvince.getId())) {
-
 				oldClickedProvince = newClickedProvince;
-			
-
 			} else if (oldClickedProvince != null) {
 				// FIGHT IF TWO PROVINCE CLICKED AND OWNED BY DIFFERENT PLAYER
 				// AND ATTACKING PROVINCE OWNED BY ME
@@ -230,8 +225,6 @@ public class Game implements IGame {
 			if (myProvince(newClickedProvince.getId())
 					&& oldClickedProvince == null) {
 				oldClickedProvince = newClickedProvince;
-				System.out
-				.println("Moving from: " + oldClickedProvince.getId());
 
 			}
 
