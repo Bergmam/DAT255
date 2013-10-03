@@ -46,8 +46,7 @@ public class WorldMap {
 		ArrayList<String> listOfProvinces = createProvinces(provinceString,
 				players);
 		allProvinces = buildProvinces(listOfProvinces);
-		//for(IProvince a : allProvinces)
-			//System.out.println(a.getId());
+		createContinents(continentFile);
 		randomizeProvinces(listOfProvinces, players);
 
 	}
@@ -197,7 +196,6 @@ public class WorldMap {
 		int continentBonus;
 		for (int i = 0; i < bonuses.length; i++)
 			bonuses[i] = 0; // Emptys
-		System.out.println("1. Kom jag hit");
 		for (Continent continent : continents) { //Fils
 			continent.update();
 			continentBonus = continent.getBonus();
