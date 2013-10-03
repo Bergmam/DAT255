@@ -28,18 +28,21 @@ public class PopUpListener extends ClickListener {
 
 			if (pop.getTitle().equalsIgnoreCase("Attack")) {
 				if (name.equals("confirm")) {
+					System.out.println("In attack = " + pop.getValue());
 					model.battle((int) pop.getValue());
 				} else if (name.equals("cancel")) {
 					// model.don'tDoSomething?
 				}
 			} else if (pop.getTitle().equalsIgnoreCase("Movement")) {
 				if (name.equals("confirm")) {
+					System.out.println("In movement = " + pop.getValue());
 					model.moveToProvince((int) pop.getValue());
 				} else if (name.equals("cancel")) {
 					// model.don'tDoSomething?
 				}
 			} else if (pop.getTitle().equalsIgnoreCase("Again?")) {
 				if (name.equals("confirm")) {
+					System.out.println("In again = " + pop.getValue());
 					model.battle((int) pop.getValue());
 				} else if (name.equals("cancel")) {
 					// model.don'tDoSomething?

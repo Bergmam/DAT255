@@ -3,14 +3,14 @@ package se.chalmers.dat255.risk.model;
 import se.chalmers.dat255.risk.model.TurnAndPhaseManager;
 import se.chalmers.dat255.risk.model.TurnAndPhaseManager.Phase;
 
-public class ClickHandler {
+public class EventHandler {
 	private TurnAndPhaseManager phaseHandler;
 	private CardExanger cardExanger;
 	private IProvince oldClickedProvince = null;
 	private boolean movedTroops = false;
 	private boolean firstProvinceConqueredThisTurn = true;
 
-	public ClickHandler(TurnAndPhaseManager phaseHandler) {
+	public EventHandler(TurnAndPhaseManager phaseHandler) {
 		this.phaseHandler = phaseHandler;
 		cardExanger = new CardExanger();
 	}
@@ -48,9 +48,6 @@ public class ClickHandler {
 		System.out.println("Most empty bonus before changing phase!");
 		return -1;
 		// "actions" och kan byta fas.
-
-		// När du är i FBuild, så måste du kolla så att det är tomt
-		// i bonus innan du "byter fas" = kör changePhase.
 
 	}
 

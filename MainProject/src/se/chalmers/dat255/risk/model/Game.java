@@ -18,7 +18,7 @@ public class Game implements IGame {
 	private Player[] players;
 	private int startingTroopNr;
 	private WorldMap worldMap;
-	private ClickHandler clickHandler;
+	private EventHandler clickHandler;
 	private TurnAndPhaseManager phaseHandler;
 	private int bonus;
 	private BattleHandler battle;
@@ -49,7 +49,7 @@ public class Game implements IGame {
 	@Override
 	public void newGame(String[] playersId) throws IllegalArgumentException {
 		phaseHandler = new TurnAndPhaseManager();
-		clickHandler = new ClickHandler(phaseHandler);
+		clickHandler = new EventHandler(phaseHandler);
 
 		int noOfPlayers = playersId.length;
 		if (noOfPlayers > 6 || noOfPlayers < 2) {
