@@ -17,12 +17,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
  * Stage for showing a players cards
  */
 public class CardStage extends AbstractStage {
-	Image background;
 
 	public CardStage(List<ICard> cards) {
 		super();
-		background = new Image(Resource.getInstance().cardStageBg2);
-		addActor(background);
 
 		for (int i = 0; i < 5; i++) {
 			actor.add(new CardView(Resource.getInstance().cardHolder, Resource

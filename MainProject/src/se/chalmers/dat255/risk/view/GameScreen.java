@@ -66,7 +66,7 @@ public class GameScreen extends AbstractScreen {
 
 	@Override
 	public void render(float render) {
-		Gdx.gl.glClearColor(0f, 0f, 1f, 1f);
+		Gdx.gl.glClearColor(0.7f, 0.7f, 0.7f, 0.7f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		camera.update();
