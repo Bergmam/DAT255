@@ -55,15 +55,6 @@ public interface IGame {
 	public void calcBonusUnits();
 
 	/**
-	 * Method for placing the amount of units the player chooses the place on
-	 * the province the player chooses to place them.
-	 * 
-	 * @param units
-	 *             the number of units being placed
-	 */
-	public void placeBonusUnits(int units, IProvince province);
-
-	/**
 	 * Method for retrieving the number of units the player has left to place.
 	 * 
 	 * @return The number of units left.
