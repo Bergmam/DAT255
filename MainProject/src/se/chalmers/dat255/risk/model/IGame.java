@@ -29,19 +29,8 @@ public interface IGame {
 	 */
 	public Player getActivePlayer();
 
-	/**
-	 * Method for handling going in to battle and register the result of the
-	 * battle.
-	 * 
-	 * @param offensiveDice
-	 *            number of attacking units.
-	 * @param offensive
-	 *            the attacking province.
-	 * @param defensive
-	 *            the province being attacked.
-	 */
-	public boolean attack(int offensiveDice, IProvince offensive,
-			IProvince defensive);
+	
+	public void battle(int nbrOfDice);
 
 	/**
 	 * Method for handing a card from the deck to the active player.
@@ -53,15 +42,6 @@ public interface IGame {
 	 * start of his turn.
 	 */
 	public void calcBonusUnits();
-
-	/**
-	 * Method for placing the amount of units the player chooses the place on
-	 * the province the player chooses to place them.
-	 * 
-	 * @param units
-	 *             the number of units being placed
-	 */
-	public void placeBonusUnits(int units, IProvince province);
 
 	/**
 	 * Method for retrieving the number of units the player has left to place.

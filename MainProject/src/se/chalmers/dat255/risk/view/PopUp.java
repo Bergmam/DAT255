@@ -59,8 +59,7 @@ public class PopUp extends Dialog {
 	}
 
 	public void setListener(ClickListener listener) {
-		confirm.addListener(listener);
-		cancel.addListener(listener);
+		addListener(listener);
 
 	}
 
