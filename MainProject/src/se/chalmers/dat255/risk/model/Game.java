@@ -4,6 +4,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
+import java.util.List;
 
 import se.chalmers.dat255.risk.model.TurnAndPhaseManager.Phase;
 
@@ -316,8 +317,10 @@ public class Game implements IGame {
 					firstProvinceConqueredThisTurn = false;
 					System.out.println("Du fick ett kort");
 				}
-			} else {
+			} else if(oldProvince.getUnits() > 1){
 				pcs.firePropertyChange("Again?", oldProvince, 1);
+			} else {
+				flushTemps();
 			}
 		}
 	}
@@ -373,6 +376,14 @@ public class Game implements IGame {
 	public void addListener(PropertyChangeListener listener) {
 		pcs.addPropertyChangeListener(listener);
 
+	}
+
+	@Override
+	public void addPlayerListener(List<PropertyChangeListener> list) {
+		for(int i = 0; i < list.size(); i++){
+			players[i].addListener(list.get(i));
+		}
+		
 	}
 
 }

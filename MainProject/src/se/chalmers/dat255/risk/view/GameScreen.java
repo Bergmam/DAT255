@@ -23,8 +23,6 @@ public class GameScreen extends AbstractScreen {
 	private UIStage uiStage;
 	private InputMultiplexer multi;
 
-	// TODO: IPlayer ??
-
 	public GameScreen(IGame model) {
 		super(model);
 
@@ -36,14 +34,13 @@ public class GameScreen extends AbstractScreen {
 		cardStages = new ArrayList<AbstractStage>();
 
 		for (Player i : model.getPlayers()) {
-			cardStages.add(new CardStage(i.getCards()));
+			CardStage stage = new CardStage(i.getCards());
+			i.addListener(stage);
+			cardStages.add(stage);
 		}
 		uiStage = new UIStage(model);
 
-		multi = new InputMultiplexer(uiStage, worldStage.getProcessor());
-
-		
-		
+		multi = new InputMultiplexer(uiStage, worldStage.getProcessor());		
 	}
 
 	@Override
