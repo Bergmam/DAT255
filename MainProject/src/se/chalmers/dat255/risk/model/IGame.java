@@ -2,6 +2,7 @@ package se.chalmers.dat255.risk.model;
 
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
+import java.util.List;
 
 import se.chalmers.dat255.risk.model.TurnAndPhaseManager.Phase;
 
@@ -127,4 +128,12 @@ public interface IGame {
 	 *            number of units to be moved
 	 */
 	public void moveToProvince(int nrOfUnits);
+
+	/**
+	 * Adds Listeners to the players, to listen for cards
+	 * 
+	 * @param list
+	 *            a list with listerners to the players
+	 */
+	public void addPlayerListener(List<PropertyChangeListener> list);
 }

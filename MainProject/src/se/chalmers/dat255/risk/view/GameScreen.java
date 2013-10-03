@@ -23,8 +23,6 @@ public class GameScreen extends AbstractScreen {
 	private UIStage uiStage;
 	private InputMultiplexer multi;
 
-	// TODO: IPlayer ??
-
 	public GameScreen(IGame model) {
 		super(model);
 
@@ -36,14 +34,13 @@ public class GameScreen extends AbstractScreen {
 		cardStages = new ArrayList<AbstractStage>();
 
 		for (Player i : model.getPlayers()) {
-			cardStages.add(new CardStage(i.getCards()));
+			CardStage stage = new CardStage(i.getCards());
+			i.addListener(stage);
+			cardStages.add(stage);
 		}
 		uiStage = new UIStage(model);
 
-		multi = new InputMultiplexer(uiStage, worldStage.getProcessor());
-
-		
-		
+		multi = new InputMultiplexer(uiStage, worldStage.getProcessor());		
 	}
 
 	@Override
@@ -69,7 +66,7 @@ public class GameScreen extends AbstractScreen {
 
 	@Override
 	public void render(float render) {
-		Gdx.gl.glClearColor(0f, 0f, 1f, 1f);
+		Gdx.gl.glClearColor(0.7f, 0.7f, 0.7f, 0.7f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		camera.update();

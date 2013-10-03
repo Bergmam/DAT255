@@ -17,46 +17,42 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
  * Stage for showing a players cards
  */
 public class CardStage extends AbstractStage {
-	Image background;
 
 	public CardStage(List<ICard> cards) {
 		super();
-		background = new Image(Resource.getInstance().cardStageBg2);
-		addActor(background);
 
 		for (int i = 0; i < 5; i++) {
 			actor.add(new CardView(Resource.getInstance().cardHolder, Resource
 					.getInstance().cardHolder));
 		}
 
-		for (int i = 0; i < cards.size(); i++) {
-			((CardView) actor.get(i)).addCard(getTexture(cards.get(i)),
-					getTexture(cards.get(i)), cards.get(i));
-		}
-		
-		
+		/*
+		 * for (int i = 0; i < cards.size(); i++) { ((CardView)
+		 * actor.get(i)).addCard(getTexture(cards.get(i)),
+		 * getTexture(cards.get(i)), cards.get(i)); }
+		 */
+
 		for (Actor a : actor) {
 			addActor(a);
 		}
-		
+
 		for (int i = 0; i < 3; i++) {
 			actor.get(i).setPosition(
 					i * (Gdx.graphics.getWidth() / 3) + actor.get(i).width / 3,
 					Gdx.graphics.getHeight() / 2);
 		}
 
-		for (int i = 1,k = 3; k < 5;k++, i+=2) {
-			actor.get(k).setPosition(
-					(i * (Gdx.graphics.getWidth() / 5))-8,
-					actor.get(k).height/10);
+		for (int i = 1, k = 3; k < 5; k++, i += 2) {
+			actor.get(k).setPosition((i * (Gdx.graphics.getWidth() / 5)) - 8,
+					actor.get(k).height / 10);
 		}
 
-		/*Almost work....
-		 * for (int i = 0, k = 0; i < 2; i++) { for (int j = 0; j < 3 - i; j++,
-		 * k++) { actor.get(k).setPosition( j * (Gdx.graphics.getWidth() / 3)
-		 * +(i+1) * actor.get(k).width / (16/6), i * Gdx.graphics.getHeight() /
-		 * 2); System.out.println("k: " + k + " x: " + actor.get(k).getX() +
-		 * " y" + actor.get(k).getY()); } }
+		/*
+		 * Almost work.... for (int i = 0, k = 0; i < 2; i++) { for (int j = 0;
+		 * j < 3 - i; j++, k++) { actor.get(k).setPosition( j *
+		 * (Gdx.graphics.getWidth() / 3) +(i+1) * actor.get(k).width / (16/6), i
+		 * * Gdx.graphics.getHeight() / 2); System.out.println("k: " + k +
+		 * " x: " + actor.get(k).getX() + " y" + actor.get(k).getY()); } }
 		 */
 	}
 
@@ -66,15 +62,43 @@ public class CardStage extends AbstractStage {
 
 	private Texture getTexture(ICard card) {
 		if (card.getType() == CardType.ARTILLERY) {
-			return Resource.getInstance().card1;
+			return Resource.getInstance().artillery;
 		} else if (card.getType() == CardType.CAVALRY) {
-			return Resource.getInstance().card2;
+			return Resource.getInstance().cavalry;
+		} else if(card.getType() == CardType.INFANTRY){
+			return Resource.getInstance().infantry;	
 		}
-		return Resource.getInstance().card3;
+		return Resource.getInstance().joker;
+	}
+	
+	private Texture getCheckedTexture(ICard card){
+		if (card.getType() == CardType.ARTILLERY) {
+			return Resource.getInstance().artillery2;
+		} else if (card.getType() == CardType.CAVALRY) {
+			return Resource.getInstance().cavalry2;
+		} else if(card.getType() == CardType.INFANTRY){
+			return Resource.getInstance().infantry2;	
+		}
+		return Resource.getInstance().joker2;
 	}
 
 	@Override
-	public void propertyChange(PropertyChangeEvent arg0) {
+	public void propertyChange(PropertyChangeEvent event) {
+		if (event.getPropertyName().equalsIgnoreCase("addCard")) {
+			addCard((ICard) event.getOldValue());
+		}
+
+	}
+
+	private void addCard(ICard newCard) {
+		for (AbstractView c : actor) {
+			if (!((CardView) c).hasCard()) {
+				((CardView) c).addCard(getTexture(newCard),
+						getCheckedTexture(newCard), newCard);
+				return;
+			}
+		}
+
 	}
 
 	@Override
