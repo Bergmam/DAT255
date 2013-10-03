@@ -16,7 +16,6 @@ import se.chalmers.dat255.risk.model.TurnAndPhaseManager.Phase;
 public class Game implements IGame {
 	private Player[] players;
 	private int startingTroopNr;
-	// private int currentPhase;
 	private WorldMap worldMap;
 	private ClickHandler clickHandler;
 	private TurnAndPhaseManager phaseHandler;
