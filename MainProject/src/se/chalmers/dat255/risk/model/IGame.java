@@ -16,12 +16,13 @@ public interface IGame {
 	/**
 	 * Sets up a new game
 	 * 
-	 * @param nrOfPlayers field with all player names
-	 * @throws IllegalArgumentException if nbrOfPlayers is smaller than 2 or larger than 6
+	 * @param nrOfPlayers
+	 *            field with all player names
+	 * @throws IllegalArgumentException
+	 *             if nbrOfPlayers is smaller than 2 or larger than 6
 	 */
 	public void newGame(String[] nrOfPlayers) throws IllegalArgumentException;
 
-	
 	/**
 	 * Fetches the player who has the current turn.
 	 * 
@@ -29,7 +30,6 @@ public interface IGame {
 	 */
 	public Player getActivePlayer();
 
-	
 	public void battle(int nbrOfDice);
 
 	/**
@@ -60,56 +60,71 @@ public interface IGame {
 	 * @param goTo
 	 *            Province to move units to
 	 */
-	
+
 	/**
 	 * Fetches the phase the game is in
 	 * 
 	 * @return the current Phase
 	 */
 	public Phase getCurrentPhase();
-		
+
 	/**
 	 * Fetches all players
+	 * 
 	 * @return an array with all players
 	 */
 	public Player[] getPlayers();
-	
+
 	/**
 	 * Retrieves all provinces
+	 * 
 	 * @return an arrayList with all provinces in the game
 	 */
 	public ArrayList<IProvince> getGameProvinces();
-	
+
 	/**
 	 * Determines what should be done with the chosen province
 	 * 
-	 * @param province province to be handled
+	 * @param province
+	 *            province to be handled
 	 */
 	public void handleProvinceClick(IProvince province);
 
 	/**
 	 * Determines what should be done with the chosen card
 	 * 
-	 * @param province card to be handled
+	 * @param province
+	 *            card to be handled
 	 */
 	public void handleCardClick(ICard province);
-	
+
 	/**
 	 * Determines if the game should change phase
 	 */
 	public void handlePhaseClick();
-	
+
 	/**
-	 * Method for finding the owner of an province 
-	 * @param provinceName the name of the province
+	 * Method for finding the owner of an province
+	 * 
+	 * @param provinceName
+	 *            the name of the province
 	 * @return the turnId of the owner
 	 */
 	public int getOwner(String provinceName);
-	
+
 	/**
 	 * Adds a listener to receive events
 	 * 
-	 * @param listener listener for events
+	 * @param listener
+	 *            listener for events
 	 */
 	public void addListener(PropertyChangeListener listener);
+
+	/**
+	 * Moves the requested number of units from one active province to another
+	 * 
+	 * @param nrOfUnits
+	 *            number of units to be moved
+	 */
+	public void moveToProvince(int nrOfUnits);
 }

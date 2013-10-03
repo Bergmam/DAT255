@@ -3,6 +3,7 @@ package se.chalmers.dat255.risk.view;
 import se.chalmers.dat255.risk.view.resource.Resource;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -14,6 +15,7 @@ public class PopUp extends Dialog {
 	private Button confirm;
 	private Button cancel;
 	private Label label;
+	private Label slideNbr;
 
 	public PopUp(String title) {
 		super(title, Resource.getInstance().skin);
@@ -22,7 +24,6 @@ public class PopUp extends Dialog {
 
 		fadeDuration = 0f;	// want to have fade but it doesn't work for some
 							// reason. (0.4f default)
-
 		//checks button names in listener to decide action
 		confirm = new Button(Resource.getInstance().skin);
 		confirm.add("Ok", "default");
@@ -38,8 +39,13 @@ public class PopUp extends Dialog {
 
 		label = new Label("", Resource.getInstance().skin);
 		label.setPosition(5, (2 * getHeight()) / 3);
+		
+		slideNbr = new Label("", Resource.getInstance().skin);
+		slideNbr.setPosition(slider.getX(), slider.getTop());
+		
 
 		addActor(label);
+		addActor(slideNbr);
 		addActor(slider);
 
 		button(confirm);
@@ -50,12 +56,12 @@ public class PopUp extends Dialog {
 	public void setSliderStop(int stop) {
 		slider.setRange(1, stop);
 		slider.setValue(1);
+		
 	}
 
 	public void setTexts(String title, String msg) {
 		setTitle(title);
 		label.setText(msg);
-		
 	}
 
 	public void setListener(ClickListener listener) {
