@@ -50,6 +50,9 @@ public class WorldStage extends AbstractStage implements GestureListener {
 		width = background.getWidth();
 		height = background.getHeight();
 
+		for(IProvince a :provinces)
+			System.out.println(a.getId());
+		
 		camera.position.set(background.getWidth() / 2,
 				background.getHeight() / 2, 0);
 

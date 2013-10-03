@@ -192,7 +192,8 @@ public class Game implements IGame {
 	@Override
 	public void handleProvinceClick(IProvince newClickedProvince) {
 		// TODO Auto-generated method stub
-
+		System.out
+		.println("Moving " + newClickedProvince.getId());
 		// TROOP REINFORCMENT PHASE 1, ONLY THE PLACEMENT
 		if (getCurrentPhase() == Phase.F1 && bonus > 0) {
 			// PUT A SINGEL UNIT ON THIS PROVINCE IF OWNED
@@ -205,25 +206,23 @@ public class Game implements IGame {
 			if (myProvince(newClickedProvince.getId())) {
 
 				oldClickedProvince = newClickedProvince;
-				System.out
-						.println("Moving from: " + oldClickedProvince.getId());
+			
 
-			}
-
-			else if (oldClickedProvince != null) {
+			} else if (oldClickedProvince != null) {
 				// FIGHT IF TWO PROVINCE CLICKED AND OWNED BY DIFFERENT PLAYER
 				// AND ATTACKING PROVINCE OWNED BY ME
 				if (checkProvinceOk(oldClickedProvince, newClickedProvince,
 						false)) {
+					
 					battle(oldClickedProvince, newClickedProvince);
 				} else {
 					flushTemps();
 				}
 				//
 			}
-			if (oldClickedProvince == null) {
+			/*if (oldClickedProvince == null) {
 				System.out.println("Moving from: -");
-			}
+			}*/
 
 		}
 		// MOVING TROOPS IN PHASE 3
@@ -232,7 +231,7 @@ public class Game implements IGame {
 					&& oldClickedProvince == null) {
 				oldClickedProvince = newClickedProvince;
 				System.out
-						.println("Moving from: " + oldClickedProvince.getId());
+				.println("Moving from: " + oldClickedProvince.getId());
 
 			}
 
@@ -286,16 +285,15 @@ public class Game implements IGame {
 
 	private boolean checkProvinceOk(IProvince from, IProvince to,
 			boolean sameOwner) {
-		if (from != to) {
-			if (worldMap.isNeighbours(from.getId(), to.getId())) {
-				if (sameOwner) {
-					return (worldMap.getOwner(from.getId()) == getActivePlayer())
-							&& (worldMap.getOwner(to.getId()) == getActivePlayer());
-				} else {
-					return (worldMap.getOwner(from.getId()) == getActivePlayer())
-							&& (worldMap.getOwner(to.getId()) != getActivePlayer());
-				}
+		if (worldMap.isNeighbours(from.getId(), to.getId())) {
+			if (sameOwner) {
+				return (worldMap.getOwner(from.getId()) == getActivePlayer())
+						&& (worldMap.getOwner(to.getId()) == getActivePlayer());
+			} else {
+				return (worldMap.getOwner(from.getId()) == getActivePlayer())
+						&& (worldMap.getOwner(to.getId()) != getActivePlayer());
 			}
+
 		}
 		return false;
 	}
