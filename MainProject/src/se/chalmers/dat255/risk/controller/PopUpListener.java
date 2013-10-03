@@ -38,6 +38,12 @@ public class PopUpListener extends ClickListener {
 				} else if (name.equals("cancel")) {
 					// model.don'tDoSomething?
 				}
+			} else if (pop.getTitle().equalsIgnoreCase("Again?")) {
+				if (name.equals("confirm")) {
+					model.battle((int) pop.getValue());
+				} else if (name.equals("cancel")) {
+					// model.don'tDoSomething?
+				}
 			}
 		}
 	}

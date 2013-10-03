@@ -316,6 +316,8 @@ public class Game implements IGame {
 					firstProvinceConqueredThisTurn = false;
 					System.out.println("Du fick ett kort");
 				}
+			} else {
+				pcs.firePropertyChange("Again?", oldProvince, 1);
 			}
 		}
 	}
