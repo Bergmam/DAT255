@@ -60,7 +60,7 @@ public class Game implements IGame {
 		players.get(phaseHandler.getActivePlayer()).setCurrent(true); // Player
 																		// one
 
-		bonusHandler.calcStartBonus();
+		bonusHandler.calcStartBonus(players.size());
 
 		// ////////////////// ONLY FOR DEV //////////////////////////
 		// SETTING UP GAMEBOARD RULES AND CREATING PROVINCES
@@ -353,7 +353,7 @@ public class Game implements IGame {
 		ArrayList<String> names = clickHandler.handleCardEvent(card,
 				getActivePlayer());
 		// HAVE TO FIX BONUSES //
-		bonusHandler.calcProvinceBonusesFromCards(names);
+		bonusHandler.calcProvinceBonusesFromCards(names, getActivePlayer());
 	}
 
 	/*
@@ -378,7 +378,7 @@ public class Game implements IGame {
 			bonusHandler.calcBonusForF0(getActivePlayer().getNrOfProvinces());
 		} else if (result == 0) {
 			worldMap.updateBonus();
-			bonusHandler.calcBonusUnits();
+			bonusHandler.calcBonusUnits(getActivePlayer());
 			firstProvinceConqueredThisTurn = true;// didn't see a reset of this
 													// elsewhere
 			// so i added one
