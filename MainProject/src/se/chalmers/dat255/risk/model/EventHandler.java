@@ -2,6 +2,7 @@ package se.chalmers.dat255.risk.model;
 
 import java.util.ArrayList;
 
+import se.chalmers.dat255.risk.model.TurnAndPhaseManager;
 import se.chalmers.dat255.risk.model.TurnAndPhaseManager.Phase;
 
 public class EventHandler {
@@ -19,9 +20,9 @@ public class EventHandler {
 	/*
 	 * Makes the exange of three card, when you've chosen three good cards.
 	 */
-	public void handleCardClick(ICard card, Player currentPlayer) {
+	public ArrayList<String> handleCardEvent(ICard card, Player currentPlayer) {
 		// TODO Auto-generated method stub
-		cardExanger.makeExange(card, currentPlayer);
+		return cardExanger.makeExange(card, currentPlayer);
 	}
 
 	/*

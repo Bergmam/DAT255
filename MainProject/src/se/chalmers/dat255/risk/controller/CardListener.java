@@ -23,7 +23,7 @@ public class CardListener extends ClickListener {
 			if (newClick.hasCard()) {
 				ICard newClickedCard = newClick.getCard();
 				newClick.check();
-				theGame.handleCardClick(newClickedCard);
+				theGame.handleCardEvent(newClickedCard);
 			}
 		}
 	}

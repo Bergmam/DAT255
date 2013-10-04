@@ -38,12 +38,12 @@ public interface IGame {
 	 */
 	public void dealCard();
 
-	/**
+/*	/**
 	 * Method for calculating the amount of units the player will receive at the
 	 * start of his turn.
 	 */
-	public void calcBonusUnits();
-
+/*	public void calcBonusUnits();
+*/
 	/**
 	 * Method for retrieving the number of units the player has left to place.
 	 * 
@@ -97,12 +97,12 @@ public interface IGame {
 	 * @param province
 	 *            card to be handled
 	 */
-	public void handleCardClick(ICard province);
+	public void handleCardEvent(ICard province);
 
 	/**
 	 * Determines if the game should change phase
 	 */
-	public void handlePhaseClick();
+	public void handlePhaseEvent();
 
 	/**
 	 * Method for finding the owner of an province
