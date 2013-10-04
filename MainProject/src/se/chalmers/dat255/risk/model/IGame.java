@@ -74,7 +74,7 @@ public interface IGame {
 	 * 
 	 * @return an array with all players
 	 */
-	public Player[] getPlayers();
+	public ArrayList<Player> getPlayers();
 
 	/**
 	 * Retrieves all provinces

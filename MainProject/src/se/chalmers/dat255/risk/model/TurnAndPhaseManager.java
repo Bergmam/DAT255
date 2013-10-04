@@ -1,5 +1,7 @@
 package se.chalmers.dat255.risk.model;
 
+import java.util.ArrayList;
+
 public class TurnAndPhaseManager {
 	private int activePlayer;
 	private Phase currentPhase;
@@ -29,15 +31,15 @@ public class TurnAndPhaseManager {
 	 * Return is -1 if phase didn't change.
 	 */
 	
-	public int changePhase(Player currentPlayer, Player[] players) {
+	public int changePhase(Player currentPlayer, ArrayList<Player> players) {
 		if (currentPhase == Phase.FBuild) {
-			if (currentPlayer == players[players.length - 1]) {
+			if (currentPlayer == players.get(players.size() - 1)) {
 				changeTurn(players);
 				currentPhase = Phase.F1;
 				return 0; // Special, no need to compute troops
 			} else {
 				System.out.println("Old active player: " + getActivePlayer());
-				System.out.println("Number of players: " + players.length);
+				System.out.println("Number of players: " + players.size());
 				changeTurn(players);
 				System.out.println("New active player: " + getActivePlayer());
 				return 2;
@@ -54,9 +56,9 @@ public class TurnAndPhaseManager {
 		return 1;
 	}
 	
-	private void changeTurn(Player[] players) {
-		activePlayer = (activePlayer + 1) % players.length;
-		System.out.println("Nu pillades det med activePlayer och det nya värdet är: " + activePlayer);
+	private void changeTurn(ArrayList<Player> players) {
+		activePlayer = (activePlayer + 1) % players.size();
+		System.out.println("Nu pillades det med activePlayer och det nya vï¿½rdet ï¿½r: " + activePlayer);
 	}
 	
 	public int getActivePlayer(){

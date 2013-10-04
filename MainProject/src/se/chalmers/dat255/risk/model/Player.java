@@ -148,4 +148,8 @@ public class Player {
 		return turnId;
 	}
 	
+	public void setTurn(int turn){
+		this.turnId = turn;
+	}
+	
 }

@@ -12,6 +12,22 @@ public class BonusHandler {
 		bonus = 0;
 	}
 	
+	public void calcProvinceBonusesFromCards(ArrayList<String> names, Player currentPlayer){
+		for(String name : names){
+			if(worldMap.getOwner(name) == currentPlayer){
+				bonus =+ 2;
+			}
+		}
+	}
+		
+		
+		//kod
+		/* (skr�p fr�n game)
+		 * if (card2 != null) { getActivePlayer().exchangeCard((Card) card1,
+		 * (Card) card2, (Card) card); // GIVE BONUS // Check if extra bonus
+		 * from owned province cards card1 = null; card2 = null; } else { if
+		 * (card1 == null) { card1 = card; } else { card2 = card; } }
+		 */
 	public void calcBonusesFromCards(ArrayList<String> names, Player activePlayer){
 		for(String name : names){
 			if(worldMap.getOwner(name) == activePlayer){
