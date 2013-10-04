@@ -53,12 +53,29 @@ public class WorldMapTest {
 	}
 	
 	@Test
-	public void testBonus(){
+	public void testChangeOwner(){
+		worldMap.changeOwner("A",players.get(0));
+		assertTrue(worldMap.getOwner("A")==players.get(0));
+		
+		worldMap.changeOwner("B",players.get(0));
+		assertTrue(worldMap.getOwner("B")==players.get(0));
+		assertTrue(worldMap.getOwner("A")==players.get(0));
+		
+		worldMap.changeOwner("B",players.get(1));
+		assertTrue(worldMap.getOwner("B")==players.get(1));
+		assertTrue(worldMap.getOwner("A")==players.get(0));
+	}
+	
+	@Test
+	public void testUpdateBonus(){
+		
+		//So we know which province belongs to which player
 		worldMap.changeOwner("A",players.get(0));
 		worldMap.changeOwner("B",players.get(1));
 		worldMap.changeOwner("C",players.get(1));
 		worldMap.changeOwner("D",players.get(0));
 		worldMap.changeOwner("E",players.get(1));
+		
 		worldMap.updateBonus();
 		
 		assertTrue(worldMap.getBonus(players.get(0))==0);
