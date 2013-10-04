@@ -26,11 +26,11 @@ public class PlayerColor {
 	public static Color getColor(int i){
 		switch (i){
 			case 0: return Color.RED;
-			case 1: return Color.GRAY;
+			case 1: return Color.LIGHT_GRAY;
 			case 2: return Color.GREEN;
 			case 3: return Color.BLUE;
 			case 4: return Color.BLACK;
-			case 5: return Color.ORANGE;
+			case 5: return Color.RED;
 			default: return Color.WHITE;
 		}
 	}
