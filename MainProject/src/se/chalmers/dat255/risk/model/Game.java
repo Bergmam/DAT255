@@ -69,8 +69,8 @@ public class Game implements IGame {
 
 		
 		worldMap = new WorldMap(neighboursFile, continentsFile, players);
-		bonusHandler = new BonusHandler(worldMap);
-		bonusHandler.calcStartBonus(players.size());
+		bonusHandler = new BonusHandler(worldMap, players.size());
+//		bonusHandler.calcStartBonus(players.size());
 
 
 		setUpDeck();

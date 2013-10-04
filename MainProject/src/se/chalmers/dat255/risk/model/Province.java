@@ -20,8 +20,8 @@ public class Province implements IProvince{
 	public Province(String province){
 		id=province;
 //////////////// DEV ////////////////////
-//		units=1;
-		units=5;
+		units=1;
+//		units=5;
 //////////////// DEV ///////////////////		
 	}
 	

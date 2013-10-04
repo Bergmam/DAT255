@@ -12,8 +12,8 @@ public class TurnAndPhaseManager {
 	
 	public TurnAndPhaseManager(){
 ////////////////DEV ////////////////////
-	//	currentPhase=Phase.FBuild;
-		currentPhase=Phase.F1;
+		currentPhase=Phase.FBuild;
+	//	currentPhase=Phase.F1;
 ////////////////DEV ///////////////////			
 		activePlayer=0;
 	}
