@@ -97,8 +97,9 @@ public class ScreenManager extends ClickListener {
 		if (s.equalsIgnoreCase("addPlayer")) {
 			if (list.size() <= 6) {
 				s = main.getText();
-				if (s.length() > 2 && s.length() <10) {
+				if (s.length() > 1 && s.length() <10) {
 					list.add(s);
+					main.addPlayer(s);
 					System.out.println("added player " + s);
 				} else{
 					main.setText("too many/few letters");
