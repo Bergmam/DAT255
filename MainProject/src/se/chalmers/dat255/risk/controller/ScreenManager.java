@@ -96,25 +96,18 @@ public class ScreenManager extends ClickListener {
 
 		if (s.equalsIgnoreCase("addPlayer")) {
 			if (list.size() <= 6) {
-				Gdx.input.getTextInput(new TextInputListener() {
-
-					@Override
-					public void input(String text) {
-						list.add(text);
-					}
-
-					@Override
-					public void canceled() {
-
-					}
-
-				}, "Add a Player", "Name");
-
+				s = main.getText();
+				if (s.length() > 2 && s.length() <10) {
+					list.add(s);
+					System.out.println("added player " + s);
+				} else{
+					main.setText("too many/few letters");
+				}
+			} else {
+				main.setText("cannot add more");
 			}
 
-		}
-
-		if (s.equalsIgnoreCase("startButton")) {
+		} else if (s.equalsIgnoreCase("startButton")) {
 			if (list.size() >= 2) {
 				setupGame();
 				changeScreen(screen);
@@ -128,4 +121,19 @@ public class ScreenManager extends ClickListener {
 		main.dispose();
 		screen.dispose();
 	}
+
+	/*
+	 * if (list.size() <= 6) { Gdx.input.getTextInput(new TextInputListener() {
+	 * 
+	 * @Override public void input(String text) { list.add(text); }
+	 * 
+	 * @Override public void canceled() {
+	 * 
+	 * }
+	 * 
+	 * }, "Add a Player", "Name");
+	 * 
+	 * }
+	 */
+
 }
