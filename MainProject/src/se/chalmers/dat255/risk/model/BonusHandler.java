@@ -41,7 +41,6 @@ public class BonusHandler {
 		}
 		
 		worldMap.updateBonus();
-		System.out.println("Bonus is: " + worldMap.getBonus(activePlayer));
 		this.bonus += worldMap.getBonus(activePlayer);
 	}
 	
