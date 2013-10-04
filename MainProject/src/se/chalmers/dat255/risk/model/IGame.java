@@ -38,12 +38,12 @@ public interface IGame {
 	 */
 	public void dealCard();
 
-	/**
+/*	/**
 	 * Method for calculating the amount of units the player will receive at the
 	 * start of his turn.
 	 */
-	public void calcBonusUnits();
-
+/*	public void calcBonusUnits();
+*/
 	/**
 	 * Method for retrieving the number of units the player has left to place.
 	 * 
