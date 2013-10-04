@@ -1,12 +1,10 @@
 package test;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
-import java.util.ArrayList;
-
+import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.ArrayList;
 
 import se.chalmers.dat255.risk.model.Player;
 import se.chalmers.dat255.risk.model.WorldMap;
@@ -17,17 +15,17 @@ public class WorldMapTest {
 	String provinces = "A-B-C-D-E" + "\n" + "B-A-C-E" + "\n" + "C-A-D" + "\n"
 			+ "D-A-C-E" + "\n" + "E-A-B-D";
 	String continents = "3-A-B-C" + "\n" + "2-D-E";
-	WorldMap worldMap = new WorldMap(provinces, continents, players);
+	WorldMap worldMap;
 
 	@Before
 	public void beforeTest() {
 		players.add(new Player(0, "Linnea"));
 		players.add(new Player(1, "Andreas"));
+		 worldMap = new WorldMap(provinces, continents, players);
 	}
 
 	@Test
 	public void testConstructProvinces() {
-		System.out.println(worldMap.getProvinces().get(0).getId());
 		// Test if provinces has been created in a correct way
 		assertTrue(worldMap.getProvinces().size() == 5);
 		assertTrue(worldMap.getProvinces().get(0).getId().equals("A"));
@@ -52,6 +50,27 @@ public class WorldMapTest {
 		// Test if continent has been created correct.
 		// Not implemented yet!
 
+	}
+	
+	@Test
+	public void testBonus(){
+		worldMap.changeOwner("A",players.get(0));
+		worldMap.changeOwner("B",players.get(1));
+		worldMap.changeOwner("C",players.get(1));
+		worldMap.changeOwner("D",players.get(0));
+		worldMap.changeOwner("E",players.get(1));
+		worldMap.updateBonus();
+		
+		assertTrue(worldMap.getBonus(players.get(0))==0);
+		assertTrue(worldMap.getBonus(players.get(1))==0);
+		
+		worldMap.changeOwner("A",players.get(1));
+		worldMap.updateBonus();
+		assertTrue(worldMap.getBonus(players.get(1))==3);
+		
+		worldMap.changeOwner("E",players.get(0));
+		worldMap.updateBonus();
+		assertTrue(worldMap.getBonus(players.get(0))==2);
 	}
 
 }
