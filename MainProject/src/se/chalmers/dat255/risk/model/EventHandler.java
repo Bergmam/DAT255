@@ -18,7 +18,7 @@ public class EventHandler {
 	/*
 	 * Makes the exange of three card, when you've chosen three good cards.
 	 */
-	public void handleCardClick(ICard card, Player currentPlayer) {
+	public void handleCardEvent(ICard card, Player currentPlayer) {
 		// TODO Auto-generated method stub
 		cardExanger.makeExange(card, currentPlayer);
 	}
@@ -30,7 +30,7 @@ public class EventHandler {
 	 * if a change of phase has taken place. Return is 0 if a new turn has
 	 * begun. Return is -1 if phase didn't change.
 	 */
-	public int handlePhaseClick(Player currentPlayer, int bonusUnitsLeft,
+	public int handlePhaseEvent(Player currentPlayer, int bonusUnitsLeft,
 			Player[] players) {
 		// TODO Auto-generated method stub
 		// Ska kolla så att spelaren är klar med alla sina

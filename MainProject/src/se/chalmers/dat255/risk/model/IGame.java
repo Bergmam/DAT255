@@ -97,12 +97,12 @@ public interface IGame {
 	 * @param province
 	 *            card to be handled
 	 */
-	public void handleCardClick(ICard province);
+	public void handleCardEvent(ICard province);
 
 	/**
 	 * Determines if the game should change phase
 	 */
-	public void handlePhaseClick();
+	public void handlePhaseEvent();
 
 	/**
 	 * Method for finding the owner of an province

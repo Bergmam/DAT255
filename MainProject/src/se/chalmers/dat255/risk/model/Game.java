@@ -100,10 +100,10 @@ public class Game implements IGame {
 	 * Method for changing the state of the game to the next state if it should
 	 * be changed.
 	 */
-	private int changePhase() {
-		return clickHandler.handlePhaseClick(getActivePlayer(), bonus, players);
+	/*private int changePhase() {
+		return 
 	}
-
+*/
 	private boolean attack(int offensiveDice, IProvince offensive,
 			IProvince defensive) {
 
@@ -326,8 +326,8 @@ public class Game implements IGame {
 	}
 
 	@Override
-	public void handleCardClick(ICard card) {
-		clickHandler.handleCardClick(card, getActivePlayer());
+	public void handleCardEvent(ICard card) {
+		clickHandler.handleCardEvent(card, getActivePlayer());
 		// HAVE TO FIX BONUSES //
 
 		/*
@@ -348,21 +348,15 @@ public class Game implements IGame {
 	 * -1 if phase didn't change.
 	 */
 	@Override
-	public void handlePhaseClick() {
-		int result = changePhase();
+	public void handlePhaseEvent() {
+		int result = clickHandler.handlePhaseEvent(getActivePlayer(), bonus, players);;
 		if (result == 2) {
-			System.out.println("PhaseHandler: New active player "
-					+ phaseHandler.getActivePlayer());
-			System.out.println("Game: New active player "
-					+ getActivePlayer().getId());
-			bonus = startingTroopNr - getActivePlayer().getNrOfProvinces();
-			
+			bonus = startingTroopNr - getActivePlayer().getNrOfProvinces();		
 		} else if (result == 0) {
 			worldMap.updateBonus();
 			calcBonusUnits();
 			firstProvinceConqueredThisTurn = true;//didn't see a reset of this elsewhere
 			// so i added one
-
 		}
 		flushTemps();//clean temps between turns and phases
 	}
