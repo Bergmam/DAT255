@@ -186,12 +186,10 @@ public class Game implements IGame {
 				if (checkProvinceOk(oldProvince, newProvince, false)) {
 					// saving second province to be used later after
 					// nbr of dices has been decided by the user
-					if(oldProvince.getUnits() > 1){
-						secondProvince = newProvince;
-						secondProvince.setActive(true);
-						pcs.firePropertyChange("Attack", oldProvince,
-								secondProvince);
-					}
+					secondProvince = newProvince;
+					secondProvince.setActive(true);
+					pcs.firePropertyChange("Attack", oldProvince.getUnits()-1 >= 3 ? 3 : oldProvince.getUnits()-1,
+							secondProvince);
 					// battle(oldClickedProvince, newClickedProvince);
 				} else {
 					flushTemps();
@@ -297,8 +295,9 @@ public class Game implements IGame {
 			attack(nbrOfDice, oldProvince, secondProvince);
 			if (secondProvince.getUnits() == 0) {
 				changeOwner();
+				pcs.firePropertyChange("takeOver", oldProvince.getUnits(), ""+nbrOfDice);
 			} else if (oldProvince.getUnits() > 1) {
-				pcs.firePropertyChange("Again?", oldProvince, 1);
+				pcs.firePropertyChange("Again?", oldProvince.getUnits()-1 >= 3 ? 3 : oldProvince.getUnits()-1, 1);
 			} else {
 				flushTemps();
 			}
@@ -312,7 +311,6 @@ public class Game implements IGame {
 	private void changeOwner() {
 		Player lostProvincePlayer = worldMap.getOwner(secondProvince.getId());
 		worldMap.changeOwner(secondProvince.getId(), getActivePlayer());
-		pcs.firePropertyChange("Movement", oldProvince.getUnits(), 1);
 		if (firstProvinceConqueredThisTurn) {
 			getActivePlayer().addCard();
 			firstProvinceConqueredThisTurn = false;
@@ -359,7 +357,9 @@ public class Game implements IGame {
 		ArrayList<String> names = clickHandler.handleCardEvent(card,
 				getActivePlayer());
 		// HAVE TO FIX BONUSES //
-		bonusHandler.calcProvinceBonusesFromCards(names, getActivePlayer());
+		if(names!=null){
+			bonusHandler.calcProvinceBonusesFromCards(names, getActivePlayer());
+		}
 	}
 
 	/*
