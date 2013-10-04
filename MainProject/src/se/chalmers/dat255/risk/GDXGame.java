@@ -12,7 +12,6 @@ public class GDXGame extends Game {
 
 	@Override
 	public void create() {
-	
 		Gdx.app.log("Risk", "creating game");
 	
 		logger = new FPSLogger();
