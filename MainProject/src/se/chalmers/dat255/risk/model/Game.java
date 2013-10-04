@@ -207,7 +207,7 @@ public class Game implements IGame {
 		}
 
 		// MOVING TROOPS IN PHASE 3
-		else if (getCurrentPhase() == Phase.F3) {
+		else if (getCurrentPhase() == Phase.F3 && !movedTroops) {
 			if (myProvince(newProvince.getId()) && oldProvince == null) {
 				oldProvince = newProvince;
 				oldProvince.setActive(true);
@@ -220,14 +220,7 @@ public class Game implements IGame {
 						secondProvince.setActive(true);
 						pcs.firePropertyChange("Movement", oldProvince.getUnits(),
 								1);
-					}// MAY
-					// BE
-					// INVALID
-					// INPUT,
-					// THEN
-					// NOTHING
-					// WILL
-					// HAPPEN
+					}
 				}
 			}
 		}
@@ -273,6 +266,9 @@ public class Game implements IGame {
 					+ " units moved from " + oldProvince.getId() + " to "
 					+ secondProvince.getId());
 			oldProvince.moveUnits(nrOfUnits, secondProvince);
+			if(getCurrentPhase() == Phase.F3){
+				movedTroops = true;
+			}
 		}
 		flushTemps();
 	}
@@ -378,7 +374,7 @@ public class Game implements IGame {
 	@Override
 	public void handlePhaseEvent() {
 		int bonus = bonusHandler.getBonus();
-		int result = eventHandler.handlePhaseClick(getActivePlayer(), bonus,
+		int result = eventHandler.handlePhaseEvent(getActivePlayer(), bonus,
 				players);
 		if (result == 2) {
 			System.out.println("PhaseHandler: New active player "
@@ -392,6 +388,7 @@ public class Game implements IGame {
 			firstProvinceConqueredThisTurn = true;// didn't see a reset of this
 													// elsewhere
 			// so i added one
+			movedTroops = false;
 		}
 		flushTemps();// clean temps between turns and phases
 	}
