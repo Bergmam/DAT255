@@ -1,21 +1,28 @@
 package se.chalmers.dat255.risk.model;
 
+import java.util.ArrayList;
+
 public class BonusHandler {
 
-	private int bonus;
-	private int startingTroopNr;
-
-	public int calcProvinceBonusesFromCards(ArrayList<String> names){
-		int bonus=0;
+	private int bonus, startingTroopNr, currentCardBonus = 4;
+	public WorldMap worldMap;
+	
+	public BonusHandler(WorldMap worldMap){
+		this.worldMap = worldMap;
+	}
+	
+	public void calcProvinceBonusesFromCards(ArrayList<String> names){
+		
+		
+		
 		//kod
-		/* (skräp från game)
+		/* (skrï¿½p frï¿½n game)
 		 * if (card2 != null) { getActivePlayer().exchangeCard((Card) card1,
 		 * (Card) card2, (Card) card); // GIVE BONUS // Check if extra bonus
 		 * from owned province cards card1 = null; card2 = null; } else { if
 		 * (card1 == null) { card1 = card; } else { card2 = card; } }
 		 */
 		
-		return bonus;
 	}
 	
 	public void calcStartBonus() {
