@@ -1,6 +1,7 @@
 package se.chalmers.dat255.risk.model;
 
-import se.chalmers.dat255.risk.model.TurnAndPhaseManager;
+import java.util.ArrayList;
+
 import se.chalmers.dat255.risk.model.TurnAndPhaseManager.Phase;
 
 public class EventHandler {
@@ -31,7 +32,7 @@ public class EventHandler {
 	 * begun. Return is -1 if phase didn't change.
 	 */
 	public int handlePhaseClick(Player currentPlayer, int bonusUnitsLeft,
-			Player[] players) {
+			ArrayList<Player> players) {
 		// TODO Auto-generated method stub
 		// Ska kolla så att spelaren är klar med alla sina
 		Phase currentPhase = phaseHandler.getPhase();
