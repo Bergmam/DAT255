@@ -28,7 +28,7 @@ public class ChangePhaseListener extends ClickListener{
 		if(event.getTarget() instanceof ChangePhase){
 			ChangePhase newClick =  ((ChangePhase) event.getTarget());
 			newClick.check();
-			theGame.handlePhaseClick();
+			theGame.handlePhaseEvent();
 		} 
 	}
 }

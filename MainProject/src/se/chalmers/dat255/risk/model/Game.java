@@ -349,7 +349,7 @@ public class Game implements IGame {
 	 */
 	@Override
 	public void handlePhaseEvent() {
-		int result = clickHandler.handlePhaseEvent(getActivePlayer(), bonus, players);;
+		int result = clickHandler.handlePhaseEvent(getActivePlayer(), bonus, players);
 		if (result == 2) {
 			bonus = startingTroopNr - getActivePlayer().getNrOfProvinces();		
 		} else if (result == 0) {
