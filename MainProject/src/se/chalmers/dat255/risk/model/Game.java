@@ -69,8 +69,9 @@ public class Game implements IGame {
 
 		
 		worldMap = new WorldMap(neighboursFile, continentsFile, players);
-		bonusHandler = new BonusHandler(worldMap);
-		bonusHandler.calcStartBonus(players.size());
+		bonusHandler = new BonusHandler(worldMap, players.size());
+		bonusHandler.calcBonusForF0(getActivePlayer().getNrOfProvinces()); // Instancieate first players bonus
+//		bonusHandler.calcStartBonus(players.size());
 
 
 		setUpDeck();
@@ -384,7 +385,6 @@ public class Game implements IGame {
 					+ phaseHandler.getActivePlayer());
 			System.out.println("Game: New active player "
 					+ getActivePlayer().getId());
-			bonus = startingTroopNr - getActivePlayer().getNrOfProvinces();
 			bonusHandler.calcBonusForF0(getActivePlayer().getNrOfProvinces());
 		} else if (result == 0) {
 			worldMap.updateBonus();

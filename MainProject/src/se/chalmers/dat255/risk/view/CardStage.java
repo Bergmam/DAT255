@@ -86,8 +86,23 @@ public class CardStage extends AbstractStage {
 	public void propertyChange(PropertyChangeEvent event) {
 		if (event.getPropertyName().equalsIgnoreCase("addCard")) {
 			addCard((ICard) event.getOldValue());
+		} else if(event.getPropertyName().equalsIgnoreCase("removeCard")){
+			removeCard((ICard) event.getNewValue());
 		}
+		
+		
 
+	}
+
+	private void removeCard(ICard card) {
+		for(AbstractView v : actor){
+			if(((CardView) v).getCard() == card){
+				((CardView) v).removeCard();
+				return;
+			}
+		}
+		
+		
 	}
 
 	private void addCard(ICard newCard) {
