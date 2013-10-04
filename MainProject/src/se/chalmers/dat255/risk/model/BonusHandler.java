@@ -38,10 +38,9 @@ public class BonusHandler {
 		currentCardBonus += 2; // Maybe needs to be changed later, may not be linear.
 	}
 	
-	public void calcStartBonus(int playersLength) {
+	public void calcStartBonus(int playersLength, Player activePlayer) {
 		// INITIALIZING STARTING NUMBER OF TROOPS
-		startingTroopNr = 50 - playersLength * 5;
-		
+		startingTroopNr = 50 - playersLength * 5 - activePlayer.getNrOfProvinces();
 		bonus = 3;
 	}
 	
