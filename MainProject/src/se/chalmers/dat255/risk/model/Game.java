@@ -49,7 +49,6 @@ public class Game implements IGame {
 	public void newGame(String[] playersId) throws IllegalArgumentException {
 		phaseHandler = new TurnAndPhaseManager();
 		clickHandler = new EventHandler(phaseHandler);
-		bonusHandler = new BonusHandler(worldMap);
 		int noOfPlayers = playersId.length;
 		if (noOfPlayers > 6 || noOfPlayers < 2) {
 			throw new IllegalArgumentException(
@@ -60,11 +59,15 @@ public class Game implements IGame {
 		players.get(phaseHandler.getActivePlayer()).setCurrent(true); // Player
 																		// one
 
-		bonusHandler.calcStartBonus(players.size());
 
 		// ////////////////// ONLY FOR DEV //////////////////////////
 		// SETTING UP GAMEBOARD RULES AND CREATING PROVINCES
+
+		
 		worldMap = new WorldMap(neighboursFile, continentsFile, players);
+		bonusHandler = new BonusHandler(worldMap);
+		bonusHandler.calcStartBonus(players.size());
+
 
 		setUpDeck();
 
@@ -207,11 +210,12 @@ public class Game implements IGame {
 
 			else if (oldProvince != null) {
 				if (checkProvinceOk(oldProvince, newProvince, true)) {
-					secondProvince = newProvince;
-					secondProvince.setActive(true);
-					pcs.firePropertyChange("Movement", oldProvince.getUnits(),
-							1);
-					// MAY
+					if(oldProvince.getUnits() > 1){
+						secondProvince = newProvince;
+						secondProvince.setActive(true);
+						pcs.firePropertyChange("Movement", oldProvince.getUnits(),
+								1);
+					}// MAY
 					// BE
 					// INVALID
 					// INPUT,
@@ -287,7 +291,7 @@ public class Game implements IGame {
 	@Override
 	public void battle(int nbrOfDice) {
 
-		if (oldProvince.getUnits() > 1) {
+	//	if (oldProvince.getUnits() > 1) {
 			attack(nbrOfDice, oldProvince, secondProvince);
 			if (secondProvince.getUnits() == 0) {
 				changeOwner();
@@ -297,7 +301,7 @@ public class Game implements IGame {
 			} else {
 				flushTemps();
 			}
-		}
+	//	}
 	}
 
 	/*
