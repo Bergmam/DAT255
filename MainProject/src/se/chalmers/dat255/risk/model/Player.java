@@ -19,8 +19,8 @@ public class Player {
 	private ArrayList<ICard> cards; // The cards the player currently has on his/her hand.
 	
 	// ============== EVENT-CONSTANTS ==============
-	public final static String CARD_ADDED = "addedCard";
-	public final static String CARD_REMOVED = "addedCard";
+	public final static String CARD_ADDED = "addCard";
+	public final static String CARD_REMOVED = "removeCard";
 	// =============================================
 
 	
@@ -50,7 +50,7 @@ public class Player {
 	public void addCard(){
 		ICard newCard = Deck.giveCard();
 		cards.add(newCard);
-		pcs.firePropertyChange(this.CARD_ADDED, null, newCard);
+		pcs.firePropertyChange(Player.CARD_ADDED, newCard, null);
 	}
 	
 	/**
@@ -146,6 +146,10 @@ public class Player {
 	
 	public int getId(){
 		return turnId;
+	}
+	
+	public void setTurn(int turn){
+		this.turnId = turn;
 	}
 	
 }

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import se.chalmers.dat255.risk.controller.PopUpListener;
 import se.chalmers.dat255.risk.model.IProvince;
 import se.chalmers.dat255.risk.view.resource.Resource;
 
@@ -13,13 +14,19 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.input.GestureDetector.GestureListener;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.collision.BoundingBox;
 import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Window.WindowStyle;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 public class WorldStage extends AbstractStage implements GestureListener {
 	private Image background;
@@ -35,14 +42,17 @@ public class WorldStage extends AbstractStage implements GestureListener {
 		background = new Image(Resource.getInstance().backGround);
 		camera = new OrthographicCamera();
 		provinceGroup = new Group();
-
 		multi = new InputMultiplexer(new GestureDetector(this), this);
 		camera.setToOrtho(false);
+
 		setCamera(camera);
 
 		width = background.getWidth();
 		height = background.getHeight();
 
+		for(IProvince a :provinces)
+			System.out.println(a.getId());
+		
 		camera.position.set(background.getWidth() / 2,
 				background.getHeight() / 2, 0);
 
@@ -78,8 +88,10 @@ public class WorldStage extends AbstractStage implements GestureListener {
 		for (int i = 0; i < actor.size(); i++) {
 			provinceGroup.addActor(actor.get(i));
 		}
+
 		addActor(background);
 		addActor(provinceGroup);
+		
 	}
 
 	@Override
@@ -121,13 +133,24 @@ public class WorldStage extends AbstractStage implements GestureListener {
 
 	@Override
 	public boolean zoom(float initialDistance, float distance) {
-
 		float ratio = initialDistance / distance;
 		if (initialZoom * ratio >= 0.5f && initialZoom * ratio <= 2.5f) {
 			camera.zoom = initialZoom * ratio;
 		}
 		calcCam();
 
+		return false;
+	}
+
+	@Override
+	public boolean scrolled(int amount) {
+		initialZoom = camera.zoom;
+		float ratio = amount < 0 ? 0.9f : 1.1f;
+		if (initialZoom * ratio >= 0.5f && initialZoom * ratio <= 1.33) {
+			camera.zoom = initialZoom * ratio;
+		}
+
+		calcCam();
 		return false;
 	}
 

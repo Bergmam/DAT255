@@ -3,6 +3,7 @@ package se.chalmers.dat255.risk.view;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -17,32 +18,34 @@ public abstract class AbstractView extends Actor implements
 	protected Texture imageDown;
 	protected float width;
 	protected float height;
-	
+	protected float scale;
+
 	public AbstractView(Texture iU, Texture iD) {
 		imageUp = iU;
 		imageDown = iD;
 		width = iU.getWidth();
 		height = iU.getHeight();
 		font = new BitmapFont();
+		scale = width;
 	}
 
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
 	}
-	
+
 	/*
 	 * IsCicked makes the button look like it have been clicked or not.
 	 */
-	public void check(){
-		isClicked =  !isClicked;
-	}
-	
-	@Override
-	public void draw(SpriteBatch batch, float alpha){
-		batch.draw(isClicked ? imageDown : imageUp ,getX(),getY());
+	public void check() {
+		isClicked = !isClicked;
 	}
 
-	public void setImages(Texture iU, Texture iD){
+	@Override
+	public void draw(SpriteBatch batch, float alpha) {
+		batch.draw(isClicked ? imageDown : imageUp, getX(), getY(),scale,scale);
+	}
+
+	public void setImages(Texture iU, Texture iD) {
 		imageUp = iU;
 		imageDown = iD;
 	}

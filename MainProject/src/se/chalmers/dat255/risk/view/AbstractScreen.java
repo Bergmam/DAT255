@@ -10,14 +10,10 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public abstract class AbstractScreen implements Screen {
 
 	protected IGame model;
-	protected BitmapFont font;
-	protected SpriteBatch batch;
 	protected OrthographicCamera camera;
 	
 	public AbstractScreen(IGame model) {
 		this.model = model;
-		font = new BitmapFont();
-		batch = new SpriteBatch();
 		camera = new OrthographicCamera();
 	}
 
@@ -59,8 +55,6 @@ public abstract class AbstractScreen implements Screen {
 
 	@Override
 	public void dispose() {
-		font.dispose();
-		batch.dispose();		
 	}
 
 }
