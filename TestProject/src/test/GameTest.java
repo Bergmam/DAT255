@@ -42,11 +42,11 @@ public class GameTest{
 	@Test
 	public void testPlayerList(){
 		//Check if number of player is correct,
-		assertTrue(game.getPlayers().length == 6);
-		assertTrue(game1.getPlayers().length == 2);
-		assertTrue(game2.getPlayers().length == 3);
-		assertTrue(game3.getPlayers().length == 4);
-		assertTrue(game4.getPlayers().length == 5);
+		assertTrue(game.getPlayers().size() == 6);
+		assertTrue(game1.getPlayers().size() == 2);
+		assertTrue(game2.getPlayers().size() == 3);
+		assertTrue(game3.getPlayers().size() == 4);
+		assertTrue(game4.getPlayers().size() == 5);
 
 	}
 	
@@ -54,11 +54,11 @@ public class GameTest{
 	public void testBonusUnitsLeft(){
 
 		//Check how many troops each player gets when the game begins 
-		assertTrue(game.getBonusUnitsLeft() == 20 + (6-game.getPlayers().length)*5-game.getActivePlayer().getNrOfProvinces() );
-		assertTrue(game1.getBonusUnitsLeft() == 20 + (6-game1.getPlayers().length)*5-game1.getActivePlayer().getNrOfProvinces() );
-		assertTrue(game2.getBonusUnitsLeft() == 20 + (6-game2.getPlayers().length)*5-game2.getActivePlayer().getNrOfProvinces() );
-		assertTrue(game3.getBonusUnitsLeft() == 20 + (6-game3.getPlayers().length)*5-game3.getActivePlayer().getNrOfProvinces() );
-		assertTrue(game4.getBonusUnitsLeft() == 20 + (6-game4.getPlayers().length)*5-game4.getActivePlayer().getNrOfProvinces() );
+		assertTrue(game.getBonusUnitsLeft() == 20 + (6-game.getPlayers().size())*5-game.getActivePlayer().getNrOfProvinces() );
+		assertTrue(game1.getBonusUnitsLeft() == 20 + (6-game1.getPlayers().size())*5-game1.getActivePlayer().getNrOfProvinces() );
+		assertTrue(game2.getBonusUnitsLeft() == 20 + (6-game2.getPlayers().size())*5-game2.getActivePlayer().getNrOfProvinces() );
+		assertTrue(game3.getBonusUnitsLeft() == 20 + (6-game3.getPlayers().size())*5-game3.getActivePlayer().getNrOfProvinces() );
+		assertTrue(game4.getBonusUnitsLeft() == 20 + (6-game4.getPlayers().size())*5-game4.getActivePlayer().getNrOfProvinces() );
 	}
 
 	@Test
