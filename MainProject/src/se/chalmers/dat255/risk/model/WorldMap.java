@@ -86,12 +86,12 @@ public class WorldMap {
 		String itsProvinces[];
 		for (String line : cLines) {
 			String[] array = line.split("-");
-			itsProvinces = new String[array.length - 1];
+			itsProvinces = new String[array.length - 2];
 
 			int nrOfContinents = 0;
 
-			for (int i = 1; i < array.length; i++) {
-				itsProvinces[i - 1] = array[i];
+			for (int i = 2; i < array.length; i++) {
+				itsProvinces[i - 2] = array[i];
 			}
 			continents.add(new Continent(array[0], itsProvinces, Integer
 					.parseInt(array[0])));
@@ -199,7 +199,6 @@ public class WorldMap {
 		for (Continent continent : continents) { //Fils
 			continent.update();
 			continentBonus = continent.getBonus();
-			System.out.println("is continentOwner null? " + continent.getContinentOwner());
 			if (continent.getContinentOwner() != null)
 				bonuses[continent.getContinentOwner().getId()] =+ continentBonus;
 		}
@@ -245,8 +244,8 @@ public class WorldMap {
 		 */
 		public void update() {
 			Player tempProvinceOwner = getOwner(provinces[0]);
+			
 			for (String province : provinces) {
-				System.out.println("which provine in continent? " + province + "continents name" + continentName);
 				if (tempProvinceOwner != getOwner(province)) {
 					owner = null;
 					return;
@@ -254,7 +253,6 @@ public class WorldMap {
 				tempProvinceOwner = getOwner(province);
 			}
 			owner = tempProvinceOwner;
-			System.out.println(continentName + " has a new owner: " + owner.getName());
 		}
 
 	}

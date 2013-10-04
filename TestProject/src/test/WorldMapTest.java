@@ -88,6 +88,11 @@ public class WorldMapTest {
 		worldMap.changeOwner("E",players.get(0));
 		worldMap.updateBonus();
 		assertTrue(worldMap.getBonus(players.get(0))==2);
+		
+		worldMap.changeOwner("E", players.get(1));
+		worldMap.updateBonus();
+		assertTrue(worldMap.getBonus(players.get(0))==0);
+		
 	}
 
 }

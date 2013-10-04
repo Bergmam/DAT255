@@ -39,7 +39,9 @@ public class BonusHandler {
 		} else {
 			this.bonus = provinces / 3;
 		}
-
+		
+		worldMap.updateBonus();
+		System.out.println("Bonus is: " + worldMap.getBonus(activePlayer));
 		this.bonus += worldMap.getBonus(activePlayer);
 	}
 	
