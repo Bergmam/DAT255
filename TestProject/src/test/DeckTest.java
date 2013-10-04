@@ -67,6 +67,7 @@ public class DeckTest {
 				infantry1++;
 			}
 		}
+		System.out.println(jokers1);
 		assertTrue(jokers1 == 3);
 		assertTrue(artillery1 == 6);
 		assertTrue(cavalry1 == 5);

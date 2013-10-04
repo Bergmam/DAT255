@@ -41,7 +41,7 @@ public class WorldMap {
 	 *            players
 	 */
 	public WorldMap(String provinceString, String continentFile,
-			Player[] players) {
+			ArrayList<Player> players) {
 
 		ArrayList<String> listOfProvinces = createProvinces(provinceString,
 				players);
@@ -54,11 +54,11 @@ public class WorldMap {
 	/*
 	 * Create all the provinces.
 	 */
-	private ArrayList<String> createProvinces(String string, Player[] players) {
+	private ArrayList<String> createProvinces(String string, ArrayList<Player> players) {
 		HashMap<String, ArrayList<String>> tempNeighbours = new HashMap<String, ArrayList<String>>();
 		ArrayList<String> listOfProvinces = new ArrayList<String>();
 		ownership = new HashMap<String, Player>();
-		bonuses = new int[players.length];
+		bonuses = new int[players.size()];
 		String[] pLines = string.split("\\n");
 		for (String pLine : pLines) {
 			String[] array = pLine.split("-");
@@ -155,9 +155,9 @@ public class WorldMap {
 	 *            of all players
 	 */
 	private void randomizeProvinces(ArrayList<String> provinceList,
-			Player[] players) {
+			ArrayList<Player> players) {
 		ArrayList<String> temp = provinceList;
-		int nrOfPlayers = players.length, nrOfProvinces = provinceList.size();
+		int nrOfPlayers = players.size(), nrOfProvinces = provinceList.size();
 
 		Random randGen = new Random();
 		while (!temp.isEmpty()) {

@@ -1,16 +1,18 @@
 package se.chalmers.dat255.risk.model;
 
+import java.util.ArrayList;
+
 import se.chalmers.dat255.risk.model.TurnAndPhaseManager;
 import se.chalmers.dat255.risk.model.TurnAndPhaseManager.Phase;
 
-public class ClickHandler {
+public class EventHandler {
 	private TurnAndPhaseManager phaseHandler;
 	private CardExanger cardExanger;
 	private IProvince oldClickedProvince = null;
 	private boolean movedTroops = false;
 	private boolean firstProvinceConqueredThisTurn = true;
 
-	public ClickHandler(TurnAndPhaseManager phaseHandler) {
+	public EventHandler(TurnAndPhaseManager phaseHandler) {
 		this.phaseHandler = phaseHandler;
 		cardExanger = new CardExanger();
 	}
@@ -18,9 +20,9 @@ public class ClickHandler {
 	/*
 	 * Makes the exange of three card, when you've chosen three good cards.
 	 */
-	public void handleCardClick(ICard card, Player currentPlayer) {
+	public ArrayList<String> handleCardEvent(ICard card, Player currentPlayer) {
 		// TODO Auto-generated method stub
-		cardExanger.makeExange(card, currentPlayer);
+		return cardExanger.makeExange(card, currentPlayer);
 	}
 
 	/*
@@ -31,7 +33,7 @@ public class ClickHandler {
 	 * begun. Return is -1 if phase didn't change.
 	 */
 	public int handlePhaseClick(Player currentPlayer, int bonusUnitsLeft,
-			Player[] players) {
+			ArrayList<Player> players) {
 		// TODO Auto-generated method stub
 		// Ska kolla så att spelaren är klar med alla sina
 		Phase currentPhase = phaseHandler.getPhase();
@@ -48,9 +50,6 @@ public class ClickHandler {
 		System.out.println("Most empty bonus before changing phase!");
 		return -1;
 		// "actions" och kan byta fas.
-
-		// När du är i FBuild, så måste du kolla så att det är tomt
-		// i bonus innan du "byter fas" = kör changePhase.
 
 	}
 
