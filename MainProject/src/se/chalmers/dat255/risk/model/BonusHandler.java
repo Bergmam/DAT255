@@ -12,41 +12,32 @@ public class BonusHandler {
 		bonus = 0;
 	}
 	
-	public void calcProvinceBonusesFromCards(ArrayList<String> names, Player currentPlayer){
+	public void calcBonusesFromCards(ArrayList<String> names, Player activePlayer){
 		for(String name : names){
-			if(worldMap.getOwner(name) == currentPlayer){
+			if(worldMap.getOwner(name) == activePlayer){
 				bonus =+ 2;
 			}
 		}
-		
-		
-		//kod
-		/* (skr�p fr�n game)
-		 * if (card2 != null) { getActivePlayer().exchangeCard((Card) card1,
-		 * (Card) card2, (Card) card); // GIVE BONUS // Check if extra bonus
-		 * from owned province cards card1 = null; card2 = null; } else { if
-		 * (card1 == null) { card1 = card; } else { card2 = card; } }
-		 */
+		bonus =+ currentCardBonus;
+		currentCardBonus += 2; // Maybe needs to be changed later, may not be linear.
 	}
 	
-	public void calcStartBonus() {
+	public void calcStartBonus(int playersLength) {
 		// INITIALIZING STARTING NUMBER OF TROOPS
-		startingTroopNr = 50 - players.length * 5;
-
-		// /////////////////// ONLY FOR DEV ///////////////////////////
-		// bonus = startingTroopNr - getActivePlayer().getNrOfProvinces();
+		startingTroopNr = 50 - playersLength * 5;
+		
 		bonus = 3;
 	}
 	
-	public void calcBonusUnits() {
-		int provinces = getActivePlayer().getNrOfProvinces();
+	public void calcBonusUnits(Player activePlayer) {
+		int provinces = activePlayer.getNrOfProvinces();
 		if (provinces <= 9) {
 			this.bonus = 3;
 		} else {
 			this.bonus = provinces / 3;
 		}
 
-		this.bonus += worldMap.getBonus(getActivePlayer());
+		this.bonus += worldMap.getBonus(activePlayer);
 
 	}
 	
