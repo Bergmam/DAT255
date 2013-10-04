@@ -16,11 +16,12 @@ import se.chalmers.dat255.risk.model.TurnAndPhaseManager.Phase;
 
 public class Game implements IGame {
 	private Player[] players;
-	private int startingTroopNr;
+//	private int startingTroopNr;
 	private WorldMap worldMap;
 	private EventHandler clickHandler;
 	private TurnAndPhaseManager phaseHandler;
-	private int bonus;
+	private BonusHandler bonusHandler;
+//	private int bonus;
 	private BattleHandler battle;
 	private Deck deck;
 	private IProvince oldProvince, secondProvince;
@@ -50,7 +51,7 @@ public class Game implements IGame {
 	public void newGame(String[] playersId) throws IllegalArgumentException {
 		phaseHandler = new TurnAndPhaseManager();
 		clickHandler = new EventHandler(phaseHandler);
-
+		bonusHandler= new BonusHandler(worldMap);
 		int noOfPlayers = playersId.length;
 		if (noOfPlayers > 6 || noOfPlayers < 2) {
 			throw new IllegalArgumentException(
@@ -59,7 +60,7 @@ public class Game implements IGame {
 
 		createPlayers(playersId);
 		players[phaseHandler.getActivePlayer()].setCurrent(true); // Player one
-		calcStartBonus();
+		bonusHandler.calcStartBonus();
 
 		// ////////////////// ONLY FOR DEV //////////////////////////
 		// SETTING UP GAMEBOARD RULES AND CREATING PROVINCES
@@ -87,14 +88,14 @@ public class Game implements IGame {
 		}
 	}
 
-	private void calcStartBonus() {
+	/*private void calcStartBonus() {
 		// INITIALIZING STARTING NUMBER OF TROOPS
 		startingTroopNr = 50 - players.length * 5;
 
 		// /////////////////// ONLY FOR DEV ///////////////////////////
 		// bonus = startingTroopNr - getActivePlayer().getNrOfProvinces();
 		bonus = 3;
-	}
+	}*/
 
 	/*
 	 * Method for changing the state of the game to the next state if it should
@@ -126,7 +127,7 @@ public class Game implements IGame {
 		getActivePlayer().addCard();
 	}
 
-	@Override
+/*	@Override
 	public void calcBonusUnits() {
 		int provinces = getActivePlayer().getNrOfProvinces();
 		if (provinces <= 9) {
@@ -138,7 +139,7 @@ public class Game implements IGame {
 		this.bonus += worldMap.getBonus(getActivePlayer());
 
 	}
-
+*/
 	/**
 	 * Method for placing the amount of units the player chooses the place on
 	 * the province the player chooses to place them.
@@ -147,13 +148,12 @@ public class Game implements IGame {
 	 *            the number of units being placed
 	 */
 	private void placeBonusUnits(int units, IProvince province) {
-		province.addUnits(units);
-		bonus = bonus - units;
+		bonusHandler.placeBonusUnits(units, province);
 	}
 
 	@Override
 	public int getBonusUnitsLeft() {
-		return bonus;
+		return bonusHandler.getBonus();
 	}
 
 	@Override
@@ -174,6 +174,7 @@ public class Game implements IGame {
 	@Override
 	public void handleProvinceClick(IProvince newProvince) {
 		// TROOP REINFORCMENT PHASE 1, ONLY THE PLACEMENT
+		int bonus=bonusHandler.getBonus();
 		if (getCurrentPhase() == Phase.F1 && bonus > 0) {
 			// PUT A SINGEL UNIT ON THIS PROVINCE IF OWNED
 			if (worldMap.getOwner(newProvince.getId()) == getActivePlayer()) {
@@ -327,15 +328,9 @@ public class Game implements IGame {
 
 	@Override
 	public void handleCardEvent(ICard card) {
-		clickHandler.handleCardEvent(card, getActivePlayer());
+		ArrayList<String> names = clickHandler.handleCardEvent(card, getActivePlayer());
 		// HAVE TO FIX BONUSES //
-
-		/*
-		 * if (card2 != null) { getActivePlayer().exchangeCard((Card) card1,
-		 * (Card) card2, (Card) card); // GIVE BONUS // Check if extra bonus
-		 * from owned province cards card1 = null; card2 = null; } else { if
-		 * (card1 == null) { card1 = card; } else { card2 = card; } }
-		 */
+		bonusHandler.calcProvinceBonusesFromCards(names);
 	}
 
 	/*	Text taken from TurnAndPhase
@@ -349,12 +344,13 @@ public class Game implements IGame {
 	 */
 	@Override
 	public void handlePhaseEvent() {
+		int bonus = bonusHandler.getBonus();
 		int result = clickHandler.handlePhaseEvent(getActivePlayer(), bonus, players);
 		if (result == 2) {
-			bonus = startingTroopNr - getActivePlayer().getNrOfProvinces();		
+			bonusHandler.calcBonusForF0(getActivePlayer().getNrOfProvinces());		
 		} else if (result == 0) {
 			worldMap.updateBonus();
-			calcBonusUnits();
+			bonusHandler.calcBonusUnits();
 			firstProvinceConqueredThisTurn = true;//didn't see a reset of this elsewhere
 			// so i added one
 		}
