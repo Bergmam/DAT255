@@ -10,6 +10,7 @@ import se.chalmers.dat255.risk.view.resource.PlayerColor;
 public class Province implements IProvince{
 	private int units;
 	private String id;
+	private boolean isActive;
 	
 	/**
 	 * Creates a new Province
@@ -18,7 +19,10 @@ public class Province implements IProvince{
 	 */
 	public Province(String province){
 		id=province;
-		units=1;  // Have do be atleast one soldier
+//////////////// DEV ////////////////////
+		units=1;
+//		units=5;
+//////////////// DEV ///////////////////		
 	}
 	
 	@Override
@@ -45,5 +49,16 @@ public class Province implements IProvince{
 	@Override
 	public String getId(){
 		return id;
+	}
+
+	@Override
+	public boolean isActive() {
+		return isActive;
+	}
+
+	@Override
+	public void setActive(boolean active) {
+		isActive = active;
+		
 	}
 }

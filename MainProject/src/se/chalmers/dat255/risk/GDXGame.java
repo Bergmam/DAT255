@@ -12,13 +12,11 @@ public class GDXGame extends Game {
 
 	@Override
 	public void create() {
-	
 		Gdx.app.log("Risk", "creating game");
 	
 		logger = new FPSLogger();
 		manager = ScreenManager.getInstance();
 		manager.instantiate(this);
-		manager.changeScreen();
 		
 	}
 
@@ -32,7 +30,7 @@ public class GDXGame extends Game {
 	public void render() {
 		super.render();
 		// Gdx.app.log("Risk", "RenderingGame");
-		logger.log();
+//		logger.log();
 	}
 
 	@Override

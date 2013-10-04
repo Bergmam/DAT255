@@ -1,15 +1,9 @@
 package se.chalmers.dat255.risk.model;
 
-import java.io.FileNotFoundException;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
-import java.util.Scanner;
-
-import com.badlogic.gdx.files.FileHandle;
-import se.chalmers.dat255.risk.view.resource.PlayerColor;
-
-import com.badlogic.gdx.Gdx;
 
 /**
  * Contains Maps with relations for the provinces on the game board and the
@@ -30,107 +24,79 @@ public class WorldMap {
 	// It gets its information via the class constructor, which in turn reads
 	// all information
 	// from a text file.
-	private final HashMap<String, ArrayList<String>> neighbours;
+	private HashMap<String, ArrayList<String>> neighbours;
 
-	public WorldMap(FileHandle provinceFile, FileHandle continentFile, Player[] players) {
+	/**
+	 * 
+	 * @param provinceString
+	 *            the provinces separated with new line and the neighbors of the
+	 *            province, separated by "-" Example: A-B-C\nB-A\nC-A
+	 * @param continentFile
+	 *            representing the diffrent continents. The continents are
+	 *            separeted with new line. One continent are built up by int
+	 *            bonus, followed by the provinces in the continent, separeted
+	 *            with "-" Example: 3-A-B-C, a continents that gives the bonus 3
+	 *            and contains the provinces A,B,C
+	 * @param players
+	 *            players
+	 */
+	public WorldMap(String provinceString, String continentFile,
+			ArrayList<Player> players) {
 
+		ArrayList<String> listOfProvinces = createProvinces(provinceString,
+				players);
+		allProvinces = buildProvinces(listOfProvinces);
+		createContinents(continentFile);
+		randomizeProvinces(listOfProvinces, players);
+
+	}
+
+	/*
+	 * Create all the provinces.
+	 */
+	private ArrayList<String> createProvinces(String string, ArrayList<Player> players) {
 		HashMap<String, ArrayList<String>> tempNeighbours = new HashMap<String, ArrayList<String>>();
 		ArrayList<String> listOfProvinces = new ArrayList<String>();
 		ownership = new HashMap<String, Player>();
-		bonuses=new int[players.length];
-		String pFile = provinceFile.readString();  
-		String[] pLines = pFile.split("\\n");
-		for(String pLine : pLines){
-				String[] array = pLine.split("-");
-				String p1 = array[0];
-				listOfProvinces.add(p1);
-				ArrayList<String> list = new ArrayList<String>();
-				for (int i = 1; i < array.length; i++) {
-					list.add(array[i]);
-				}
-				tempNeighbours.put(p1, list);
-
+		bonuses = new int[players.size()];
+		String[] pLines = string.split("\\n");
+		for (String pLine : pLines) {
+			String[] array = pLine.split("-");
+			String p1 = array[0];
+			listOfProvinces.add(p1);
+			ArrayList<String> list = new ArrayList<String>();
+			for (int i = 1; i < array.length; i++) {
+				list.add(array[i]);
 			}
-			continents = new ArrayList<Continent>();
-			//scanner = new Scanner(continentFile);
-			String cFile = continentFile.readString();
-			String[] cLines = cFile.split("\\n");
-			String itsProvinces[];
-			for (String line : cLines) {
-				String[] array = line.split("-");
-				itsProvinces = new String[array.length - 2]; // Reserves space
-				// for all but
-				// bonus and the
-				// continent
-				// name
+			tempNeighbours.put(p1, list);
 
-				int nrOfContinents = 0;
-
-				for (int i = 2; i < array.length; i++) {
-					itsProvinces[i - 2] = array[i];
-				}
-				continents.add(new Continent(array[0], itsProvinces, Integer
-						.parseInt(array[0])));
-			}
-
-		allProvinces = buildProvinces(listOfProvinces);
-		randomizeProvinces(listOfProvinces, players);
-
-		
-		
-		
-		/*HashMap<String, ArrayList<String>> tempNeighbours = new HashMap<String, ArrayList<String>>();
-		ArrayList<String> listOfProvinces = new ArrayList<String>();
-		ownership = new HashMap<String, Player>();
-		bonuses=new int[players.length];
-		try {
-			Scanner scanner = new Scanner(provinceFile);
-			while (scanner.hasNextLine()) {
-				String line = scanner.nextLine();
-				String[] array = line.split("-");
-				String p1 = array[0];
-				listOfProvinces.add(p1);
-				ArrayList<String> list = new ArrayList<String>();
-				for (int i = 1; i < array.length; i++) {
-					list.add(array[i]);
-				}
-				tempNeighbours.put(p1, list);
-
-			}
-			continents = new ArrayList<Continent>();
-			scanner = new Scanner(continentFile);
-			String itsProvinces[];
-			while (scanner.hasNextLine()) {
-				String line = scanner.nextLine();
-				String[] array = line.split("-");
-				itsProvinces = new String[array.length - 2]; // Reserves space
-				// for all but
-				// bonus and the
-				// continent
-				// name
-
-				int nrOfContinents = 0;
-
-				for (int i = 2; i < array.length; i++) {
-					itsProvinces[i - 2] = array[i];
-				}
-				continents.add(new Continent(array[0], itsProvinces, Integer
-						.parseInt(array[0])));
-			}
-
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
 		}
-
-		allProvinces = buildProvinces(listOfProvinces);
-		randomizeProvinces(listOfProvinces, players);
-<<<<<<< HEAD
-		for (IProvince province : allProvinces) {
-			province.setColor(PlayerColor.getStringColor(this.getOwner(
-					province.getId()).getId()));
-		}*/
-
 		neighbours = new HashMap<String, ArrayList<String>>(tempNeighbours);
+		return listOfProvinces;
+	}
+
+	/*
+	 * Creating the continents.
+	 */
+	private ArrayList<Continent> createContinents(String continentString) {
+		continents = new ArrayList<Continent>();
+
+		String[] cLines = continentString.split("\\n");
+
+		String itsProvinces[];
+		for (String line : cLines) {
+			String[] array = line.split("-");
+			itsProvinces = new String[array.length - 2];
+
+			int nrOfContinents = 0;
+
+			for (int i = 2; i < array.length; i++) {
+				itsProvinces[i - 2] = array[i];
+			}
+			continents.add(new Continent(array[0], itsProvinces, Integer
+					.parseInt(array[0])));
+		}
+		return continents;
 	}
 
 	/**
@@ -160,9 +126,7 @@ public class WorldMap {
 
 		ownership.put(provinceName, player);
 		player.gainProvince();
-		//
 	}
-	
 
 	/**
 	 * Checks if two territories are adjacent.
@@ -190,9 +154,9 @@ public class WorldMap {
 	 *            of all players
 	 */
 	private void randomizeProvinces(ArrayList<String> provinceList,
-			Player[] players) {
+			ArrayList<Player> players) {
 		ArrayList<String> temp = provinceList;
-		int nrOfPlayers = players.length, nrOfProvinces = provinceList.size();
+		int nrOfPlayers = players.size(), nrOfProvinces = provinceList.size();
 
 		Random randGen = new Random();
 		while (!temp.isEmpty()) {
@@ -200,6 +164,7 @@ public class WorldMap {
 				if (nrOfProvinces > 0)
 					ownership.put(temp.remove(randGen.nextInt(nrOfProvinces)),
 							player);
+				player.gainProvince();
 				nrOfProvinces--;
 			}
 		}
@@ -225,16 +190,16 @@ public class WorldMap {
 		return bonuses[player.getId()];
 	}
 
-	public void updateBonus(Continent updateContinent) {
-		updateContinent.update();
-		int continentBonus;
+	public void updateBonus() { //in parameter Continent updateContinent
+		//updateContinent.update();
+		int continentBonus=0;
 		for (int i = 0; i < bonuses.length; i++)
-			bonuses[i] = 0;
-
-		for (Continent continent : continents) {
+			bonuses[i] = 0; // Emptys
+		for (Continent continent : continents) { //Fils
+			continent.update();
 			continentBonus = continent.getBonus();
 			if (continent.getContinentOwner() != null)
-				bonuses[continent.getContinentOwner().getId()] = +continentBonus;
+				bonuses[continent.getContinentOwner().getId()] =+ continentBonus;
 		}
 	}
 
@@ -278,6 +243,7 @@ public class WorldMap {
 		 */
 		public void update() {
 			Player tempProvinceOwner = getOwner(provinces[0]);
+			
 			for (String province : provinces) {
 				if (tempProvinceOwner != getOwner(province)) {
 					owner = null;
