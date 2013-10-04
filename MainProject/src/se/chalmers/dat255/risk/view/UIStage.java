@@ -54,8 +54,8 @@ public class UIStage extends AbstractStage {
 		return pop;
 	}
 
-	public void showPopUp(String title, String msg, int value) {
-		pop.setSliderStop(value);
+	public void showPopUp(String title, String msg, int value, int minValue) {
+		pop.setSliderStop(minValue, value);
 		pop.setTexts(title, msg);
 		pop.show(this);
 	}
@@ -72,17 +72,19 @@ public class UIStage extends AbstractStage {
 	public void propertyChange(PropertyChangeEvent event) {
 		// TODO mainly for PopUp
 		if (event.getPropertyName().equalsIgnoreCase("Attack")) {
-			
-			IProvince p = (IProvince) event.getOldValue();
+
 			showPopUp("Attack", "How many dice \ndo you want?",
-					p.getUnits() >= 3 ? 3 : p.getUnits()-1);
+					(Integer) event.getOldValue(), 1);
 		} else if (event.getPropertyName().equalsIgnoreCase("Movement")) {
 			showPopUp("Movement", "How many units do \nyou want to move?",
-					(Integer) event.getOldValue()-1);
-		} else if(event.getPropertyName().equalsIgnoreCase("Again?")){
-			IProvince p = (IProvince) event.getOldValue();
+					(Integer) event.getOldValue() - 1, 1);
+		} else if (event.getPropertyName().equalsIgnoreCase("Again?")) {
 			showPopUp("Again?", "Do you want \nto attack again?",
-					p.getUnits() >= 3 ? 3 : p.getUnits()-1);
+					(Integer) event.getOldValue(), 1);
+		} else if (event.getPropertyName().equalsIgnoreCase("takeOver")) {
+			showPopUp("Movement", "How many units do \nyou want to move?",
+					(Integer) event.getOldValue() - 1,
+					Integer.parseInt((String)event.getNewValue()));
 		}
 
 	}

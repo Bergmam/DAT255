@@ -185,7 +185,7 @@ public class Game implements IGame {
 					// nbr of dices has been decided by the user
 					secondProvince = newProvince;
 					secondProvince.setActive(true);
-					pcs.firePropertyChange("Attack", oldProvince,
+					pcs.firePropertyChange("Attack", oldProvince.getUnits()-1 >= 3 ? 3 : oldProvince.getUnits()-1,
 							secondProvince);
 					// battle(oldClickedProvince, newClickedProvince);
 				} else {
@@ -291,8 +291,9 @@ public class Game implements IGame {
 			attack(nbrOfDice, oldProvince, secondProvince);
 			if (secondProvince.getUnits() == 0) {
 				changeOwner();
+				pcs.firePropertyChange("takeOver", oldProvince.getUnits(), ""+nbrOfDice);
 			} else if (oldProvince.getUnits() > 1) {
-				pcs.firePropertyChange("Again?", oldProvince, 1);
+				pcs.firePropertyChange("Again?", oldProvince.getUnits()-1 >= 3 ? 3 : oldProvince.getUnits()-1, 1);
 			} else {
 				flushTemps();
 			}
@@ -306,7 +307,6 @@ public class Game implements IGame {
 	private void changeOwner() {
 		Player lostProvincePlayer = worldMap.getOwner(secondProvince.getId());
 		worldMap.changeOwner(secondProvince.getId(), getActivePlayer());
-		pcs.firePropertyChange("Movement", oldProvince.getUnits(), 1);
 		if (firstProvinceConqueredThisTurn) {
 			getActivePlayer().addCard();
 			firstProvinceConqueredThisTurn = false;
