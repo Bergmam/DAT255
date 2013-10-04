@@ -68,6 +68,7 @@ public class RegisterActivity extends Activity {
   private OnTouchListener unregisterListener = null;
   private OnTouchListener sendListener = null;
   private MessageEndpoint messageEndpoint = null;
+  private Testendpoint testEndpoint = null;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -166,6 +167,16 @@ public class RegisterActivity extends Activity {
         });
 
     messageEndpoint = CloudEndpointUtils.updateBuilder(endpointBuilder).build();
+    
+
+    Testendpoint.Builder testEndpointBuilder = new Testendpoint.Builder(
+        AndroidHttp.newCompatibleTransport(),
+        new JacksonFactory(),
+        new HttpRequestInitializer() {
+          public void initialize(HttpRequest httpRequest) { }
+        });
+
+    testEndpoint = CloudEndpointUtils.updateBuilder(testEndpointBuilder).build();
   }
 
   @Override
