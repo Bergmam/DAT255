@@ -16,7 +16,6 @@ import se.chalmers.dat255.risk.view.resource.Resource;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 public class ScreenManager extends ClickListener {
@@ -25,34 +24,12 @@ public class ScreenManager extends ClickListener {
 	private GameScreen screen;
 	private IGame model;
 	private GDXGame game;
+	private boolean isLoaded;
 
 	private ScreenManager() {
 
 		Resource.getInstance();
 
-		model = new Game(new String[] { "Anders", "Beta", "Cookie", "Dumbo" },
-				Resource.getInstance().neighborsFile,
-				Resource.getInstance().continentsFile);
-
-		main = new MainScreen(model);
-		screen = new GameScreen(model);
-		
-		ColorHandler.getInstance().instantiate(model);
-		for (AbstractView v : screen.getViews()) {
-			if (v instanceof ProvinceView) {
-				v.addListener(new ProvinceListener(model));
-			} else if (v instanceof CardView) {
-				v.addListener(new CardListener(model));
-			} else if (v instanceof ChangePhase) {
-				v.addListener(new ChangePhaseListener(model));
-			} else if (v instanceof SwitchButton) {
-				v.addListener(new SwitchListener());
-			}
-		}
-		
-		screen.getPopUp().setListener(new PopUpListener(model));
-
-		main.getButton().addListener(this);
 	}
 
 	public static ScreenManager getInstance() {
@@ -69,7 +46,30 @@ public class ScreenManager extends ClickListener {
 
 	public void instantiate(GDXGame game) {
 		this.game = game;
+
+		model = new Game(new String[] { "Anders", "Beta", "Cookie", "Dumbo" },
+				Resource.getInstance().neighborsFile,
+				Resource.getInstance().continentsFile);
+		main = new MainScreen(model);
+		screen = new GameScreen(model);
+		ColorHandler.getInstance().instantiate(model);
+		for (AbstractView v : screen.getViews()) {
+			if (v instanceof ProvinceView) {
+				v.addListener(new ProvinceListener(model));
+			} else if (v instanceof CardView) {
+				v.addListener(new CardListener(model));
+			} else if (v instanceof ChangePhase) {
+				v.addListener(new ChangePhaseListener(model));
+			} else if (v instanceof SwitchButton) {
+				v.addListener(new SwitchListener());
+			}
+		}
+
+		screen.getPopUp().setListener(new PopUpListener(model));
+
+		main.getButton().addListener(this);
 		changeScreen(main);
+
 	}
 
 	public void changeScreen(Screen screen) {
@@ -78,14 +78,12 @@ public class ScreenManager extends ClickListener {
 
 	@Override
 	public void clicked(InputEvent event, float x, float y) {
-		if (event.getTarget() instanceof Button) {
-			Button b = (Button) event.getTarget();
-			String s = b.getName();
+		Button b = (Button) event.getListenerActor();
+		String s = b.getName();
 
-			if (s.equalsIgnoreCase("startButton")) {
-				changeScreen(screen);
-				System.out.println("You have touched the stratButton");
-			}
+		if (s.equalsIgnoreCase("startButton")) {
+			changeScreen(screen);
+			System.out.println("You have touched the startButton");
 
 		}
 	}

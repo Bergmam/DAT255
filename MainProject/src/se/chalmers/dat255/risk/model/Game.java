@@ -297,7 +297,7 @@ public class Game implements IGame {
 				changeOwner();
 				pcs.firePropertyChange("takeOver", oldProvince.getUnits(), ""+nbrOfDice);
 			} else if (oldProvince.getUnits() > 1) {
-				pcs.firePropertyChange("Again?", oldProvince.getUnits()-1 >= 3 ? 3 : oldProvince.getUnits()-1, 1);
+				pcs.firePropertyChange("Again?", oldProvince.getUnits()-1 >= 3 ? 3 : oldProvince.getUnits()-1, 0);
 			} else {
 				flushTemps();
 			}

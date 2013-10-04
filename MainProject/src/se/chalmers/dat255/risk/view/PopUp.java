@@ -63,7 +63,7 @@ public class PopUp extends Dialog {
 
 	public void setSliderStop(int start, int stop) {
 		slider.setRange(start, stop);
-		slider.setValue(start);
+		slider.setValue(stop);
 		slideMin.setText("" + (int) slider.getMinValue());
 		slideMax.setText("" + (int) slider.getMaxValue());
 

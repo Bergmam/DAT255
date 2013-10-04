@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 
 public class MainScreen extends AbstractScreen {
 
@@ -17,22 +17,25 @@ public class MainScreen extends AbstractScreen {
 
 	public MainScreen(IGame model) {
 		super(model);
+		Table t = new Table();
+		t.setFillParent(true);
 		stage = new Stage();
 		camera.setToOrtho(false);
 		startButton = new Button(Resource.getInstance().skin);
-		Label label = new Label("Start Game", Resource.getInstance().skin);
-		startButton.add(label);
-		startButton.size(label.getWidth(), label.getHeight());
-		startButton.setPosition(stage.getWidth() / 2 - startButton.getWidth(),
-				stage.getHeight() / 2 - startButton.getHeight());
+		startButton.add("Start Game", "default");
 		startButton.setName("startButton");
-		stage.addActor(startButton);
-		Gdx.input.setInputProcessor(stage);
+		t.add(startButton);
+		stage.addActor(t);
 	}
 	
 	// expand when needing more buttons
 	public Actor getButton(){
 		return startButton;
+	}
+	
+	@Override
+	public void show(){
+		Gdx.input.setInputProcessor(stage);
 	}
 
 	@Override

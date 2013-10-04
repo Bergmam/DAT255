@@ -54,8 +54,8 @@ public class UIStage extends AbstractStage {
 		return pop;
 	}
 
-	public void showPopUp(String title, String msg, int value, int minValue) {
-		pop.setSliderStop(minValue, value);
+	public void showPopUp(String title, String msg, int maxValue, int minValue) {
+		pop.setSliderStop(minValue, maxValue);
 		pop.setTexts(title, msg);
 		pop.show(this);
 	}
