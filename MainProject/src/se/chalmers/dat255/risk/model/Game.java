@@ -357,7 +357,9 @@ public class Game implements IGame {
 		ArrayList<String> names = clickHandler.handleCardEvent(card,
 				getActivePlayer());
 		// HAVE TO FIX BONUSES //
-		bonusHandler.calcProvinceBonusesFromCards(names, getActivePlayer());
+		if(names!=null){
+			bonusHandler.calcProvinceBonusesFromCards(names, getActivePlayer());
+		}
 	}
 
 	/*
