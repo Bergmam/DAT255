@@ -17,7 +17,7 @@ public class Game implements IGame {
 	private ArrayList<Player> players;
 	private int startingTroopNr;
 	private WorldMap worldMap;
-	private EventHandler clickHandler;
+	private EventHandler eventHandler;
 	private TurnAndPhaseManager phaseHandler;
 	private BonusHandler bonusHandler;
 	private BattleHandler battle;
@@ -52,7 +52,7 @@ public class Game implements IGame {
 
 	private void newGame(String[] playersId) throws IllegalArgumentException {
 		phaseHandler = new TurnAndPhaseManager();
-		clickHandler = new EventHandler(phaseHandler);
+		eventHandler = new EventHandler(phaseHandler);
 		int noOfPlayers = playersId.length;
 		if (noOfPlayers > 6 || noOfPlayers < 2) {
 			throw new IllegalArgumentException(
@@ -163,7 +163,7 @@ public class Game implements IGame {
 	}
 
 	@Override
-	public void handleProvinceClick(IProvince newProvince) {
+	public void handleProvinceEvent(IProvince newProvince) {
 		// TROOP REINFORCMENT PHASE 1, ONLY THE PLACEMENT
 		int bonus = bonusHandler.getBonus();
 		if (getCurrentPhase() == Phase.F1 && bonus > 0) {
@@ -359,11 +359,11 @@ public class Game implements IGame {
 
 	@Override
 	public void handleCardEvent(ICard card) {
-		ArrayList<String> names = clickHandler.handleCardEvent(card,
+		ArrayList<String> names = eventHandler.handleCardEvent(card,
 				getActivePlayer());
 		// HAVE TO FIX BONUSES //
 		if(names!=null){
-			bonusHandler.calcProvinceBonusesFromCards(names, getActivePlayer());
+			bonusHandler.calcBonusesFromCards(names, getActivePlayer());
 		}
 	}
 
@@ -378,7 +378,7 @@ public class Game implements IGame {
 	@Override
 	public void handlePhaseEvent() {
 		int bonus = bonusHandler.getBonus();
-		int result = clickHandler.handlePhaseClick(getActivePlayer(), bonus,
+		int result = eventHandler.handlePhaseClick(getActivePlayer(), bonus,
 				players);
 		if (result == 2) {
 			System.out.println("PhaseHandler: New active player "
