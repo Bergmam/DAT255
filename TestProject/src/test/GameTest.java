@@ -63,7 +63,7 @@ public class GameTest{
 		assertTrue(game2.getBonusUnitsLeft() == 20 + (6-game2.getPlayers().size())*5-game2.getActivePlayer().getNrOfProvinces() );
 		assertTrue(game3.getBonusUnitsLeft() == 20 + (6-game3.getPlayers().size())*5-game3.getActivePlayer().getNrOfProvinces() );
 		assertTrue(game4.getBonusUnitsLeft() == 20 + (6-game4.getPlayers().size())*5-game4.getActivePlayer().getNrOfProvinces() );
-	}*/
+	}*/ 
 
 	@Test
 	public void testChangePhase(){
