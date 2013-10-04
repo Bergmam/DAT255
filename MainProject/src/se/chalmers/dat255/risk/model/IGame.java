@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import se.chalmers.dat255.risk.model.TurnAndPhaseManager.Phase;
+import se.chalmers.dat255.risk.view.resource.Resource;
 
 /**
  * Interface for top class in the game risk
@@ -15,14 +16,13 @@ import se.chalmers.dat255.risk.model.TurnAndPhaseManager.Phase;
 public interface IGame {
 
 	/**
-	 * Sets up a new game
+	 * Sets up a new Game
 	 * 
-	 * @param nrOfPlayers
-	 *            field with all player names
-	 * @throws IllegalArgumentException
-	 *             if nbrOfPlayers is smaller than 2 or larger than 6
+	 * @param playersId id's of all players
+	 * @param neighboursFile relations between provinces
+	 * @param continentsFile continents and their provinces
 	 */
-	public void newGame(String[] nrOfPlayers) throws IllegalArgumentException;
+	public void setupGame(String[] playersId, String neighboursFile, String continentsFile);
 
 	/**
 	 * Fetches the player who has the current turn.

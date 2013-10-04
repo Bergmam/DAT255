@@ -46,7 +46,6 @@ public class PopUp extends Dialog {
 		slideMax = new Label("0.0", Resource.getInstance().skin);
 		slideMax.setTouchable(Touchable.disabled);
 
-		System.out.println("" + slider.getRight() + " " + getRight());
 		Table t = getContentTable();
 		t.pad(5);
 		t.add(label);
@@ -57,8 +56,6 @@ public class PopUp extends Dialog {
 		t.add(slideMax).left().padLeft(-15);
 		button(confirm);
 		button(cancel);
-		pack();
-
 	}
 
 	public void setSliderStop(int start, int stop) {

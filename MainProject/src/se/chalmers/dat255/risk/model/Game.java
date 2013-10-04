@@ -37,16 +37,20 @@ public class Game implements IGame {
 	 * @param playersId
 	 *            The ids of the players
 	 */
-	public Game(String[] playersId, String neighboursFile, String continentsFile) {
+	public Game() {
 		battle = new BattleHandler();
+		
+		pcs = new PropertyChangeSupport(this);
+		
+	}
+	
+	public void setupGame(String[] playersId, String neighboursFile, String continentsFile){
 		this.neighboursFile = neighboursFile;
 		this.continentsFile = continentsFile;
-		pcs = new PropertyChangeSupport(this);
 		newGame(playersId);
 	}
 
-	@Override
-	public void newGame(String[] playersId) throws IllegalArgumentException {
+	private void newGame(String[] playersId) throws IllegalArgumentException {
 		phaseHandler = new TurnAndPhaseManager();
 		clickHandler = new EventHandler(phaseHandler);
 		int noOfPlayers = playersId.length;

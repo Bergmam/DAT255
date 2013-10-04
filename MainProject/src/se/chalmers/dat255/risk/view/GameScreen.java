@@ -22,33 +22,22 @@ public class GameScreen extends AbstractScreen {
 	private List<AbstractStage> cardStages;
 	private UIStage uiStage;
 	private InputMultiplexer multi;
+	private boolean created;
 
 	public GameScreen(IGame model) {
 		super(model);
 
 		isWorld = true;
 
-		worldStage = new WorldStage(model.getGameProvinces(), Resource.getInstance().cords);
-
-		// Creates a cardStage for every player
-		cardStages = new ArrayList<AbstractStage>();
-
-		for (Player i : model.getPlayers()) {
-			CardStage stage = new CardStage(i.getCards());
-			i.addListener(stage);
-			cardStages.add(stage);
-		}
-		uiStage = new UIStage(model);
-
-		multi = new InputMultiplexer(uiStage, worldStage.getProcessor());		
 	}
 
 	@Override
 	public void show() {
+
 		Gdx.input.setInputProcessor(multi);
 	}
-	
-	public PopUp getPopUp(){
+
+	public PopUp getPopUp() {
 		return uiStage.getPopUp();
 	}
 
@@ -93,15 +82,33 @@ public class GameScreen extends AbstractScreen {
 				.getId());
 	}
 
+	public void setupGame() {
+		worldStage = new WorldStage(model.getGameProvinces(),
+				Resource.getInstance().cords);
+
+		// Creates a cardStage for every player
+		cardStages = new ArrayList<AbstractStage>();
+
+		for (Player i : model.getPlayers()) {
+			CardStage stage = new CardStage(i.getCards());
+			i.addListener(stage);
+			cardStages.add(stage);
+		}
+		uiStage = new UIStage(model);
+
+		multi = new InputMultiplexer(uiStage, worldStage.getProcessor());
+		created = true;
+	}
+
 	@Override
 	public void dispose() {
 		super.dispose();
-		Resource.getInstance().dispose();
-		worldStage.dispose();
-		uiStage.dispose();
-		int i = 0;
-		for (AbstractStage s : cardStages) {
-			s.dispose();
+		if (created) {
+			worldStage.dispose();
+			uiStage.dispose();
+			for (AbstractStage s : cardStages) {
+				s.dispose();
+			}
 		}
 	}
 }
