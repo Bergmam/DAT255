@@ -5,14 +5,19 @@ import java.util.ArrayList;
 public class BonusHandler {
 
 	private int bonus, startingTroopNr, currentCardBonus = 4;
-	public WorldMap worldMap;
+	private WorldMap worldMap;
 	
 	public BonusHandler(WorldMap worldMap){
 		this.worldMap = worldMap;
+		bonus = 0;
 	}
 	
-	public void calcProvinceBonusesFromCards(ArrayList<String> names){
-		
+	public void calcProvinceBonusesFromCards(ArrayList<String> names, Player currentPlayer){
+		for(String name : names){
+			if(worldMap.getOwner(name) == currentPlayer){
+				bonus =+ 2;
+			}
+		}
 		
 		
 		//kod
@@ -22,7 +27,6 @@ public class BonusHandler {
 		 * from owned province cards card1 = null; card2 = null; } else { if
 		 * (card1 == null) { card1 = card; } else { card2 = card; } }
 		 */
-		
 	}
 	
 	public void calcStartBonus() {
