@@ -14,7 +14,7 @@ public class WorldMapTest {
 	ArrayList<Player> players = new ArrayList();
 	String provinces = "A-B-C-D-E" + "\n" + "B-A-C-E" + "\n" + "C-A-D" + "\n"
 			+ "D-A-C-E" + "\n" + "E-A-B-D";
-	String continents = "3-A-B-C" + "\n" + "2-D-E";
+	String continents = "3-continent1-A-B-C" + "\n" + "2-continent2-D-E";
 	WorldMap worldMap;
 
 	@Before

@@ -126,7 +126,6 @@ public class WorldMap {
 
 		ownership.put(provinceName, player);
 		player.gainProvince();
-		//
 	}
 
 	/**
