@@ -77,14 +77,14 @@ public class UIStage extends AbstractStage {
 			
 			IProvince p = (IProvince) event.getOldValue();
 			showPopUp("Attack", "How many dice \ndo you want?",
-					p.getUnits() >= 3 ? 3 : p.getUnits());
+					p.getUnits() >= 3 ? 3 : p.getUnits()-1);
 		} else if (event.getPropertyName().equalsIgnoreCase("Movement")) {
 			showPopUp("Movement", "How many units do \nyou want to move?",
 					(Integer) event.getOldValue()-1);
 		} else if(event.getPropertyName().equalsIgnoreCase("Again?")){
 			IProvince p = (IProvince) event.getOldValue();
 			showPopUp("Again?", "Do you want \nto attack again?",
-					p.getUnits() >= 3 ? 3 : p.getUnits());
+					p.getUnits() >= 3 ? 3 : p.getUnits()-1);
 		}
 
 	}
