@@ -51,7 +51,7 @@ public class Game implements IGame {
 	public void newGame(String[] playersId) throws IllegalArgumentException {
 		phaseHandler = new TurnAndPhaseManager();
 		clickHandler = new EventHandler(phaseHandler);
-		bonusHandler= new BonusHandler();
+		bonusHandler= new BonusHandler(worldMap);
 		int noOfPlayers = playersId.length;
 		if (noOfPlayers > 6 || noOfPlayers < 2) {
 			throw new IllegalArgumentException(
@@ -328,9 +328,9 @@ public class Game implements IGame {
 
 	@Override
 	public void handleCardEvent(ICard card) {
-		clickHandler.handleCardEvent(card, getActivePlayer());
+		ArrayList<String> names = clickHandler.handleCardEvent(card, getActivePlayer());
 		// HAVE TO FIX BONUSES //
-		bonusHandler.calcProvinceBonusesFromCards();
+		bonusHandler.calcProvinceBonusesFromCards(names);
 	}
 
 	/*	Text taken from TurnAndPhase
