@@ -47,8 +47,6 @@ public class UIStage extends AbstractStage {
 		addActor(label);
 
 		pop = new PopUp("Attack");
-		//addActor(pop);// the show() method doesn't seem to work for some
-		// reason
 
 	}
 
@@ -59,7 +57,7 @@ public class UIStage extends AbstractStage {
 	public void showPopUp(String title, String msg, int value) {
 		pop.setSliderStop(value);
 		pop.setTexts(title, msg);
-		addActor(pop);
+		pop.show(this);
 	}
 
 	public boolean renderWorld() {
