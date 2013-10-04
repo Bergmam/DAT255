@@ -89,7 +89,7 @@ public interface IGame {
 	 * @param province
 	 *            province to be handled
 	 */
-	public void handleProvinceClick(IProvince province);
+	public void handleProvinceEvent(IProvince province);
 
 	/**
 	 * Determines what should be done with the chosen card

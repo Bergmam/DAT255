@@ -32,7 +32,7 @@ public class EventHandler {
 	 * if a change of phase has taken place. Return is 0 if a new turn has
 	 * begun. Return is -1 if phase didn't change.
 	 */
-	public int handlePhaseClick(Player currentPlayer, int bonusUnitsLeft,
+	public int handlePhaseEvent(Player currentPlayer, int bonusUnitsLeft,
 			ArrayList<Player> players) {
 		// TODO Auto-generated method stub
 		// Ska kolla så att spelaren är klar med alla sina

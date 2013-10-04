@@ -12,24 +12,13 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 public class ChangePhase extends AbstractView {
 
 	private IGame model;
-
-	// By adding more strings here, you can add more behavior
-	// as long as the strings are added in getText as well
-	// public static String PHASE1 = "PHASE1";// placing units, show number of
-	// units left to place and then
-	// "Next Phase"
-	// public static String PHASE2 = "PHASE2";// show "Next Phase"
-	// public static String PHASE3 = "PHASE3";// show "End Turn"
-
-	// private String current = PHASE1;
-
 	private Label label;
 
 	public ChangePhase(IGame model) {
 		super(Resource.getInstance().triangle, Resource.getInstance().triangle);
 		this.model = model;
 		size(width, height);
-		setPosition(Gdx.graphics.getWidth() - getWidth(), 0);
+		setPosition(Gdx.graphics.getWidth() - (getWidth()*2), 0);
 		label = new Label(getText(), new LabelStyle(font, Color.RED));
 		label.setPosition(getTextX(), getTextY());
 
@@ -65,7 +54,7 @@ public class ChangePhase extends AbstractView {
 	}
 
 	private float getTextX() {
-		return getX() + width - label.getWidth();
+		return getX() + (width/2) - (label.getTextBounds().width/2);
 	}
 
 	private float getTextY() {

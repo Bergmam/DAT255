@@ -13,15 +13,7 @@ public class BonusHandler {
 		startingTroopNr = 50 - numberOfPlayers * 5;
 		currentCardBonus = 4;
 	}
-	
-	public void calcProvinceBonusesFromCards(ArrayList<String> names, Player currentPlayer){
-		for(String name : names){
-			if(worldMap.getOwner(name) == currentPlayer){
-				bonus =+ 2;
-			}
-		}
-	}
-		
+			
 	public void calcBonusesFromCards(ArrayList<String> names, Player activePlayer){
 		for(String name : names){
 			if(worldMap.getOwner(name) == activePlayer){

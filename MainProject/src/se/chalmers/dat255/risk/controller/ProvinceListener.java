@@ -30,7 +30,7 @@ public class ProvinceListener extends ClickListener {
 			IProvince newClickedProvince = newClick.getProvince();
 			// removed if logic here because activity is now represented
 			// in the province and should be handled in the model
-			theGame.handleProvinceClick(newClickedProvince);
+			theGame.handleProvinceEvent(newClickedProvince);
 		}
 	}
 }
