@@ -5,7 +5,13 @@ import java.io.IOException;
 import com.dat255.risk.network.messageEndpoint.MessageEndpoint;
 import com.dat255.risk.network.messageEndpoint.model.CollectionResponseMessageData;
 import com.dat255.risk.network.messageEndpoint.model.MessageData;
+import com.dat255.risk.network.testendpoint.Testendpoint;
+import com.dat255.risk.network.testendpoint.TestendpointRequest;
+import com.dat255.risk.network.testendpoint.TestendpointRequestInitializer;
+import com.dat255.risk.network.testendpoint.TestendpointScopes;
+import com.dat255.risk.network.testendpoint.model.Test;
 import com.google.api.client.extensions.android.http.AndroidHttp;
+import com.google.api.client.googleapis.services.GoogleClientRequestInitializer;
 import com.google.api.client.http.HttpRequest;
 import com.google.api.client.http.HttpRequestInitializer;
 import com.google.api.client.json.jackson.JacksonFactory;
@@ -56,9 +62,11 @@ public class RegisterActivity extends Activity {
     REGISTERED, REGISTERING, UNREGISTERED, UNREGISTERING
   }
 
+  private Test service = new Test();
   private State curState = State.UNREGISTERED;
   private OnTouchListener registerListener = null;
   private OnTouchListener unregisterListener = null;
+  private OnTouchListener sendListener = null;
   private MessageEndpoint messageEndpoint = null;
 
   @Override
@@ -67,7 +75,11 @@ public class RegisterActivity extends Activity {
     setContentView(R.layout.activity_register);
 
     Button regButton = (Button) findViewById(R.id.regButton);
-
+    
+    //-------------------------
+    Button sendButton = (Button) findViewById(R.id.sendbutton);
+    //-------------------------
+    
     registerListener = new OnTouchListener() {
       @Override
       public boolean onTouch(View v, MotionEvent event) {
@@ -120,8 +132,28 @@ public class RegisterActivity extends Activity {
         }
       }
     };
+    
+    //--------------------------------------------------------
+    sendListener = new OnTouchListener() {
+		@Override
+		public boolean onTouch(View v, MotionEvent event) {
+			switch (event.getAction() & MotionEvent.ACTION_MASK) {
+	        case MotionEvent.ACTION_DOWN:
+//TODO
+	        	service.setMalarn("malarnLOL");
+	        	Log.d("LOL", service.getMalarn());
+	        	return true;
+	        case MotionEvent.ACTION_UP:
+	          return true;
+	        default:
+	          return false;
+	        }
+		}
+	};
 
     regButton.setOnTouchListener(registerListener);
+    
+    sendButton.setOnTouchListener(sendListener);
     
     /*
      * build the messaging endpoint so we can access old messages via an endpoint call

@@ -1,13 +1,13 @@
 {
   "files": [
     {
-      "downloadUrl": "/downloads/deviceinfoendpoint/v1/20131002083134/java/1.16.0-rc/dat255.com-deviceinfoendpoint-v1-20131002083134-java-1.16.0-rc-sources.jar", 
-      "path": "dat255.com-deviceinfoendpoint-v1-20131002083134-java-1.16.0-rc-sources.jar", 
+      "downloadUrl": "/downloads/deviceinfoendpoint/v1/20131004090942/java/1.16.0-rc/dat255.com-deviceinfoendpoint-v1-20131004090942-java-1.16.0-rc-sources.jar", 
+      "path": "dat255.com-deviceinfoendpoint-v1-20131004090942-java-1.16.0-rc-sources.jar", 
       "type": "source", 
-      "timestamp": "2013-10-02 08:31"
+      "timestamp": "2013-10-04 09:09"
     }, 
     {
-      "path": "dat255.com-deviceinfoendpoint-v1-20131002083134-java-1.16.0-rc.jar.properties", 
+      "path": "dat255.com-deviceinfoendpoint-v1-20131004090942-java-1.16.0-rc.jar.properties", 
       "type": "android.properties"
     }
   ], 
@@ -702,5 +702,5 @@
   "packagePath": "risk.network", 
   "language_version": "1.16.0-rc", 
   "id": "deviceinfoendpoint:v1", 
-  "revision": 20131002083134
+  "revision": 20131004090942
 }
