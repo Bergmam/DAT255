@@ -24,15 +24,18 @@ public class CardExanger {
 		if (!handledBefore(card)) {
 			if (card2 != null) {
 				card.setActive(true);
-				currentPlayer.exchangeCard(card1, card2, card);
-				ArrayList<String> cardProvinces = new ArrayList<String>();
-				cardProvinces.add(card.getName());
-				cardProvinces.add(card1.getName());
-				cardProvinces.add(card2.getName());
+				if (currentPlayer.exchangeCard(card1, card2, card)) {
+					ArrayList<String> cardProvinces = new ArrayList<String>();
+					cardProvinces.add(card.getName());
+					cardProvinces.add(card1.getName());
+					cardProvinces.add(card2.getName());
+					card1 = null;
+					card2 = null;
+					return cardProvinces;
+				}
 				card1 = null;
 				card2 = null;
-				return cardProvinces;
-
+				return null;
 			} else {
 				if (card1 == null) {
 					card1 = card;
@@ -70,5 +73,18 @@ public class CardExanger {
 			return true;
 		}
 		return false;
+	}
+	
+	public void flushCards(){
+		if(card1 != null){
+			card1.setActive(false);
+		}
+		if(card2 != null){
+			card2.setActive(false);
+		}
+		
+		card1 = null;
+		card2 = null;
+		
 	}
 }

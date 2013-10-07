@@ -356,11 +356,14 @@ public class Game implements IGame {
 
 	@Override
 	public void handleCardEvent(ICard card) {
-		ArrayList<String> names = eventHandler.handleCardEvent(card,
-				getActivePlayer());
-		// HAVE TO FIX BONUSES //
-		if(names!=null){
-			bonusHandler.calcBonusesFromCards(names, getActivePlayer());
+		if(getCurrentPhase() == Phase.F1){
+			ArrayList<String> names = eventHandler.handleCardEvent(card,
+		
+			getActivePlayer());
+			// HAVE TO FIX BONUSES //
+			if(names!=null){
+				bonusHandler.calcBonusesFromCards(names, getActivePlayer());
+			}
 		}
 	}
 
