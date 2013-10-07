@@ -216,6 +216,7 @@ public class Game implements IGame {
 			else if (oldProvince != null) {
 				if (checkProvinceOk(oldProvince, newProvince, true)) {
 					if(oldProvince.getUnits() > 1){
+						
 						secondProvince = newProvince;
 						secondProvince.setActive(true);
 						pcs.firePropertyChange("Movement", oldProvince.getUnits(),
