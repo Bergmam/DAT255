@@ -22,7 +22,6 @@ public class CardListener extends ClickListener {
 			CardView newClick = ((CardView) event.getTarget());
 			if (newClick.hasCard()) {
 				ICard newClickedCard = newClick.getCard();
-				newClick.check();
 				theGame.handleCardEvent(newClickedCard);
 			}
 		}

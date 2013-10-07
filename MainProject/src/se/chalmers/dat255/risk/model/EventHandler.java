@@ -42,6 +42,7 @@ public class EventHandler {
 			// CHECKS IF I'M ALLOWED TO PRESS CHANGE PHASE
 			System.out.println("Spelaren har nu: " + currentPlayer.getCards().size() + " kort kvar.");
 			if (bonusUnitsLeft == 0 && currentPlayer.getCards().size() < 5) {
+				cardExanger.flushCards();
 				return phaseHandler.changePhase(currentPlayer, players);
 			}
 		} else if (currentPhase == Phase.F2 || currentPhase == Phase.F3) {

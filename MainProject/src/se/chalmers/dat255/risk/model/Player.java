@@ -84,9 +84,16 @@ public class Player {
 		Deck.discard(c1);
 		Deck.discard(c2);
 		Deck.discard(c3);
+		inActivate(c1,c2,c3);
 		pcs.firePropertyChange(this.CARD_REMOVED, null, c1);
 		pcs.firePropertyChange(this.CARD_REMOVED, null, c2);
 		pcs.firePropertyChange(this.CARD_REMOVED, null, c3);
+	}
+	
+	private void inActivate(ICard c1, ICard c2, ICard c3){
+		c1.setActive(false);
+		c2.setActive(false);
+		c3.setActive(false);
 	}
 
 	/**
@@ -109,6 +116,7 @@ public class Player {
 		}
 		
 		if(nrOfJokers > 1){
+			inActivate(c1, c2, c3);
 			return false;
 		}
 		// 3 Cards of the same type (Not Jokers), or one Joker
@@ -121,6 +129,7 @@ public class Player {
 			removeCard(c1, c2, c3);
 			return true;
 		}	
+		inActivate(c1, c2, c3);
 		return false;
 	}
 	

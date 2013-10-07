@@ -33,7 +33,8 @@ public class PopUpListener extends ClickListener {
 				} else if (name.equals("cancel")) {
 					// model.don'tDoSomething?
 				}
-			} else if (pop.getTitle().equalsIgnoreCase("Movement")) {
+			} else if (pop.getTitle().equalsIgnoreCase("Movement")
+					|| pop.getTitle().equalsIgnoreCase("Occupy")) {
 				if (name.equals("confirm")) {
 					System.out.println("In movement = " + pop.getValue());
 					model.moveToProvince((int) pop.getValue());
