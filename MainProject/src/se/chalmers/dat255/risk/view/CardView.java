@@ -47,7 +47,7 @@ public class CardView extends AbstractView {
 
 	@Override
 	public void draw(SpriteBatch batch, float alpha) {
-		batch.draw(isClicked ? imageDown : imageUp, getX(), getY(), getWidth(),
+		batch.draw(card.isActive() ? imageDown : imageUp, getX(), getY(), getWidth(),
 				getHeight());
 		label.setColor(Color.RED);
 		label.draw(batch, alpha);

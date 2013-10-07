@@ -84,6 +84,9 @@ public class Player {
 		Deck.discard(c1);
 		Deck.discard(c2);
 		Deck.discard(c3);
+		c1.setActive(false);
+		c2.setActive(false);
+		c3.setActive(false);
 		pcs.firePropertyChange(this.CARD_REMOVED, null, c1);
 		pcs.firePropertyChange(this.CARD_REMOVED, null, c2);
 		pcs.firePropertyChange(this.CARD_REMOVED, null, c3);
