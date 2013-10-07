@@ -90,10 +90,10 @@ public class Game implements IGame {
 	}
 
 	private void createPlayers(String[] playersId) {
-		players = new ArrayList();
+		players = new ArrayList<Player>();
 		for (int i = 0; i < playersId.length; i++) {
 			players.add(new Player(i, playersId[i]));
-		}
+		}		
 	}
 
 	/*
