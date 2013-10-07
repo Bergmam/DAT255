@@ -82,7 +82,7 @@ public class UIStage extends AbstractStage {
 			showPopUp("Again?", "Do you want \nto attack again?",
 					(Integer) event.getOldValue(), 1);
 		} else if (event.getPropertyName().equalsIgnoreCase("takeOver")) {
-			showPopUp("Movement", "How many units do \nyou want to move?",
+			showPopUp("Occupy", "How many units do \nyou want to move?",
 					(Integer) event.getOldValue() - 1,
 					Integer.parseInt((String)event.getNewValue()));
 		}

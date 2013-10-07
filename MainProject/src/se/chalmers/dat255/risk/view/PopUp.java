@@ -69,6 +69,11 @@ public class PopUp extends Dialog {
 	public void setTexts(String title, String msg) {
 		setTitle(title);
 		label.setText(msg);
+		if(title.equalsIgnoreCase("Occupy")){
+			cancel.setVisible(false);
+		} else if(!cancel.isVisible()){
+			cancel.setVisible(true);
+		}
 	}
 
 	public void setListener(ClickListener listener) {
