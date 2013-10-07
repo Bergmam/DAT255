@@ -199,7 +199,7 @@ public class WorldMap {
 			continent.update();
 			continentBonus = continent.getBonus();
 			if (continent.getContinentOwner() != null)
-				bonuses[continent.getContinentOwner().getId()] =+ continentBonus;
+				bonuses[continent.getContinentOwner().getId()] += continentBonus;
 		}
 	}
 
