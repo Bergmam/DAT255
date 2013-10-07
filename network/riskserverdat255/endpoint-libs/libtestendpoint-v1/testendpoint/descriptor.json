@@ -1,13 +1,13 @@
 {
   "files": [
     {
-      "downloadUrl": "/downloads/testendpoint/v1/20131004091022/java/1.16.0-rc/dat255.com-testendpoint-v1-20131004091022-java-1.16.0-rc-sources.jar", 
-      "path": "dat255.com-testendpoint-v1-20131004091022-java-1.16.0-rc-sources.jar", 
+      "downloadUrl": "/downloads/testendpoint/v1/20131007103404/java/1.16.0-rc/dat255.com-testendpoint-v1-20131007103404-java-1.16.0-rc-sources.jar", 
+      "path": "dat255.com-testendpoint-v1-20131007103404-java-1.16.0-rc-sources.jar", 
       "type": "source", 
-      "timestamp": "2013-10-04 09:10"
+      "timestamp": "2013-10-07 10:34"
     }, 
     {
-      "path": "dat255.com-testendpoint-v1-20131004091022-java-1.16.0-rc.jar.properties", 
+      "path": "dat255.com-testendpoint-v1-20131007103404-java-1.16.0-rc.jar.properties", 
       "type": "android.properties"
     }
   ], 
@@ -702,5 +702,5 @@
   "packagePath": "risk.network", 
   "language_version": "1.16.0-rc", 
   "id": "testendpoint:v1", 
-  "revision": 20131004091022
+  "revision": 20131007103404
 }

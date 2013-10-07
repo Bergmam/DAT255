@@ -1,13 +1,13 @@
 {
   "files": [
     {
-      "downloadUrl": "/downloads/riskentityendpoint/v1/20131004090954/java/1.16.0-rc/dat255.com-riskentityendpoint-v1-20131004090954-java-1.16.0-rc-sources.jar", 
-      "path": "dat255.com-riskentityendpoint-v1-20131004090954-java-1.16.0-rc-sources.jar", 
+      "downloadUrl": "/downloads/riskentityendpoint/v1/20131007103336/java/1.16.0-rc/dat255.com-riskentityendpoint-v1-20131007103336-java-1.16.0-rc-sources.jar", 
+      "path": "dat255.com-riskentityendpoint-v1-20131007103336-java-1.16.0-rc-sources.jar", 
       "type": "source", 
-      "timestamp": "2013-10-04 09:09"
+      "timestamp": "2013-10-07 10:33"
     }, 
     {
-      "path": "dat255.com-riskentityendpoint-v1-20131004090954-java-1.16.0-rc.jar.properties", 
+      "path": "dat255.com-riskentityendpoint-v1-20131007103336-java-1.16.0-rc.jar.properties", 
       "type": "android.properties"
     }
   ], 
@@ -702,5 +702,5 @@
   "packagePath": "risk.network", 
   "language_version": "1.16.0-rc", 
   "id": "riskentityendpoint:v1", 
-  "revision": 20131004090954
+  "revision": 20131007103336
 }

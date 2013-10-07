@@ -2,20 +2,6 @@ package com.dat255.risk.network;
 
 import java.io.IOException;
 
-import com.dat255.risk.network.messageEndpoint.MessageEndpoint;
-import com.dat255.risk.network.messageEndpoint.model.CollectionResponseMessageData;
-import com.dat255.risk.network.messageEndpoint.model.MessageData;
-import com.dat255.risk.network.testendpoint.Testendpoint;
-import com.dat255.risk.network.testendpoint.TestendpointRequest;
-import com.dat255.risk.network.testendpoint.TestendpointRequestInitializer;
-import com.dat255.risk.network.testendpoint.TestendpointScopes;
-import com.dat255.risk.network.testendpoint.model.Test;
-import com.google.api.client.extensions.android.http.AndroidHttp;
-import com.google.api.client.googleapis.services.GoogleClientRequestInitializer;
-import com.google.api.client.http.HttpRequest;
-import com.google.api.client.http.HttpRequestInitializer;
-import com.google.api.client.json.jackson.JacksonFactory;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -28,6 +14,18 @@ import android.view.View;
 import android.view.View.OnTouchListener;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.dat255.risk.network.messageEndpoint.MessageEndpoint;
+import com.dat255.risk.network.messageEndpoint.model.CollectionResponseMessageData;
+import com.dat255.risk.network.messageEndpoint.model.MessageData;
+import com.dat255.risk.network.testendpoint.Testendpoint;
+import com.dat255.risk.network.testendpoint.model.Test;
+import com.google.api.client.extensions.android.http.AndroidHttp;
+import com.google.api.client.http.HttpRequest;
+import com.google.api.client.http.HttpRequestInitializer;
+import com.google.api.client.json.jackson.JacksonFactory;
+
+import com.google.appengine.api.datastore.*;
 
 /**
  * An activity that communicates with your App Engine backend via Cloud
@@ -141,6 +139,29 @@ public class RegisterActivity extends Activity {
 			switch (event.getAction() & MotionEvent.ACTION_MASK) {
 	        case MotionEvent.ACTION_DOWN:
 //TODO
+	        	SendObject sendObject = new SendObject();
+	        	sendObject.createEntities();
+	        	Key bobKey = KeyFactory.createKey("Person", "Bob");
+	        	Key aliceKey = KeyFactory.createKey("Person", "Alice");
+	        	
+	        	DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+	        	
+	        	Entity alice, bob;
+	        	
+	        	try{
+	        		alice = datastore.get(aliceKey);
+	        		bob = datastore.get(bobKey);
+	        		Long aliceAge = (Long) alice.getProperty("age");
+	        		Long bobAge = (Long) bob.getProperty("age");
+	        		
+	        		Log.d("asd", aliceAge.toString());
+	        		Log.d("asd", bobAge.toString());
+	        	}
+	        	catch (EntityNotFoundException e){
+	        		Log.d("asd", "Fungerar icke");
+	        	}
+	        	
+	        	
 	        	service.setMalarn("malarnLOL");
 	        	Log.d("LOL", service.getMalarn());
 	        	return true;
@@ -163,7 +184,8 @@ public class RegisterActivity extends Activity {
         AndroidHttp.newCompatibleTransport(),
         new JacksonFactory(),
         new HttpRequestInitializer() {
-          public void initialize(HttpRequest httpRequest) { }
+          @Override
+		public void initialize(HttpRequest httpRequest) { }
         });
 
     messageEndpoint = CloudEndpointUtils.updateBuilder(endpointBuilder).build();
@@ -173,7 +195,8 @@ public class RegisterActivity extends Activity {
         AndroidHttp.newCompatibleTransport(),
         new JacksonFactory(),
         new HttpRequestInitializer() {
-          public void initialize(HttpRequest httpRequest) { }
+          @Override
+		public void initialize(HttpRequest httpRequest) { }
         });
 
     testEndpoint = CloudEndpointUtils.updateBuilder(testEndpointBuilder).build();
@@ -264,7 +287,8 @@ public class RegisterActivity extends Activity {
         .setMessage(message)
         .setPositiveButton(android.R.string.ok,
             new DialogInterface.OnClickListener() {
-              public void onClick(DialogInterface dialog, int id) {
+              @Override
+			public void onClick(DialogInterface dialog, int id) {
                 dialog.dismiss();
               }
             }).show();
@@ -297,7 +321,8 @@ public class RegisterActivity extends Activity {
       }            
     }
     
-    protected void onPostExecute(CollectionResponseMessageData messages) {
+    @Override
+	protected void onPostExecute(CollectionResponseMessageData messages) {
       // Check if exception was thrown
       if (exceptionThrown != null) {
         Log.e(RegisterActivity.class.getName(), 
