@@ -324,7 +324,7 @@ public class Game implements IGame {
 		if (gameOver.getNrOfProvinces() == 0) {
 			playerLoose(gameOver);
 			if (players.size() == 1) {
-
+				win(players.get(0));
 			}
 		}
 	}
