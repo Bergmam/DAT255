@@ -15,6 +15,7 @@ public class Card implements ICard{
 	
 	private String provinceName;
 	private Card.CardType type;
+	private boolean active;
 	
 	/**
 	 * Constructor for creating a card with the given type and string
@@ -73,4 +74,15 @@ public class Card implements ICard{
 	 * Enum for representing the different types of cards which will exist in the deck.
 	 */
 	public static enum CardType {INFANTRY, CAVALRY, ARTILLERY, JOKER}
+
+	@Override
+	public void setActive(boolean active) {
+		this.active = active; 
+		
+	}
+
+	@Override
+	public boolean isActive() {
+		return active;
+	}
 }

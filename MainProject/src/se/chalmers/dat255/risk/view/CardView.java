@@ -45,10 +45,14 @@ public class CardView extends AbstractView {
 		return card;
 	}
 
+	private boolean isChecked() {
+		return hasCard() ? card.isActive() : false;
+	}
+
 	@Override
 	public void draw(SpriteBatch batch, float alpha) {
-		batch.draw(isClicked ? imageDown : imageUp, getX(), getY(), getWidth(),
-				getHeight());
+		batch.draw(isChecked() ? imageDown : imageUp, getX(), getY(),
+				getWidth(), getHeight());
 		label.setColor(Color.RED);
 		label.draw(batch, alpha);
 
