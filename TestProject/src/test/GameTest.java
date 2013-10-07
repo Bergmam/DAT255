@@ -2,6 +2,8 @@ package test;
 
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -35,7 +37,7 @@ public class GameTest {
 		game2 = new Game();
 		game2.setupGame(name2, provinces, continents);
 		String[] name3 = new String[] { "Andreas", "Emil", "Bergman",
-		"Christoffer" };
+				"Christoffer" };
 		game3 = new Game();
 		game3.setupGame(name3, provinces, continents);
 		String[] name4 = new String[] { "Andreas", "Emil", "Bergman",
@@ -109,77 +111,104 @@ public class GameTest {
 
 		// We can just place units at the province that the active player owns.
 		// Therefor
-		//Game4 because the number of players are equal to the number of provinces
+		// Game4 because the number of players are equal to the number of
+		// provinces
 		IProvince myProvince = null;
-		for(int i=0 ; i<game4.getPlayers().size() ; i++){
+		for (int i = 0; i < game4.getPlayers().size(); i++) {
 			for (IProvince mP : game4.getGameProvinces()) {
-				if (game4.getActivePlayer().getId() == game4.getOwner(mP.getId())) {
+				if (game4.getActivePlayer().getId() == game4.getOwner(mP
+						.getId())) {
 					myProvince = mP;
 				}
 			}
 
-			while ( game4.getBonusUnitsLeft()>0) {
+			while (game4.getBonusUnitsLeft() > 0) {
 				game4.handleProvinceEvent(myProvince);
 			}
-			
+
 			assertTrue(game4.getCurrentPhase() == TurnAndPhaseManager.Phase.FBuild);
 			game4.handlePhaseEvent();
 		}
-		
+
 		assertTrue(game4.getCurrentPhase() == TurnAndPhaseManager.Phase.F1);
-		
+
 		// Have to place out bonus units first!
 		game4.handlePhaseEvent();
 		assertTrue(game4.getCurrentPhase() == TurnAndPhaseManager.Phase.F1);
-		
+
 		for (IProvince mP : game4.getGameProvinces()) {
 			if (game4.getActivePlayer().getId() == game4.getOwner(mP.getId())) {
 				myProvince = mP;
 			}
 		}
 
-		while ( game4.getBonusUnitsLeft()>0) {
+		while (game4.getBonusUnitsLeft() > 0) {
 			game4.handleProvinceEvent(myProvince);
 		}
-		
+
 		game4.handlePhaseEvent();
 		assertTrue(game4.getCurrentPhase() == TurnAndPhaseManager.Phase.F2);
-	
+
 		game4.handlePhaseEvent();
 		assertTrue(game4.getCurrentPhase() == TurnAndPhaseManager.Phase.F3);
-		
+
 		game4.handlePhaseEvent();
 		assertTrue(game4.getCurrentPhase() == TurnAndPhaseManager.Phase.F1);
-
-
 	}
 
 	@Test
-	public void testPlaceOutBounsUnits() {
-		// Cannot test this if I dont know which diffrent provinces the players
-		// have got.
+	public void testDealCard() {
+		int nmbCard = game.getActivePlayer().getCards().size();
+		game.getActivePlayer().addCard();
+		assertTrue(nmbCard + 1 == game.getActivePlayer().getCards().size());
 	}
 
-	/*
-	 * Detta måste testas i Province?
-	 * 
-	 * 
-	 * @Test public void testMoveUnits(){ IProvince prov1 = new
-	 * Province("Mallorca"); IProvince prov2 = new Province("Budda");
-	 * 
-	 * prov1.addUnits(99); prov2.addUnits(13);
-	 * assertTrue(prov1.getUnits()==100);
-	 * 
-	 * game.moveToProvince(3, prov1, prov2);
-	 * //assertTrue(prov1.getUnits()==100-3);
-	 * assertTrue(prov2.getUnits()==14+3);
-	 * 
-	 * for(int i = 0; i<10 ; i++){ game.moveToProvince(3, prov1, prov2);
-	 * assertTrue(prov1.getUnits()==99-i*3);
-	 * assertTrue(prov1.getUnits()==13+i*3); }
-	 * 
-	 * 
-	 * }
-	 */
+	@Test
+	public void testProvinceHandle() {
+		// In Phase Build we will set out bonus units to the incoming province
+		// if there are any left. We will only place the bonus if the active
+		// player owns the incoming province
+		IProvince myProvince=null;
+		IProvince notMine=null;
+		ArrayList<IProvince> provinces = game4.getGameProvinces(); 
+		int i = 0;
+		
+		while(myProvince == null){
+			if (game4.getActivePlayer().getId() == game4.getOwner(provinces.get(i)
+					.getId())) {
+				myProvince = provinces.get(i);
+			}
+			i++;
+		}
+		
+		i=0;
+		while(notMine == null){
+			if (!(game4.getActivePlayer().getId() == game4.getOwner(provinces.get(i)
+					.getId()))) {
+				notMine = provinces.get(i);
+			}
+			i++;
+		}
+		
+		//Test so bonus not change with a province that not belongs to another player.
+		int bonusFromStart = game4.getBonusUnitsLeft();
+		game4.handleProvinceEvent(notMine);
+		assertTrue(bonusFromStart == game4.getBonusUnitsLeft());
+		
+		//Test so bonus change with a province that the active payer owns.
+		i=1;
+		while (game4.getBonusUnitsLeft() > 0) {
+			game4.handleProvinceEvent(myProvince);
+			assertTrue(bonusFromStart-i == game4.getBonusUnitsLeft());
+			i++;
+		}
+		assertTrue(0 == game4.getBonusUnitsLeft());
+		
+		//When the bonus has been placed nothing will happen when you press at a province
+		game4.handleProvinceEvent(myProvince);
+		assertTrue(0 == game4.getBonusUnitsLeft());
+		
+
+	}
 
 }
