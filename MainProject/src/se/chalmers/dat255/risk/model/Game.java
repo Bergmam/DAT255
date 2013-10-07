@@ -377,8 +377,6 @@ public class Game implements IGame {
 	 */
 	@Override
 	public void handlePhaseEvent() {
-		System.out.println("Game: Old phase "
-				+ getCurrentPhase());
 		int bonus = bonusHandler.getBonus();
 		int result = eventHandler.handlePhaseEvent(getActivePlayer(), bonus,
 				players);
@@ -387,8 +385,6 @@ public class Game implements IGame {
 					+ phaseHandler.getActivePlayer());
 			System.out.println("Game: New active player "
 					+ getActivePlayer().getId());
-			System.out.println("Game: New phase "
-					+ getCurrentPhase());
 			bonusHandler.calcBonusForF0(getActivePlayer().getNrOfProvinces());
 		} else if (result == 0) {
 			worldMap.updateBonus();
