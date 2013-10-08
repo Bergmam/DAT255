@@ -243,8 +243,6 @@ public class Game implements IGame {
 	@Override
 	public void moveToProvince(int nrOfUnits) {
 		if (oldProvince.getUnits() - nrOfUnits > 0) {
-			System.out.println(nrOfUnits + " units moved from "
-					+ oldProvince.getId() + " to " + secondProvince.getId());
 			oldProvince.moveUnits(nrOfUnits, secondProvince);
 			if (getCurrentPhase() == Phase.F3) {
 				movedTroops = true;

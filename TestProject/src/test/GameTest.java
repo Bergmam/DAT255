@@ -330,6 +330,7 @@ public class GameTest {
 		game1.handleProvinceEvent(myProvince);
 		game1.handleProvinceEvent(myProvince1);
 		game1.flushProvinces();
+		
 		//now you cannot move Provinces because you have no where to move them.
 		try {
 			gameNoNeighbors.moveToProvince(1);
@@ -348,10 +349,28 @@ public class GameTest {
 
 	@Test
 	public void testMoveTroops() {
+		//First we test it in Phase2, that time we can move troops more than once
 		ArrayList<IProvince> provinces = game1.getGameProvinces();
-		getToPhase3(game1);
 		IProvince myProvince = getPlayerProvince(game1.getActivePlayer(),
 				provinces, game1);
+		IProvince myProvince1 = getAnotherProvinceFromPlayer(game1, myProvince);
+		getToPhase2(game1);
+		
+		myProvince.addUnits(3);
+		myProvince1.addUnits(4);
+		
+		int unitsP1Before = myProvince.getUnits();
+		int unitsP2Before = myProvince1.getUnits();
+		
+		game1.handleProvinceEvent(myProvince);
+		game1.handleProvinceEvent(myProvince1);
+		
+		//game1.moveToProvince(2);
+		
+		
+		//Can only move troops once in Phase3.
+		game1.handleProvinceEvent(myProvince);
+		game1.handleProvinceEvent(myProvince1);
 	}
 
 }
