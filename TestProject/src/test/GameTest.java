@@ -1,5 +1,6 @@
 package test;
 
+import static org.junit.Assert.*;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
@@ -48,7 +49,7 @@ public class GameTest {
 		game2.setupGame(name2, provinces, continents);
 
 		String[] name3 = new String[] { "Andreas", "Emil", "Bergman",
-				"Christoffer" };
+		"Christoffer" };
 		game3 = new Game();
 		game3.setupGame(name3, provinces, continents);
 		String[] name4 = new String[] { "Andreas", "Emil", "Bergman",
@@ -274,6 +275,20 @@ public class GameTest {
 
 		}
 
+		//Testing move units from noNeighbors- this should not work!
+		gameNoNeighbors.handleProvinceEvent(myProvince1);
+		gameNoNeighbors.handleProvinceEvent(mPNotNeighbors);
+		try {  
+			gameNoNeighbors.moveToProvince(5);  
+			fail("should've thrown an exception");  
+		} catch (Throwable expected) {  
+			assertEquals(NullPointerException.class, expected.getClass());  
+		} 
+		
+		game1.handleProvinceEvent(myProvince);
+		game1.handleProvinceEvent(mP1);
+		game1.moveToProvince(1);
+		
 	}
 
 	/*
