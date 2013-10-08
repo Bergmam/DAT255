@@ -160,7 +160,7 @@ public class Game implements IGame {
 		// FIGHTING PHASE 2, FIGHT IF TWO PROVINCE CLICKED AND OWNED BY
 		// DIFFERENT PLAYER AND ATTACKING PROVINCE OWNED BY ME
 		else if (getCurrentPhase() == Phase.F2) {
-			if (myProvince(newProvince.getId())) {
+			if (myProvince(newProvince.getId()) && newProvince.getUnits()>1) {
 				if (oldProvince != null) {
 					oldProvince.setActive(false);
 				}
@@ -195,7 +195,8 @@ public class Game implements IGame {
 
 		// MOVING TROOPS IN PHASE 3
 		else if (getCurrentPhase() == Phase.F3 && !movedTroops) {
-			if (myProvince(newProvince.getId()) && oldProvince == null) {
+			if (myProvince(newProvince.getId()) && oldProvince == null
+					&& newProvince.getUnits() > 1) {
 				oldProvince = newProvince;
 				oldProvince.setActive(true);
 			}
