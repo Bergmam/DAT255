@@ -18,6 +18,7 @@ public class GameTest {
 
 	Game game;
 	Game game1;
+	Game gameNoNeighbors;
 	Game game2;
 	Game game3;
 	Game game4;
@@ -25,19 +26,27 @@ public class GameTest {
 	@Before
 	public void beforeAllTest() {
 
-		String provinces = "A-B-C-D-E" + "\n" + "B-A-C-E" + "\n" + "C-A-D"
-				+ "\n" + "D-A-C-E" + "\n" + "E-A-B-D";
+		String provinces = "A-B-C-D-E" + "\n" + "B-A-C-D-E" + "\n"
+				+ "C-B-E-A-D" + "\n" + "D-A-C-E-B" + "\n" + "E-A-B-D-C";
+		String provinces1 = "A" + "\n" + "B" + "\n" + "C" + "\n" + "D" + "\n"
+				+ "E";
 		String continents = "3-A-B-C" + "\n" + "2-D-E";
 		String[] name = new String[] { "Linnea", "Andreas", "Emil", "Bergman",
 				"Christoffer", "Emma" };
 		game = new Game();
 		game.setupGame(name, provinces, continents);
+
 		String[] name1 = new String[] { "Christoffer", "Emma" };
 		game1 = new Game();
 		game1.setupGame(name1, provinces, continents);
+
+		gameNoNeighbors = new Game();
+		gameNoNeighbors.setupGame(name1, provinces1, continents);
+
 		String[] name2 = new String[] { "Andreas", "Emil", "Bergman" };
 		game2 = new Game();
 		game2.setupGame(name2, provinces, continents);
+
 		String[] name3 = new String[] { "Andreas", "Emil", "Bergman",
 				"Christoffer" };
 		game3 = new Game();
@@ -98,11 +107,6 @@ public class GameTest {
 	 * *5-game4.getActivePlayer().getNrOfProvinces() ); }
 	 */
 
-	private int getProvinces() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
 	@Test
 	public void testChangePhase() {
 		assertTrue(game4.getCurrentPhase() == TurnAndPhaseManager.Phase.FBuild);
@@ -120,7 +124,7 @@ public class GameTest {
 			myProvince = getPlayerProvince(game4.getActivePlayer(),
 					game4.getGameProvinces());
 
-			this.looseAllBonusUnitsLeft(myProvince);
+			this.looseAllBonusUnitsLeft(myProvince, game4);
 
 			assertTrue(game4.getCurrentPhase() == TurnAndPhaseManager.Phase.FBuild);
 			game4.handlePhaseEvent();
@@ -135,7 +139,7 @@ public class GameTest {
 		myProvince = getPlayerProvince(game4.getActivePlayer(),
 				game4.getGameProvinces());
 
-		this.looseAllBonusUnitsLeft(myProvince);
+		this.looseAllBonusUnitsLeft(myProvince, game4);
 
 		game4.handlePhaseEvent();
 		assertTrue(game4.getCurrentPhase() == TurnAndPhaseManager.Phase.F2);
@@ -172,10 +176,10 @@ public class GameTest {
 		assertTrue(bonusFromStart == game4.getBonusUnitsLeft());
 
 		// Test so bonus change with a province that the active payer owns.
-		this.looseAllBonusUnitsLeft(myProvince);
+		this.looseAllBonusUnitsLeft(myProvince, game4);
 		assertTrue(0 == game4.getBonusUnitsLeft());
-		assertTrue(myProvince.getUnits() == 1+bonusFromStart);
- 
+		assertTrue(myProvince.getUnits() == 1 + bonusFromStart);
+
 		// When the bonus has been placed nothing will happen when you press at
 		// a province
 		game4.handleProvinceEvent(myProvince);
@@ -185,11 +189,11 @@ public class GameTest {
 		game4.handlePhaseEvent();
 		for (int i = 0; i < game4.getPlayers().size() - 1; i++) {
 			myProvince = getPlayerProvince(game4.getActivePlayer(), provinces);
-			this.looseAllBonusUnitsLeft(myProvince);
+			this.looseAllBonusUnitsLeft(myProvince, game4);
 			game4.handlePhaseEvent();
 		}
-		
-		//In phase1 you will place your bonus once again.
+
+		// In phase1 you will place your bonus once again.
 		// Test so bonus not change with a province that not belongs to another
 		// player.
 		int bonusFromF1 = game4.getBonusUnitsLeft();
@@ -199,20 +203,77 @@ public class GameTest {
 		// Test so bonus change with a province that the active payer owns.
 
 		myProvince = getPlayerProvince(game4.getActivePlayer(), provinces);
-		this.looseAllBonusUnitsLeft(myProvince);
-		assertTrue(myProvince.getUnits() == 1+ bonusFromF1+bonusFromStart);
+		this.looseAllBonusUnitsLeft(myProvince, game4);
+		assertTrue(myProvince.getUnits() == 1 + bonusFromF1 + bonusFromStart);
 		assertTrue(0 == game4.getBonusUnitsLeft());
-		
+
 		game4.handlePhaseEvent();
-		
-		//In Phase F2 you can attack another province, unless its not your own and you are neighbors.
-		// The first province we must "handle", must be the active players province, and the next must be 
-		// the first Province neighbor and not owned by the activ player. Nothing will happen until we use
+
+		// In Phase F2 you can attack another province, unless its not your own
+		// and you are neighbors.
+		// The first province we must "handle", must be the active players
+		// province, and the next must be
+		// the first Province neighbor and not owned by the activ player.
+		// Nothing will happen until we use
 		// the method attack. Attack can only be called in this moment.
 		game4.handleProvinceEvent(myProvince);
 		assertTrue(0 == game4.getBonusUnitsLeft());
-		assertTrue(myProvince.getUnits() == 1+ bonusFromF1+bonusFromStart);
-		
+		assertTrue(myProvince.getUnits() == 1 + bonusFromF1 + bonusFromStart);
+
+		// In Phase 3 you can move units from one of your province to one other.
+		// They must be owned by active player and they also must be neighbors.
+		// Because every player just have got one Province each we test this
+		// with game1 (there are all Provinces neighbors) and gameNoNeighbors.
+
+		provinces = game1.getGameProvinces();
+		ArrayList<IProvince> provinces1 = gameNoNeighbors.getGameProvinces();
+
+		// Set up 2 provinces, for each game, that belongs to the active player
+		// and one that belongs to the other player.
+		myProvince = getPlayerProvince(game1.getActivePlayer(), provinces);
+		IProvince myProvince1 = getPlayerProvince(
+				gameNoNeighbors.getActivePlayer(), provinces1);
+		IProvince player2P = getPlayerProvince(game1.getPlayers().get(1),
+				provinces1);
+		IProvince player2P1 = getPlayerProvince(gameNoNeighbors.getPlayers()
+				.get(1), provinces1);
+
+		IProvince mP1 = null;
+		IProvince mPNotNeighbors = null;
+
+		for (IProvince province : provinces) {
+			int owner = game1.getOwner(province.getId());
+			if (owner == game1.getActivePlayer().getId()
+					&& myProvince != province) {
+				mP1 = province;
+				break;
+			}
+		}
+
+		for (IProvince province : provinces1) {
+			int owner = gameNoNeighbors.getOwner(province.getId());
+			if (owner == gameNoNeighbors.getActivePlayer().getId()
+					&& myProvince1 != province) {
+				mPNotNeighbors = province;
+				break;
+			}
+		}
+
+		// Now we will get to phase 3 (game1 and gameNoNeighbors have both 2
+		// players)
+		for (int i = 0; i < game1.getPlayers().size(); i++) {
+			this.looseAllBonusUnitsLeft(myProvince, game1);
+			this.looseAllBonusUnitsLeft(myProvince1, gameNoNeighbors);
+			game1.handlePhaseEvent();
+			gameNoNeighbors.handlePhaseEvent();
+
+			this.looseAllBonusUnitsLeft(player2P, game1);
+			this.looseAllBonusUnitsLeft(player2P1, gameNoNeighbors);
+			game1.handlePhaseEvent();
+			gameNoNeighbors.handlePhaseEvent();
+
+		}
+
 	}
 
 	/*
@@ -235,11 +296,10 @@ public class GameTest {
 	/*
 	 * place out all bonus at the province
 	 */
-	private void looseAllBonusUnitsLeft(IProvince myProvince) {
-		if (game4.getActivePlayer().getId() == game4.getOwner(myProvince
-				.getId())) {
-			while (game4.getBonusUnitsLeft() > 0) {
-				game4.handleProvinceEvent(myProvince);
+	private void looseAllBonusUnitsLeft(IProvince myProvince, Game game) {
+		if (game.getActivePlayer().getId() == game.getOwner(myProvince.getId())) {
+			while (game.getBonusUnitsLeft() > 0) {
+				game.handleProvinceEvent(myProvince);
 			}
 		}
 	}
