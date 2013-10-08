@@ -160,5 +160,11 @@ public class Player {
 	public void setTurn(int turn){
 		this.turnId = turn;
 	}
+
+	public void discard() {
+		for(ICard c:cards){
+			Deck.discard(c);
+		}
+	}
 	
 }

@@ -76,11 +76,6 @@ public class PopUp extends Dialog {
 		}
 	}
 
-	public void setListener(ClickListener listener) {
-		addListener(listener);
-
-	}
-
 	public float getValue() {
 		return slider.getValue();
 	}

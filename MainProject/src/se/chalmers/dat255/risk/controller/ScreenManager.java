@@ -11,14 +11,15 @@ import se.chalmers.dat255.risk.view.CardView;
 import se.chalmers.dat255.risk.view.ChangePhase;
 import se.chalmers.dat255.risk.view.GameScreen;
 import se.chalmers.dat255.risk.view.MainScreen;
+import se.chalmers.dat255.risk.view.PopUp;
 import se.chalmers.dat255.risk.view.ProvinceView;
 import se.chalmers.dat255.risk.view.SwitchButton;
+import se.chalmers.dat255.risk.view.UIStage;
 import se.chalmers.dat255.risk.view.resource.ColorHandler;
 import se.chalmers.dat255.risk.view.resource.Resource;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input.TextInputListener;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -86,7 +87,13 @@ public class ScreenManager extends ClickListener {
 			}
 		}
 
-		screen.getPopUp().setListener(new PopUpListener(model));
+		for (Actor a : screen.getSpecActors()) {
+			if (a instanceof Button) {
+				a.addListener(new SurrenderListener(model));
+			} else if (a instanceof PopUp) {
+				a.addListener(new PopUpListener(model));
+			}
+		}
 	}
 
 	@Override
@@ -97,11 +104,11 @@ public class ScreenManager extends ClickListener {
 		if (s.equalsIgnoreCase("addPlayer")) {
 			if (list.size() < 6) {
 				s = main.getText();
-				if (s.length() > 1 && s.length() <10) {
+				if (s.length() > 1 && s.length() < 10) {
 					list.add(s);
 					main.addPlayer(s);
 					System.out.println("added player " + s);
-				} else{
+				} else {
 					main.setText("too many/few letters");
 				}
 			} else {
@@ -112,7 +119,6 @@ public class ScreenManager extends ClickListener {
 			if (list.size() >= 2) {
 				setupGame();
 				changeScreen(screen);
-				System.out.println("You have touched the startButton");
 			}
 		}
 	}

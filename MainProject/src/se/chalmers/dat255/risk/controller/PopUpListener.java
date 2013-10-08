@@ -14,7 +14,6 @@ public class PopUpListener extends ClickListener {
 
 	public PopUpListener(IGame model) {
 		this.model = model;
-		Gdx.app.log("construct", "popup ");
 	}
 
 	@Override

@@ -136,4 +136,12 @@ public interface IGame {
 	 *            a list with listerners to the players
 	 */
 	public void addPlayerListener(List<PropertyChangeListener> list);
+	
+	/**
+	 * called when the current player gives up
+	 * 
+	 */
+	public void surrender();
 }
+
+
