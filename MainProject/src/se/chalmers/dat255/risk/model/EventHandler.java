@@ -21,7 +21,6 @@ public class EventHandler {
 	 * Makes the exange of three card, when you've chosen three good cards.
 	 */
 	public ArrayList<String> handleCardEvent(ICard card, Player currentPlayer) {
-		// TODO Auto-generated method stub
 		return cardExanger.makeExange(card, currentPlayer);
 	}
 
@@ -40,7 +39,7 @@ public class EventHandler {
 
 		if (currentPhase == Phase.FBuild || currentPhase == Phase.F1) {
 			// CHECKS IF I'M ALLOWED TO PRESS CHANGE PHASE
-			System.out.println("Spelaren har nu: " + currentPlayer.getCards().size() + " kort kvar.");
+			System.out.println("Player has: " + currentPlayer.getCards().size() + " cards");
 			if (bonusUnitsLeft == 0 && currentPlayer.getCards().size() < 5) {
 				cardExanger.flushCards();
 				return phaseHandler.changePhase(currentPlayer, players);

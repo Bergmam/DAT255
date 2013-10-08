@@ -1,47 +1,46 @@
 package se.chalmers.dat255.risk.model;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class TurnAndPhaseManager {
 	private int activePlayer;
 	private Phase currentPhase;
 
-
 	// CLICK VARIABLES
-	
-	
-	public TurnAndPhaseManager(){
-////////////////DEV ////////////////////
-		currentPhase=Phase.FBuild;
-	//	currentPhase=Phase.F1;
-////////////////DEV ///////////////////			
-		activePlayer=0;
+
+	public TurnAndPhaseManager() {
+		// //////////////DEV ////////////////////
+		currentPhase = Phase.FBuild;
+		// currentPhase=Phase.F1;
+		// //////////////DEV ///////////////////
+		activePlayer = 0;
 	}
-	public static enum Phase {FBuild, F1, F2, F3}	
-	public Phase getPhase(){
+
+	public static enum Phase {
+		FBuild, F1, F2, F3
+	}
+
+	public Phase getPhase() {
 		return currentPhase;
 	}
-	
+
 	/*
 	 * Changing phase and then pokes on other methods.
 	 * 
-	 * Return is 2 if if a new bonus shall be computed. == 0 for F0
-	 * Return is 1 if a change of phase has taken place.
-	 * Return is 0 if a new turn has begun.
-	 * Return is -1 if phase didn't change.
+	 * Return is 2 if if a new bonus shall be computed. == 0 for F0 Return is 1
+	 * if a change of phase has taken place. Return is 0 if a new turn has
+	 * begun. Return is -1 if phase didn't change.
 	 */
-	
-	public int changePhase(Player currentPlayer, ArrayList<Player> players) {
+
+	public int changePhase(Player currentPlayer, List<Player> players) {
 		if (currentPhase == Phase.FBuild) {
 			if (currentPlayer == players.get(players.size() - 1)) {
 				changeTurn(players);
 				currentPhase = Phase.F1;
+				System.out.println("New phase: " + currentPhase);
 				return 0; // Special, no need to compute troops
 			} else {
-				System.out.println("Old active player: " + getActivePlayer());
-				System.out.println("Number of players: " + players.size());
 				changeTurn(players);
-				System.out.println("New active player: " + getActivePlayer());
 				return 2;
 			}
 		} else if (currentPhase == Phase.F3) {
@@ -53,15 +52,34 @@ public class TurnAndPhaseManager {
 		} else {
 			currentPhase = Phase.F3;
 		}
+		System.out.println("New phase: " + currentPhase);
 		return 1;
 	}
-	
-	private void changeTurn(ArrayList<Player> players) {
+
+	private void changeTurn(List<Player> players) {
 		activePlayer = (activePlayer + 1) % players.size();
-		System.out.println("Nu pillades det med activePlayer och det nya v�rdet �r: " + activePlayer);
+		System.out
+				.println("Changed Turn, new player is: "
+						+ activePlayer);
 	}
-	
-	public int getActivePlayer(){
+
+	public int getActivePlayer() {
 		return activePlayer;
+	}
+
+	/**called when a player gives up
+	 * 
+	 * @param players the list of players left in the game
+	 */
+	// change turn not necessary!
+	public void surrender(List<Player> players) {
+		if (currentPhase == Phase.FBuild) {
+			if (activePlayer == players.size() - 1) {
+				changeTurn(players);
+				currentPhase = Phase.F1;
+			} 
+		} else {
+			currentPhase = Phase.F1;
+		}
 	}
 }

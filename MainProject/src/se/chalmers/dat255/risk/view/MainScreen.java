@@ -18,7 +18,7 @@ public class MainScreen extends AbstractScreen {
 
 	private Button startButton;
 	private Button playerButton;
-	private Table table, t2, t1;
+	private Table table, t2 ,t1;
 	private Stage stage;
 	private List<Button> buttonList;
 	private TextField nameField;
@@ -34,12 +34,12 @@ public class MainScreen extends AbstractScreen {
 		t1 = new Table();
 		t1.setFillParent(true);
 		startButton = new Button(Resource.getInstance().skin);
-		startButton.add("Start Game", "default");
+		startButton.add("Start Game");
 		startButton.setName("startButton");
 		buttonList.add(startButton);
 
 		playerButton = new Button(Resource.getInstance().skin);
-		playerButton.add("Add Player", "default");
+		playerButton.add("Add Player");
 		playerButton.setName("addPlayer");
 		buttonList.add(playerButton);
 
@@ -47,20 +47,20 @@ public class MainScreen extends AbstractScreen {
 		nameField.setMessageText("Enter Name");
 
 		t2.add("Players:");
-		t2.pad(10);		
-		
+		t2.pad(50);		
 		table.add(playerButton);
 		table.add(nameField);
 		table.row();
 		table.add(startButton);
 		t1.add(table);
-		t1.add();
+		//t1.add();
 		t1.add(t2);
 
 		//t1.pack();
+		table.size(Gdx.graphics.getWidth()/2,Gdx.graphics.getHeight());
+		t2.size(Gdx.graphics.getWidth()/2,Gdx.graphics.getHeight());
 
 		stage.addActor(t1);
-
 	}
 
 	// expand when needing more buttons

@@ -18,16 +18,22 @@ public class SwitchButton extends AbstractView {
 	public SwitchButton() {
 		super(Resource.getInstance().triangle, Resource.getInstance().triangle);
 		current = cards;
-		setPosition(0, 0);
 		size(width, height);
 		label = new Label(current, new LabelStyle(font, Color.RED));
-		label.setPosition(getX()+(label.getWidth()/2)-(label.getTextBounds().width/2), getY() + getHeight()
-				/ 3);
+		label.setPosition(getTextX(), getTextY());
 		// scale = 1.3f*width;
 	}
 
 	public String getText() {
 		return current;
+	}
+	
+	private float getTextX() {
+		return getX() + (width/2) - (label.getTextBounds().width/2);
+	}
+
+	private float getTextY() {
+		return getY() + getHeight() / 3;
 	}
 
 	public void switchText() {
@@ -37,6 +43,7 @@ public class SwitchButton extends AbstractView {
 
 	@Override
 	public void draw(SpriteBatch batch, float alpha) {
+		label.setPosition(getTextX(), getTextY());
 		batch.setColor(isClicked ? Color.DARK_GRAY : Color.BLACK);
 		super.draw(batch, alpha);
 		label.draw(batch, alpha);
