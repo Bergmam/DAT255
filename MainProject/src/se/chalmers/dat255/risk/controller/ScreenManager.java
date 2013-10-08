@@ -123,24 +123,16 @@ public class ScreenManager extends ClickListener {
 		}
 	}
 
+	public void gameOver() {
+		changeScreen(main);
+		list.clear();
+		main.clearPlayers();
+	}
+
 	public void dispose() {
 		Resource.getInstance().dispose();
 		main.dispose();
 		screen.dispose();
 	}
-
-	/*
-	 * if (list.size() <= 6) { Gdx.input.getTextInput(new TextInputListener() {
-	 * 
-	 * @Override public void input(String text) { list.add(text); }
-	 * 
-	 * @Override public void canceled() {
-	 * 
-	 * }
-	 * 
-	 * }, "Add a Player", "Name");
-	 * 
-	 * }
-	 */
 
 }
