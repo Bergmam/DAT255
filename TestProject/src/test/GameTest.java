@@ -89,24 +89,6 @@ public class GameTest {
 		assertTrue(deck.getSize() == game.getGameProvinces().size() + 6);
 	}
 
-	/*
-	 * @Test public void testBonusUnitsLeft(){ //Check how many troops each
-	 * player gets when the game begins assertTrue(game.getBonusUnitsLeft() ==
-	 * 20 +
-	 * (6-game.getPlayers().size())*5-game.getActivePlayer().getNrOfProvinces()
-	 * ); assertTrue(game1.getBonusUnitsLeft() == 20 +
-	 * (6-game1.getPlayers().size
-	 * ())*5-game1.getActivePlayer().getNrOfProvinces() );
-	 * assertTrue(game2.getBonusUnitsLeft() == 20 +
-	 * (6-game2.getPlayers().size())
-	 * *5-game2.getActivePlayer().getNrOfProvinces() );
-	 * assertTrue(game3.getBonusUnitsLeft() == 20 +
-	 * (6-game3.getPlayers().size())
-	 * *5-game3.getActivePlayer().getNrOfProvinces() );
-	 * assertTrue(game4.getBonusUnitsLeft() == 20 +
-	 * (6-game4.getPlayers().size())
-	 * *5-game4.getActivePlayer().getNrOfProvinces() ); }
-	 */
 
 	@Test
 	public void testChangePhase() {
