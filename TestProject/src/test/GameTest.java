@@ -105,7 +105,7 @@ public class GameTest {
 		IProvince myProvince = null;
 		for (int i = 0; i < game4.getPlayers().size(); i++) {
 			myProvince = getPlayerProvince(game4.getActivePlayer(),
-					game4.getGameProvinces());
+					game4.getGameProvinces(),game4);
 
 			this.looseAllBonusUnitsLeft(myProvince, game4);
 
@@ -120,7 +120,7 @@ public class GameTest {
 		assertTrue(game4.getCurrentPhase() == TurnAndPhaseManager.Phase.F1);
 
 		myProvince = getPlayerProvince(game4.getActivePlayer(),
-				game4.getGameProvinces());
+				game4.getGameProvinces(),game4);
 
 		this.looseAllBonusUnitsLeft(myProvince, game4);
 
@@ -149,8 +149,8 @@ public class GameTest {
 		IProvince myProvince = null;
 		IProvince notMine = null;
 		ArrayList<IProvince> provinces = game4.getGameProvinces();
-		myProvince = getPlayerProvince(game4.getActivePlayer(), provinces);
-		notMine = getPlayerProvince(game4.getPlayers().get(1), provinces);
+		myProvince = getPlayerProvince(game4.getActivePlayer(), provinces,game4);
+		notMine = getPlayerProvince(game4.getPlayers().get(1), provinces,game4);
 
 		// Test so bonus not change with a province that not belongs to another
 		// player.
@@ -171,7 +171,7 @@ public class GameTest {
 		// changing phase until we get to phase1.
 		game4.handlePhaseEvent();
 		for (int i = 0; i < game4.getPlayers().size() - 1; i++) {
-			myProvince = getPlayerProvince(game4.getActivePlayer(), provinces);
+			myProvince = getPlayerProvince(game4.getActivePlayer(), provinces,game4);
 			this.looseAllBonusUnitsLeft(myProvince, game4);
 			game4.handlePhaseEvent();
 		}
@@ -185,7 +185,7 @@ public class GameTest {
 
 		// Test so bonus change with a province that the active payer owns.
 
-		myProvince = getPlayerProvince(game4.getActivePlayer(), provinces);
+		myProvince = getPlayerProvince(game4.getActivePlayer(), provinces,game4);
 		this.looseAllBonusUnitsLeft(myProvince, game4);
 		assertTrue(myProvince.getUnits() == 1 + bonusFromF1 + bonusFromStart);
 		assertTrue(0 == game4.getBonusUnitsLeft());
@@ -213,13 +213,14 @@ public class GameTest {
 
 		// Set up 2 provinces, for each game, that belongs to the active player
 		// and one that belongs to the other player.
-		myProvince = getPlayerProvince(game1.getActivePlayer(), provinces);
+		myProvince = getPlayerProvince(game1.getActivePlayer(), provinces,game1);
 		IProvince myProvince1 = getPlayerProvince(
-				gameNoNeighbors.getActivePlayer(), provinces1);
+				gameNoNeighbors.getActivePlayer(), provinces1,gameNoNeighbors);
+		
 		IProvince player2P = getPlayerProvince(game1.getPlayers().get(1),
-				provinces1);
+				provinces1,game1);
 		IProvince player2P1 = getPlayerProvince(gameNoNeighbors.getPlayers()
-				.get(1), provinces1);
+				.get(1), provinces1,gameNoNeighbors);
 
 		IProvince mP1 = null;
 		IProvince mPNotNeighbors = null;
@@ -269,6 +270,7 @@ public class GameTest {
 		
 		game1.handleProvinceEvent(myProvince);
 		game1.handleProvinceEvent(mP1);
+		System.out.println("province:  " + mP1.getId() + "  owner:  " + game1.getOwner(mP1.getId()));
 		game1.moveToProvince(1);
 		
 	}
@@ -277,12 +279,12 @@ public class GameTest {
 	 * Returns a IProvince that player owns
 	 */
 	private IProvince getPlayerProvince(Player player,
-			ArrayList<IProvince> provinces) {
+			ArrayList<IProvince> provinces, Game game) {
 		IProvince province = null;
 		int i = 0;
 
 		while (province == null) {
-			if (player.getId() == game4.getOwner(provinces.get(i).getId())) {
+			if (player.getId() == game.getOwner(provinces.get(i).getId())) {
 				province = provinces.get(i);
 			}
 			i++;
@@ -300,4 +302,5 @@ public class GameTest {
 			}
 		}
 	}
+	
 }
