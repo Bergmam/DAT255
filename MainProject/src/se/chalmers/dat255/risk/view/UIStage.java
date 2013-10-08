@@ -98,9 +98,7 @@ public class UIStage extends AbstractStage {
 
 	@Override
 	public void propertyChange(PropertyChangeEvent event) {
-		// TODO mainly for PopUp
 		if (event.getPropertyName().equalsIgnoreCase("Attack")) {
-
 			showPopUp("Attack", "How many dice \ndo you want?",
 					(Integer) event.getOldValue(), 1);
 		} else if (event.getPropertyName().equalsIgnoreCase("Movement")) {
@@ -113,6 +111,9 @@ public class UIStage extends AbstractStage {
 			showPopUp("Occupy", "How many units do \nyou want to move?",
 					(Integer) event.getOldValue() - 1,
 					Integer.parseInt((String) event.getNewValue()));
+		} else if (event.getPropertyName().equalsIgnoreCase("Win")){
+			
+			
 		}
 
 	}

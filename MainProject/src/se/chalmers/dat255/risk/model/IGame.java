@@ -138,11 +138,10 @@ public interface IGame {
 	public void addPlayerListener(List<PropertyChangeListener> list);
 	
 	/**
-	 * Called when a player gives up or loses
+	 * called when the current player gives up
 	 * 
-	 * @param gameOver the player that should be removed from game
 	 */
-	public void playerLose(Player gameOver);
+	public void surrender();
 }
 
 

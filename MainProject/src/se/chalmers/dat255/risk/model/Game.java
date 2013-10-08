@@ -233,8 +233,6 @@ public class Game implements IGame {
 			if (worldMap.getOwner(newProvince.getId()) == getActivePlayer()
 					&& bonus > 0) {
 				placeBonusUnits(1, newProvince);
-				System.out.print("Current player active is player "
-						+ phaseHandler.getActivePlayer() + "\n");
 			}
 		}
 
@@ -330,10 +328,6 @@ public class Game implements IGame {
 	private void checkGameOver(Player gameOver) {
 		if (gameOver.getNrOfProvinces() == 0) {
 			playerLose(gameOver);
-			if (players.size() == 1) {
-				win(players.get(0));
-				return;
-			}
 		}
 	}
 
@@ -341,21 +335,33 @@ public class Game implements IGame {
 		pcs.firePropertyChange("Win", 0, win);
 	}
 
-	@Override
-	public void playerLose(Player gameOver) {
+	// also handles defeat of neutral players, because they aren't
+	// no problem occurs
+	private void playerLose(Player gameOver) {
 		gameOver.discard();
-		if (gameOver == getActivePlayer()) {
-			players.remove(gameOver);
-			
-			if (players.size() == 1) {
-				win(players.get(0));
-				return;//no need to do anything else
-			} else {
-				phaseHandler.surrender(gameOver, players);
-			}
+		players.remove(gameOver);
+		if (players.size() == 1) {
+			win(players.get(0));
 		}
-		worldMap.updateBonus();
-		flushTemps();
+
+	}
+
+	@Override// TODO lot of duplicate code in all surrender related methods
+	public void surrender() {
+		System.out.println("Player " + getActivePlayer().getName()
+				+ " has surrendered");
+		playerLose(getActivePlayer());
+		phaseHandler.surrender(players);
+		if (getCurrentPhase() == Phase.FBuild) {
+			bonusHandler.calcBonusForF0(getActivePlayer().getNrOfProvinces());
+		} else {
+			worldMap.updateBonus();
+			bonusHandler.calcBonusUnits(getActivePlayer());
+			firstProvinceConqueredThisTurn = true;
+			movedTroops = false;
+			flushTemps();
+		}
+		System.out.println("New Player is: "+getActivePlayer().getName());
 	}
 
 	private boolean attack(int offensiveDice, IProvince offensive,
@@ -397,17 +403,16 @@ public class Game implements IGame {
 		int result = eventHandler.handlePhaseEvent(getActivePlayer(), bonus,
 				players);
 		if (result == 2) {
-			System.out.println("PhaseHandler: New active player "
+			System.out.println("New active player: "
 					+ phaseHandler.getActivePlayer());
-			System.out.println("Game: New active player "
-					+ getActivePlayer().getId());
+			System.out.println("New active player name: "
+					+ getActivePlayer().getName());
 			bonusHandler.calcBonusForF0(getActivePlayer().getNrOfProvinces());
 		} else if (result == 0) {
 			worldMap.updateBonus();
 			bonusHandler.calcBonusUnits(getActivePlayer());
 			firstProvinceConqueredThisTurn = true;// didn't see a reset of this
-													// elsewhere
-			// so i added one
+													// elsewhere so i added one
 			movedTroops = false;
 		}
 		flushTemps();// clean temps between turns and phases

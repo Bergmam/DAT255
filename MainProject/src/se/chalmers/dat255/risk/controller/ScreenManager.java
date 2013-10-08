@@ -119,7 +119,6 @@ public class ScreenManager extends ClickListener {
 			if (list.size() >= 2) {
 				setupGame();
 				changeScreen(screen);
-				System.out.println("You have touched the startButton");
 			}
 		}
 	}
