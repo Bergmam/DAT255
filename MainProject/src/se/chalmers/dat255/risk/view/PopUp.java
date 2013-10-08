@@ -74,6 +74,13 @@ public class PopUp extends Dialog {
 		} else if(!cancel.isVisible()){
 			cancel.setVisible(true);
 		}
+		
+		if(title.equalsIgnoreCase("Congratz")){
+			slider.setVisible(false);
+			cancel.setVisible(false);
+			slideMin.setVisible(false);
+			slideMax.setVisible(false);
+		} 
 	}
 
 	public float getValue() {

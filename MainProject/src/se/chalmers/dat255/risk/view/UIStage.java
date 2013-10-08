@@ -11,6 +11,7 @@ import se.chalmers.dat255.risk.view.resource.Resource;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 
@@ -112,8 +113,7 @@ public class UIStage extends AbstractStage {
 					(Integer) event.getOldValue() - 1,
 					Integer.parseInt((String) event.getNewValue()));
 		} else if (event.getPropertyName().equalsIgnoreCase("Win")){
-			
-			
+			showPopUp("Congratz", "You have won!", 0, 0);
 		}
 
 	}

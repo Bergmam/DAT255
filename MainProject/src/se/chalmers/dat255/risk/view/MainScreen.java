@@ -8,6 +8,7 @@ import se.chalmers.dat255.risk.view.resource.Resource;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL10;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -18,7 +19,7 @@ public class MainScreen extends AbstractScreen {
 
 	private Button startButton;
 	private Button playerButton;
-	private Table table, t2 ,t1;
+	private Table inputTable, playerTable ,mainTable;
 	private Stage stage;
 	private List<Button> buttonList;
 	private TextField nameField;
@@ -26,13 +27,17 @@ public class MainScreen extends AbstractScreen {
 	public MainScreen(IGame model) {
 		super(model);
 		buttonList = new ArrayList<Button>();
-		table = new Table();
+		
 		stage = new Stage();
 		camera.setToOrtho(false);
-		t2 = new Table();
-		t2.setSkin(Resource.getInstance().skin);
-		t1 = new Table();
-		t1.setFillParent(true);
+		
+		inputTable = new Table(Resource.getInstance().skin);
+		
+		playerTable = new Table(Resource.getInstance().skin);
+		
+		mainTable = new Table(Resource.getInstance().skin);
+		mainTable.setFillParent(true);
+		
 		startButton = new Button(Resource.getInstance().skin);
 		startButton.add("Start Game");
 		startButton.setName("startButton");
@@ -46,21 +51,21 @@ public class MainScreen extends AbstractScreen {
 		nameField = new TextField("", Resource.getInstance().skin);
 		nameField.setMessageText("Enter Name");
 
-		t2.add("Players:");
-		t2.pad(50);		
-		table.add(playerButton);
-		table.add(nameField);
-		table.row();
-		table.add(startButton);
-		t1.add(table);
+		playerTable.add("Players:");
+		playerTable.pad(50);		
+		inputTable.add(playerButton);
+		inputTable.add(nameField);
+		inputTable.row();
+		inputTable.add(startButton);
+		mainTable.add(inputTable);
 		//t1.add();
-		t1.add(t2);
+		mainTable.add(playerTable);
 
 		//t1.pack();
-		table.size(Gdx.graphics.getWidth()/2,Gdx.graphics.getHeight());
-		t2.size(Gdx.graphics.getWidth()/2,Gdx.graphics.getHeight());
+		inputTable.size(Gdx.graphics.getWidth()/2,Gdx.graphics.getHeight());
+		playerTable.size(Gdx.graphics.getWidth()/2,Gdx.graphics.getHeight());
 
-		stage.addActor(t1);
+		stage.addActor(mainTable);
 	}
 
 	// expand when needing more buttons
@@ -69,7 +74,7 @@ public class MainScreen extends AbstractScreen {
 	}
 
 	public void addPlayer(String name) {
-		t2.add(name);
+		playerTable.add(name);
 	}
 
 	public String getText() {
@@ -85,6 +90,11 @@ public class MainScreen extends AbstractScreen {
 	@Override
 	public void show() {
 		Gdx.input.setInputProcessor(stage);
+	}
+	
+	public void clearPlayers(){
+		playerTable.clear();
+		playerTable.add("Players:");
 	}
 
 	@Override

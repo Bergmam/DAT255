@@ -24,26 +24,28 @@ public class PopUpListener extends ClickListener {
 
 			PopUp pop = (PopUp) event.getListenerActor();
 			String name = event.getTarget().getParent().getName();
-
-			if (pop.getTitle().equalsIgnoreCase("Attack")) {
+			String title = pop.getTitle();
+			if (title.equalsIgnoreCase("Attack")) {
 				if (name.equals("confirm")) {
 					model.battle((int) pop.getValue());
 				} else if (name.equals("cancel")) {
 					model.flushProvinces();
 				}
-			} else if (pop.getTitle().equalsIgnoreCase("Movement")
+			} else if (title.equalsIgnoreCase("Movement")
 					|| pop.getTitle().equalsIgnoreCase("Occupy")) {
 				if (name.equals("confirm")) {
 					model.moveToProvince((int) pop.getValue());
 				} else if (name.equals("cancel")) {
 					model.flushProvinces();
 				}
-			} else if (pop.getTitle().equalsIgnoreCase("Again?")) {
+			} else if (title.equalsIgnoreCase("Again?")) {
 				if (name.equals("confirm")) {
 					model.battle((int) pop.getValue());
 				} else if (name.equals("cancel")) {
 					model.flushProvinces();
 				}
+			} else if(title.equalsIgnoreCase("Congratz")){
+				ScreenManager.getInstance().gameOver();
 			}
 		}
 	}

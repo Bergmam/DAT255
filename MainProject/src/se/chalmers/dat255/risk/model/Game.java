@@ -312,6 +312,7 @@ public class Game implements IGame {
 
 	private void win(Player win) {
 		pcs.firePropertyChange("Win", 0, win);
+		System.out.println("Winner; " + win.getName());
 	}
 
 	// also handles defeat of neutral players, because they aren't
