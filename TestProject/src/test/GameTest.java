@@ -408,5 +408,49 @@ public class GameTest {
 			assertEquals(NullPointerException.class, expected.getClass());
 		}
 	}
+	
+	@Test
+	public void testBattle(){
+		Player player1 = game.getPlayers().get(0);
+		Player player2 = game.getPlayers().get(1);
+		ArrayList<IProvince> provinces = game1.getGameProvinces();
+		
+		IProvince myProvince = getPlayerProvince(player1, provinces, game1);
+		IProvince myProvince1 = getAnotherProvinceFromPlayer(game1,myProvince);
+		IProvince notMine = getPlayerProvince(player2, provinces, game1);		
+		
+		myProvince.addUnits(10);
+		myProvince1.addUnits(10);
+		myProvince.addUnits(10);
+		
+		getToPhase2(game1);
+		
+		int mP1Units = myProvince.getUnits();
+		int notmPUnits = notMine.getUnits();
+		
+		//First we test if you can battle with yourself
+		game1.handleProvinceEvent(myProvince);
+		game1.handleProvinceEvent(myProvince1);
+
+		try {
+			game1.battle(3);
+			fail("should've thrown an exception");
+		} catch (Throwable expected) {
+			assertEquals(NullPointerException.class, expected.getClass());
+		}
+		
+		//Now we try to battle with Player2.
+		game1.handleProvinceEvent(myProvince);
+		game1.handleProvinceEvent(notMine);
+		
+		game1.battle(3);
+		assertTrue(mP1Units-myProvince.getUnits()+notmPUnits-notMine.getUnits() == 2);
+		
+		game1.battle(2);
+		assertTrue(mP1Units-myProvince.getUnits()+notmPUnits-notMine.getUnits() == 2+2);
+		
+		game1.battle(1);
+		assertTrue(mP1Units-myProvince.getUnits()+notmPUnits-notMine.getUnits() == 2+2+1);
+	}
 
 }
