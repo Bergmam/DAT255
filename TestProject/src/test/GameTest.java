@@ -310,7 +310,8 @@ public class GameTest {
 			IProvince myProvince) {
 		for (IProvince province : game.getGameProvinces()) {
 			int owner = game.getOwner(myProvince.getId());
-			if (owner == game.getOwner(province.getId()) && myProvince != province) {
+			if (owner == game.getOwner(province.getId())
+					&& myProvince != province) {
 				return province;
 			}
 		}
@@ -330,47 +331,82 @@ public class GameTest {
 		game1.handleProvinceEvent(myProvince);
 		game1.handleProvinceEvent(myProvince1);
 		game1.flushProvinces();
-		
-		//now you cannot move Provinces because you have no where to move them.
+
+		// now you cannot move Provinces because you have no where to move them.
 		try {
 			gameNoNeighbors.moveToProvince(1);
 			fail("should've thrown an exception");
 		} catch (Throwable expected) {
 			assertEquals(NullPointerException.class, expected.getClass());
 		}
-		
-		//Without flush this should work
+
+		// Without flush this should work
 		game1.handleProvinceEvent(myProvince);
 		game1.handleProvinceEvent(myProvince1);
 		game1.moveToProvince(1);
-		
 
 	}
 
 	@Test
 	public void testMoveTroops() {
-		//First we test it in Phase2, that time we can move troops more than once
+		// First we test it in Phase2, that time we can move troops more than
+		// once
 		ArrayList<IProvince> provinces = game1.getGameProvinces();
 		IProvince myProvince = getPlayerProvince(game1.getActivePlayer(),
 				provinces, game1);
 		IProvince myProvince1 = getAnotherProvinceFromPlayer(game1, myProvince);
+		IProvince notMine = getPlayerProvince(game1.getPlayers().get(1),
+				provinces, game1);
 		getToPhase2(game1);
-		
-		myProvince.addUnits(3);
-		myProvince1.addUnits(4);
-		
+
+		myProvince.addUnits(10);
+
 		int unitsP1Before = myProvince.getUnits();
 		int unitsP2Before = myProvince1.getUnits();
-		
+
 		game1.handleProvinceEvent(myProvince);
 		game1.handleProvinceEvent(myProvince1);
-		
-		//game1.moveToProvince(2);
-		
-		
-		//Can only move troops once in Phase3.
+
+		// Because both the province are owned by the activ player
+		try {
+			game1.moveToProvince(1);
+			fail("should've thrown an exception");
+		} catch (Throwable expected) {
+			assertEquals(NullPointerException.class, expected.getClass());
+		}
+
+		notMine.addUnits(4);
+		int notMineUnitsBefore = notMine.getUnits();
+
+		game1.handleProvinceEvent(myProvince);
+		game1.handleProvinceEvent(notMine);
+
+		game1.moveToProvince(2);
+
+		assertTrue(notMine.getUnits() == notMineUnitsBefore + 2);
+		assertTrue(myProvince.getUnits() == unitsP1Before - 2);
+
+		game1.handlePhaseEvent();
+
+		// Move troops
 		game1.handleProvinceEvent(myProvince);
 		game1.handleProvinceEvent(myProvince1);
+
+		game1.moveToProvince(2);
+
+		assertTrue(myProvince.getUnits() == unitsP1Before - 4);
+		assertTrue(myProvince1.getUnits() == unitsP2Before + 2);
+
+		// Can only move troops once in Phase3.
+		game1.handleProvinceEvent(myProvince);
+		game1.handleProvinceEvent(myProvince1);
+
+		try {
+			game1.moveToProvince(1);
+			fail("should've thrown an exception");
+		} catch (Throwable expected) {
+			assertEquals(NullPointerException.class, expected.getClass());
+		}
 	}
 
 }
