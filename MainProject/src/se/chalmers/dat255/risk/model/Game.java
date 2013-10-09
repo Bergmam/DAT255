@@ -352,8 +352,6 @@ public class Game implements IGame {
 
 	@Override
 	public void surrender() {
-		System.out.println("Player " + getActivePlayer().getName()
-				+ " has surrendered");
 		playerLose(getActivePlayer());
 		phaseHandler.surrender(players);
 		if (getCurrentPhase() == Phase.FBuild) {
@@ -362,7 +360,6 @@ public class Game implements IGame {
 			updateValues();
 		}
 		flushProvinces();
-		System.out.println("New Player is: " + getActivePlayer().getName());
 	}
 
 	/*
@@ -379,10 +376,6 @@ public class Game implements IGame {
 		int result = eventHandler.handlePhaseEvent(getActivePlayer(), bonus,
 				players);
 		if (result == 2) {
-			System.out.println("New active player: "
-					+ phaseHandler.getActivePlayer());
-			System.out.println("New active player name: "
-					+ getActivePlayer().getName());
 			bonusHandler.calcBonusForF0(getActivePlayer().getNrOfProvinces());
 		} else if (result == 0) {
 			updateValues();
