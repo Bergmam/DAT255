@@ -1,5 +1,12 @@
 package test;
-import se.chalmers.dat255.risk.model.*;
+import static org.junit.Assert.*;
+
+import org.junit.Before;
+import org.junit.Test;
+
+import se.chalmers.dat255.risk.model.Card;
+import se.chalmers.dat255.risk.model.CardExanger;
+import se.chalmers.dat255.risk.model.Player;
 
 
 public class CardExangerTest {
