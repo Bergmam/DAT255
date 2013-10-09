@@ -46,6 +46,12 @@ public class CardExangerTest {
 		cardExanger.makeExange(card1, player1);
 		
 		assertTrue(cardExanger.getCard1() == card1);
+		if(cardExanger.getCard2()!=null){
+			System.out.print("Den var inte null utan innehöll ett kort: " + cardExanger.getCard2().getName());
+		}
+		else{
+			System.out.print("Den är null");
+		}
 		assertTrue(cardExanger.getCard2() == null);
 		
 		// Adding another simular card
