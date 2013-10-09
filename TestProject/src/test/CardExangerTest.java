@@ -60,9 +60,9 @@ public class CardExangerTest {
 		assertTrue(cardExanger.getCard2() == card2);
 		
 		// Adding card1 again should be removed and getCard2()==null
-		cardExanger.makeExange(card1, player1);		
-		assertTrue(cardExanger.getCard1() == card2);
+		cardExanger.makeExange(card1, player1);	
 		assertTrue(cardExanger.getCard2() == null);
+		assertTrue(cardExanger.getCard1() == card2);
 		
 		// Flush and restart
 		cardExanger.flushCards();
