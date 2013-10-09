@@ -15,7 +15,7 @@ public class ChangePhase extends AbstractView {
 	private Label label;
 
 	public ChangePhase(IGame model) {
-		super(Resource.getInstance().triangle, Resource.getInstance().triangle);
+		super(Resource.getInstance().circleSelected, Resource.getInstance().circleSelected);
 		this.model = model;
 		size(width, height);
 		label = new Label(getText(), new LabelStyle(font, Color.RED));

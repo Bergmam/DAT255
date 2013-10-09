@@ -16,8 +16,6 @@ public class Resource {
 
 	public Texture backGround = new Texture(
 			Gdx.files.internal("Gfx/RiskMap1.png"));
-	public Texture cardStageBg2 = new Texture(
-			Gdx.files.internal("Gfx/RiskMap.png"));
 
 	public Texture artillery = new Texture(Gdx.files.internal("Gfx/Cannon.png"));
 	public Texture cavalry = new Texture(Gdx.files.internal("Gfx/Cavalry.png"));
@@ -32,12 +30,11 @@ public class Resource {
 			Gdx.files.internal("Gfx/Soldier1.png"));
 	public Texture joker2 = new Texture(Gdx.files.internal("Gfx/Joker1.png"));
 
-	public Texture diamond = new Texture(Gdx.files.internal("Gfx/diamond.png"));
 	public Texture cardHolder = new Texture(
 			Gdx.files.internal("Gfx/RiskCard.jpg"));
-	public Texture circle = new Texture(Gdx.files.internal("Gfx/circle3.png"));
-	public Texture triangle = new Texture(
-			Gdx.files.internal("Gfx/triangle.png"));
+	public Texture circle = new Texture(Gdx.files.internal("Gfx/circle.png"));
+	public Texture circleSelected = new Texture(
+			Gdx.files.internal("Gfx/circleOutline.png"));
 	public FileHandle neighbours = Gdx.files.internal("Gfx/neighbours.txt");
 	public FileHandle cords = Gdx.files.internal("Gfx/Cords.txt");
 	public FileHandle continents = Gdx.files.internal("Gfx/continents.txt");
@@ -72,10 +69,9 @@ public class Resource {
 		joker2 = new Texture(Gdx.files.internal("Gfx/Joker1.png"));
 		
 		
-		diamond = new Texture(Gdx.files.internal("Gfx/diamond.png"));
 		cardHolder = new Texture(Gdx.files.internal("Gfx/RiskCard.jpg"));
 		circle = new Texture(Gdx.files.internal("Gfx/circle3.png"));
-		triangle = new Texture(Gdx.files.internal("Gfx/triangle.png"));
+		circleSelected = new Texture(Gdx.files.internal("Gfx/triangle.png"));
 		neighbours = Gdx.files.internal("Gfx/neighbours.txt");
 		cords = Gdx.files.internal("Gfx/Cords.txt");
 		continents = Gdx.files.internal("Gfx/continents.txt");

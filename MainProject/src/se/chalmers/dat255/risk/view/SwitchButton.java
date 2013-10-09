@@ -16,7 +16,7 @@ public class SwitchButton extends AbstractView {
 	private String current;
 
 	public SwitchButton() {
-		super(Resource.getInstance().triangle, Resource.getInstance().triangle);
+		super(Resource.getInstance().circleSelected, Resource.getInstance().circleSelected);
 		current = cards;
 		size(width, height);
 		label = new Label(current, new LabelStyle(font, Color.RED));
