@@ -94,7 +94,7 @@ public class CardExanger {
 	 * Only for testing
 	 */
 	public ICard getCard2(){
-		return card1;
+		return card2;
 	}
 	
 	
