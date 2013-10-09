@@ -14,9 +14,9 @@ public class CardExangerTest {
 		player1 = new Player(0, "Adolf");
 		
 		
-		player1.addCard(card1);
-		player1.addCard(card2);
-		player1.addCard(card3);
+		//player1.addCard(card1);
+		//player1.addCard(card2);
+		//player1.addCard(card3);
 		
 		
 		
