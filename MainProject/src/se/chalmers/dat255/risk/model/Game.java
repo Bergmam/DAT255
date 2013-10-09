@@ -160,67 +160,68 @@ public class Game implements IGame {
 		// FIGHTING PHASE 2, FIGHT IF TWO PROVINCE CLICKED AND OWNED BY
 		// DIFFERENT PLAYER AND ATTACKING PROVINCE OWNED BY ME
 		else if (getCurrentPhase() == Phase.F2) {
-			if (myProvince(newProvince.getId()) && newProvince.getUnits()>1) {
-				if (oldProvince != null) {
-					oldProvince.setActive(false);
-				}
-				oldProvince = newProvince;
-				System.out.println("Moving from: " + oldProvince.getId());
-				oldProvince.setActive(true);
-
-			}
-
-			else if (oldProvince != null) {
-				// FIGHT IF TWO PROVINCE CLICKED AND OWNED BY DIFFERENT PLAYER
-				// AND ATTACKING PROVINCE OWNED BY ME
-				if (checkProvinceOk(oldProvince, newProvince, false)) {
-					// saving second province to be used later after
-					// nbr of dices has been decided by the user
-					secondProvince = newProvince;
-					secondProvince.setActive(true);
-					pcs.firePropertyChange(
-							"Attack",
-							oldProvince.getUnits() - 1 >= 3 ? 3 : oldProvince
-									.getUnits() - 1, secondProvince);
-					// battle(oldClickedProvince, newClickedProvince);
-				} else {
-					flushProvinces();
-				}
-			}
-			if (oldProvince == null) {
-				System.out.println("Moving from: -");
-			}
-
-		}
-
-		// MOVING TROOPS IN PHASE 3
+			handlePhaseF2(newProvince);
+		}// MOVING TROOPS IN PHASE 3
 		else if (getCurrentPhase() == Phase.F3 && !movedTroops) {
-			if (myProvince(newProvince.getId()) && oldProvince == null
-					&& newProvince.getUnits() > 1) {
-				oldProvince = newProvince;
-				oldProvince.setActive(true);
-			}
-
-			else if (oldProvince != null) {
-				if (checkProvinceOk(oldProvince, newProvince, true)) {
-					if (oldProvince.getUnits() > 1) {
-
-						secondProvince = newProvince;
-						secondProvince.setActive(true);
-						pcs.firePropertyChange("Movement",
-								oldProvince.getUnits(), 1);
-					}
-				}
-			}
-		}
-		// Placing troops in build phase
+			handlePhaseF3(newProvince);
+		}// Placing troops in build phase
 		else if (getCurrentPhase() == Phase.FBuild) {
 			if (worldMap.getOwner(newProvince.getId()) == getActivePlayer()
 					&& bonus > 0) {
 				placeBonusUnits(1, newProvince);
 			}
 		}
+	}
 
+	private void handlePhaseF2(IProvince newProvince) {
+		if (myProvince(newProvince.getId()) && newProvince.getUnits() > 1) {
+			if (oldProvince != null) {
+				oldProvince.setActive(false);
+			}
+			oldProvince = newProvince;
+			System.out.println("Moving from: " + oldProvince.getId());
+			oldProvince.setActive(true);
+
+		} else if (oldProvince != null) {
+			// FIGHT IF TWO PROVINCE CLICKED AND OWNED BY DIFFERENT PLAYER
+			// AND ATTACKING PROVINCE OWNED BY ME
+			if (checkProvinceOk(oldProvince, newProvince, false)) {
+				// saving second province to be used later after
+				// nbr of dices has been decided by the user
+				secondProvince = newProvince;
+				secondProvince.setActive(true);
+				pcs.firePropertyChange(
+						"Attack",
+						oldProvince.getUnits() - 1 >= 3 ? 3 : oldProvince
+								.getUnits() - 1, secondProvince);
+				// battle(oldClickedProvince, newClickedProvince);
+			} else {
+				flushProvinces();
+			}
+		}
+		if (oldProvince == null) {
+			System.out.println("Moving from: -");
+		}
+	}
+
+	private void handlePhaseF3(IProvince newProvince) {
+		if (myProvince(newProvince.getId()) && oldProvince == null
+				&& newProvince.getUnits() > 1) {
+			oldProvince = newProvince;
+			oldProvince.setActive(true);
+		}
+
+		else if (oldProvince != null) {
+			if (checkProvinceOk(oldProvince, newProvince, true)) {
+				if (oldProvince.getUnits() > 1) {
+
+					secondProvince = newProvince;
+					secondProvince.setActive(true);
+					pcs.firePropertyChange("Movement", oldProvince.getUnits(),
+							1);
+				}
+			}
+		}
 	}
 
 	@Override
@@ -326,25 +327,6 @@ public class Game implements IGame {
 
 	}
 
-	@Override
-	// TODO lot of duplicate code in all surrender related methods
-	public void surrender() {
-		System.out.println("Player " + getActivePlayer().getName()
-				+ " has surrendered");
-		playerLose(getActivePlayer());
-		phaseHandler.surrender(players);
-		if (getCurrentPhase() == Phase.FBuild) {
-			bonusHandler.calcBonusForF0(getActivePlayer().getNrOfProvinces());
-		} else {
-			worldMap.updateBonus();
-			bonusHandler.calcBonusUnits(getActivePlayer());
-			firstProvinceConqueredThisTurn = true;
-			movedTroops = false;
-			flushProvinces();
-		}
-		System.out.println("New Player is: " + getActivePlayer().getName());
-	}
-
 	private boolean attack(int offensiveDice, IProvince offensive,
 			IProvince defensive) {
 
@@ -370,6 +352,21 @@ public class Game implements IGame {
 		}
 	}
 
+	@Override
+	public void surrender() {
+		System.out.println("Player " + getActivePlayer().getName()
+				+ " has surrendered");
+		playerLose(getActivePlayer());
+		phaseHandler.surrender(players);
+		if (getCurrentPhase() == Phase.FBuild) {
+			bonusHandler.calcBonusForF0(getActivePlayer().getNrOfProvinces());
+		} else {
+			updateValues();
+		}
+		flushProvinces();
+		System.out.println("New Player is: " + getActivePlayer().getName());
+	}
+
 	/*
 	 * Text taken from TurnAndPhase
 	 * 
@@ -390,13 +387,16 @@ public class Game implements IGame {
 					+ getActivePlayer().getName());
 			bonusHandler.calcBonusForF0(getActivePlayer().getNrOfProvinces());
 		} else if (result == 0) {
-			worldMap.updateBonus();
-			bonusHandler.calcBonusUnits(getActivePlayer());
-			firstProvinceConqueredThisTurn = true;// didn't see a reset of this
-													// elsewhere so i added one
-			movedTroops = false;
+			updateValues();
 		}
 		flushProvinces();// clean temps between turns and phases
+	}
+
+	private void updateValues() {
+		worldMap.updateBonus();
+		bonusHandler.calcBonusUnits(getActivePlayer());
+		firstProvinceConqueredThisTurn = true;
+		movedTroops = false;
 	}
 
 	@Override
