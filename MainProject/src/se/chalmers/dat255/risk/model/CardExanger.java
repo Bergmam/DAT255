@@ -59,17 +59,13 @@ public class CardExanger {
 	 */
 	private boolean handledBefore(ICard card) {
 		if (card.isActive()) {
-			card.setActive(false);
 			if (card.equals(card2)) {
 				card2 = null;
 			} else if (card.equals(card1)) {
-				if (card2 != null) {
-					card1 = card2;
-					card2 = null;
-				} else {
-					card1 = null;
-				}
+				card1=card2;
+				card2=null;
 			}
+			card.setActive(false);
 			return true;
 		}
 		return false;
@@ -87,4 +83,19 @@ public class CardExanger {
 		card2 = null;
 		
 	}
+	
+	/*
+	 * Only for testing
+	 */
+	public ICard getCard1(){
+		return card1;
+	}
+	/*
+	 * Only for testing
+	 */
+	public ICard getCard2(){
+		return card1;
+	}
+	
+	
 }
