@@ -451,6 +451,20 @@ public class GameTest {
 		
 		game1.battle(1);
 		assertTrue(mP1Units-myProvince.getUnits()+notmPUnits-notMine.getUnits() == 2+2+1);
+		
+		//Now we will see if we can win over player2.
+		notMine.removeUnits(notMine.getUnits()-1);
+		notmPUnits = notMine.getUnits();
+		
+		game1.handleProvinceEvent(myProvince);
+		game1.handleProvinceEvent(notMine);
+		
+		while(notMine.getUnits() > 0){
+			myProvince.addUnits(1);
+			game1.battle(3);
+		}
+		assertTrue(game1.getOwner(notMine.getId())==player1.getId());
+		
 	}
 
 }
