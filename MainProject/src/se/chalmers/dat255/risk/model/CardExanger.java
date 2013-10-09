@@ -87,4 +87,19 @@ public class CardExanger {
 		card2 = null;
 		
 	}
+	
+	/*
+	 * Only for testing
+	 */
+	public ICard getCard1(){
+		return card1;
+	}
+	/*
+	 * Only for testing
+	 */
+	public ICard getCard2(){
+		return card1;
+	}
+	
+	
 }
