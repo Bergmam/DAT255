@@ -55,8 +55,6 @@ public class CardExangerTest {
 		
 	}
 
-	@
-	
 	@Test
 	public void testFlushCards(){
 
