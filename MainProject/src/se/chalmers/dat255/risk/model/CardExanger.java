@@ -59,9 +59,12 @@ public class CardExanger {
 	 */
 	private boolean handledBefore(ICard card) {
 		if (card.isActive()) {
+			System.out.println("Här borda jag iaf hamna");
 			if (card.equals(card2)) {
+				System.out.println("Hej Linnea läs den som kom sist: Första");
 				card2 = null;
 			} else if (card.equals(card1)) {
+				System.out.println("Hej Linnea läs den som kom sist: Andra");				
 				card1=card2;
 				card2=null;
 			}
@@ -94,7 +97,7 @@ public class CardExanger {
 	 * Only for testing
 	 */
 	public ICard getCard2(){
-		return card1;
+		return card2;
 	}
 	
 	

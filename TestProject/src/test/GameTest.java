@@ -411,8 +411,8 @@ public class GameTest {
 	
 	@Test
 	public void testBattle(){
-		Player player1 = game.getPlayers().get(0);
-		Player player2 = game.getPlayers().get(1);
+		Player player1 = game1.getPlayers().get(0);
+		Player player2 = game1.getPlayers().get(1);
 		ArrayList<IProvince> provinces = game1.getGameProvinces();
 		
 		IProvince myProvince = getPlayerProvince(player1, provinces, game1);
@@ -427,6 +427,7 @@ public class GameTest {
 		
 		int mP1Units = myProvince.getUnits();
 		int notmPUnits = notMine.getUnits();
+		int numberOfCards = player1.getCards().size();
 		
 		//First we test if you can battle with yourself
 		game1.handleProvinceEvent(myProvince);
@@ -463,8 +464,10 @@ public class GameTest {
 			myProvince.addUnits(1);
 			game1.battle(3);
 		}
-		assertTrue(game1.getOwner(notMine.getId())==player1.getId());
 		
+		assertTrue(game1.getOwner(notMine.getId())==player1.getId());
+		assertTrue(player1.getCards().size() == numberOfCards + 1);
+
 	}
 
 }
