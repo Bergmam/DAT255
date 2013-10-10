@@ -537,10 +537,15 @@ public class GameTest {
 		assertTrue(players.size() == nmbOfPlayers-2);
 		assertTrue(game4.getActivePlayer() == players.get(0));
 		assertTrue(game4.getCurrentPhase() == Phase.F1);
-	}
-	
-	@Test
-	public void testWin(){
+		
+		game1.surrender();
+		
+		try {
+			game1.surrender();
+			fail("should've thrown an exception");
+		} catch (Throwable expected) {
+			assertEquals(IndexOutOfBoundsException.class, expected.getClass());
+		}
 		
 	}
 
