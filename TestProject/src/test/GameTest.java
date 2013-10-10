@@ -1,7 +1,8 @@
 package test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
 
@@ -10,10 +11,10 @@ import org.junit.Test;
 
 import se.chalmers.dat255.risk.model.Deck;
 import se.chalmers.dat255.risk.model.Game;
+import se.chalmers.dat255.risk.model.ICard;
 import se.chalmers.dat255.risk.model.IProvince;
 import se.chalmers.dat255.risk.model.Player;
 import se.chalmers.dat255.risk.model.TurnAndPhaseManager;
-import se.chalmers.dat255.risk.model.TurnAndPhaseManager.Phase;
 
 public class GameTest {
 
@@ -408,28 +409,28 @@ public class GameTest {
 			assertEquals(NullPointerException.class, expected.getClass());
 		}
 	}
-	
+
 	@Test
-	public void testBattle(){
+	public void testBattle() {
 		Player player1 = game1.getPlayers().get(0);
 		Player player2 = game1.getPlayers().get(1);
 		ArrayList<IProvince> provinces = game1.getGameProvinces();
-		
+
 		IProvince myProvince = getPlayerProvince(player1, provinces, game1);
-		IProvince myProvince1 = getAnotherProvinceFromPlayer(game1,myProvince);
-		IProvince notMine = getPlayerProvince(player2, provinces, game1);		
-		
+		IProvince myProvince1 = getAnotherProvinceFromPlayer(game1, myProvince);
+		IProvince notMine = getPlayerProvince(player2, provinces, game1);
+
 		myProvince.addUnits(10);
 		myProvince1.addUnits(10);
 		myProvince.addUnits(10);
-		
+
 		getToPhase2(game1);
-		
+
 		int mP1Units = myProvince.getUnits();
 		int notmPUnits = notMine.getUnits();
 		int numberOfCards = player1.getCards().size();
-		
-		//First we test if you can battle with yourself
+
+		// First we test if you can battle with yourself
 		game1.handleProvinceEvent(myProvince);
 		game1.handleProvinceEvent(myProvince1);
 
@@ -439,34 +440,59 @@ public class GameTest {
 		} catch (Throwable expected) {
 			assertEquals(NullPointerException.class, expected.getClass());
 		}
-		
-		//Now we try to battle with Player2.
+
+		// Now we try to battle with Player2.
 		game1.handleProvinceEvent(myProvince);
 		game1.handleProvinceEvent(notMine);
-		
+
 		game1.battle(3);
-		assertTrue(mP1Units-myProvince.getUnits()+notmPUnits-notMine.getUnits() == 2);
-		
+		assertTrue(mP1Units - myProvince.getUnits() + notmPUnits
+				- notMine.getUnits() == 2);
+
 		game1.battle(2);
-		assertTrue(mP1Units-myProvince.getUnits()+notmPUnits-notMine.getUnits() == 2+2);
-		
+		assertTrue(mP1Units - myProvince.getUnits() + notmPUnits
+				- notMine.getUnits() == 2 + 2);
+
 		game1.battle(1);
-		assertTrue(mP1Units-myProvince.getUnits()+notmPUnits-notMine.getUnits() == 2+2+1);
-		
-		//Now we will see if we can win over player2.
-		notMine.removeUnits(notMine.getUnits()-1);
+		assertTrue(mP1Units - myProvince.getUnits() + notmPUnits
+				- notMine.getUnits() == 2 + 2 + 1);
+
+		// Now we will see if we can win over player2.
+		notMine.removeUnits(notMine.getUnits() - 1);
 		notmPUnits = notMine.getUnits();
-		
+
 		game1.handleProvinceEvent(myProvince);
 		game1.handleProvinceEvent(notMine);
-		
-		while(notMine.getUnits() > 0){
+
+		while (notMine.getUnits() > 0) {
 			myProvince.addUnits(1);
 			game1.battle(3);
 		}
-		
-		assertTrue(game1.getOwner(notMine.getId())==player1.getId());
+
+		assertTrue(game1.getOwner(notMine.getId()) == player1.getId());
 		assertTrue(player1.getCards().size() == numberOfCards + 1);
+
+	}
+
+	@Test
+	public void testCardEvent() {
+		getToPhase1(game4);
+		Player player1 = game4.getActivePlayer();
+		ArrayList<ICard> cards = player1.getCards();
+
+		// So we know that we have 3 we can change in!
+		player1.addCard();
+		player1.addCard();
+		player1.addCard();
+		player1.addCard();
+		player1.addCard();
+
+		// If you press one, or two times nothing should happen. And if you
+		// press at the same card nothing should happen.
+		for (int i = 0; i < 3; i++) {
+			game1.handleCardEvent(player1.getCards().get(0));
+			assertTrue(cards.size() == 5);
+		}
 
 	}
 
