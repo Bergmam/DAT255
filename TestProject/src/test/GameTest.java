@@ -540,7 +540,7 @@ public class GameTest {
 		assertTrue(game4.getActivePlayer() == players.get(0));
 		assertTrue(game4.getCurrentPhase() == Phase.F1);
 		
-		//Now we will test if you can surrender if ou have won.
+		//Now we will test if you can surrender if ou have won. ()
 		game1.surrender();
 		
 		try {
