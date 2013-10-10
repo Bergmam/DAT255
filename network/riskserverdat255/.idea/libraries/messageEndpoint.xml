@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="messageEndpoint">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/endpoint-libs/libmessageEndpoint-v1/messageEndpoint/dat255.com-messageEndpoint-v1-20131007103347-java-1.16.0-rc-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/endpoint-libs/libmessageEndpoint-v1/messageEndpoint/dat255.com-messageEndpoint-v1-20131008081148-java-1.16.0-rc-sources.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

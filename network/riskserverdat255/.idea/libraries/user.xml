@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="user">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/libs/App Engine/user/appengine-jsr107cache-1.8.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/App Engine/user/jsr107cache-1.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

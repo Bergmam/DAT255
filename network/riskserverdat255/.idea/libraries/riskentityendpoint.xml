@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="riskentityendpoint">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/endpoint-libs/libriskentityendpoint-v1/riskentityendpoint/dat255.com-riskentityendpoint-v1-20131007103336-java-1.16.0-rc-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/endpoint-libs/libriskentityendpoint-v1/riskentityendpoint/dat255.com-riskentityendpoint-v1-20131008081137-java-1.16.0-rc-sources.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

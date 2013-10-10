@@ -1,0 +1,69 @@
+<component name="libraryTable">
+  <library name="libs4">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/libs/datanucleus-core-3.1.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/datanucleus-core-1.1.5.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/appengine-tools-api.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/appengine-local-runtime-shared.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/el-api.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/jsr107cache-1.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/jackson-core-2.1.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/gson-2.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/repackaged-appengine-jasper-6.0.29.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/datanucleus-enhancer-3.1.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/appengine-api-labs-1.8.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/servlet-api.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/google-api-client-1.16.0-rc.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/datanucleus-jpa-1.1.5.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/jsp-api.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/jdo-api-3.0.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/google-oauth-client-1.16.0-rc.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/appengine-endpoints.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/repackaged-appengine-tomcat-juli-6.0.29.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/repackaged-appengine-jasper-el-6.0.29.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/appengine-dev-jdk-overrides.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/appengine-api-stubs.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/appengine-api.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/repackaged-appengine-jakarta-jstl-1.1.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/repackaged-appengine-jakarta-standard-1.1.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/asm-4.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/appengine-api-1.0-sdk-1.8.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/repackaged-appengine-jasper-jdt-6.0.29.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/google-http-client-android-1.16.0-rc.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/appengine-agent.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/gcm.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/geronimo-jta_1.1_spec-1.1.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/appengine-testing.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/google_sql.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/google-http-client-jackson-1.16.0-rc.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/android-support-v4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/repackaged-appengine-ant-launcher-1.7.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/google-http-client-1.16.0-rc.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/appengine-agentruntime.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/appengine-api-labs.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/repackaged-appengine-ant-1.7.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/appengine-local-endpoints.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/geronimo-jpa_2.0_spec-1.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/jackson-core-asl-1.9.11.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/datanucleus-api-jdo-3.1.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/datanucleus-api-jpa-3.1.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/appengine-local-runtime.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/appengine-agentimpl.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/asm-4.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/geronimo-jpa_3.0_spec-1.1.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/jsr305-1.3.9.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/appengine-jsr107cache-1.8.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/datanucleus-appengine-2.1.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/datanucleus-appengine-1.0.10.final.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/google-http-client-gson-1.16.0-rc.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/datanucleus-enhancer-1.1.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/google-api-client-android-1.16.0-rc.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/jdo2-api-2.3-eb.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/google-http-client-jackson2-1.16.0-rc.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/appengine-remote-api.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/jta-1.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

@@ -1,0 +1,23 @@
+<component name="libraryTable">
+  <library name="dexedLibs">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/bin/dexedLibs/appengine-agentruntime-59fedd339b95f73505a76b562f88e50c.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bin/dexedLibs/google-http-client-jackson-1.16.0-rc-fd0efde35567c4a21483b0e2ebae5dde.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bin/dexedLibs/google-oauth-client-1.16.0-rc-445f2e7c6e92d1eca6a0bbd068774d20.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bin/dexedLibs/google-api-client-1.16.0-rc-2e3d9123071ac4ad2612225cd7701127.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bin/dexedLibs/jackson-core-asl-1.9.11-6258c63bde07b9e6e2d0d01fe83ae5aa.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bin/dexedLibs/google-api-client-android-1.16.0-rc-14629384fdf06a4c9e526ea112369610.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bin/dexedLibs/android-support-v4-35c9a9974fe666dd075d5da2bd704bf9.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bin/dexedLibs/google-http-client-1.16.0-rc-0ee86c26fb9130094e29ac1fdbf22f5e.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bin/dexedLibs/gcm-8b1b27d12a40aae1381180e003441b8f.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bin/dexedLibs/google-http-client-gson-1.16.0-rc-3e68762f273640f6ab983e72f952edad.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bin/dexedLibs/google-http-client-jackson2-1.16.0-rc-703cface344a7b9975d8e35f7dbb0c70.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bin/dexedLibs/jsr305-1.3.9-28264e3053e6c30f9579838fb1631877.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bin/dexedLibs/gson-2.1-f0de6d28bd8aead9882dd0fe9731a60b.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bin/dexedLibs/google-http-client-android-1.16.0-rc-a8affc0f5be36bd1c5ae3765ea24cf25.jar!/" />
+      <root url="jar://$PROJECT_DIR$/bin/dexedLibs/jackson-core-2.1.3-c24bf559525cbc3da41c7f77665d383b.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
