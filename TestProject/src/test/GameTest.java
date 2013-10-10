@@ -12,6 +12,7 @@ import org.junit.Test;
 
 import se.chalmers.dat255.risk.model.Card;
 import se.chalmers.dat255.risk.model.Card.CardType;
+import se.chalmers.dat255.risk.model.TurnAndPhaseManager.Phase;
 import se.chalmers.dat255.risk.model.Deck;
 import se.chalmers.dat255.risk.model.Game;
 import se.chalmers.dat255.risk.model.ICard;
@@ -522,5 +523,25 @@ public class GameTest {
 		
 	}
 	
+	@Test
+	public void testSurrender(){
+		int nmbOfPlayers = game4.getPlayers().size();
+		ArrayList<Player> players = game4.getPlayers();
+		
+		game4.surrender();
+		assertTrue(players.size() == nmbOfPlayers-1);
+		
+		getToPhase2(game4);
+		
+		game4.surrender();
+		assertTrue(players.size() == nmbOfPlayers-2);
+		assertTrue(game4.getActivePlayer() == players.get(0));
+		assertTrue(game4.getCurrentPhase() == Phase.F1);
+	}
+	
+	@Test
+	public void testWin(){
+		
+	}
 
 }
