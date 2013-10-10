@@ -39,7 +39,7 @@ public class GameScreen extends AbstractScreen {
 	}
 
 	public List<Actor> getSpecActors() {
-		return uiStage.getSpecActors();
+		return uiStage.getOthers();
 	}
 
 	public List<AbstractView> getViews() {

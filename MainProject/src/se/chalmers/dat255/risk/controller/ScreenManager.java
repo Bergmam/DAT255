@@ -14,7 +14,6 @@ import se.chalmers.dat255.risk.view.MainScreen;
 import se.chalmers.dat255.risk.view.PopUp;
 import se.chalmers.dat255.risk.view.ProvinceView;
 import se.chalmers.dat255.risk.view.SwitchButton;
-import se.chalmers.dat255.risk.view.UIStage;
 import se.chalmers.dat255.risk.view.resource.ColorHandler;
 import se.chalmers.dat255.risk.view.resource.Resource;
 
@@ -30,7 +29,6 @@ public class ScreenManager extends ClickListener {
 	private GameScreen screen;
 	private IGame model;
 	private GDXGame game;
-	private boolean isLoaded;
 	private final List<String> list = new ArrayList<String>();
 
 	private ScreenManager() {
@@ -80,18 +78,18 @@ public class ScreenManager extends ClickListener {
 				v.addListener(new ProvinceListener(model));
 			} else if (v instanceof CardView) {
 				v.addListener(new CardListener(model));
-			} else if (v instanceof ChangePhase) {
-				v.addListener(new ChangePhaseListener(model));
-			} else if (v instanceof SwitchButton) {
-				v.addListener(new SwitchListener());
-			}
+			} 
 		}
 
 		for (Actor a : screen.getSpecActors()) {
-			if (a instanceof Button) {
+			if (a.getClass() == Button.class) {
 				a.addListener(new SurrenderListener(model));
 			} else if (a instanceof PopUp) {
 				a.addListener(new PopUpListener(model));
+			}	else if (a instanceof ChangePhase) {
+				a.addListener(new ChangePhaseListener(model));
+			} else if (a instanceof SwitchButton) {
+				a.addListener(new SwitchListener());
 			}
 		}
 	}
