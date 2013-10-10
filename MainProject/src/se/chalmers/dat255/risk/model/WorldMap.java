@@ -144,11 +144,8 @@ public class WorldMap {
 	 */
 	public boolean isNeighbours(String provinceName1, String provinceName2) {
 		ArrayList<String> list = neighbours.get(provinceName1);
-		System.out.println("Provincename2: "+list.get(list.size()-1) + "==" + provinceName2);
-		System.out.println(list);
 		for(String province : list){
 			if(provinceName2.equals(province)){
-				System.out.println("Ja men nu så");
 				return true;
 			}
 		}
