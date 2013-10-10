@@ -528,16 +528,19 @@ public class GameTest {
 		int nmbOfPlayers = game4.getPlayers().size();
 		ArrayList<Player> players = game4.getPlayers();
 		
+		//First we test if one can surrender.
 		game4.surrender();
 		assertTrue(players.size() == nmbOfPlayers-1);
 		
 		getToPhase2(game4);
 		
+		// Now we test what happens if one surrender in the middle of the game. Changing player and phase.
 		game4.surrender();
 		assertTrue(players.size() == nmbOfPlayers-2);
 		assertTrue(game4.getActivePlayer() == players.get(0));
 		assertTrue(game4.getCurrentPhase() == Phase.F1);
 		
+		//Now we will test if you can surrender if ou have won.
 		game1.surrender();
 		
 		try {
