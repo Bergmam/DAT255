@@ -25,22 +25,20 @@ public class UIStage extends AbstractStage {
 	private ColorHandler color;
 	private PopUp pop;
 	private Button giveUp;
-	private List<Actor> spec;
 	private Table table;
 
 	public UIStage(IGame model) {
 		this.model = model;
-		spec = new ArrayList<Actor>();
 		model.addListener(this);
 		
 		table = new Table();
 		table.setFillParent(true);
 		
 		phase = new ChangePhase(model);
-		actor.add(phase);
+		others.add(phase);
 
 		switchButton = new SwitchButton();
-		actor.add(switchButton);
+		others.add(switchButton);
 
 		renderWorld = true;
 
@@ -54,10 +52,10 @@ public class UIStage extends AbstractStage {
 		giveUp = new Button(Resource.getInstance().skin);
 		giveUp.add("Surrender");
 
-		spec.add(giveUp);
+		others.add(giveUp);
 		
 		pop = new PopUp("Title");
-		spec.add(pop);
+		others.add(pop);
 		
 		
 		//table.debug();
@@ -77,10 +75,6 @@ public class UIStage extends AbstractStage {
 		addActor(label);
 		addActor(giveUp);*/
 
-	}
-
-	public List<Actor> getSpecActors() {
-		return spec;
 	}
 
 	public void showPopUp(String title, String msg, int maxValue, int minValue) {

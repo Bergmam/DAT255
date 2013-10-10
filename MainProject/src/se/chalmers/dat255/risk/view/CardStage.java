@@ -22,7 +22,7 @@ public class CardStage extends AbstractStage {
 		super();
 
 		for (int i = 0; i < 5; i++) {
-			actor.add(new CardView(Resource.getInstance().cardHolder, Resource
+			views.add(new CardView(Resource.getInstance().cardHolder, Resource
 					.getInstance().cardHolder));
 		}
 
@@ -32,19 +32,19 @@ public class CardStage extends AbstractStage {
 		 * getTexture(cards.get(i)), cards.get(i)); }
 		 */
 
-		for (Actor a : actor) {
+		for (Actor a : views) {
 			addActor(a);
 		}
 
 		for (int i = 0; i < 3; i++) {
-			actor.get(i).setPosition(
-					i * (Gdx.graphics.getWidth() / 3) + actor.get(i).width / 3,
+			views.get(i).setPosition(
+					i * (Gdx.graphics.getWidth() / 3) + views.get(i).width / 3,
 					Gdx.graphics.getHeight() / 2);
 		}
 
 		for (int i = 1, k = 3; k < 5; k++, i += 2) {
-			actor.get(k).setPosition((i * (Gdx.graphics.getWidth() / 5)) - 8,
-					actor.get(k).height / 10);
+			views.get(k).setPosition((i * (Gdx.graphics.getWidth() / 5)) - 8,
+					views.get(k).height / 10);
 		}
 
 		/*
@@ -57,7 +57,7 @@ public class CardStage extends AbstractStage {
 	}
 
 	public List<AbstractView> getViews() {
-		return actor;
+		return views;
 	}
 
 	private Texture getTexture(ICard card) {
@@ -95,7 +95,7 @@ public class CardStage extends AbstractStage {
 	}
 
 	private void removeCard(ICard card) {
-		for(AbstractView v : actor){
+		for(AbstractView v : views){
 			if(((CardView) v).getCard() == card){
 				((CardView) v).removeCard();
 				return;
@@ -106,7 +106,7 @@ public class CardStage extends AbstractStage {
 	}
 
 	private void addCard(ICard newCard) {
-		for (AbstractView c : actor) {
+		for (AbstractView c : views) {
 			if (!((CardView) c).hasCard()) {
 				((CardView) c).addCard(getTexture(newCard),
 						getCheckedTexture(newCard), newCard);

@@ -6,21 +6,21 @@ import se.chalmers.dat255.risk.view.resource.Resource;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 
-public class ChangePhase extends AbstractView {
+public class ChangePhase extends Button {
 
 	private IGame model;
 	private Label label;
 
 	public ChangePhase(IGame model) {
-		super(Resource.getInstance().circleSelected, Resource.getInstance().circleSelected);
+		super(Resource.getInstance().skin);
 		this.model = model;
-		size(width, height);
-		label = new Label(getText(), new LabelStyle(font, Color.RED));
-		label.setPosition(getTextX(), getTextY());
-
+		label = new Label(getText(), Resource.getInstance().skin);
+		add(label);
+		
 	}
 
 	/**
@@ -52,21 +52,10 @@ public class ChangePhase extends AbstractView {
 		return "value not found";
 	}
 
-	private float getTextX() {
-		return getX() + (width/2) - (label.getTextBounds().width/2);
-	}
-
-	private float getTextY() {
-		return getY() + getHeight() / 3;
-	}
-
 	@Override
 	public void draw(SpriteBatch batch, float alpha) {
-		batch.setColor(isClicked? Color.DARK_GRAY: Color.BLACK);
 		label.setText(getText());
-		label.setPosition(getTextX(), getTextY());
 		super.draw(batch, alpha);
-		label.draw(batch, alpha);
 	}
 
 }

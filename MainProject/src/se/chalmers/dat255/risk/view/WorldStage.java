@@ -53,7 +53,7 @@ public class WorldStage extends AbstractStage implements GestureListener {
 		camera.position.set(background.getWidth() / 2,
 				background.getHeight() / 2, 0);
 
-		actor = new ArrayList<AbstractView>();
+		views = new ArrayList<AbstractView>();
 
 		String wholeFile = positionsOnMap.readString();
 		String[] array = wholeFile.split("\\n");
@@ -66,7 +66,7 @@ public class WorldStage extends AbstractStage implements GestureListener {
 			int intYCord = Integer.parseInt(yCord);
 			ProvinceView provinceView = new ProvinceView(provinces.get(temp),
 					intXCord, intYCord);
-			actor.add(provinceView);
+			views.add(provinceView);
 			temp++;
 		}
 
@@ -82,8 +82,8 @@ public class WorldStage extends AbstractStage implements GestureListener {
 		 * } catch (FileNotFoundException e) { e.printStackTrace(); }
 		 */
 
-		for (int i = 0; i < actor.size(); i++) {
-			provinceGroup.addActor(actor.get(i));
+		for (int i = 0; i < views.size(); i++) {
+			provinceGroup.addActor(views.get(i));
 		}
 
 		addActor(background);
