@@ -66,14 +66,21 @@ public class WorldMap {
 			listOfProvinces.add(p1);
 			ArrayList<String> list = new ArrayList<String>();
 			for (int i = 1; i < array.length; i++) {
-				list.add(array[i]);
+				String anotherProvince = array[i];
+				list.add(anotherProvince);
 			}
+			String replace = list.remove(list.size()-1);
+			list.add(removeLastChar(replace)); // Removes some tabulator that shouldn't be in the end off the last province name
 			tempNeighbours.put(p1, list);
-
 		}
 		neighbours = new HashMap<String, ArrayList<String>>(tempNeighbours);
 		return listOfProvinces;
 	}
+	
+	private String removeLastChar(String p1){
+			return p1.substring(0, p1.length()-1);
+	}
+			
 
 	/*
 	 * Creating the continents.
@@ -137,9 +144,18 @@ public class WorldMap {
 	 */
 	public boolean isNeighbours(String provinceName1, String provinceName2) {
 		ArrayList<String> list = neighbours.get(provinceName1);
-		if (list.contains(provinceName2)) {
-			return true;
+		for(String province : list){
+			if(provinceName2.equals(province)){
+				return true;
+			}
 		}
+
+		
+		/*
+		if (list.contains(provinceName2)) {
+			System.out.println("Dom var ju grannar, allt är frid och fröjd");
+			return true;
+		}*/
 		return false;
 	}
 
