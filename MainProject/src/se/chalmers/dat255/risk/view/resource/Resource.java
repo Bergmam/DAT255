@@ -10,8 +10,6 @@ public class Resource {
 
 	private static Resource instance;
 
-	public TextureAtlas atlas = new TextureAtlas(
-			Gdx.files.internal("pack/uiskin.atlas"));
 	public Skin skin = new Skin(Gdx.files.internal("pack/uiskin.json"));
 
 	public Texture backGround = new Texture(
@@ -21,7 +19,7 @@ public class Resource {
 	public Texture cavalry = new Texture(Gdx.files.internal("Gfx/Cavalry.png"));
 	public Texture infantry = new Texture(Gdx.files.internal("Gfx/Soldier.png"));
 	public Texture joker = new Texture(Gdx.files.internal("Gfx/Joker.png"));
-	
+
 	public Texture artillery2 = new Texture(
 			Gdx.files.internal("Gfx/Cannon.png"));
 	public Texture cavalry2 = new Texture(
@@ -32,9 +30,11 @@ public class Resource {
 
 	public Texture cardHolder = new Texture(
 			Gdx.files.internal("Gfx/RiskCard.jpg"));
+
 	public Texture circle = new Texture(Gdx.files.internal("Gfx/circle.png"));
 	public Texture circleSelected = new Texture(
 			Gdx.files.internal("Gfx/circleOutline.png"));
+
 	public FileHandle neighbours = Gdx.files.internal("Gfx/neighbours.txt");
 	public FileHandle cords = Gdx.files.internal("Gfx/Cords.txt");
 	public FileHandle continents = Gdx.files.internal("Gfx/continents.txt");
@@ -54,24 +54,27 @@ public class Resource {
 	}
 
 	public void loadResources() {
-		// skin.addRegions(atlas);
 
-		backGround = new Texture(Gdx.files.internal("Gfx/RiskMap1.png"));
+		skin = new Skin(Gdx.files.internal("pack/uiskin.json"));
 		
+		backGround = new Texture(Gdx.files.internal("Gfx/RiskMap1.png"));
+
 		artillery = new Texture(Gdx.files.internal("Gfx/Cannon.png"));
 		cavalry = new Texture(Gdx.files.internal("Gfx/Cavalry.png"));
 		infantry = new Texture(Gdx.files.internal("Gfx/Soldier.png"));
 		joker = new Texture(Gdx.files.internal("Gfx/Joker.png"));
-		
+
 		artillery2 = new Texture(Gdx.files.internal("Gfx/Cannon.png"));
 		cavalry2 = new Texture(Gdx.files.internal("Gfx/Cavalry1.png"));
 		infantry2 = new Texture(Gdx.files.internal("Gfx/Soldier1.png"));
 		joker2 = new Texture(Gdx.files.internal("Gfx/Joker1.png"));
-		
-		
+
 		cardHolder = new Texture(Gdx.files.internal("Gfx/RiskCard.jpg"));
-		circle = new Texture(Gdx.files.internal("Gfx/circle3.png"));
-		circleSelected = new Texture(Gdx.files.internal("Gfx/triangle.png"));
+
+		circle = new Texture(Gdx.files.internal("Gfx/circle.png"));
+		circleSelected = new Texture(
+				Gdx.files.internal("Gfx/circleOutline.png"));
+
 		neighbours = Gdx.files.internal("Gfx/neighbours.txt");
 		cords = Gdx.files.internal("Gfx/Cords.txt");
 		continents = Gdx.files.internal("Gfx/continents.txt");
