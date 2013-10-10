@@ -1,5 +1,6 @@
 package test;
 
+import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
@@ -9,6 +10,8 @@ import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
 
+import se.chalmers.dat255.risk.model.Card;
+import se.chalmers.dat255.risk.model.Card.CardType;
 import se.chalmers.dat255.risk.model.Deck;
 import se.chalmers.dat255.risk.model.Game;
 import se.chalmers.dat255.risk.model.ICard;
@@ -304,7 +307,7 @@ public class GameTest {
 			while (game.getBonusUnitsLeft() > 0) {
 				game.handleProvinceEvent(myProvince);
 			}
-		}
+		} 
 	}
 
 	private IProvince getAnotherProvinceFromPlayer(Game game,
@@ -481,19 +484,43 @@ public class GameTest {
 		ArrayList<ICard> cards = player1.getCards();
 
 		// So we know that we have 3 we can change in!
-		player1.addCard();
-		player1.addCard();
-		player1.addCard();
-		player1.addCard();
-		player1.addCard();
-
+		cards.add(new Card(CardType.ARTILLERY, "A"));
+		cards.add(new Card(CardType.ARTILLERY, "B"));
+		cards.add(new Card(CardType.JOKER, "C"));
+		cards.add(new Card(CardType.INFANTRY, "D"));
+		cards.add(new Card(CardType.CAVALRY, "E"));
+		
 		// If you press one, or two times nothing should happen. And if you
 		// press at the same card nothing should happen.
 		for (int i = 0; i < 3; i++) {
-			game1.handleCardEvent(player1.getCards().get(0));
+			game4.handleCardEvent(player1.getCards().get(0));
 			assertTrue(cards.size() == 5);
 		}
+		
+		//now we test with two cards, one pressed two times
+		assertTrue(cards.get(0).isActive());
+		game4.handleCardEvent(player1.getCards().get(1));
+		game4.handleCardEvent(player1.getCards().get(3));
+		assertTrue(cards.size() == 5);
+		assertFalse(cards.get(0).isActive());
+		
+		//One moore time 
 
+		game4.handleCardEvent(player1.getCards().get(0));
+		game4.handleCardEvent(player1.getCards().get(1));
+		game4.handleCardEvent(player1.getCards().get(2));
+		assertTrue(cards.size() == 2);
+		
+		//We add One more card to check if we can exchange 3 cards, all with diffrent CardType
+		cards.add(new Card(CardType.ARTILLERY, "B"));
+		
+		game4.handleCardEvent(player1.getCards().get(0));
+		game4.handleCardEvent(player1.getCards().get(1));
+		game4.handleCardEvent(player1.getCards().get(2));
+		assertTrue(cards.size() == 0);
+		
+		
 	}
+	
 
 }
