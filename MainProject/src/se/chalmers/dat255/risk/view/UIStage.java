@@ -64,7 +64,7 @@ public class UIStage extends AbstractStage {
 		
 		table.add().expand();
 		table.add(buttonTable).bottom();
-		table.debug();
+		//table.debug();
 		
 		addActor(table);
 	}
