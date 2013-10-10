@@ -1,17 +1,14 @@
 package se.chalmers.dat255.risk.view;
 
 import java.beans.PropertyChangeEvent;
-import java.util.ArrayList;
-import java.util.List;
 
 import se.chalmers.dat255.risk.model.IGame;
 import se.chalmers.dat255.risk.view.resource.ColorHandler;
 import se.chalmers.dat255.risk.view.resource.Resource;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 
@@ -25,14 +22,16 @@ public class UIStage extends AbstractStage {
 	private ColorHandler color;
 	private PopUp pop;
 	private Button giveUp;
-	private Table table;
+	private Table table, buttonTable;
 
 	public UIStage(IGame model) {
 		this.model = model;
 		model.addListener(this);
-		
+
 		table = new Table();
 		table.setFillParent(true);
+
+		buttonTable = new Table();
 		
 		phase = new ChangePhase(model);
 		others.add(phase);
@@ -47,34 +46,27 @@ public class UIStage extends AbstractStage {
 		label = new Label(model.getActivePlayer().getName() + "	\nPhase: "
 				+ model.getCurrentPhase(), Resource.getInstance().skin,
 				"default-font", color.getColor(0));
-		label.setFontScale(label.getFontScaleX() * 1.8f);
-			
-		giveUp = new Button(Resource.getInstance().skin);
-		giveUp.add("Surrender");
+		label.setFontScale(label.getFontScaleX() * 1.8f);//TODO magic number
 
+		giveUp = new Button(Resource.getInstance().skin);
+		giveUp.add(new Label("Surrender",Resource.getInstance().skin));
 		others.add(giveUp);
-		
+
 		pop = new PopUp("Title");
 		others.add(pop);
-		
-		
-		//table.debug();
-		table.right().top();
+
 		table.add(label).expandX().center();
 		table.row().expandX().row();
-		table.add(giveUp).expand().right().bottom().row();
-		table.add(switchButton).expand().right().bottom().row();
-		table.add(phase).expand().right().bottom();
+		buttonTable.columnDefaults(0).expand().fill().width(phase.getLargestWidth());
+		buttonTable.add(giveUp).row();
+		buttonTable.add(switchButton).height(Gdx.graphics.getHeight()/9).row();
+		buttonTable.add(phase).height(Gdx.graphics.getHeight()/9).row();
 		
-		
-		
+		table.add().expand();
+		table.add(buttonTable).bottom();
+		table.debug();
 		
 		addActor(table);
-		/*addActor(phase);
-		addActor(switchButton);
-		addActor(label);
-		addActor(giveUp);*/
-
 	}
 
 	public void showPopUp(String title, String msg, int maxValue, int minValue) {
@@ -106,7 +98,7 @@ public class UIStage extends AbstractStage {
 			showPopUp("Occupy", "How many units do \nyou want to move?",
 					(Integer) event.getOldValue() - 1,
 					Integer.parseInt((String) event.getNewValue()));
-		} else if (event.getPropertyName().equalsIgnoreCase("Win")){
+		} else if (event.getPropertyName().equalsIgnoreCase("Win")) {
 			showPopUp("Congratz", "You have won!", 0, 0);
 		}
 

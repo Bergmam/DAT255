@@ -63,7 +63,7 @@ public class GameScreen extends AbstractScreen {
 		checkStageChange();
 		getStage().draw();
 		uiStage.draw();
-		//Table.drawDebug(uiStage);
+		Table.drawDebug(uiStage);
 	}
 
 	private void checkStageChange() {

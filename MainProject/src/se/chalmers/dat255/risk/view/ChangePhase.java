@@ -5,6 +5,7 @@ import se.chalmers.dat255.risk.model.TurnAndPhaseManager.Phase;
 import se.chalmers.dat255.risk.view.resource.Resource;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.BitmapFont.TextBounds;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -18,7 +19,7 @@ public class ChangePhase extends Button {
 	public ChangePhase(IGame model) {
 		super(Resource.getInstance().skin);
 		this.model = model;
-		label = new Label(getText(), Resource.getInstance().skin);
+		label = new Label("Next Phase", Resource.getInstance().skin);
 		add(label);
 		
 	}
@@ -50,6 +51,11 @@ public class ChangePhase extends Button {
 			return "End Turn";
 		}
 		return "value not found";
+	}
+	
+	//TODO bad, ugly way of doing this
+	public float getLargestWidth(){
+		return label.getTextBounds().width;
 	}
 
 	@Override
