@@ -55,7 +55,7 @@ public class Resource {
 	public void loadResources() {
 
 		skin = new Skin(Gdx.files.internal("pack/uiskin.json"));
-		
+
 		backGround = new Texture(Gdx.files.internal("Gfx/RiskMap1.png"));
 
 		artillery = new Texture(Gdx.files.internal("Gfx/Cannon.png"));
@@ -84,6 +84,24 @@ public class Resource {
 	}
 
 	public void dispose() {
+		skin.dispose();
+
 		backGround.dispose();
+
+		artillery.dispose();
+		cavalry.dispose();
+		infantry.dispose();
+		joker.dispose();
+
+		artillery2.dispose();
+		cavalry2.dispose();
+		infantry2.dispose();
+		joker2.dispose();
+
+		cardHolder.dispose();
+
+		circle.dispose();
+		circleSelected.dispose();
+
 	}
 }

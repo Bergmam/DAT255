@@ -101,7 +101,6 @@ public class CardStage extends AbstractStage {
 				return;
 			}
 		}
-
 	}
 
 	@Override
