@@ -14,7 +14,7 @@ public class SurrenderListener extends ClickListener {
 
 	@Override
 	public void clicked(InputEvent event, float x, float y) {
-		model.surrender();
+		model.surrender(false);
 	}
 
 }

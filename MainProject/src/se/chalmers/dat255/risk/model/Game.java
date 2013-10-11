@@ -28,18 +28,13 @@ public class Game implements IGame {
 
 	private String continentsFile;
 	private String neighboursFile;
-	
-	
-	private final int maxAllowedPlayers=6;
-	private final int minAllowedPlayers=2;
-	private final int numbersOfWildCards=6;
-	private final int oneDice=1;
-	private final int twoDices=2;
-	private final int threeDices=3;
-	
-	private final String movement="Movement";
-	private final String attack="Attack";
-	private final String conquer = "takeOver";
+
+	private final int maxAllowedPlayers = 6;
+	private final int minAllowedPlayers = 2;
+	private final int numbersOfWildCards = 6;
+	private final int oneDice = 1;
+	private final int twoDices = 2;
+	private final int threeDices = 3;
 
 	/**
 	 * Creates a new Game.
@@ -117,9 +112,10 @@ public class Game implements IGame {
 	private void placeBonusUnits(int units, IProvince province) {
 		bonusHandler.placeBonusUnits(units, province);
 	}
-	
+
 	/**
 	 * Same as above, except only place one unit.
+	 * 
 	 * @param province
 	 */
 	private void placeBonusUnits(IProvince province) {
@@ -189,10 +185,9 @@ public class Game implements IGame {
 				// nbr of dices has been decided by the user
 				secondProvince = newProvince;
 				secondProvince.setActive(true);
-				pcs.firePropertyChange(
-						attack,
-						oldProvince.getUnits() - 1 >= 3 ? threeDices : oldProvince
-								.getUnits() - 1, secondProvince);
+				pcs.firePropertyChange(ATTACK,
+						oldProvince.getUnits() - 1 >= 3 ? threeDices
+								: oldProvince.getUnits() - 1, secondProvince);
 				// battle(oldClickedProvince, newClickedProvince);
 			} else {
 				flushProvinces();
@@ -216,7 +211,7 @@ public class Game implements IGame {
 
 					secondProvince = newProvince;
 					secondProvince.setActive(true);
-					pcs.firePropertyChange(movement, oldProvince.getUnits(), 1);
+					pcs.firePropertyChange(MOVEMENT, oldProvince.getUnits(), 1);
 				}
 			}
 		}
@@ -277,11 +272,11 @@ public class Game implements IGame {
 				getActivePlayer().addCard();
 				firstProvinceConqueredThisTurn = false;
 			}
-			pcs.firePropertyChange(conquer, oldProvince.getUnits(), ""
+			pcs.firePropertyChange(CONQUER, oldProvince.getUnits(), ""
 					+ nbrOfDice);
 		} else if (oldProvince.getUnits() > 1) {
 			pcs.firePropertyChange(
-					"Again?",
+					AGAIN,
 					oldProvince.getUnits() - 1 >= 3 ? threeDices : oldProvince
 							.getUnits() - 1, 0);
 		} else {
@@ -311,7 +306,7 @@ public class Game implements IGame {
 	}
 
 	private void win(Player win) {
-		pcs.firePropertyChange("Win", 0, win);
+		pcs.firePropertyChange(WIN, 0, win);
 		System.out.println("Winner; " + win.getName());
 	}
 
@@ -349,20 +344,24 @@ public class Game implements IGame {
 	}
 
 	@Override
-	public void surrender() {
-		playerLose(getActivePlayer());
-		phaseHandler.surrender(players);
-		if (players.size() == 1) {
-			win(players.get(0));
-			return;
-		}
-		if (getCurrentPhase() == Phase.FBuild) {
-			bonusHandler.calcBonusForF0(getActivePlayer().getNrOfProvinces());
+	public void surrender(boolean confirm) {
+		if (confirm) {
+			playerLose(getActivePlayer());
+			phaseHandler.surrender(players);
+			if (players.size() == 1) {
+				win(players.get(0));
+				return;
+			}
+			if (getCurrentPhase() == Phase.FBuild) {
+				bonusHandler.calcBonusForF0(getActivePlayer()
+						.getNrOfProvinces());
+			} else {
+				updateValues();
+			}
+			flushProvinces();
 		} else {
-			updateValues();
+			pcs.firePropertyChange(SURRENDER, true, false);
 		}
-		flushProvinces();
-
 	}
 
 	/*
@@ -370,16 +369,15 @@ public class Game implements IGame {
 	 * 
 	 * Changing phase and then pokes on other methods.
 	 * 
-	 * ComputeBonusForF0 if if a new bonus shall be computed. 
-	 * ChangedPhase if a change of phase has taken place. 
-	 * ComputeBonusForF1 if a new turn has begun (and not in buildingphase = F0). 
-	 * DoNothing if phase didn't change.
+	 * ComputeBonusForF0 if if a new bonus shall be computed. ChangedPhase if a
+	 * change of phase has taken place. ComputeBonusForF1 if a new turn has
+	 * begun (and not in buildingphase = F0). DoNothing if phase didn't change.
 	 */
 	@Override
 	public void handlePhaseEvent() {
 		int bonus = bonusHandler.getBonus();
-		TurnAndPhaseManager.ResultType result = eventHandler.handlePhaseEvent(getActivePlayer(), bonus,
-				players);
+		TurnAndPhaseManager.ResultType result = eventHandler.handlePhaseEvent(
+				getActivePlayer(), bonus, players);
 		if (result == TurnAndPhaseManager.ResultType.ComputeBonusForF0) {
 			bonusHandler.calcBonusForF0(getActivePlayer().getNrOfProvinces());
 		} else if (result == TurnAndPhaseManager.ResultType.ComputeBonusForF1) {

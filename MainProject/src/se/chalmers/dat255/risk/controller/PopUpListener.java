@@ -51,8 +51,6 @@ public class PopUpListener extends ClickListener {
 				} else if (name.equals("cancel")) {
 					model.flushProvinces();
 				}
-			} else if (title.equalsIgnoreCase("Congratz")) {
-				ScreenManager.getInstance().gameOver();
 			}
 		}
 

@@ -14,6 +14,12 @@ import se.chalmers.dat255.risk.view.resource.Resource;
  * 
  */
 public interface IGame {
+	public final static String MOVEMENT = "Movement";
+	public final static String ATTACK = "Attack";
+	public final static String CONQUER = "takeOver";
+	public final static String AGAIN = "Again";
+	public final static String WIN = "Win";
+	public final static String SURRENDER = "Surrender";
 
 	/**
 	 * Sets up a new Game
@@ -127,12 +133,15 @@ public interface IGame {
 
 	/**
 	 * Called when the current player gives up
+	 * 
+	 * @param confirm
+	 *            true if player has already confirmed their surrender, false
+	 *            otherwise
 	 */
-	public void surrender();
-	
-	
+	public void surrender(boolean confirm);
+
 	/**
-	 * Inactivates any saved provinces 
+	 * Inactivates any saved provinces
 	 */
 	public void flushProvinces();
 }

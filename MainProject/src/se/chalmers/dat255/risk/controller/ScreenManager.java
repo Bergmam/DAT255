@@ -9,8 +9,10 @@ import se.chalmers.dat255.risk.model.IGame;
 import se.chalmers.dat255.risk.view.AbstractView;
 import se.chalmers.dat255.risk.view.CardView;
 import se.chalmers.dat255.risk.view.ChangePhase;
+import se.chalmers.dat255.risk.view.ConfirmDialog;
 import se.chalmers.dat255.risk.view.GameScreen;
 import se.chalmers.dat255.risk.view.MainScreen;
+import se.chalmers.dat255.risk.view.Message;
 import se.chalmers.dat255.risk.view.PopUp;
 import se.chalmers.dat255.risk.view.ProvinceView;
 import se.chalmers.dat255.risk.view.SwitchButton;
@@ -90,6 +92,10 @@ public class ScreenManager extends ClickListener {
 				a.addListener(new ChangePhaseListener(model));
 			} else if (a instanceof SwitchButton) {
 				a.addListener(new SwitchListener());
+			} else if (a instanceof ConfirmDialog) {
+				a.addCaptureListener(new ConfirmListener(model));
+			} else if (a instanceof Message) {
+				a.addListener(new MessageListener());
 			}
 		}
 	}

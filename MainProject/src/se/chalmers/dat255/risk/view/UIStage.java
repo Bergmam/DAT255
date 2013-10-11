@@ -2,6 +2,7 @@ package se.chalmers.dat255.risk.view;
 
 import java.beans.PropertyChangeEvent;
 
+import se.chalmers.dat255.risk.model.Game;
 import se.chalmers.dat255.risk.model.IGame;
 import se.chalmers.dat255.risk.view.resource.ColorHandler;
 import se.chalmers.dat255.risk.view.resource.Resource;
@@ -21,6 +22,8 @@ public class UIStage extends AbstractStage {
 	private IGame model;
 	private ColorHandler color;
 	private PopUp pop;
+	private Message message;
+	private ConfirmDialog confirm;
 	private Button giveUp;
 	private Table table, buttonTable;
 
@@ -32,7 +35,7 @@ public class UIStage extends AbstractStage {
 		table.setFillParent(true);
 
 		buttonTable = new Table();
-		
+
 		phase = new ChangePhase(model);
 		others.add(phase);
 
@@ -46,26 +49,34 @@ public class UIStage extends AbstractStage {
 		label = new Label(model.getActivePlayer().getName() + "	\nPhase: "
 				+ model.getCurrentPhase(), Resource.getInstance().skin,
 				"default-font", color.getColor(0));
-		label.setFontScale(label.getFontScaleX() * 1.8f);//TODO magic number
+		label.setFontScale(label.getFontScaleX() * 1.8f);// TODO magic number
 
 		giveUp = new Button(Resource.getInstance().skin);
-		giveUp.add(new Label("Surrender",Resource.getInstance().skin));
+		giveUp.add(new Label("Surrender", Resource.getInstance().skin));
 		others.add(giveUp);
 
 		pop = new PopUp("Title");
 		others.add(pop);
 
+		message = new Message("Title");
+		others.add(message);
+
+		confirm = new ConfirmDialog("Title");
+		others.add(confirm);
+
 		table.add(label).expandX().center();
 		table.row().expandX().row();
-		buttonTable.columnDefaults(0).expand().fill().width(phase.getLargestWidth());
+		buttonTable.columnDefaults(0).expand().fill()
+				.width(phase.getLargestWidth());
 		buttonTable.add(giveUp).row();
-		buttonTable.add(switchButton).height(Gdx.graphics.getHeight()/9).row();
-		buttonTable.add(phase).height(Gdx.graphics.getHeight()/9).row();
-		
+		buttonTable.add(switchButton).height(Gdx.graphics.getHeight() / 9)
+				.row();
+		buttonTable.add(phase).height(Gdx.graphics.getHeight() / 9).row();
+
 		table.add().expand();
 		table.add(buttonTable).bottom();
-		//table.debug();
-		
+		// table.debug();
+
 		addActor(table);
 	}
 
@@ -73,6 +84,16 @@ public class UIStage extends AbstractStage {
 		pop.setSliderStop(minValue, maxValue);
 		pop.setTexts(title, msg);
 		pop.show(this);
+	}
+
+	public void showPopUp(String title, String msg) {
+		if (title.equalsIgnoreCase("Surrender")) {
+			confirm.setTexts(title, msg);
+			confirm.show(this);
+		} else {
+			message.setTexts(title, msg);
+			message.show(this);
+		}
 	}
 
 	public boolean renderWorld() {
@@ -85,21 +106,23 @@ public class UIStage extends AbstractStage {
 
 	@Override
 	public void propertyChange(PropertyChangeEvent event) {
-		if (event.getPropertyName().equalsIgnoreCase("Attack")) {
+		if (event.getPropertyName().equalsIgnoreCase(IGame.ATTACK)) {
 			showPopUp("Attack", "How many dice \ndo you want?",
 					(Integer) event.getOldValue(), 1);
-		} else if (event.getPropertyName().equalsIgnoreCase("Movement")) {
+		} else if (event.getPropertyName().equalsIgnoreCase(IGame.MOVEMENT)) {
 			showPopUp("Movement", "How many units do \nyou want to move?",
 					(Integer) event.getOldValue() - 1, 1);
 		} else if (event.getPropertyName().equalsIgnoreCase("Again?")) {
 			showPopUp("Again?", "Do you want \nto attack again?",
 					(Integer) event.getOldValue(), 1);
-		} else if (event.getPropertyName().equalsIgnoreCase("takeOver")) {
+		} else if (event.getPropertyName().equalsIgnoreCase(IGame.CONQUER)) {
 			showPopUp("Occupy", "How many units do \nyou want to move?",
 					(Integer) event.getOldValue() - 1,
 					Integer.parseInt((String) event.getNewValue()));
-		} else if (event.getPropertyName().equalsIgnoreCase("Win")) {
-			showPopUp("Congratz", "You have won!", 0, 0);
+		} else if (event.getPropertyName().equalsIgnoreCase(IGame.WIN)) {
+			showPopUp("Congratz", "You have won!");
+		} else if (event.getPropertyName().equalsIgnoreCase(IGame.SURRENDER)) {
+			showPopUp("Surrender", "Are you sure you\n want to surrender?");
 		}
 
 	}
