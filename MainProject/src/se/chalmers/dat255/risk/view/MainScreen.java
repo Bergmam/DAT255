@@ -23,6 +23,8 @@ public class MainScreen extends AbstractScreen {
 	private Stage stage;
 	private List<Button> buttonList;
 	private TextField nameField;
+	private Label msg;
+	private Label risk;
 
 	public MainScreen(IGame model) {
 		super(model);
@@ -50,22 +52,31 @@ public class MainScreen extends AbstractScreen {
 
 		nameField = new TextField("", Resource.getInstance().skin);
 		nameField.setMessageText("Enter Name");
+		
+		msg = new Label("Enter name below",Resource.getInstance().skin);
 
-		playerTable.add("Players:");
-		playerTable.pad(50);		
+		risk = new Label("Risk", Resource.getInstance().skin);
+		risk.setFontScale(3);
+		
+		playerTable.add("Players:").expandX().left();
 		inputTable.add(playerButton);
 		inputTable.add(nameField);
 		inputTable.row();
-		inputTable.add(startButton);
-		mainTable.add(inputTable);
-		//t1.add();
-		mainTable.add(playerTable);
+		inputTable.add(startButton).colspan(2).fill();
+		
+		mainTable.left().top();
+		mainTable.add(risk).colspan(2).row().expandX();
+		mainTable.add(inputTable).expand();
+		mainTable.add(playerTable).fill();
 
 		//t1.pack();
 		inputTable.size(Gdx.graphics.getWidth()/2,Gdx.graphics.getHeight());
 		playerTable.size(Gdx.graphics.getWidth()/2,Gdx.graphics.getHeight());
 
 		stage.addActor(mainTable);
+		mainTable.debug();
+		inputTable.debug();
+		playerTable.debug();
 	}
 
 	// expand when needing more buttons
@@ -74,7 +85,7 @@ public class MainScreen extends AbstractScreen {
 	}
 
 	public void addPlayer(String name) {
-		playerTable.add(name);
+		playerTable.add(name).left();
 	}
 
 	public String getText() {
@@ -99,11 +110,11 @@ public class MainScreen extends AbstractScreen {
 
 	@Override
 	public void render(float render) {
-		Gdx.gl.glClearColor(0, 0, 0.2f, 1);
+		Gdx.gl.glClearColor(0.7f, 0.7f, 0.7f, 0.7f);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 
 		stage.draw();
-
+		Table.drawDebug(stage);
 	}
 
 	@Override
