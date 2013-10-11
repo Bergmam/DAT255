@@ -1,6 +1,6 @@
 package test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 
@@ -8,6 +8,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import se.chalmers.dat255.risk.model.BonusHandler;
+import se.chalmers.dat255.risk.model.Card;
+import se.chalmers.dat255.risk.model.Card.CardType;
+import se.chalmers.dat255.risk.model.ICard;
 import se.chalmers.dat255.risk.model.Player;
 import se.chalmers.dat255.risk.model.WorldMap;
 
@@ -54,14 +57,15 @@ public class BonusHandlerTest {
 		bH.calcBonusUnits(players.get(0));
 		System.out.println("player1 bonus = " + bH.getBonus());
 		if (worldMap.getOwner("A") == players.get(0)) {
-			System.out.println("in player1 has A " + (continentBonus1 + miniumBonus) + " == " + bH.getBonus());
+			System.out.println("in player1 has A "
+					+ (continentBonus1 + miniumBonus) + " == " + bH.getBonus());
 			cBonusForPlayer1 = continentBonus1;
 			assertTrue(bH.getBonus() == continentBonus1 + miniumBonus);
 			bH.calcBonusUnits(players.get(1));
 			assertTrue(bH.getBonus() == miniumBonus);
 		} else {
 			System.out.println("in player2 has A");
-			cBonusForPlayer1=0;
+			cBonusForPlayer1 = 0;
 			assertTrue(bH.getBonus() == miniumBonus);
 			bH.calcBonusUnits(players.get(1));
 			assertTrue(bH.getBonus() == continentBonus1 + miniumBonus);
@@ -74,13 +78,47 @@ public class BonusHandlerTest {
 			bH.calcBonusUnits(players.get(0));
 			assertTrue(bH.getBonus() == miniumBonus + cBonusForPlayer1);
 		}
-		
+
 		while (players.get(0).getNrOfProvinces() < 42) {
 			players.get(0).gainProvince();
 			bH.calcBonusUnits(players.get(0));
-			assertTrue(bH.getBonus() == players.get(0).getNrOfProvinces() / 3 + cBonusForPlayer1);
+			assertTrue(bH.getBonus() == players.get(0).getNrOfProvinces() / 3
+					+ cBonusForPlayer1);
 		}
-
 	}
 
+	@Test
+	public void testCalcBonusFromCards() {
+		int currentCardBonus = 4;
+		int bonusBefore = bH.getBonus();
+		ArrayList<String> cards = new ArrayList<String>();
+		ArrayList<String> cards1 = new ArrayList<String>();
+		
+		//No province has ID G, therefor we know that it will not give player bonus
+		cards.add("G");
+		
+		bH.calcBonusesFromCards(cards1, players.get(0));
+		assertTrue(bH.getBonus() == currentCardBonus + bonusBefore);
+		currentCardBonus += 2;
+		
+		int playerHasCardProvinces = 0;
+		
+		if(players.get(0) == worldMap.getOwner("A")){
+			playerHasCardProvinces++;
+		} 
+		if(players.get(0) == worldMap.getOwner("B")){
+			playerHasCardProvinces++;
+		} 
+		if(players.get(0) == worldMap.getOwner("C")){
+			playerHasCardProvinces++;
+		} 
+		cards.add("A");
+		cards.add("B");
+		cards.add("C");
+		
+		bH.calcBonusesFromCards(cards1, players.get(0));
+		assertTrue(bH.getBonus() == currentCardBonus + bonusBefore + playerHasCardProvinces*2);
+		
+		
+	}
 }
