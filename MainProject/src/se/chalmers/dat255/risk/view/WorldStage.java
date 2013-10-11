@@ -6,6 +6,7 @@ import java.util.List;
 import se.chalmers.dat255.risk.model.IProvince;
 import se.chalmers.dat255.risk.view.resource.Resource;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.files.FileHandle;
@@ -24,6 +25,8 @@ public class WorldStage extends AbstractStage implements GestureListener {
 	private float width;
 	private float height;
 	private InputMultiplexer multi;
+	private float zMax;
+	private float zMin;
 
 	public WorldStage(List<IProvince> provinces, FileHandle positionsOnMap) {
 
@@ -58,25 +61,14 @@ public class WorldStage extends AbstractStage implements GestureListener {
 			temp++;
 		}
 
-		/*
-		 * try { Scanner scanner = new Scanner(positionsOnMap); int i = 0; while
-		 * (scanner.hasNextLine()) { String line = scanner.nextLine(); String[]
-		 * array = line.split("-"); String xCord = array[0]; String yCord =
-		 * array[1]; int intXCord = Integer.parseInt(xCord); int intYCord =
-		 * Integer.parseInt(yCord); ProvinceView provinceView = new
-		 * ProvinceView(provinces.get(i), intXCord, intYCord);
-		 * actor.add(provinceView); i++; } scanner.close();
-		 * 
-		 * } catch (FileNotFoundException e) { e.printStackTrace(); }
-		 */
-
 		for (int i = 0; i < views.size(); i++) {
 			provinceGroup.addActor(views.get(i));
 		}
 
 		addActor(background);
 		addActor(provinceGroup);
-
+		zMax = (background.getHeight()+background.getWidth()) /(Gdx.graphics.getWidth()+Gdx.graphics.getHeight());
+		zMin = (Gdx.graphics.getWidth()+Gdx.graphics.getHeight())/(background.getHeight()+background.getWidth());
 	}
 
 	@Override
@@ -88,7 +80,7 @@ public class WorldStage extends AbstractStage implements GestureListener {
 	public boolean touchDown(float x, float y, int pointer, int button) {
 		initialZoom = camera.zoom;
 		super.touchDown((int) x, (int) y, pointer, button);
-
+		
 		return false;
 	}
 
@@ -119,7 +111,7 @@ public class WorldStage extends AbstractStage implements GestureListener {
 	@Override
 	public boolean zoom(float initialDistance, float distance) {
 		float ratio = initialDistance / distance;
-		if (initialZoom * ratio >= 0.5f && initialZoom * ratio <= 2.5f) {
+		if (initialZoom * ratio >= zMin && initialZoom * ratio <= zMax) {
 			camera.zoom = initialZoom * ratio;
 		}
 		calcCam();
@@ -131,7 +123,7 @@ public class WorldStage extends AbstractStage implements GestureListener {
 	public boolean scrolled(int amount) {
 		initialZoom = camera.zoom;
 		float ratio = amount < 0 ? 0.9f : 1.1f;
-		if (initialZoom * ratio >= 0.5f && initialZoom * ratio <= 1.33) {
+		if (initialZoom * ratio >= zMin && initialZoom * ratio <= zMax) {
 			camera.zoom = initialZoom * ratio;
 		}
 
