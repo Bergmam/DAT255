@@ -6,13 +6,8 @@ public class TurnAndPhaseManager {
 	private int activePlayer;
 	private Phase currentPhase;
 
-	// CLICK VARIABLES
-
 	public TurnAndPhaseManager() {
-		// //////////////DEV ////////////////////
 		currentPhase = Phase.FBuild;
-		// currentPhase=Phase.F1;
-		// //////////////DEV ///////////////////
 		activePlayer = 0;
 	}
 
