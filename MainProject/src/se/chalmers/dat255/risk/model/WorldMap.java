@@ -96,9 +96,9 @@ public class WorldMap {
 			int nrOfContinents = 0;
 
 			for (int i = 2; i < array.length; i++) {
-				itsProvinces[i - 2] = array[i];
+				itsProvinces[i - 2] = removeBadChar(array[i]);
 			}
-			continents.add(new Continent(array[0], itsProvinces, Integer
+			continents.add(new Continent(removeBadChar(array[1]), itsProvinces, Integer
 					.parseInt(array[0])));
 		}
 		return continents;
