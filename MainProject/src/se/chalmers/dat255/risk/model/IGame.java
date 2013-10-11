@@ -17,10 +17,12 @@ public interface IGame {
 	public final static String MOVEMENT = "Movement";
 	public final static String ATTACK = "Attack";
 	public final static String CONQUER = "takeOver";
-	public final static String AGAIN = "Again";
+	public final static String AGAIN = "Again?";
 	public final static String WIN = "Win";
 	public final static String SURRENDER = "Surrender";
-
+	public final static String UNITS = "Units";
+	public final static String CARDS = "Cards";
+	
 	/**
 	 * Sets up a new Game
 	 * 

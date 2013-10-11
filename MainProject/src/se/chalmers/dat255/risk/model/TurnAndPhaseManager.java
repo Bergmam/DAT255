@@ -25,7 +25,7 @@ public class TurnAndPhaseManager {
 	 * Return is ComputeBonusForF0 if if a new bonus shall be computed in F0. 
 	 * Return is ComputeBonusForF1 is 0 if a new turn has begun (and not in F0).
 	 * Return is ChangedPhase if a change of phase has taken place.  
-	 * Return is DoNothing if the phase didn't change. (Corrently not in use here. Is instead controlled in EventHandler)
+	 * Return is DoNothing if the phase didn't change. (Currently not in use here. Is instead controlled in EventHandler)
 	 */
 
 	public ResultType changePhase(Player currentPlayer, List<Player> players) {

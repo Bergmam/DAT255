@@ -106,23 +106,29 @@ public class UIStage extends AbstractStage {
 
 	@Override
 	public void propertyChange(PropertyChangeEvent event) {
-		if (event.getPropertyName().equalsIgnoreCase(IGame.ATTACK)) {
-			showPopUp("Attack", "How many dice \ndo you want?",
+		String name = event.getPropertyName();
+		
+		if (name.equalsIgnoreCase(IGame.ATTACK)) {
+			showPopUp(name, "How many dice \ndo you want?",
 					(Integer) event.getOldValue(), 1);
-		} else if (event.getPropertyName().equalsIgnoreCase(IGame.MOVEMENT)) {
-			showPopUp("Movement", "How many units do \nyou want to move?",
+		} else if (name.equalsIgnoreCase(IGame.MOVEMENT)) {
+			showPopUp(name, "How many units do \nyou want to move?",
 					(Integer) event.getOldValue() - 1, 1);
-		} else if (event.getPropertyName().equalsIgnoreCase("Again?")) {
-			showPopUp("Again?", "Do you want \nto attack again?",
+		} else if (name.equalsIgnoreCase("Again?")) {
+			showPopUp(name, "Do you want \nto attack again?",
 					(Integer) event.getOldValue(), 1);
-		} else if (event.getPropertyName().equalsIgnoreCase(IGame.CONQUER)) {
+		} else if (name.equalsIgnoreCase(IGame.CONQUER)) {
 			showPopUp("Occupy", "How many units do \nyou want to move?",
 					(Integer) event.getOldValue() - 1,
 					Integer.parseInt((String) event.getNewValue()));
-		} else if (event.getPropertyName().equalsIgnoreCase(IGame.WIN)) {
+		} else if (name.equalsIgnoreCase(IGame.WIN)) {
 			showPopUp("Congratz", "You have won!");
-		} else if (event.getPropertyName().equalsIgnoreCase(IGame.SURRENDER)) {
-			showPopUp("Surrender", "Are you sure you\n want to surrender?");
+		} else if (name.equalsIgnoreCase(IGame.SURRENDER)) {
+			showPopUp(name, "Are you sure you\n want to surrender?");
+		} else if(name.equalsIgnoreCase(IGame.UNITS)){
+			showPopUp(name, "You must place \nall your units");
+		}else if(name.equalsIgnoreCase(IGame.CARDS)){
+			showPopUp(name, "You must exchange \nyour cards");
 		}
 
 	}

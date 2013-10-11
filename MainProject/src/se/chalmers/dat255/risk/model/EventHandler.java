@@ -2,10 +2,8 @@ package se.chalmers.dat255.risk.model;
 
 import java.util.ArrayList;
 
-import javax.print.attribute.standard.DocumentName;
-
-import se.chalmers.dat255.risk.model.TurnAndPhaseManager;
 import se.chalmers.dat255.risk.model.TurnAndPhaseManager.Phase;
+import se.chalmers.dat255.risk.model.TurnAndPhaseManager.ResultType;
 
 public class EventHandler {
 	private TurnAndPhaseManager phaseHandler;
@@ -35,7 +33,7 @@ public class EventHandler {
 	 * Return is ChangedPhase if a change of phase has taken place.  
 	 * Return is DoNothing if the phase didn't change.
 	 */
-	public TurnAndPhaseManager.ResultType handlePhaseEvent(Player currentPlayer, int bonusUnitsLeft,
+	public ResultType handlePhaseEvent(Player currentPlayer, int bonusUnitsLeft,
 			ArrayList<Player> players) {
 		Phase currentPhase = phaseHandler.getPhase();
 		if (currentPhase == Phase.FBuild || currentPhase == Phase.F1) {
@@ -43,10 +41,11 @@ public class EventHandler {
 			if (bonusUnitsLeft == 0 && currentPlayer.getCards().size() < 5) {
 				cardExanger.flushCards();
 				return phaseHandler.changePhase(currentPlayer, players);
-			}
+			} 
+			
 		} else if (currentPhase == Phase.F2 || currentPhase == Phase.F3) {
 			return phaseHandler.changePhase(currentPlayer, players);
 		}
-		return TurnAndPhaseManager.ResultType.DoNothing;
+		return ResultType.DoNothing;
 	}
 }

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import se.chalmers.dat255.risk.model.TurnAndPhaseManager.Phase;
+import se.chalmers.dat255.risk.model.TurnAndPhaseManager.ResultType;
 
 /**
  * The top game class. Controls flow between our lower classes, such as the
@@ -376,12 +377,18 @@ public class Game implements IGame {
 	@Override
 	public void handlePhaseEvent() {
 		int bonus = bonusHandler.getBonus();
-		TurnAndPhaseManager.ResultType result = eventHandler.handlePhaseEvent(
+		ResultType result = eventHandler.handlePhaseEvent(
 				getActivePlayer(), bonus, players);
-		if (result == TurnAndPhaseManager.ResultType.ComputeBonusForF0) {
+		if (result == ResultType.ComputeBonusForF0) {
 			bonusHandler.calcBonusForF0(getActivePlayer().getNrOfProvinces());
-		} else if (result == TurnAndPhaseManager.ResultType.ComputeBonusForF1) {
+		} else if (result == ResultType.ComputeBonusForF1) {
 			updateValues();
+		} else if(result == ResultType.DoNothing){
+			if(bonus > 0){
+				pcs.firePropertyChange(UNITS, true, false);
+			} else {
+				pcs.firePropertyChange(CARDS, true, false);
+			}
 		}
 		flushProvinces();// clean temps between turns and phases
 	}
