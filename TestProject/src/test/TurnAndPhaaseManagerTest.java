@@ -76,7 +76,7 @@ public class TurnAndPhaaseManagerTest {
 		assertTrue(tAPM.getPhase()==Phase.FBuild);
 		
 		//Now it always should be phase1
-		tAPM.changePhase(players.get(1), players);
+		tAPM.changePhase(players.get(players.size()-1), players);
 		tAPM.surrender(players);
 		assertTrue(tAPM.getPhase()==Phase.F1);
 		
