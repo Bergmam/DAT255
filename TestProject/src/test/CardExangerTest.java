@@ -63,16 +63,13 @@ public class CardExangerTest {
 
 		// If you choose 3 cards of the same type they should disapear from
 		// players hand.
-		assertTrue(card4.isActive());
-		assertTrue(card1.isActive());
-		assertTrue(card2.isActive());
 		
 		
 		assertNull(cardExanger.makeExange(card1, player1));
 		assertNull(cardExanger.makeExange(card2, player1));
 		assertTrue(card1.isActive());
 		assertTrue(card2.isActive());
-		assertNull(cardExanger.makeExange(card3, player1));
+		assertNotNull(cardExanger.makeExange(card3, player1));
 		
 
 	}

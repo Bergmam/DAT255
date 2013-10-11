@@ -77,6 +77,7 @@ public class Card implements ICard{
 
 	@Override
 	public void setActive(boolean active) {
+		System.out.println("is " + this.getName() + " this active? " + active);
 		this.active = active; 
 		
 	}

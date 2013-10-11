@@ -22,8 +22,8 @@ public class CardExanger {
 	 */
 	public ArrayList<String> makeExange(ICard card, Player currentPlayer) {
 		if (!handledBefore(card)) {
+			card.setActive(true);
 			if (card2 != null) {
-				card.setActive(true);
 				if (currentPlayer.exchangeCard(card1, card2, card)) {
 					ArrayList<String> cardProvinces = new ArrayList<String>();
 					cardProvinces.add(card.getName());
@@ -39,10 +39,8 @@ public class CardExanger {
 			} else {
 				if (card1 == null) {
 					card1 = card;
-					card1.setActive(true);
 				} else {
 					card2 = card;
-					card2.setActive(true);
 				}
 				return null;
 			}
@@ -59,14 +57,13 @@ public class CardExanger {
 	 */
 	private boolean handledBefore(ICard card) {
 		if (card.isActive()) {
-			if (card.equals(card2)) {
+			if (card.hashCode() == card2.hashCode()) {
 				card2 = null;
-			} else if (card.equals(card1)) {			
+			} else if (card.hashCode() == card1.hashCode()) {	
 				card1=card2;
 				card2=null;
 			}
 			card.setActive(false);
-			System.out.println(" card is not active :" + card.getName() +" == " +card.isActive() );
 			return true;
 		}
 		return false;
@@ -75,9 +72,11 @@ public class CardExanger {
 	public void flushCards(){
 		if(card1 != null){
 			card1.setActive(false);
+			System.out.println(" card is not active :" + card1.getName() +" == " +card1.isActive() );
 		}
 		if(card2 != null){
 			card2.setActive(false);
+			System.out.println(" card is not active :" + card1.getName() +" == " +card1.isActive() );
 		}
 		
 		card1 = null;

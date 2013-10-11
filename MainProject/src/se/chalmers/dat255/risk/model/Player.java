@@ -51,6 +51,16 @@ public class Player {
 		ICard newCard = Deck.giveCard();
 		cards.add(newCard);
 		pcs.firePropertyChange(Player.CARD_ADDED, newCard, null);
+		ICard newCard1 = Deck.giveCard();
+		cards.add(newCard1);
+		pcs.firePropertyChange(Player.CARD_ADDED, newCard1, null);
+		ICard newCard2 = Deck.giveCard();
+		cards.add(newCard2);
+		pcs.firePropertyChange(Player.CARD_ADDED, newCard2, null);
+		ICard newCard3 = Deck.giveCard();
+		cards.add(newCard3);
+		pcs.firePropertyChange(Player.CARD_ADDED, newCard3, null);
+		
 	}
 	
 	/**
@@ -84,7 +94,6 @@ public class Player {
 		Deck.discard(c1);
 		Deck.discard(c2);
 		Deck.discard(c3);
-		inActivate(c1,c2,c3);
 		pcs.firePropertyChange(this.CARD_REMOVED, null, c1);
 		pcs.firePropertyChange(this.CARD_REMOVED, null, c2);
 		pcs.firePropertyChange(this.CARD_REMOVED, null, c3);
@@ -114,9 +123,8 @@ public class Player {
 				nrOfJokers++;
 			}
 		}
-		
+		inActivate(c1, c2, c3);
 		if(nrOfJokers > 1){
-			inActivate(c1, c2, c3);
 			return false;
 		}
 		// 3 Cards of the same type (Not Jokers), or one Joker
@@ -128,8 +136,7 @@ public class Player {
 		else if(!(c1.equals(c2)) && !(c2.equals(c3)) && !(c1.equals(c3))){
 			removeCard(c1, c2, c3);
 			return true;
-		}	
-		inActivate(c1, c2, c3);
+		}
 		return false;
 	}
 	
