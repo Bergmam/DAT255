@@ -108,13 +108,13 @@ public class ScreenManager extends ClickListener {
 						main.addPlayer(s);
 						System.out.println("added player " + s);
 					} else {
-						main.setText("player already exists");
+						main.setText("Player already exists");
 					}
 				} else {
-					main.setText("too many/few letters");
+					main.setText("Too many/few letters");
 				}
 			} else {
-				main.setText("cannot add more");
+				main.setText("Cannot add more");
 			}
 
 		} else if (s.equalsIgnoreCase("startButton")) {

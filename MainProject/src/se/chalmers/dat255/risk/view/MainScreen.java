@@ -7,6 +7,7 @@ import se.chalmers.dat255.risk.model.IGame;
 import se.chalmers.dat255.risk.view.resource.Resource;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -59,6 +60,9 @@ public class MainScreen extends AbstractScreen {
 		risk.setFontScale(3);
 		
 		playerTable.add("Players:").expandX().left();
+		
+		inputTable.add();
+		inputTable.add(msg).left().row();
 		inputTable.add(playerButton);
 		inputTable.add(nameField);
 		inputTable.row();
@@ -74,9 +78,9 @@ public class MainScreen extends AbstractScreen {
 		playerTable.size(Gdx.graphics.getWidth()/2,Gdx.graphics.getHeight());
 
 		stage.addActor(mainTable);
-		mainTable.debug();
-		inputTable.debug();
-		playerTable.debug();
+//		mainTable.debug();
+//		inputTable.debug();
+//		playerTable.debug();
 	}
 
 	// expand when needing more buttons
@@ -95,7 +99,8 @@ public class MainScreen extends AbstractScreen {
 	}
 
 	public void setText(String text) {
-		nameField.setText(text);
+		msg.setColor(Color.RED);
+		msg.setText(text);
 	}
 
 	@Override
@@ -114,7 +119,7 @@ public class MainScreen extends AbstractScreen {
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 
 		stage.draw();
-		Table.drawDebug(stage);
+//		Table.drawDebug(stage);
 	}
 
 	@Override
