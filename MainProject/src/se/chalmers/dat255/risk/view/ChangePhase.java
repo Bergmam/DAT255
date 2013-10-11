@@ -1,27 +1,24 @@
 package se.chalmers.dat255.risk.view;
 
 import se.chalmers.dat255.risk.model.IGame;
+import se.chalmers.dat255.risk.model.TurnAndPhaseManager.Phase;
 import se.chalmers.dat255.risk.view.resource.Resource;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 
-public class ChangePhase extends AbstractView {
+public class ChangePhase extends Button {
 
 	private IGame model;
 	private Label label;
 
 	public ChangePhase(IGame model) {
-		super(Resource.getInstance().triangle, Resource.getInstance().triangle);
+		super(Resource.getInstance().skin);
 		this.model = model;
-		size(width, height);
-		setPosition(Gdx.graphics.getWidth() - (getWidth()*2), 0);
-		label = new Label(getText(), new LabelStyle(font, Color.RED));
-		label.setPosition(getTextX(), getTextY());
-
+		label = new Label("Next Phase", Resource.getInstance().skin);
+		add(label);
+		
 	}
 
 	/**
@@ -39,35 +36,28 @@ public class ChangePhase extends AbstractView {
 	 */
 
 	private String getText() {
-		if ((model.getCurrentPhase() == se.chalmers.dat255.risk.model.TurnAndPhaseManager.Phase.F1)
-				|| (model.getCurrentPhase() == se.chalmers.dat255.risk.model.TurnAndPhaseManager.Phase.FBuild)) {
+		if ((model.getCurrentPhase() == Phase.F1)
+				|| (model.getCurrentPhase() == Phase.FBuild)) {
 			if (model.getBonusUnitsLeft() == 0) {
 				return "Next";
 			}
 			return "Units: " + model.getBonusUnitsLeft();
-		} else if (model.getCurrentPhase() == se.chalmers.dat255.risk.model.TurnAndPhaseManager.Phase.F2) {
+		} else if (model.getCurrentPhase() == Phase.F2) {
 			return "Next Phase";
-		} else if (model.getCurrentPhase() == se.chalmers.dat255.risk.model.TurnAndPhaseManager.Phase.F3) {
+		} else if (model.getCurrentPhase() == Phase.F3) {
 			return "End Turn";
 		}
 		return "value not found";
 	}
-
-	private float getTextX() {
-		return getX() + (width/2) - (label.getTextBounds().width/2);
-	}
-
-	private float getTextY() {
-		return getY() + getHeight() / 3;
+	
+	public float getBoundWidth(){
+		return label.getTextBounds().width;
 	}
 
 	@Override
 	public void draw(SpriteBatch batch, float alpha) {
-		batch.setColor(isClicked? Color.DARK_GRAY: Color.BLACK);
 		label.setText(getText());
-		label.setPosition(getTextX(), getTextY());
 		super.draw(batch, alpha);
-		label.draw(batch, alpha);
 	}
 
 }

@@ -13,7 +13,7 @@ import java.util.LinkedList;
  */
 public class Deck {
 
-	private static Deck INSTANCE = null;
+	private static Deck instance = null;
 	private static LinkedList<ICard> deck = new LinkedList<ICard>();
 	private static LinkedList<ICard> discardPile = new LinkedList<ICard>();
 
@@ -23,7 +23,7 @@ public class Deck {
 	 * Constructs the cards in the deck given an array containing the names of all provinces 
 	 * in the game and the number of jokers there should be in the deck.
 	 * @param provinces, array with the names of all provinces.
-	 * @param nbrOfJokers, number of jokers in the deck.
+	 * @param nbrOfJokers number of jokers in the deck.
 	 */
 	public void CreateCards(ArrayList<String> provinces, int nbrOfJokers){
 		int infantry = provinces.size() / 3;
@@ -47,7 +47,7 @@ public class Deck {
 			deck.add(new Card(Card.CardType.JOKER, "Joker"));
 		}
 		Collections.shuffle(deck);
-	}//contructor
+	}
 	
 	/**
 	 * Method for dealing a card.
@@ -72,6 +72,7 @@ public class Deck {
 	 * Method for shuffling and moving the discarded cards into the deck.
 	 * If deck is not empty methods adds shuffled cards to the end of the deck list.
 	 */
+	@SuppressWarnings("unchecked")
 	public static void recycleCards(){
 		if(deck.size() == 0){
 			System.out.println("is it empty? " + deck.size());
@@ -103,9 +104,9 @@ public class Deck {
 	}
 	
 	public static Deck getInstance(){
-		if(INSTANCE == null){
-			INSTANCE = new Deck();
+		if(instance == null){
+			instance = new Deck();
 		}
-		return INSTANCE;
+		return instance;
 	}
 }

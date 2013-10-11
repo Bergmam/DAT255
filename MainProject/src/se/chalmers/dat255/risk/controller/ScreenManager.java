@@ -9,16 +9,18 @@ import se.chalmers.dat255.risk.model.IGame;
 import se.chalmers.dat255.risk.view.AbstractView;
 import se.chalmers.dat255.risk.view.CardView;
 import se.chalmers.dat255.risk.view.ChangePhase;
+import se.chalmers.dat255.risk.view.ConfirmDialog;
 import se.chalmers.dat255.risk.view.GameScreen;
 import se.chalmers.dat255.risk.view.MainScreen;
+import se.chalmers.dat255.risk.view.Message;
+import se.chalmers.dat255.risk.view.PopUp;
 import se.chalmers.dat255.risk.view.ProvinceView;
 import se.chalmers.dat255.risk.view.SwitchButton;
 import se.chalmers.dat255.risk.view.resource.ColorHandler;
 import se.chalmers.dat255.risk.view.resource.Resource;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input.TextInputListener;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -29,8 +31,8 @@ public class ScreenManager extends ClickListener {
 	private GameScreen screen;
 	private IGame model;
 	private GDXGame game;
-	private boolean isLoaded;
 	private final List<String> list = new ArrayList<String>();
+	private final int maxNbrOfPlayers = 6;
 
 	private ScreenManager() {
 
@@ -79,14 +81,24 @@ public class ScreenManager extends ClickListener {
 				v.addListener(new ProvinceListener(model));
 			} else if (v instanceof CardView) {
 				v.addListener(new CardListener(model));
-			} else if (v instanceof ChangePhase) {
-				v.addListener(new ChangePhaseListener(model));
-			} else if (v instanceof SwitchButton) {
-				v.addListener(new SwitchListener());
 			}
 		}
 
-		screen.getPopUp().setListener(new PopUpListener(model));
+		for (Actor a : screen.getSpecActors()) {
+			if (a.getClass() == Button.class) {
+				a.addListener(new SurrenderListener(model));
+			} else if (a instanceof PopUp) {
+				a.addListener(new PopUpListener(model));
+			} else if (a instanceof ChangePhase) {
+				a.addListener(new ChangePhaseListener(model));
+			} else if (a instanceof SwitchButton) {
+				a.addListener(new SwitchListener());
+			} else if (a instanceof ConfirmDialog) {
+				a.addCaptureListener(new ConfirmListener(model));
+			} else if (a instanceof Message) {
+				a.addListener(new MessageListener());
+			}
+		}
 	}
 
 	@Override
@@ -95,26 +107,35 @@ public class ScreenManager extends ClickListener {
 		String s = b.getName();
 
 		if (s.equalsIgnoreCase("addPlayer")) {
-			if (list.size() < 6) {
+			if (list.size() < maxNbrOfPlayers) {
 				s = main.getText();
-				if (s.length() > 1 && s.length() <10) {
-					list.add(s);
-					main.addPlayer(s);
-					System.out.println("added player " + s);
-				} else{
-					main.setText("too many/few letters");
+				if (s.length() >= 1 && s.length() <= 10) {
+					if (!list.contains(s)) {
+						list.add(s);
+						main.addPlayer(s);
+						System.out.println("added player " + s);
+					} else {
+						main.setText("Player already exists");
+					}
+				} else {
+					main.setText("Too many/few letters");
 				}
 			} else {
-				main.setText("cannot add more");
+				main.setText("Cannot add more");
 			}
 
 		} else if (s.equalsIgnoreCase("startButton")) {
 			if (list.size() >= 2) {
 				setupGame();
 				changeScreen(screen);
-				System.out.println("You have touched the startButton");
 			}
 		}
+	}
+
+	public void gameOver() {
+		changeScreen(main);
+		list.clear();
+		main.clearPlayers();
 	}
 
 	public void dispose() {
@@ -122,19 +143,5 @@ public class ScreenManager extends ClickListener {
 		main.dispose();
 		screen.dispose();
 	}
-
-	/*
-	 * if (list.size() <= 6) { Gdx.input.getTextInput(new TextInputListener() {
-	 * 
-	 * @Override public void input(String text) { list.add(text); }
-	 * 
-	 * @Override public void canceled() {
-	 * 
-	 * }
-	 * 
-	 * }, "Add a Player", "Name");
-	 * 
-	 * }
-	 */
 
 }

@@ -1,6 +1,5 @@
 package se.chalmers.dat255.risk.model;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
@@ -54,7 +53,8 @@ public class WorldMap {
 	/*
 	 * Create all the provinces.
 	 */
-	private ArrayList<String> createProvinces(String string, ArrayList<Player> players) {
+	private ArrayList<String> createProvinces(String string,
+			ArrayList<Player> players) {
 		HashMap<String, ArrayList<String>> tempNeighbours = new HashMap<String, ArrayList<String>>();
 		ArrayList<String> listOfProvinces = new ArrayList<String>();
 		ownership = new HashMap<String, Player>();
@@ -63,16 +63,20 @@ public class WorldMap {
 		for (String pLine : pLines) {
 			String[] array = pLine.split("-");
 			String p1 = array[0];
-			listOfProvinces.add(p1);
+			listOfProvinces.add(removeBadChar(p1));
 			ArrayList<String> list = new ArrayList<String>();
 			for (int i = 1; i < array.length; i++) {
-				list.add(array[i]);
+				String anotherProvince = array[i];
+				list.add(removeBadChar(anotherProvince));
 			}
 			tempNeighbours.put(p1, list);
-
 		}
 		neighbours = new HashMap<String, ArrayList<String>>(tempNeighbours);
 		return listOfProvinces;
+	}
+
+	private String removeBadChar(String p1) {
+		return p1.trim();
 	}
 
 	/*
@@ -88,13 +92,11 @@ public class WorldMap {
 			String[] array = line.split("-");
 			itsProvinces = new String[array.length - 2];
 
-			int nrOfContinents = 0;
-
 			for (int i = 2; i < array.length; i++) {
-				itsProvinces[i - 2] = array[i];
+				itsProvinces[i - 2] = removeBadChar(array[i]);
 			}
-			continents.add(new Continent(array[0], itsProvinces, Integer
-					.parseInt(array[0])));
+			continents.add(new Continent(removeBadChar(array[1]), itsProvinces,
+					Integer.parseInt(array[0])));
 		}
 		return continents;
 	}
@@ -137,9 +139,12 @@ public class WorldMap {
 	 */
 	public boolean isNeighbours(String provinceName1, String provinceName2) {
 		ArrayList<String> list = neighbours.get(provinceName1);
-		if (list.contains(provinceName2)) {
-			return true;
+		for (String province : list) {
+			if (provinceName2.equals(province)) {
+				return true;
+			}
 		}
+
 		return false;
 	}
 
@@ -156,7 +161,7 @@ public class WorldMap {
 	private void randomizeProvinces(ArrayList<String> provinceList,
 			ArrayList<Player> players) {
 		ArrayList<String> temp = provinceList;
-		int nrOfPlayers = players.size(), nrOfProvinces = provinceList.size();
+		int nrOfProvinces = provinceList.size();
 
 		Random randGen = new Random();
 		while (!temp.isEmpty()) {
@@ -190,16 +195,16 @@ public class WorldMap {
 		return bonuses[player.getId()];
 	}
 
-	public void updateBonus() { //in parameter Continent updateContinent
-		//updateContinent.update();
-		int continentBonus=0;
+	public void updateBonus() { // in parameter Continent updateContinent
+		// updateContinent.update();
+		int continentBonus = 0;
 		for (int i = 0; i < bonuses.length; i++)
 			bonuses[i] = 0; // Emptys
-		for (Continent continent : continents) { //Fils
+		for (Continent continent : continents) { // Fils
 			continent.update();
 			continentBonus = continent.getBonus();
 			if (continent.getContinentOwner() != null)
-				bonuses[continent.getContinentOwner().getId()] =+ continentBonus;
+				bonuses[continent.getContinentOwner().getId()] += continentBonus;
 		}
 	}
 
@@ -217,13 +222,11 @@ public class WorldMap {
 	 * 
 	 */
 	private class Continent {
-		String continentName;
 		String[] provinces;
 		int bonus;
 		Player owner = null;
 
 		public Continent(String continentName, String[] provinces, int bonus) {
-			this.continentName = continentName;
 			this.provinces = provinces;
 			this.bonus = bonus;
 		}
@@ -243,7 +246,7 @@ public class WorldMap {
 		 */
 		public void update() {
 			Player tempProvinceOwner = getOwner(provinces[0]);
-			
+
 			for (String province : provinces) {
 				if (tempProvinceOwner != getOwner(province)) {
 					owner = null;

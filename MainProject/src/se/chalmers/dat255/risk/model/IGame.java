@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import se.chalmers.dat255.risk.model.TurnAndPhaseManager.Phase;
-import se.chalmers.dat255.risk.view.resource.Resource;
 
 /**
  * Interface for top class in the game risk
@@ -14,15 +13,30 @@ import se.chalmers.dat255.risk.view.resource.Resource;
  * 
  */
 public interface IGame {
+	// ============== EVENT-CONSTANTS ==============
+	public final static String MOVEMENT = "Movement";
+	public final static String ATTACK = "Attack";
+	public final static String CONQUER = "takeOver";
+	public final static String AGAIN = "Again?";
+	public final static String WIN = "Win";
+	public final static String SURRENDER = "Surrender";
+	public final static String UNITS = "Units";
+	public final static String CARDS = "Cards";
+
+	// =============================================
 
 	/**
 	 * Sets up a new Game
 	 * 
-	 * @param playersId id's of all players
-	 * @param neighboursFile relations between provinces
-	 * @param continentsFile continents and their provinces
+	 * @param playersId
+	 *            id's of all players
+	 * @param neighboursFile
+	 *            relations between provinces
+	 * @param continentsFile
+	 *            continents and their provinces
 	 */
-	public void setupGame(String[] playersId, String neighboursFile, String continentsFile);
+	public void setupGame(String[] playersId, String neighboursFile,
+			String continentsFile);
 
 	/**
 	 * Fetches the player who has the current turn.
@@ -31,36 +45,20 @@ public interface IGame {
 	 */
 	public Player getActivePlayer();
 
+	/**
+	 * Tells the game to do battle with two provinces
+	 * 
+	 * @param nbrOfDice
+	 *            the number of dice to attack with
+	 */
 	public void battle(int nbrOfDice);
 
-	/**
-	 * Method for handing a card from the deck to the active player.
-	 */
-	public void dealCard();
-
-/*	/**
-	 * Method for calculating the amount of units the player will receive at the
-	 * start of his turn.
-	 */
-/*	public void calcBonusUnits();
-*/
 	/**
 	 * Method for retrieving the number of units the player has left to place.
 	 * 
 	 * @return The number of units left.
 	 */
 	public int getBonusUnitsLeft();
-
-	/**
-	 * Method for moving a number of units from one province to another.
-	 * 
-	 * @param nbrOfUnits
-	 *            The number of units to move
-	 * @param from
-	 *            Province to move units from
-	 * @param goTo
-	 *            Province to move units to
-	 */
 
 	/**
 	 * Fetches the phase the game is in
@@ -136,4 +134,18 @@ public interface IGame {
 	 *            a list with listerners to the players
 	 */
 	public void addPlayerListener(List<PropertyChangeListener> list);
+
+	/**
+	 * Called when the current player gives up
+	 * 
+	 * @param confirm
+	 *            true if player has already confirmed their surrender, false
+	 *            otherwise
+	 */
+	public void surrender(boolean confirm);
+
+	/**
+	 * Inactivates any saved provinces
+	 */
+	public void flushProvinces();
 }

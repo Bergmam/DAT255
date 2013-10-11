@@ -12,7 +12,7 @@ public class ProvinceView extends AbstractView {
 	private IProvince province;
 
 	public ProvinceView(IProvince province, int x, int y) {
-		super(Resource.getInstance().circle, Resource.getInstance().triangle);
+		super(Resource.getInstance().circle, Resource.getInstance().circleSelected);
 		this.province = province;
 		setSize(width / 2, height / 2);
 		setPosition(x, y);
@@ -24,7 +24,7 @@ public class ProvinceView extends AbstractView {
 	}
 
 	private float getTextY() {
-		return getY() + (height / 3);
+		return getY() + (height / 2);
 	}
 
 	@Override

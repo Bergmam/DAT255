@@ -1,53 +1,50 @@
 package se.chalmers.dat255.risk.model;
 
-import se.chalmers.dat255.risk.view.resource.PlayerColor;
-
 /**
  * Simulates a province on the world map. Contains a number of units and handles
- * troop movement. 
+ * troop movement.
  * 
  */
-public class Province implements IProvince{
+public class Province implements IProvince {
 	private int units;
 	private String id;
 	private boolean isActive;
-	
+
 	/**
 	 * Creates a new Province
 	 * 
-	 * @param province id of the province
+	 * @param province
+	 *            id of the province
 	 */
-	public Province(String province){
-		id=province;
-//////////////// DEV ////////////////////
-		units=1;
-//		units=5;
-//////////////// DEV ///////////////////		
+	public Province(String province) {
+		id = province;
+		units = 1;
+
 	}
-	
+
 	@Override
-	public int getUnits(){
+	public int getUnits() {
 		return units;
 	}
-	
+
 	@Override
-	public void addUnits(int units){
-		this.units += units; 
+	public void addUnits(int units) {
+		this.units += units;
 	}
-	
+
 	@Override
-	public void removeUnits(int units){
-		this.units -= units; }
-	
-	
+	public void removeUnits(int units) {
+		this.units -= units;
+	}
+
 	@Override
-	public void moveUnits(int units, IProvince province){
+	public void moveUnits(int units, IProvince province) {
 		removeUnits(units);
 		province.addUnits(units);
 	}
-	
+
 	@Override
-	public String getId(){
+	public String getId() {
 		return id;
 	}
 
@@ -59,6 +56,6 @@ public class Province implements IProvince{
 	@Override
 	public void setActive(boolean active) {
 		isActive = active;
-		
+
 	}
 }

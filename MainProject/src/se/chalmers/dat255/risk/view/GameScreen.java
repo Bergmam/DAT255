@@ -10,7 +10,8 @@ import se.chalmers.dat255.risk.view.resource.Resource;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 
 /**
  * shows the gameboard, including provinces, cards and buttons.
@@ -26,36 +27,31 @@ public class GameScreen extends AbstractScreen {
 
 	public GameScreen(IGame model) {
 		super(model);
-
 		isWorld = true;
-
 	}
 
 	@Override
 	public void show() {
-
 		Gdx.input.setInputProcessor(multi);
 	}
 
-	public PopUp getPopUp() {
-		return uiStage.getPopUp();
+	public List<Actor> getSpecActors() {
+		return uiStage.getOthers();
 	}
 
 	public List<AbstractView> getViews() {
 		List<AbstractView> tmp = new ArrayList<AbstractView>();
-
 		tmp.addAll(worldStage.getViews());
 		tmp.addAll(uiStage.getViews());
 		for (AbstractStage s : cardStages) {
 			tmp.addAll(s.getViews());
 		}
-
 		return tmp;
 	}
 
 	@Override
 	public void render(float render) {
-		Gdx.gl.glClearColor(0.7f, 0.7f, 0.7f, 0.7f);
+		Gdx.gl.glClearColor(0.7f, 0.7f, 0.7f, 0.7f);//Background color
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		camera.update();
@@ -102,7 +98,6 @@ public class GameScreen extends AbstractScreen {
 
 	@Override
 	public void dispose() {
-		super.dispose();
 		if (created) {
 			worldStage.dispose();
 			uiStage.dispose();

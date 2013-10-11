@@ -7,6 +7,7 @@ import se.chalmers.dat255.risk.model.IGame;
 import se.chalmers.dat255.risk.view.resource.Resource;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
@@ -18,58 +19,74 @@ public class MainScreen extends AbstractScreen {
 
 	private Button startButton;
 	private Button playerButton;
-	private Table table, t2, t1;
+	private Table inputTable, playerTable ,mainTable;
 	private Stage stage;
 	private List<Button> buttonList;
 	private TextField nameField;
+	private Label msg;
+	private Label risk;
 
 	public MainScreen(IGame model) {
 		super(model);
 		buttonList = new ArrayList<Button>();
-		table = new Table();
+		
 		stage = new Stage();
 		camera.setToOrtho(false);
-		t2 = new Table();
-		t2.setSkin(Resource.getInstance().skin);
-		t1 = new Table();
-		t1.setFillParent(true);
+		
+		inputTable = new Table(Resource.getInstance().skin);
+		
+		playerTable = new Table(Resource.getInstance().skin);
+		
+		mainTable = new Table(Resource.getInstance().skin);
+		mainTable.setFillParent(true);
+		
 		startButton = new Button(Resource.getInstance().skin);
-		startButton.add("Start Game", "default");
+		startButton.add("Start Game");
 		startButton.setName("startButton");
 		buttonList.add(startButton);
 
 		playerButton = new Button(Resource.getInstance().skin);
-		playerButton.add("Add Player", "default");
+		playerButton.add("Add Player");
 		playerButton.setName("addPlayer");
 		buttonList.add(playerButton);
 
 		nameField = new TextField("", Resource.getInstance().skin);
 		nameField.setMessageText("Enter Name");
-
-		t2.add("Players:");
-		t2.pad(10);		
 		
-		table.add(playerButton);
-		table.add(nameField);
-		table.row();
-		table.add(startButton);
-		t1.add(table);
-		t1.add();
-		t1.add(t2);
+		msg = new Label("Enter name below",Resource.getInstance().skin);
 
-		//t1.pack();
+		risk = new Label("Risk", Resource.getInstance().skin);
+		risk.setFontScale(3);
+		
+		playerTable.add("Players:").expandX().left();
+		
+		inputTable.add();
+		inputTable.add(msg).left().row();
+		inputTable.add(playerButton);
+		inputTable.add(nameField);
+		inputTable.row();
+		inputTable.add(startButton).colspan(2).fill();
+		
+		mainTable.left().top();
+		mainTable.add(risk).colspan(2).row().expandX();
+		mainTable.add(inputTable).expand();
+		mainTable.add(playerTable).fill();
 
-		stage.addActor(t1);
+		inputTable.size(Gdx.graphics.getWidth()/2,Gdx.graphics.getHeight());
+		playerTable.size(Gdx.graphics.getWidth()/2,Gdx.graphics.getHeight());
 
+		stage.addActor(mainTable);
+//		mainTable.debug();
+//		inputTable.debug();
+//		playerTable.debug();
 	}
 
-	// expand when needing more buttons
 	public List<Button> getButtons() {
 		return buttonList;
 	}
 
 	public void addPlayer(String name) {
-		t2.add(name);
+		playerTable.add(name).left();
 	}
 
 	public String getText() {
@@ -79,26 +96,31 @@ public class MainScreen extends AbstractScreen {
 	}
 
 	public void setText(String text) {
-		nameField.setText(text);
+		msg.setColor(Color.RED);
+		msg.setText(text);
 	}
 
 	@Override
 	public void show() {
 		Gdx.input.setInputProcessor(stage);
 	}
+	
+	public void clearPlayers(){
+		playerTable.clear();
+		playerTable.add("Players:");
+	}
 
 	@Override
 	public void render(float render) {
-		Gdx.gl.glClearColor(0, 0, 0.2f, 1);
+		Gdx.gl.glClearColor(0.7f, 0.7f, 0.7f, 0.7f);//Background color
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 
 		stage.draw();
-
+//		Table.drawDebug(stage);
 	}
 
 	@Override
 	public void dispose() {
 		stage.dispose();
 	}
-
 }

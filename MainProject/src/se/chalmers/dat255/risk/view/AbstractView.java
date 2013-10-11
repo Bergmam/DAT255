@@ -1,16 +1,11 @@
 package se.chalmers.dat255.risk.view;
 
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
-public abstract class AbstractView extends Actor implements
-		PropertyChangeListener {
+public abstract class AbstractView extends Actor {
 
 	protected boolean isClicked;
 	protected BitmapFont font;
@@ -27,10 +22,6 @@ public abstract class AbstractView extends Actor implements
 		height = iU.getHeight();
 		font = new BitmapFont();
 		scale = width;
-	}
-
-	@Override
-	public void propertyChange(PropertyChangeEvent evt) {
 	}
 
 	/*

@@ -17,10 +17,10 @@ public class BonusHandler {
 	public void calcBonusesFromCards(ArrayList<String> names, Player activePlayer){
 		for(String name : names){
 			if(worldMap.getOwner(name) == activePlayer){
-				bonus =+ 2;
+				bonus += 2;
 			}
 		}
-		bonus =+ currentCardBonus;
+		bonus += currentCardBonus;
 		currentCardBonus += 2; // Maybe needs to be changed later, may not be linear.
 	}
 
