@@ -50,15 +50,15 @@ public class TurnAndPhaaseManagerTest {
 		tAPM.changePhase(players.get(0), players);
 		assertTrue(tAPM.getPhase() == Phase.F2);
 		assertTrue(tAPM.getActivePlayer() == players.get(0).getId());
-		
+
 		tAPM.changePhase(players.get(0), players);
 		assertTrue(tAPM.getPhase() == Phase.F3);
 		assertTrue(tAPM.getActivePlayer() == players.get(0).getId());
-		
+
 		tAPM.changePhase(players.get(0), players);
 		assertTrue(tAPM.getPhase() == Phase.F1);
 		assertTrue(tAPM.getActivePlayer() == players.get(1).getId());
-		
+
 		tAPM.changePhase(players.get(1), players);
 		assertTrue(tAPM.getPhase() == Phase.F2);
 		assertTrue(tAPM.getActivePlayer() == players.get(1).getId());
@@ -66,7 +66,32 @@ public class TurnAndPhaaseManagerTest {
 
 	@Test
 	public void testSurrender() {
-
+		// Surrender will change Phase to phase build if the players are in
+		// phase build and its not the last player in players.
+		tAPM.surrender(players);
+		assertTrue(tAPM.getPhase()==Phase.FBuild);
+		
+		tAPM.changePhase(players.get(0), players);
+		tAPM.surrender(players);
+		assertTrue(tAPM.getPhase()==Phase.FBuild);
+		
+		//Now it always should be phase1
+		tAPM.changePhase(players.get(1), players);
+		tAPM.surrender(players);
+		assertTrue(tAPM.getPhase()==Phase.F1);
+		
+		tAPM.changePhase(players.get(1), players);
+		tAPM.surrender(players);
+		assertTrue(tAPM.getPhase()==Phase.F1);
+		
+		tAPM.changePhase(players.get(1), players);
+		tAPM.surrender(players);
+		assertTrue(tAPM.getPhase()==Phase.F1);
+		
+		tAPM.changePhase(players.get(2), players);
+		tAPM.surrender(players);
+		assertTrue(tAPM.getPhase()==Phase.F1);
+		
 	}
 
 }
