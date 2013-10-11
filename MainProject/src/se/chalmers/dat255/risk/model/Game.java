@@ -28,13 +28,18 @@ public class Game implements IGame {
 
 	private String continentsFile;
 	private String neighboursFile;
-
-	private final int maxAllowedPlayers = 6;
-	private final int minAllowedPlayers = 2;
-	private final int numbersOfWildCards = 6;
-	private final int oneDice = 1;
-	private final int twoDices = 2;
-	private final int threeDices = 3;
+	
+	
+	private final int maxAllowedPlayers=6;
+	private final int minAllowedPlayers=2;
+	private final int numbersOfWildCards=6;
+	private final int oneDice=1;
+	private final int twoDices=2;
+	private final int threeDices=3;
+	
+	private final String movement="Movement";
+	private final String attack="Attack";
+	private final String conquer = "takeOver";
 
 	/**
 	 * Creates a new Game.
@@ -112,6 +117,14 @@ public class Game implements IGame {
 	private void placeBonusUnits(int units, IProvince province) {
 		bonusHandler.placeBonusUnits(units, province);
 	}
+	
+	/**
+	 * Same as above, except only place one unit.
+	 * @param province
+	 */
+	private void placeBonusUnits(IProvince province) {
+		bonusHandler.placeBonusUnits(1, province);
+	}
 
 	@Override
 	public int getBonusUnitsLeft() {
@@ -140,7 +153,7 @@ public class Game implements IGame {
 		if (getCurrentPhase() == Phase.F1 && bonus > 0) {
 			// PUT A SINGEL UNIT ON THIS PROVINCE IF OWNED
 			if (worldMap.getOwner(newProvince.getId()) == getActivePlayer()) {
-				placeBonusUnits(1, newProvince);
+				placeBonusUnits(newProvince);
 			}
 		}
 		// FIGHTING PHASE 2, FIGHT IF TWO PROVINCE CLICKED AND OWNED BY
@@ -154,7 +167,7 @@ public class Game implements IGame {
 		else if (getCurrentPhase() == Phase.FBuild) {
 			if (worldMap.getOwner(newProvince.getId()) == getActivePlayer()
 					&& bonus > 0) {
-				placeBonusUnits(1, newProvince);
+				placeBonusUnits(newProvince);
 			}
 		}
 	}
@@ -177,8 +190,8 @@ public class Game implements IGame {
 				secondProvince = newProvince;
 				secondProvince.setActive(true);
 				pcs.firePropertyChange(
-						"Attack",
-						oldProvince.getUnits() - 1 >= 3 ? 3 : oldProvince
+						attack,
+						oldProvince.getUnits() - 1 >= 3 ? threeDices : oldProvince
 								.getUnits() - 1, secondProvince);
 				// battle(oldClickedProvince, newClickedProvince);
 			} else {
@@ -203,8 +216,7 @@ public class Game implements IGame {
 
 					secondProvince = newProvince;
 					secondProvince.setActive(true);
-					pcs.firePropertyChange("Movement", oldProvince.getUnits(),
-							1);
+					pcs.firePropertyChange(movement, oldProvince.getUnits(), 1);
 				}
 			}
 		}
@@ -265,7 +277,7 @@ public class Game implements IGame {
 				getActivePlayer().addCard();
 				firstProvinceConqueredThisTurn = false;
 			}
-			pcs.firePropertyChange("takeOver", oldProvince.getUnits(), ""
+			pcs.firePropertyChange(conquer, oldProvince.getUnits(), ""
 					+ nbrOfDice);
 		} else if (oldProvince.getUnits() > 1) {
 			pcs.firePropertyChange(
@@ -358,17 +370,19 @@ public class Game implements IGame {
 	 * 
 	 * Changing phase and then pokes on other methods.
 	 * 
-	 * 2 if if a new bonus shall be computed. == 0 for F0 1 if a change of phase
-	 * has taken place. 0 if a new turn has begun. -1 if phase didn't change.
+	 * ComputeBonusForF0 if if a new bonus shall be computed. 
+	 * ChangedPhase if a change of phase has taken place. 
+	 * ComputeBonusForF1 if a new turn has begun (and not in buildingphase = F0). 
+	 * DoNothing if phase didn't change.
 	 */
 	@Override
 	public void handlePhaseEvent() {
 		int bonus = bonusHandler.getBonus();
-		int result = eventHandler.handlePhaseEvent(getActivePlayer(), bonus,
+		TurnAndPhaseManager.ResultType result = eventHandler.handlePhaseEvent(getActivePlayer(), bonus,
 				players);
-		if (result == 2) {
+		if (result == TurnAndPhaseManager.ResultType.ComputeBonusForF0) {
 			bonusHandler.calcBonusForF0(getActivePlayer().getNrOfProvinces());
-		} else if (result == 0) {
+		} else if (result == TurnAndPhaseManager.ResultType.ComputeBonusForF1) {
 			updateValues();
 		}
 		flushProvinces();// clean temps between turns and phases
