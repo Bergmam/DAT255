@@ -94,23 +94,7 @@ public class Game implements IGame {
 			players.add(new Player(i, playersId[i]));
 		}
 	}
-
-	/*
-	 * private void calcStartBonus() { // INITIALIZING STARTING NUMBER OF TROOPS
-	 * startingTroopNr = 50 - players.size() * 5;
-	 * 
-	 * // /////////////////// ONLY FOR DEV /////////////////////////// // bonus
-	 * = startingTroopNr - getActivePlayer().getNrOfProvinces(); bonus = 3; }
-	 */
-
-	/*
-	 * Method for changing the state of the game to the next state if it should
-	 * be changed.
-	 */
-	/*
-	 * private int changePhase() { return } <<<<<<< HEAD =======
-	 */
-
+	
 	@Override
 	public Player getActivePlayer() {
 		return players.get(phaseHandler.getActivePlayer());

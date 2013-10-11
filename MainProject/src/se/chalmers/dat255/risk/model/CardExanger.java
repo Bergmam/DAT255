@@ -66,6 +66,7 @@ public class CardExanger {
 				card2=null;
 			}
 			card.setActive(false);
+			System.out.println(" card is not active :" + card.getName() +" == " +card.isActive() );
 			return true;
 		}
 		return false;
