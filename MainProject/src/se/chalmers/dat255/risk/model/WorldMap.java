@@ -63,22 +63,20 @@ public class WorldMap {
 		for (String pLine : pLines) {
 			String[] array = pLine.split("-");
 			String p1 = array[0];
-			listOfProvinces.add(p1);
+			listOfProvinces.add(removeBadChar(p1));
 			ArrayList<String> list = new ArrayList<String>();
 			for (int i = 1; i < array.length; i++) {
 				String anotherProvince = array[i];
-				list.add(anotherProvince);
+				list.add(removeBadChar(anotherProvince));
 			}
-			String replace = list.remove(list.size()-1);
-			list.add(removeLastChar(replace)); // Removes some tabulator that shouldn't be in the end off the last province name
 			tempNeighbours.put(p1, list);
 		}
 		neighbours = new HashMap<String, ArrayList<String>>(tempNeighbours);
 		return listOfProvinces;
 	}
 	
-	private String removeLastChar(String p1){
-			return p1.substring(0, p1.length()-1);
+	private String removeBadChar(String p1){
+		return p1.trim();
 	}
 			
 
