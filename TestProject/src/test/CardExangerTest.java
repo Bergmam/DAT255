@@ -23,6 +23,7 @@ public class CardExangerTest {
 	Card card4 = new Card(Card.CardType.CAVALRY, "dProvince");
 	Card card5 = new Card(Card.CardType.JOKER, "eProvince");
 	Card card6 = new Card(Card.CardType.ARTILLERY, "fProvince");
+	Card card7 = new Card(Card.CardType.JOKER, "eProvince");
 
 	@Before
 	public void beforeAllTest() {
@@ -34,6 +35,7 @@ public class CardExangerTest {
 		cards.add(card4);
 		cards.add(card5);
 		cards.add(card6);
+		
 
 	}
 
@@ -47,9 +49,8 @@ public class CardExangerTest {
 		assertNull(cardExanger.makeExange(card2, player1));
 		assertTrue(card2.isActive());
 
-		// makeExchange with one card two times should inactivate card and
-		// return
-		// null,
+		// makeExchange with one card two times should inactivate card and return
+		// null, 
 		assertNull(cardExanger.makeExange(card1, player1));
 		assertFalse(card1.isActive());
 
@@ -57,38 +58,60 @@ public class CardExangerTest {
 		cardExanger.flushCards();
 
 		// Nothing should happen if you choose 3 cards, where 2 have the same
-		// type and the other not. - return null
+		// type and the other another. - return null
 		assertNull(cardExanger.makeExange(card1, player1));
 		assertNull(cardExanger.makeExange(card2, player1));
 		assertNull(cardExanger.makeExange(card4, player1));
 
 		cardExanger.flushCards();
 
-		// If you choose 3 cards of the same type they should disapear from
-		// players hand.
-
+		// If you choose 3 cards of the same type they should do something - return ArrayList<Cards>
 		assertNull(cardExanger.makeExange(card1, player1));
 		assertNull(cardExanger.makeExange(card2, player1));
 		assertTrue(card1.isActive());
 		assertTrue(card2.isActive());
 		assertNotNull(cardExanger.makeExange(card3, player1));
+		
+		cardExanger.flushCards();
 
+		//If you choose one card of each cardType(or 1 Joker and two other cards), they should do something - return ArrayList<Cards>
+		assertNull(cardExanger.makeExange(card4, player1));
+		assertNull(cardExanger.makeExange(card5, player1));
+		assertTrue(card5.isActive());
+		assertTrue(card4.isActive());
+		assertNotNull(cardExanger.makeExange(card6, player1));
+		
+		player1 = new Player(0, "Adolf");
+		ArrayList cards = player1.getCards();
+		cards.add(card1);
+		cards.add(card5);
+		cards.add(card7);
+		
+		//You cant echange 2 Jokers in one round.
+		assertNull(cardExanger.makeExange(card1, player1));
+		assertNull(cardExanger.makeExange(card5, player1));
+		assertTrue(card1.isActive());
+		assertTrue(card5.isActive());
+		assertNull(cardExanger.makeExange(card7, player1));
+		
+		// If you try to exchange 3 cards the cards will be inactivated.
+		assertFalse(card1.isActive());
+		assertFalse(card5.isActive());
+		assertFalse(card7.isActive());
 	}
 
 	@Test
 	public void testFlushCards() {
-		// First we activate 2 cards, then we will test if they are active after
-		// flushCards. We also check if we can make exchange with a third card.
+		//First we activate 2 cards, then we will test if they are active after flushCards. We also check if we can make exchange with a third card.
 		cardExangerForFlushTest.makeExange(card1, player1);
 		assertTrue(card1.isActive());
 		cardExangerForFlushTest.makeExange(card2, player1);
 		assertTrue(card2.isActive());
-
+		
 		cardExangerForFlushTest.flushCards();
-
+		
 		assertFalse(card1.isActive());
 		assertFalse(card2.isActive());
-
 		assertNull(cardExangerForFlushTest.makeExange(card3, player1));
 	}
 
