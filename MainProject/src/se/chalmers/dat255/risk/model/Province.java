@@ -1,6 +1,5 @@
 package se.chalmers.dat255.risk.model;
 
-import se.chalmers.dat255.risk.view.resource.PlayerColor;
 
 /**
  * Simulates a province on the world map. Contains a number of units and handles

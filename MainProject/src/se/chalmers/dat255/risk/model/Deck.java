@@ -72,6 +72,7 @@ public class Deck {
 	 * Method for shuffling and moving the discarded cards into the deck.
 	 * If deck is not empty methods adds shuffled cards to the end of the deck list.
 	 */
+	@SuppressWarnings("unchecked")
 	public static void recycleCards(){
 		if(deck.size() == 0){
 			System.out.println("is it empty? " + deck.size());

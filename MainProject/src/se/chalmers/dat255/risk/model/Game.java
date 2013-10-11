@@ -67,10 +67,7 @@ public class Game implements IGame {
 							+ " and " + maxAllowedPlayers);
 		}
 		createPlayers(playersId);
-		players.get(phaseHandler.getActivePlayer()).setCurrent(true); // Player
-																		// get
-																		// his
-																		// turn
+
 		worldMap = new WorldMap(neighboursFile, continentsFile, players);
 		bonusHandler = new BonusHandler(worldMap, players.size());
 		bonusHandler.calcBonusForF0(getActivePlayer().getNrOfProvinces()); // Instancieate
@@ -104,20 +101,10 @@ public class Game implements IGame {
 	}
 
 	/**
-	 * Method for placing the amount of units the player chooses the place on
-	 * the province the player chooses to place them.
-	 * 
-	 * @param units
-	 *            the number of units being placed
-	 */
-	private void placeBonusUnits(int units, IProvince province) {
-		bonusHandler.placeBonusUnits(units, province);
-	}
-
-	/**
-	 * Same as above, except only place one unit.
+	 * Places one unit in a province
 	 * 
 	 * @param province
+	 *            province to place the unit in
 	 */
 	private void placeBonusUnits(IProvince province) {
 		bonusHandler.placeBonusUnits(1, province);
@@ -377,14 +364,14 @@ public class Game implements IGame {
 	@Override
 	public void handlePhaseEvent() {
 		int bonus = bonusHandler.getBonus();
-		ResultType result = eventHandler.handlePhaseEvent(
-				getActivePlayer(), bonus, players);
+		ResultType result = eventHandler.handlePhaseEvent(getActivePlayer(),
+				bonus, players);
 		if (result == ResultType.ComputeBonusForF0) {
 			bonusHandler.calcBonusForF0(getActivePlayer().getNrOfProvinces());
 		} else if (result == ResultType.ComputeBonusForF1) {
 			updateValues();
-		} else if(result == ResultType.DoNothing){
-			if(bonus > 0){
+		} else if (result == ResultType.DoNothing) {
+			if (bonus > 0) {
 				pcs.firePropertyChange(UNITS, true, false);
 			} else {
 				pcs.firePropertyChange(CARDS, true, false);

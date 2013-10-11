@@ -4,8 +4,6 @@ import se.chalmers.dat255.risk.model.IGame;
 
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public abstract class AbstractScreen implements Screen {
 

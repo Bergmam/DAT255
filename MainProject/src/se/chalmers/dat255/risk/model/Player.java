@@ -15,7 +15,6 @@ public class Player {
 	private PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 	private String name;
 	private int turnId, nrOfProvinces = 0;
-	private boolean current=false;
 	private ArrayList<ICard> cards; // The cards the player currently has on his/her hand.
 	
 	// ============== EVENT-CONSTANTS ==============
@@ -84,9 +83,9 @@ public class Player {
 		Deck.discard(c1);
 		Deck.discard(c2);
 		Deck.discard(c3);
-		pcs.firePropertyChange(this.CARD_REMOVED, null, c1);
-		pcs.firePropertyChange(this.CARD_REMOVED, null, c2);
-		pcs.firePropertyChange(this.CARD_REMOVED, null, c3);
+		pcs.firePropertyChange(CARD_REMOVED, null, c1);
+		pcs.firePropertyChange(CARD_REMOVED, null, c2);
+		pcs.firePropertyChange(CARD_REMOVED, null, c3);
 	}
 	
 	private void inActivate(ICard c1, ICard c2, ICard c3){
@@ -144,10 +143,6 @@ public class Player {
 	 */
 	public ArrayList<ICard> getCards(){
 		return cards;
-	}
-	
-	public void setCurrent(Boolean current){
-		this.current=current;
 	}
 	
 	public int getId(){

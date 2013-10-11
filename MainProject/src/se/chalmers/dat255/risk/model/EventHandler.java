@@ -7,11 +7,7 @@ import se.chalmers.dat255.risk.model.TurnAndPhaseManager.ResultType;
 
 public class EventHandler {
 	private TurnAndPhaseManager phaseHandler;
-	private CardExanger cardExanger;
-	private IProvince oldClickedProvince = null;
-	private boolean movedTroops = false;
-	private boolean firstProvinceConqueredThisTurn = true;
-	
+	private CardExanger cardExanger;	
 	
 	public EventHandler(TurnAndPhaseManager phaseHandler) {
 		this.phaseHandler = phaseHandler;

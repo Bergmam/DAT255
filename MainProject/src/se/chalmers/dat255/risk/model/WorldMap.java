@@ -1,6 +1,5 @@
 package se.chalmers.dat255.risk.model;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
@@ -93,8 +92,6 @@ public class WorldMap {
 			String[] array = line.split("-");
 			itsProvinces = new String[array.length - 2];
 
-			int nrOfContinents = 0;
-
 			for (int i = 2; i < array.length; i++) {
 				itsProvinces[i - 2] = removeBadChar(array[i]);
 			}
@@ -151,7 +148,7 @@ public class WorldMap {
 		
 		/*
 		if (list.contains(provinceName2)) {
-			System.out.println("Dom var ju grannar, allt är frid och fröjd");
+			System.out.println("Dom var ju grannar, allt ï¿½r frid och frï¿½jd");
 			return true;
 		}*/
 		return false;
@@ -170,7 +167,7 @@ public class WorldMap {
 	private void randomizeProvinces(ArrayList<String> provinceList,
 			ArrayList<Player> players) {
 		ArrayList<String> temp = provinceList;
-		int nrOfPlayers = players.size(), nrOfProvinces = provinceList.size();
+		int nrOfProvinces = provinceList.size();
 
 		Random randGen = new Random();
 		while (!temp.isEmpty()) {
@@ -231,13 +228,11 @@ public class WorldMap {
 	 * 
 	 */
 	private class Continent {
-		String continentName;
 		String[] provinces;
 		int bonus;
 		Player owner = null;
 
 		public Continent(String continentName, String[] provinces, int bonus) {
-			this.continentName = continentName;
 			this.provinces = provinces;
 			this.bonus = bonus;
 		}

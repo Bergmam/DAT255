@@ -2,7 +2,6 @@ package se.chalmers.dat255.risk.view;
 
 import java.beans.PropertyChangeEvent;
 
-import se.chalmers.dat255.risk.model.Game;
 import se.chalmers.dat255.risk.model.IGame;
 import se.chalmers.dat255.risk.view.resource.ColorHandler;
 import se.chalmers.dat255.risk.view.resource.Resource;
@@ -107,7 +106,7 @@ public class UIStage extends AbstractStage {
 	@Override
 	public void propertyChange(PropertyChangeEvent event) {
 		String name = event.getPropertyName();
-		
+
 		if (name.equalsIgnoreCase(IGame.ATTACK)) {
 			showPopUp(name, "How many dice \ndo you want?",
 					(Integer) event.getOldValue(), 1);
@@ -125,9 +124,9 @@ public class UIStage extends AbstractStage {
 			showPopUp("Congratz", "You have won!");
 		} else if (name.equalsIgnoreCase(IGame.SURRENDER)) {
 			showPopUp(name, "Are you sure you\n want to surrender?");
-		} else if(name.equalsIgnoreCase(IGame.UNITS)){
+		} else if (name.equalsIgnoreCase(IGame.UNITS)) {
 			showPopUp(name, "You must place \nall your units");
-		}else if(name.equalsIgnoreCase(IGame.CARDS)){
+		} else if (name.equalsIgnoreCase(IGame.CARDS)) {
 			showPopUp(name, "You must exchange \nyour cards");
 		}
 

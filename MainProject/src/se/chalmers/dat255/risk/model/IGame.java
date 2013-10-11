@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import se.chalmers.dat255.risk.model.TurnAndPhaseManager.Phase;
-import se.chalmers.dat255.risk.view.resource.Resource;
 
 /**
  * Interface for top class in the game risk
