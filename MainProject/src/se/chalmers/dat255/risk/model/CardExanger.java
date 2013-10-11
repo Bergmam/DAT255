@@ -72,11 +72,9 @@ public class CardExanger {
 	public void flushCards(){
 		if(card1 != null){
 			card1.setActive(false);
-			System.out.println(" card is not active :" + card1.getName() +" == " +card1.isActive() );
 		}
 		if(card2 != null){
 			card2.setActive(false);
-			System.out.println(" card is not active :" + card1.getName() +" == " +card1.isActive() );
 		}
 		
 		card1 = null;

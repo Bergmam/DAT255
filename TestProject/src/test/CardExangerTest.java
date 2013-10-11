@@ -34,7 +34,6 @@ public class CardExangerTest {
 		cards.add(card4);
 		cards.add(card5);
 		cards.add(card6);
-		
 
 	}
 
@@ -43,12 +42,16 @@ public class CardExangerTest {
 
 		// makeExchange with one/two card should not do anything. -return null
 		assertNull(cardExanger.makeExange(card1, player1));
+		assertTrue(card1.isActive());
 
 		assertNull(cardExanger.makeExange(card2, player1));
+		assertTrue(card2.isActive());
 
-		// makeExchange with one card two times should not do anything - return
-		// null
+		// makeExchange with one card two times should inactivate card and
+		// return
+		// null,
 		assertNull(cardExanger.makeExange(card1, player1));
+		assertFalse(card1.isActive());
 
 		// Flush and restart
 		cardExanger.flushCards();
@@ -63,23 +66,30 @@ public class CardExangerTest {
 
 		// If you choose 3 cards of the same type they should disapear from
 		// players hand.
-		
-		
+
 		assertNull(cardExanger.makeExange(card1, player1));
 		assertNull(cardExanger.makeExange(card2, player1));
 		assertTrue(card1.isActive());
 		assertTrue(card2.isActive());
 		assertNotNull(cardExanger.makeExange(card3, player1));
-		
 
 	}
 
 	@Test
 	public void testFlushCards() {
+		// First we activate 2 cards, then we will test if they are active after
+		// flushCards. We also check if we can make exchange with a third card.
 		cardExangerForFlushTest.makeExange(card1, player1);
+		assertTrue(card1.isActive());
 		cardExangerForFlushTest.makeExange(card2, player1);
-		cardExanger.flushCards();
+		assertTrue(card2.isActive());
 
+		cardExangerForFlushTest.flushCards();
+
+		assertFalse(card1.isActive());
+		assertFalse(card2.isActive());
+
+		assertNull(cardExangerForFlushTest.makeExange(card3, player1));
 	}
 
 }
