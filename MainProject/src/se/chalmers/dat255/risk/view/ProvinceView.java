@@ -24,7 +24,7 @@ public class ProvinceView extends AbstractView {
 	}
 
 	private float getTextY() {
-		return getY() + (height / 3);
+		return getY() + (height / 2);
 	}
 
 	@Override
