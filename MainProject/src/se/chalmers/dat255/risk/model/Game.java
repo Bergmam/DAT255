@@ -28,9 +28,18 @@ public class Game implements IGame {
 
 	private String continentsFile;
 	private String neighboursFile;
+	
+	
+	private final int maxAllowedPlayers=6;
+	private final int minAllowedPlayers=2;
+	private final int numbersOfWildCards=6;
+	private final int oneDice=1;
+	private final int twoDices=2;
+	private final int threeDices=3;
+	
 
 	/**
-	 * Creates a new Game. lostArmies =
+	 * Creates a new Game. 
 	 * 
 	 * @param playersId
 	 *            The ids of the players
@@ -53,29 +62,16 @@ public class Game implements IGame {
 		phaseHandler = new TurnAndPhaseManager();
 		eventHandler = new EventHandler(phaseHandler);
 		int noOfPlayers = playersId.length;
-		if (noOfPlayers > 6 || noOfPlayers < 2) {
+		if (noOfPlayers > maxAllowedPlayers || noOfPlayers < minAllowedPlayers) {
 			throw new IllegalArgumentException(
-					"The player number must be betwen 2 and 6");
+					"The player number must be betwen " + minAllowedPlayers + " and " + maxAllowedPlayers);
 		}
-
 		createPlayers(playersId);
-		players.get(phaseHandler.getActivePlayer()).setCurrent(true); // Player
-																		// one
-
-		// ////////////////// ONLY FOR DEV //////////////////////////
-		// SETTING UP GAMEBOARD RULES AND CREATING PROVINCES
-
+		players.get(phaseHandler.getActivePlayer()).setCurrent(true); // Player get his turn
 		worldMap = new WorldMap(neighboursFile, continentsFile, players);
 		bonusHandler = new BonusHandler(worldMap, players.size());
-		bonusHandler.calcBonusForF0(getActivePlayer().getNrOfProvinces()); // Instancieate
-																			// first
-																			// players
-																			// bonus
-		// bonusHandler.calcStartBonus(players.size());
-
+		bonusHandler.calcBonusForF0(getActivePlayer().getNrOfProvinces()); // Instancieate the first player's bonus
 		setUpDeck();
-
-		// refresh(); //BYTS MOT MOTSVARANDE I LIBGDX
 	}
 
 	private void setUpDeck() {
@@ -85,7 +81,7 @@ public class Game implements IGame {
 			provinces.add(i.getId());
 		}
 		deck = Deck.getInstance();
-		deck.CreateCards(provinces, 6);// H�rdkodat antal wildcard
+		deck.CreateCards(provinces, numbersOfWildCards);
 	}
 
 	private void createPlayers(String[] playersId) {
@@ -201,8 +197,7 @@ public class Game implements IGame {
 
 					secondProvince = newProvince;
 					secondProvince.setActive(true);
-					pcs.firePropertyChange("Movement", oldProvince.getUnits(),
-							1);
+					pcs.firePropertyChange("Movement", oldProvince.getUnits(), 1);
 				}
 			}
 		}
@@ -268,7 +263,7 @@ public class Game implements IGame {
 		} else if (oldProvince.getUnits() > 1) {
 			pcs.firePropertyChange(
 					"Again?",
-					oldProvince.getUnits() - 1 >= 3 ? 3 : oldProvince
+					oldProvince.getUnits() - 1 >= 3 ? threeDices : oldProvince
 							.getUnits() - 1, 0);
 		} else {
 			flushProvinces();
@@ -312,7 +307,7 @@ public class Game implements IGame {
 	private boolean attack(int offensiveDice, IProvince offensive,
 			IProvince defensive) {
 
-		int defensiveDice = defensive.getUnits() == 1 ? 1 : 2;
+		int defensiveDice = defensive.getUnits() == 1 ? oneDice : twoDices;
 
 		int[] result = battle.doBattle(offensiveDice, defensiveDice);
 
