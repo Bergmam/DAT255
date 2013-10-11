@@ -28,18 +28,16 @@ public class Game implements IGame {
 
 	private String continentsFile;
 	private String neighboursFile;
-	
-	
-	private final int maxAllowedPlayers=6;
-	private final int minAllowedPlayers=2;
-	private final int numbersOfWildCards=6;
-	private final int oneDice=1;
-	private final int twoDices=2;
-	private final int threeDices=3;
-	
+
+	private final int maxAllowedPlayers = 6;
+	private final int minAllowedPlayers = 2;
+	private final int numbersOfWildCards = 6;
+	private final int oneDice = 1;
+	private final int twoDices = 2;
+	private final int threeDices = 3;
 
 	/**
-	 * Creates a new Game. 
+	 * Creates a new Game.
 	 * 
 	 * @param playersId
 	 *            The ids of the players
@@ -64,13 +62,21 @@ public class Game implements IGame {
 		int noOfPlayers = playersId.length;
 		if (noOfPlayers > maxAllowedPlayers || noOfPlayers < minAllowedPlayers) {
 			throw new IllegalArgumentException(
-					"The player number must be betwen " + minAllowedPlayers + " and " + maxAllowedPlayers);
+					"The player number must be betwen " + minAllowedPlayers
+							+ " and " + maxAllowedPlayers);
 		}
 		createPlayers(playersId);
-		players.get(phaseHandler.getActivePlayer()).setCurrent(true); // Player get his turn
+		players.get(phaseHandler.getActivePlayer()).setCurrent(true); // Player
+																		// get
+																		// his
+																		// turn
 		worldMap = new WorldMap(neighboursFile, continentsFile, players);
 		bonusHandler = new BonusHandler(worldMap, players.size());
-		bonusHandler.calcBonusForF0(getActivePlayer().getNrOfProvinces()); // Instancieate the first player's bonus
+		bonusHandler.calcBonusForF0(getActivePlayer().getNrOfProvinces()); // Instancieate
+																			// the
+																			// first
+																			// player's
+																			// bonus
 		setUpDeck();
 	}
 
@@ -90,7 +96,7 @@ public class Game implements IGame {
 			players.add(new Player(i, playersId[i]));
 		}
 	}
-	
+
 	@Override
 	public Player getActivePlayer() {
 		return players.get(phaseHandler.getActivePlayer());
@@ -197,7 +203,8 @@ public class Game implements IGame {
 
 					secondProvince = newProvince;
 					secondProvince.setActive(true);
-					pcs.firePropertyChange("Movement", oldProvince.getUnits(), 1);
+					pcs.firePropertyChange("Movement", oldProvince.getUnits(),
+							1);
 				}
 			}
 		}
@@ -286,6 +293,9 @@ public class Game implements IGame {
 		if (gameOver.getNrOfProvinces() == 0) {
 			playerLose(gameOver);
 		}
+		if (players.size() == 1) {
+			win(players.get(0));
+		}
 	}
 
 	private void win(Player win) {
@@ -295,13 +305,10 @@ public class Game implements IGame {
 
 	// also handles defeat of neutral players, because they aren't
 	// no problem occurs
+
 	private void playerLose(Player gameOver) {
 		gameOver.discard();
 		players.remove(gameOver);
-		if (players.size() == 1) {
-			win(players.get(0));
-		}
-
 	}
 
 	private boolean attack(int offensiveDice, IProvince offensive,
@@ -333,12 +340,17 @@ public class Game implements IGame {
 	public void surrender() {
 		playerLose(getActivePlayer());
 		phaseHandler.surrender(players);
+		if (players.size() == 1) {
+			win(players.get(0));
+			return;
+		}
 		if (getCurrentPhase() == Phase.FBuild) {
 			bonusHandler.calcBonusForF0(getActivePlayer().getNrOfProvinces());
 		} else {
 			updateValues();
 		}
 		flushProvinces();
+
 	}
 
 	/*

@@ -53,27 +53,32 @@ public class TurnAndPhaseManager {
 
 	private void changeTurn(List<Player> players) {
 		activePlayer = (activePlayer + 1) % players.size();
-		System.out
-				.println("Changed Turn, new player is: "
-						+ activePlayer);
+		System.out.println("Changed Turn, new player is: " + activePlayer);
 	}
 
 	public int getActivePlayer() {
 		return activePlayer;
 	}
 
-	/**called when a player gives up
+	/**
+	 * called when a player gives up
 	 * 
-	 * @param players the list of players left in the game
+	 * @param players
+	 *            the list of players left in the game
 	 */
 	// change turn not necessary!
 	public void surrender(List<Player> players) {
-		if (currentPhase == Phase.FBuild) {
-			if (activePlayer == players.size() - 1) {
-				changeTurn(players);
+		if (players.size() != 1) {
+			if (currentPhase == Phase.FBuild) {
+				if (activePlayer == players.size()) {
+					changeTurn(players);
+					currentPhase = Phase.F1;
+				}
+			} else {
 				currentPhase = Phase.F1;
-			} 
+			}
 		} else {
+			activePlayer = 0;//safety messure as to not crash the game
 			currentPhase = Phase.F1;
 		}
 	}
