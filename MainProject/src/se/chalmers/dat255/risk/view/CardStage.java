@@ -11,6 +11,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 
 /**
  * Stage for showing a players cards
@@ -18,9 +19,15 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 public class CardStage extends AbstractStage {
 
 	private final int maxNbrOfCards = 5;
+	Table main,top,bottom;
 
 	public CardStage(List<ICard> cards) {
 		super();
+		main = new Table();
+		main.setFillParent(true);
+		
+		top = new Table();
+		bottom = new Table();
 
 		for (int i = 0; i < maxNbrOfCards; i++) {
 			views.add(new CardView(Resource.getInstance().cardHolder, Resource
@@ -31,19 +38,17 @@ public class CardStage extends AbstractStage {
 			addActor(a);
 		}
 
-		/*
-		 * almost more problem than it was worth placing all the cards
-		 * probably overly complicated as well
-		 */
-		for (int i = 0; i < 3; i++) {
-			views.get(i).setPosition(
-					i * (Gdx.graphics.getWidth() / 3) + views.get(i).width / 3,
-					Gdx.graphics.getHeight() / 2);
-		}
-		for (int i = 1, k = 3; k < 5; k++, i += 2) {
-			views.get(k).setPosition((i * (Gdx.graphics.getWidth() / 5)) - 8,
-					views.get(k).height / 10);
-		}
+		top.add(views.get(0)).expand();
+		top.add(views.get(1)).expand();
+		top.add(views.get(2)).expand();
+		main.add(top).expand().fill().row();
+		bottom.add().expand();
+		bottom.add(views.get(3)).expand();
+		bottom.add().expand();
+		bottom.add(views.get(4)).expand();
+		bottom.add().expand();
+		main.add(bottom).expand().fill();
+		addActor(main);
 
 	}
 
