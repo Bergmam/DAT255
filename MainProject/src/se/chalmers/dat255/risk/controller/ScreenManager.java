@@ -32,6 +32,7 @@ public class ScreenManager extends ClickListener {
 	private IGame model;
 	private GDXGame game;
 	private final List<String> list = new ArrayList<String>();
+	private final int maxNbrOfPlayers = 6;
 
 	private ScreenManager() {
 
@@ -106,7 +107,7 @@ public class ScreenManager extends ClickListener {
 		String s = b.getName();
 
 		if (s.equalsIgnoreCase("addPlayer")) {
-			if (list.size() < 6) {
+			if (list.size() < maxNbrOfPlayers) {
 				s = main.getText();
 				if (s.length() >= 1 && s.length() <= 10) {
 					if (!list.contains(s)) {

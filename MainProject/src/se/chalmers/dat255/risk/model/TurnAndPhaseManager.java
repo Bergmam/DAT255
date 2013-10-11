@@ -69,7 +69,6 @@ public class TurnAndPhaseManager {
 	 * @param players
 	 *            the list of players left in the game
 	 */
-	// change turn not necessary!
 	public void surrender(List<Player> players) {
 		if (players.size() != 1) {
 			if (currentPhase == Phase.FBuild) {

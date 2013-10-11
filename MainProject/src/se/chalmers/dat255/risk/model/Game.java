@@ -45,9 +45,7 @@ public class Game implements IGame {
 	 */
 	public Game() {
 		battle = new BattleHandler();
-
 		pcs = new PropertyChangeSupport(this);
-
 	}
 
 	public void setupGame(String[] playersId, String neighboursFile,
@@ -295,7 +293,6 @@ public class Game implements IGame {
 
 	private void win(Player win) {
 		pcs.firePropertyChange(WIN, 0, win);
-		System.out.println("Winner; " + win.getName());
 	}
 
 	// also handles defeat of neutral players, because they aren't
@@ -403,7 +400,5 @@ public class Game implements IGame {
 		for (int i = 0; i < list.size(); i++) {
 			players.get(i).addListener(list.get(i));
 		}
-
 	}
-
 }

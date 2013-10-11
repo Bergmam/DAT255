@@ -18,6 +18,7 @@ public class CardView extends AbstractView {
 		super(normal, checked);
 		setSize(Gdx.graphics.getWidth() / 5, 4 * (Gdx.graphics.getHeight() / 9));
 		label = new Label("", Resource.getInstance().skin);
+		label.setColor(Color.RED);
 	}
 
 	public void addCard(Texture normal, Texture checked, ICard card) {
@@ -34,7 +35,6 @@ public class CardView extends AbstractView {
 		label.setText("");
 		super.setImages(Resource.getInstance().cardHolder,
 				Resource.getInstance().cardHolder);
-
 	}
 
 	public boolean hasCard() {
@@ -53,7 +53,6 @@ public class CardView extends AbstractView {
 	public void draw(SpriteBatch batch, float alpha) {
 		batch.draw(isChecked() ? imageDown : imageUp, getX(), getY(),
 				getWidth(), getHeight());
-		label.setColor(Color.RED);
 		label.draw(batch, alpha);
 
 	}

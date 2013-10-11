@@ -1,6 +1,5 @@
 package se.chalmers.dat255.risk.view;
 
-import java.beans.PropertyChangeEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -77,7 +76,7 @@ public class WorldStage extends AbstractStage implements GestureListener {
 
 		addActor(background);
 		addActor(provinceGroup);
-		
+
 	}
 
 	@Override
@@ -173,8 +172,4 @@ public class WorldStage extends AbstractStage implements GestureListener {
 
 	}
 
-	@Override
-	public void propertyChange(PropertyChangeEvent arg0) {
-
-	}
 }

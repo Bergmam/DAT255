@@ -15,7 +15,7 @@ public class PopUp extends ConfirmDialog {
 	public PopUp(String title) {
 		super(title);
 
-		slider = new Slider(0, 5, 1, false, Resource.getInstance().skin);
+		slider = new Slider(0, 0, 1, false, Resource.getInstance().skin);
 		slider.setName("PopUpSlider");
 
 		slideMin = new Label("0.0", Resource.getInstance().skin);

@@ -32,18 +32,10 @@ public class Card implements ICard{
 		this.type = type;	
 	}
 	
-	/**
-	 * Method for accessing the name(id) of the province belonging to a card.
-	 * @return the name of the province.
-	 */
 	public String getName(){
 		return provinceName;
 	}
 	
-	/**
-	 * Method for accessing the type of a card. 
-	 * @return
-	 */
 	public Card.CardType getType(){
 		return this.type;
 	}
@@ -69,11 +61,6 @@ public class Card implements ICard{
 	public int hashCode() {
 		return super.hashCode();
 	}
-	
-	/**
-	 * Enum for representing the different types of cards which will exist in the deck.
-	 */
-	public static enum CardType {INFANTRY, CAVALRY, ARTILLERY, JOKER}
 
 	@Override
 	public void setActive(boolean active) {

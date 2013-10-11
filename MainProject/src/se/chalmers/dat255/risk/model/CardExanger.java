@@ -6,10 +6,6 @@ public class CardExanger {
 	private ICard card1 = null;
 	private ICard card2 = null;
 
-	public CardExanger() {
-
-	}
-
 	/**
 	 * Checks if the player has clicked cards before. If this is the third card
 	 * that is clicked
@@ -18,7 +14,8 @@ public class CardExanger {
 	 *            last card clicked.
 	 * @param The
 	 *            current player.
-	 * @return
+	 * @return names of the provinces connected to the cards if a correct
+	 *         combination has been chosen, null otherwise
 	 */
 	public ArrayList<String> makeExange(ICard card, Player currentPlayer) {
 		if (!handledBefore(card)) {
@@ -59,27 +56,27 @@ public class CardExanger {
 		if (card.isActive()) {
 			if (card == card2) {
 				card2 = null;
-			} else if (card == card1) {	
-				card1=card2;
-				card2=null;
+			} else if (card == card1) {
+				card1 = card2;
+				card2 = null;
 			}
 			card.setActive(false);
 			return true;
 		}
 		return false;
 	}
-	
-	public void flushCards(){
-		if(card1 != null){
+
+	public void flushCards() {
+		if (card1 != null) {
 			card1.setActive(false);
 		}
-		if(card2 != null){
+		if (card2 != null) {
 			card2.setActive(false);
 		}
-		
+
 		card1 = null;
 		card2 = null;
-		
+
 	}
-	
+
 }

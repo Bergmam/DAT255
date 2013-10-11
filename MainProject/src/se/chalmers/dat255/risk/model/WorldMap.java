@@ -53,7 +53,8 @@ public class WorldMap {
 	/*
 	 * Create all the provinces.
 	 */
-	private ArrayList<String> createProvinces(String string, ArrayList<Player> players) {
+	private ArrayList<String> createProvinces(String string,
+			ArrayList<Player> players) {
 		HashMap<String, ArrayList<String>> tempNeighbours = new HashMap<String, ArrayList<String>>();
 		ArrayList<String> listOfProvinces = new ArrayList<String>();
 		ownership = new HashMap<String, Player>();
@@ -73,11 +74,10 @@ public class WorldMap {
 		neighbours = new HashMap<String, ArrayList<String>>(tempNeighbours);
 		return listOfProvinces;
 	}
-	
-	private String removeBadChar(String p1){
+
+	private String removeBadChar(String p1) {
 		return p1.trim();
 	}
-			
 
 	/*
 	 * Creating the continents.
@@ -95,8 +95,8 @@ public class WorldMap {
 			for (int i = 2; i < array.length; i++) {
 				itsProvinces[i - 2] = removeBadChar(array[i]);
 			}
-			continents.add(new Continent(removeBadChar(array[1]), itsProvinces, Integer
-					.parseInt(array[0])));
+			continents.add(new Continent(removeBadChar(array[1]), itsProvinces,
+					Integer.parseInt(array[0])));
 		}
 		return continents;
 	}
@@ -139,18 +139,12 @@ public class WorldMap {
 	 */
 	public boolean isNeighbours(String provinceName1, String provinceName2) {
 		ArrayList<String> list = neighbours.get(provinceName1);
-		for(String province : list){
-			if(provinceName2.equals(province)){
+		for (String province : list) {
+			if (provinceName2.equals(province)) {
 				return true;
 			}
 		}
 
-		
-		/*
-		if (list.contains(provinceName2)) {
-			System.out.println("Dom var ju grannar, allt �r frid och fr�jd");
-			return true;
-		}*/
 		return false;
 	}
 
@@ -201,12 +195,12 @@ public class WorldMap {
 		return bonuses[player.getId()];
 	}
 
-	public void updateBonus() { //in parameter Continent updateContinent
-		//updateContinent.update();
-		int continentBonus=0;
+	public void updateBonus() { // in parameter Continent updateContinent
+		// updateContinent.update();
+		int continentBonus = 0;
 		for (int i = 0; i < bonuses.length; i++)
 			bonuses[i] = 0; // Emptys
-		for (Continent continent : continents) { //Fils
+		for (Continent continent : continents) { // Fils
 			continent.update();
 			continentBonus = continent.getBonus();
 			if (continent.getContinentOwner() != null)
@@ -252,7 +246,7 @@ public class WorldMap {
 		 */
 		public void update() {
 			Player tempProvinceOwner = getOwner(provinces[0]);
-			
+
 			for (String province : provinces) {
 				if (tempProvinceOwner != getOwner(province)) {
 					owner = null;

@@ -66,7 +66,7 @@ public class UIStage extends AbstractStage {
 		table.add(label).expandX().center();
 		table.row().expandX().row();
 		buttonTable.columnDefaults(0).expand().fill()
-				.width(phase.getLargestWidth());
+				.width(phase.getBoundWidth());
 		buttonTable.add(giveUp).row();
 		buttonTable.add(switchButton).height(Gdx.graphics.getHeight() / 9)
 				.row();

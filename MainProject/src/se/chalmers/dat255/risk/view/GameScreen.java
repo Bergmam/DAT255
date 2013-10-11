@@ -26,14 +26,11 @@ public class GameScreen extends AbstractScreen {
 
 	public GameScreen(IGame model) {
 		super(model);
-
 		isWorld = true;
-
 	}
 
 	@Override
 	public void show() {
-
 		Gdx.input.setInputProcessor(multi);
 	}
 
@@ -43,26 +40,24 @@ public class GameScreen extends AbstractScreen {
 
 	public List<AbstractView> getViews() {
 		List<AbstractView> tmp = new ArrayList<AbstractView>();
-
 		tmp.addAll(worldStage.getViews());
 		tmp.addAll(uiStage.getViews());
 		for (AbstractStage s : cardStages) {
 			tmp.addAll(s.getViews());
 		}
-
 		return tmp;
 	}
 
 	@Override
 	public void render(float render) {
-		Gdx.gl.glClearColor(0.7f, 0.7f, 0.7f, 0.7f);
+		Gdx.gl.glClearColor(0.7f, 0.7f, 0.7f, 0.7f);//Background color
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		camera.update();
 		checkStageChange();
 		getStage().draw();
 		uiStage.draw();
-		//Table.drawDebug(uiStage);
+		// Table.drawDebug(uiStage);
 	}
 
 	private void checkStageChange() {

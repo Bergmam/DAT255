@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class Player {
 	private PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 	private String name;
-	private int turnId, nrOfProvinces = 0;
+	private int turnId, nrOfProvinces;
 	private ArrayList<ICard> cards; // The cards the player currently has on his/her hand.
 	
 	// ============== EVENT-CONSTANTS ==============
@@ -88,7 +88,7 @@ public class Player {
 		pcs.firePropertyChange(CARD_REMOVED, null, c3);
 	}
 	
-	private void inActivate(ICard c1, ICard c2, ICard c3){
+	private void inactivate(ICard c1, ICard c2, ICard c3){
 		c1.setActive(false);
 		c2.setActive(false);
 		c3.setActive(false);
@@ -99,7 +99,6 @@ public class Player {
 	 * Checks if you have three cards of the same type, or three cards of different types.
 	 * Also makes sure you can only trade in one Joker at a time.
 	 */
-	
 	public boolean exchangeCard(ICard c1, ICard c2, ICard c3){
 		ArrayList<ICard> exhangeList = new ArrayList<ICard>();
 		exhangeList.add(c1);
@@ -112,7 +111,7 @@ public class Player {
 				nrOfJokers++;
 			}
 		}
-		inActivate(c1, c2, c3);
+		inactivate(c1, c2, c3);
 		if(nrOfJokers > 1){
 			return false;
 		}

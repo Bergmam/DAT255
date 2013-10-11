@@ -50,8 +50,7 @@ public class ChangePhase extends Button {
 		return "value not found";
 	}
 	
-	//TODO bad, ugly way of doing this
-	public float getLargestWidth(){
+	public float getBoundWidth(){
 		return label.getTextBounds().width;
 	}
 

@@ -13,6 +13,7 @@ import se.chalmers.dat255.risk.model.TurnAndPhaseManager.Phase;
  * 
  */
 public interface IGame {
+	// ============== EVENT-CONSTANTS ==============
 	public final static String MOVEMENT = "Movement";
 	public final static String ATTACK = "Attack";
 	public final static String CONQUER = "takeOver";
@@ -21,7 +22,9 @@ public interface IGame {
 	public final static String SURRENDER = "Surrender";
 	public final static String UNITS = "Units";
 	public final static String CARDS = "Cards";
-	
+
+	// =============================================
+
 	/**
 	 * Sets up a new Game
 	 * 

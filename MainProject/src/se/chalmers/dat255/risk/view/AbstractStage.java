@@ -1,5 +1,6 @@
 package se.chalmers.dat255.risk.view;
 
+import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,5 +34,10 @@ public abstract class AbstractStage extends Stage implements
 		for (AbstractView v : views) {
 			v.dispose();
 		}
+	}
+
+	@Override
+	public void propertyChange(PropertyChangeEvent arg0) {
+
 	}
 }

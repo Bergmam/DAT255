@@ -21,8 +21,8 @@ public class Message extends Dialog {
 
 		fadeDuration = 0f; // want to have fade but it doesn't work for some
 		// reason. (0.4f default)
+		
 		// checks button names in listener to decide action
-
 		confirm = new Button(Resource.getInstance().skin);
 		confirm.add("Ok", "default");
 		confirm.setName("confirm");

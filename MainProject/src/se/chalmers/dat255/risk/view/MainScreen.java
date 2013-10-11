@@ -72,7 +72,6 @@ public class MainScreen extends AbstractScreen {
 		mainTable.add(inputTable).expand();
 		mainTable.add(playerTable).fill();
 
-		//t1.pack();
 		inputTable.size(Gdx.graphics.getWidth()/2,Gdx.graphics.getHeight());
 		playerTable.size(Gdx.graphics.getWidth()/2,Gdx.graphics.getHeight());
 
@@ -82,7 +81,6 @@ public class MainScreen extends AbstractScreen {
 //		playerTable.debug();
 	}
 
-	// expand when needing more buttons
 	public List<Button> getButtons() {
 		return buttonList;
 	}
@@ -114,7 +112,7 @@ public class MainScreen extends AbstractScreen {
 
 	@Override
 	public void render(float render) {
-		Gdx.gl.glClearColor(0.7f, 0.7f, 0.7f, 0.7f);
+		Gdx.gl.glClearColor(0.7f, 0.7f, 0.7f, 0.7f);//Background color
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 
 		stage.draw();
@@ -125,5 +123,4 @@ public class MainScreen extends AbstractScreen {
 	public void dispose() {
 		stage.dispose();
 	}
-
 }
