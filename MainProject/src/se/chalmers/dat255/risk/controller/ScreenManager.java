@@ -78,7 +78,7 @@ public class ScreenManager extends ClickListener {
 				v.addListener(new ProvinceListener(model));
 			} else if (v instanceof CardView) {
 				v.addListener(new CardListener(model));
-			} 
+			}
 		}
 
 		for (Actor a : screen.getSpecActors()) {
@@ -86,7 +86,7 @@ public class ScreenManager extends ClickListener {
 				a.addListener(new SurrenderListener(model));
 			} else if (a instanceof PopUp) {
 				a.addListener(new PopUpListener(model));
-			}	else if (a instanceof ChangePhase) {
+			} else if (a instanceof ChangePhase) {
 				a.addListener(new ChangePhaseListener(model));
 			} else if (a instanceof SwitchButton) {
 				a.addListener(new SwitchListener());
@@ -102,10 +102,14 @@ public class ScreenManager extends ClickListener {
 		if (s.equalsIgnoreCase("addPlayer")) {
 			if (list.size() < 6) {
 				s = main.getText();
-				if (s.length() > 1 && s.length() < 10) {
-					list.add(s);
-					main.addPlayer(s);
-					System.out.println("added player " + s);
+				if (s.length() >= 1 && s.length() <= 10) {
+					if (!list.contains(s)) {
+						list.add(s);
+						main.addPlayer(s);
+						System.out.println("added player " + s);
+					} else {
+						main.setText("player already exists");
+					}
 				} else {
 					main.setText("too many/few letters");
 				}

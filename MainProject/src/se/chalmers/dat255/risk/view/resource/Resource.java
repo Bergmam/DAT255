@@ -21,7 +21,7 @@ public class Resource {
 	public Texture joker = new Texture(Gdx.files.internal("Gfx/Joker.png"));
 
 	public Texture artillery2 = new Texture(
-			Gdx.files.internal("Gfx/Cannon.png"));
+			Gdx.files.internal("Gfx/Cannon1.png"));
 	public Texture cavalry2 = new Texture(
 			Gdx.files.internal("Gfx/Cavalry1.png"));
 	public Texture infantry2 = new Texture(
