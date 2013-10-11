@@ -57,9 +57,9 @@ public class CardExanger {
 	 */
 	private boolean handledBefore(ICard card) {
 		if (card.isActive()) {
-			if (card.hashCode() == card2.hashCode()) {
+			if (card == card2) {
 				card2 = null;
-			} else if (card.hashCode() == card1.hashCode()) {	
+			} else if (card == card1) {	
 				card1=card2;
 				card2=null;
 			}

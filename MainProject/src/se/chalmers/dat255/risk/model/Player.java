@@ -51,16 +51,6 @@ public class Player {
 		ICard newCard = Deck.giveCard();
 		cards.add(newCard);
 		pcs.firePropertyChange(Player.CARD_ADDED, newCard, null);
-		ICard newCard1 = Deck.giveCard();
-		cards.add(newCard1);
-		pcs.firePropertyChange(Player.CARD_ADDED, newCard1, null);
-		ICard newCard2 = Deck.giveCard();
-		cards.add(newCard2);
-		pcs.firePropertyChange(Player.CARD_ADDED, newCard2, null);
-		ICard newCard3 = Deck.giveCard();
-		cards.add(newCard3);
-		pcs.firePropertyChange(Player.CARD_ADDED, newCard3, null);
-		
 	}
 	
 	/**
