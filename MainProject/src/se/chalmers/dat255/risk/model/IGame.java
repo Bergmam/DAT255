@@ -148,4 +148,8 @@ public interface IGame {
 	 * Inactivates any saved provinces
 	 */
 	public void flushProvinces();
+	
+	public static enum GameMode {
+		WORLD_DOMINATION, SECRET_MISSION;
+	}
 }

@@ -26,6 +26,8 @@ public class Game implements IGame {
 	private boolean movedTroops = false; // F3
 	private boolean firstProvinceConqueredThisTurn = true;
 	private PropertyChangeSupport pcs;
+	private MissionHandler missionHandler;
+	private GameMode gameMode = GameMode.SECRET_MISSION;
 
 	private String continentsFile;
 	private String neighboursFile;
@@ -48,6 +50,12 @@ public class Game implements IGame {
 		pcs = new PropertyChangeSupport(this);
 	}
 
+	public Game(GameMode gameMode) {
+		battle = new BattleHandler();
+		pcs = new PropertyChangeSupport(this);
+		this.gameMode=gameMode;
+	}
+	
 	public void setupGame(String[] playersId, String neighboursFile,
 			String continentsFile) {
 		this.neighboursFile = neighboursFile;
@@ -65,6 +73,7 @@ public class Game implements IGame {
 							+ " and " + maxAllowedPlayers);
 		}
 		createPlayers(playersId);
+		missionHandler=new MissionHandler(players);
 
 		worldMap = new WorldMap(neighboursFile, continentsFile, players);
 		bonusHandler = new BonusHandler(worldMap, players.size());
@@ -285,9 +294,16 @@ public class Game implements IGame {
 	private void checkGameOver(Player gameOver) {
 		if (gameOver.getNrOfProvinces() == 0) {
 			playerLose(gameOver);
+			if(gameMode==GameMode.SECRET_MISSION){
+				missionHandler.playerEliminated(gameOver);
+			}
 		}
 		if (players.size() == 1) {
 			win(players.get(0));
+		}
+		
+		if(gameMode == GameMode.SECRET_MISSION && missionHandler.winner()){
+			win(missionHandler.getWinner());
 		}
 	}
 
