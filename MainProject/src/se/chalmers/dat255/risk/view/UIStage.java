@@ -17,7 +17,6 @@ public class UIStage extends AbstractStage {
 
 	private ChangePhase phase;
 	private SwitchButton card, stat;
-	private boolean renderWorld;
 	private Render render;
 	private Label label;
 	private IGame model;
@@ -51,7 +50,7 @@ public class UIStage extends AbstractStage {
 		color = ColorHandler.getInstance();
 
 		label = new Label(model.getActivePlayer().getName() + "	\nPhase: "
-				+ model.getCurrentPhase(), Resource.getInstance().skin,
+				+ model.getCurrentPhase().getPhase(), Resource.getInstance().skin,
 				"default-font", color.getColor(0));
 		label.setFontScale(label.getFontScaleX() * 1.8f);// TODO magic number
 
@@ -144,7 +143,7 @@ public class UIStage extends AbstractStage {
 	@Override
 	public void draw() {
 		label.setText(model.getActivePlayer().getName() + "	\nPhase: "
-				+ model.getCurrentPhase());
+				+ model.getCurrentPhase().getPhase());
 		label.setColor(color.getColor(model.getActivePlayer().getId()));
 		super.draw();
 	}

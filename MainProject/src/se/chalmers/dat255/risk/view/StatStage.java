@@ -19,43 +19,43 @@ public class StatStage extends AbstractStage {
 		this.model = model;
 
 		players = new ArrayList<PlayerView>();
-		
-		for(Player p : model.getPlayers()){
+
+		for (Player p : model.getPlayers()) {
 			players.add(new PlayerView(p));
 		}
-		
+
 		main = new Table();
 		main.setFillParent(true);
 		primary = new Table();
 		secondary = new Table();
-		
+
 		primary.add();
+
+		main.add(primary).expand().fill();
+		main.add(secondary).expand().fill();
 		
-		main.add(primary);
-		main.add(secondary);
-		
+		addActor(main);
+
 		show();
 
 		main.debug();
 		primary.debug();
 		secondary.debug();
 	}
-	
-	public void show(){
-		
+
+	public void show() {
+
 		primary.clear();
 		secondary.clear();
-		
-		for(PlayerView v:players){
-			if(v.getPlayer().getId() != model.getActivePlayer().getId()){
-				secondary.add(v).row();
+
+		for (PlayerView v : players) {
+			if (v.getPlayer().getId() != model.getActivePlayer().getId()) {
+				secondary.add(v).expand().fill().row();
 			} else {
 				primary.add(v).expand().fill();
 			}
 		}
-		
-		
-		
+
 	}
 
 	@Override
