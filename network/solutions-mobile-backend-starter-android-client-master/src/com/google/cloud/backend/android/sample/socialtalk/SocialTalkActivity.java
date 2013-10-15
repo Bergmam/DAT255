@@ -84,7 +84,7 @@ public class SocialTalkActivity extends CloudBackendActivity {
     tvPosts.setText(sb.toString());
   }
 
-  // removing the domain name part from email address
+  // removing the domain name part from email address 
   private String getCreatorName(CloudEntity b) {
     if (b.getCreatedBy() != null) {
       return " " + b.getCreatedBy().replaceFirst("@.*", "");
