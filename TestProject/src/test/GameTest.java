@@ -203,7 +203,7 @@ public class GameTest {
 		// and you are neighbors.
 		// The first province we must "handle", must be the active players
 		// province, and the next must be
-		// the first Province neighbor and not owned by the activ player.
+		// the first Province neighbor and not owned by the active player.
 		// Nothing will happen until we use
 		// the method attack. Attack can only be called in this moment.
 		game4.handleProvinceEvent(myProvince);
