@@ -1,8 +1,11 @@
 package test;
 
-import static org.junit.Assert.*;
-import se.chalmers.dat255.risk.model.*;
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Test;
+
+import se.chalmers.dat255.risk.model.Card;
+import se.chalmers.dat255.risk.model.ICard;
 
 public class CardTest {
 	ICard card1 = new Card(Card.CardType.ARTILLERY,"1");

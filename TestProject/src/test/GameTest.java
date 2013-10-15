@@ -1,6 +1,9 @@
 package test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
 
@@ -8,14 +11,14 @@ import org.junit.Before;
 import org.junit.Test;
 
 import se.chalmers.dat255.risk.model.Card;
-import se.chalmers.dat255.risk.model.Card.CardType;
-import se.chalmers.dat255.risk.model.TurnAndPhaseManager.Phase;
+import se.chalmers.dat255.risk.model.ICard.CardType;
 import se.chalmers.dat255.risk.model.Deck;
 import se.chalmers.dat255.risk.model.Game;
 import se.chalmers.dat255.risk.model.ICard;
 import se.chalmers.dat255.risk.model.IProvince;
 import se.chalmers.dat255.risk.model.Player;
 import se.chalmers.dat255.risk.model.TurnAndPhaseManager;
+import se.chalmers.dat255.risk.model.TurnAndPhaseManager.Phase;
 
 public class GameTest {
 
@@ -526,22 +529,22 @@ public class GameTest {
 		ArrayList<Player> players = game4.getPlayers();
 		
 		//First we test if one can surrender.
-		game4.surrender();
+		game4.surrender(true);
 		assertTrue(players.size() == nmbOfPlayers-1);
 		
 		getToPhase2(game4);
 		
 		// Now we test what happens if one surrender in the middle of the game. Changing player and phase.
-		game4.surrender();
+		game4.surrender(true);
 		assertTrue(players.size() == nmbOfPlayers-2);
 		assertTrue(game4.getActivePlayer() == players.get(0));
 		assertTrue(game4.getCurrentPhase() == Phase.F1);
 		
 		//Now we will test if you can surrender if ou have won. ()
-		game1.surrender();
+		game1.surrender(true);
 		
 		try {
-			game1.surrender();
+			game1.surrender(true);
 			fail("should've thrown an exception");
 		} catch (Throwable expected) {
 			assertEquals(IndexOutOfBoundsException.class, expected.getClass());
