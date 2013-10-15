@@ -37,7 +37,7 @@ public class Resource {
 	public Texture circleSelected = new Texture(
 			Gdx.files.internal("Gfx/circleOutline.png"));
 	
-	public Texture square = new Texture(Gdx.files.internal("Gfx/square.png"));
+	public Texture border = new Texture(Gdx.files.internal("Gfx/border.png"));
 
 	public FileHandle neighbours = Gdx.files.internal("Gfx/neighbours.txt");
 	public FileHandle cords = Gdx.files.internal("Gfx/Cords.txt");
@@ -81,7 +81,7 @@ public class Resource {
 		circleSelected = new Texture(
 				Gdx.files.internal("Gfx/circleOutline.png"));
 		
-		square = new Texture(Gdx.files.internal("Gfx/square.png"));
+		border = new Texture(Gdx.files.internal("Gfx/border.png"));
 
 		neighbours = Gdx.files.internal("Gfx/neighbours.txt");
 		cords = Gdx.files.internal("Gfx/Cords.txt");
@@ -109,7 +109,7 @@ public class Resource {
 		infantry2.dispose();
 		joker2.dispose();
 
-		square.dispose();
+		border.dispose();
 		
 		cardHolder.dispose();
 
