@@ -6,6 +6,7 @@ import java.util.List;
 import se.chalmers.dat255.risk.GDXGame;
 import se.chalmers.dat255.risk.model.Game;
 import se.chalmers.dat255.risk.model.IGame;
+import se.chalmers.dat255.risk.model.IGame.GameMode;
 import se.chalmers.dat255.risk.view.AbstractView;
 import se.chalmers.dat255.risk.view.CardView;
 import se.chalmers.dat255.risk.view.ChangePhase;
@@ -50,7 +51,7 @@ public class ScreenManager extends ClickListener {
 	public void instantiate(GDXGame game) {
 		this.game = game;
 
-		model = new Game();
+		model = new Game(GameMode.SECRET_MISSION);
 		main = new MainScreen(model);
 		screen = new GameScreen(model);
 		ColorHandler.getInstance().instantiate(model);

@@ -45,10 +45,10 @@ public class Game implements IGame {
 	 * @param playersId
 	 *            The ids of the players
 	 */
-	public Game() {
+	/*public Game() {
 		battle = new BattleHandler();
 		pcs = new PropertyChangeSupport(this);
-	}
+	}*/
 
 	public Game(GameMode gameMode) {
 		battle = new BattleHandler();

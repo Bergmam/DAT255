@@ -2,29 +2,48 @@ package se.chalmers.dat255.risk.model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Random;
 
 import sun.security.action.GetBooleanAction;
 
 public class MissionHandler {
-	Player winner;
-	ArrayList<Player> eliminatedPlayers;
-	HashMap<Player, Mission> missions;
-	ArrayList<Mission> listOfMissions;
+	private Player winner;
+	private ArrayList<Player> eliminatedPlayers;
+	private final HashMap<Player, Mission> missionMap;
+	private ArrayList<Mission> missionsInGame;
+//	private ArrayList<Mission> listOfMissions;
 	
 	public MissionHandler(ArrayList<Player> players){
-		for(Player player : players)
-			giveMission(player);
+		eliminatedPlayers = new ArrayList<Player>();
+		missionsInGame = new ArrayList<Mission>();
+		Random randGen = new Random();
+		int nextRandInt;
+		ArrayList<Mission> listOfMissions = buildMissions(players);
+		HashMap<Player, Mission> tempMissionMap = new HashMap<Player, Mission>();
+
+		for(Player player : players){
+			nextRandInt = randGen.nextInt(listOfMissions.size());
+			giveMission(player, nextRandInt, tempMissionMap, listOfMissions);
+			
+			
+			
+			System.out.println("UPPDRAG: " + player.getName() + " har i uppdrag att eliminera " + tempMissionMap.get(player).getVictim().getName() + ".");
+		}
+		
+		
+		
+		missionMap = tempMissionMap;
 	}
 	
 	private Mission getMission(Player player){
-		return missions.get(player);
+		return missionMap.get(player);
 	}
 	
 	/**
 	 * Return true if there is a winner.
 	 */
 	public boolean winner(){
-		for(Mission mission : listOfMissions){
+		for(Mission mission : missionsInGame){
 			if(mission.fullFilled()){
 				return true;
 			}
@@ -44,25 +63,40 @@ public class MissionHandler {
 		eliminatedPlayers.add(player);
 	}
 	
-	public void giveMission(Player player){
-		
+	public void giveMission(Player player, int intRand, HashMap<Player, Mission> tempMissionsMap, ArrayList<Mission> listOfMissions){
+		Mission mission = listOfMissions.remove(intRand);
+		tempMissionsMap.put(player, mission);
+		missionsInGame.add(mission);
 	}
 	
 	public ArrayList<Mission> buildMissions(ArrayList<Player> players){
 		ArrayList<Mission> missions = new ArrayList<Mission>();
-		missions.addEliminateMissions();
+		addEliminateMissions(missions, players);
+		addConquerMissions();
+		
+		return missions;
+	}
+	
+	public void addEliminateMissions(ArrayList<Mission> missions, ArrayList<Player> players){
+		ArrayList<Player> notVictims = players;
+		for(Player victim : players)
+			missions.add(new Mission(victim, MissionType.ELIMINATE));
+	}
+	
+	public void addConquerMissions(){
 		
 	}
 	
 	private class Mission{
 		
-		MissionType type = MissionType.ELIMINATE;
-		Player owner;
-		Player victim;
+		private MissionType type;
+		private Player owner;
+		private Player victim;
 		
-		public Mission(Player owner){
-			this.owner=owner;
-
+		public Mission(Player vicitim, MissionType type){
+	//		this.owner=owner;
+			this.victim=vicitim;
+			this.type=type;
 		}
 		
 		
@@ -76,9 +110,17 @@ public class MissionHandler {
 			}
 			return false;
 		}
-
 		
-		
+		public Player getVictim(){
+			return victim;
+		}
+		 
+		public Player getOwner(){
+			return owner;
+		}
+		public MissionType getType(){
+			return type;
+		}
 
 	}
 	
