@@ -302,7 +302,7 @@ public class Game implements IGame {
 			win(players.get(0));
 		}
 		
-		if(gameMode == GameMode.SECRET_MISSION && missionHandler.winner()){
+		if(gameMode == GameMode.SECRET_MISSION && missionHandler.winner(getActivePlayer())){
 			win(missionHandler.getWinner());
 		}
 	}

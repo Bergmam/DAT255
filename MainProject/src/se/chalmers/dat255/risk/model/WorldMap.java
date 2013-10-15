@@ -222,13 +222,15 @@ public class WorldMap {
 	 * 
 	 */
 	private class Continent {
-		String[] provinces;
-		int bonus;
+		final String[] provinces;
+		final int bonus;
 		Player owner = null;
-
+		final String continentName;
+		
 		public Continent(String continentName, String[] provinces, int bonus) {
 			this.provinces = provinces;
 			this.bonus = bonus;
+			this.continentName=continentName;
 		}
 
 		public int getBonus() {
@@ -255,6 +257,10 @@ public class WorldMap {
 				tempProvinceOwner = getOwner(province);
 			}
 			owner = tempProvinceOwner;
+		}
+		
+		public String getContinentName(){
+			return continentName;
 		}
 
 	}
