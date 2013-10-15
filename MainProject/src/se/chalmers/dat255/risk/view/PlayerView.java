@@ -8,8 +8,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 
 public class PlayerView extends Table {
-	Player player;
-	Label name, provinces, units;
+	private Player player;
+	private Label name, provinces, units;
 
 	public PlayerView(Player p) {
 		super(Resource.getInstance().skin);
@@ -27,10 +27,7 @@ public class PlayerView extends Table {
 	public Player getPlayer() {
 		return player;
 	}
-	public void setPlayer(Player p){
-		player = p;
-	}
-
+	
 	@Override
 	public void draw(SpriteBatch batch, float alpha) {
 		name.setText("Player: " + player.getName());
