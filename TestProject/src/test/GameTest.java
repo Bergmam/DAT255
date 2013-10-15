@@ -372,7 +372,7 @@ public class GameTest {
 		game1.handleProvinceEvent(myProvince);
 		game1.handleProvinceEvent(myProvince1);
 
-		// Because both the province are owned by the activ player
+		// Because both the province are owned by the active player
 		try {
 			game1.moveToProvince(1);
 			fail("should've thrown an exception");
