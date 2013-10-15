@@ -46,9 +46,6 @@ public class StatStage extends AbstractStage {
 
 		}
 
-		main.debug();
-		primary.debug();
-		secondary.debug();
 	}
 
 	public void show() {
