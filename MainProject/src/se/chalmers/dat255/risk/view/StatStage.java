@@ -1,6 +1,7 @@
 package se.chalmers.dat255.risk.view;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import se.chalmers.dat255.risk.model.IGame;
@@ -33,10 +34,17 @@ public class StatStage extends AbstractStage {
 
 		main.add(primary).expand().fill();
 		main.add(secondary).expand().fill();
-		
+
 		addActor(main);
 
-		show();
+		for (PlayerView v : players) {
+			if (v.getPlayer() != model.getActivePlayer()) {
+				secondary.add(v).expand().fill().row();
+			} else {
+				primary.add(v);
+			}
+
+		}
 
 		main.debug();
 		primary.debug();
@@ -45,11 +53,11 @@ public class StatStage extends AbstractStage {
 
 	public void show() {
 
-		primary.clear();
-		secondary.clear();
+		primary.clearChildren();
+		secondary.clearChildren();
 
 		for (PlayerView v : players) {
-			if (v.getPlayer().getId() != model.getActivePlayer().getId()) {
+			if (v.getPlayer() != model.getActivePlayer()) {
 				secondary.add(v).expand().fill().row();
 			} else {
 				primary.add(v).expand().fill();

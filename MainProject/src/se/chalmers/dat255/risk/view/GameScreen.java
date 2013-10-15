@@ -84,6 +84,7 @@ public class GameScreen extends AbstractScreen {
 		case Card:
 			return cardStages.get(model.getActivePlayer().getId());
 		case Stat:
+			stats.show();
 			return stats;
 		default:
 			return worldStage;
