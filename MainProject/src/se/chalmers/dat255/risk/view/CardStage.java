@@ -37,19 +37,20 @@ public class CardStage extends AbstractStage {
 		for (Actor a : views) {
 			addActor(a);
 		}
-
-		top.add(views.get(0)).expand();
-		top.add(views.get(1)).expand();
-		top.add(views.get(2)).expand();
+		top.defaults().expand();
+		top.add(views.get(0));
+		top.add(views.get(1));
+		top.add(views.get(2));
 		main.add(top).expand().fill().row();
-		bottom.add().expand();
-		bottom.add(views.get(3)).expand();
-		bottom.add().expand();
-		bottom.add(views.get(4)).expand();
-		bottom.add().expand();
+		bottom.defaults().expand();
+		bottom.add();
+		bottom.add(views.get(3));
+		bottom.add();
+		bottom.add(views.get(4));
+		bottom.add();
 		main.add(bottom).expand().fill();
 		addActor(main);
-
+		
 	}
 
 	public List<AbstractView> getViews() {

@@ -2,7 +2,6 @@ package se.chalmers.dat255.risk.view;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
 public abstract class AbstractView extends Actor {
@@ -29,11 +28,6 @@ public abstract class AbstractView extends Actor {
 	 */
 	public void check() {
 		isClicked = !isClicked;
-	}
-
-	@Override
-	public void draw(SpriteBatch batch, float alpha) {
-		batch.draw(isClicked ? imageDown : imageUp, getX(), getY(),scale,scale);
 	}
 
 	public void setImages(Texture iU, Texture iD) {

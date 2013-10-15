@@ -108,6 +108,7 @@ public class ScreenManager extends ClickListener {
 		String s = b.getName();
 
 		if (s.equalsIgnoreCase("addPlayer")) {
+			main.setText("Enter name below");
 			if (list.size() < maxNbrOfPlayers) {
 				s = main.getText();
 				if (s.length() >= 1 && s.length() <= 10) {

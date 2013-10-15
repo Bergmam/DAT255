@@ -7,7 +7,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Stack;
 
 public class CardView extends AbstractView {
 	private ICard card;
@@ -19,6 +21,7 @@ public class CardView extends AbstractView {
 		setSize(Gdx.graphics.getWidth() / 5, 4 * (Gdx.graphics.getHeight() / 9));
 		label = new Label("", Resource.getInstance().skin);
 		label.setColor(Color.RED);
+
 	}
 
 	public void addCard(Texture normal, Texture checked, ICard card) {
@@ -26,19 +29,18 @@ public class CardView extends AbstractView {
 		hasCard = true;
 		super.setImages(normal, checked);
 		label.setText(card.getName());
-		label.setPosition(getX() + (getWidth() / 2)
-				- (label.getTextBounds().width / 2), getY() + (getHeight() / 3));
+		
 	}
 
 	public void removeCard() {
 		hasCard = false;
 		label.setText("");
-		super.setImages(Resource.getInstance().cardHolder,
+		setImages(Resource.getInstance().cardHolder,
 				Resource.getInstance().cardHolder);
 	}
 
 	public boolean hasCard() {
-		return hasCard;
+		return hasCard; 
 	}
 
 	public ICard getCard() {
@@ -53,6 +55,8 @@ public class CardView extends AbstractView {
 	public void draw(SpriteBatch batch, float alpha) {
 		batch.draw(isChecked() ? imageDown : imageUp, getX(), getY(),
 				getWidth(), getHeight());
+		label.setPosition(getX() +width/2 - ((label.getTextBounds().width /3)),
+				getY() + height/3);
 		label.draw(batch, alpha);
 
 	}
