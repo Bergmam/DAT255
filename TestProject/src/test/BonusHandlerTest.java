@@ -8,9 +8,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import se.chalmers.dat255.risk.model.BonusHandler;
-import se.chalmers.dat255.risk.model.Card;
-import se.chalmers.dat255.risk.model.Card.CardType;
-import se.chalmers.dat255.risk.model.ICard;
 import se.chalmers.dat255.risk.model.Player;
 import se.chalmers.dat255.risk.model.WorldMap;
 
