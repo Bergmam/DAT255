@@ -65,8 +65,22 @@ public class MissionHandler {
 	
 	public void giveMission(Player player, int intRand, HashMap<Player, Mission> tempMissionsMap, ArrayList<Mission> listOfMissions){
 		Mission mission = listOfMissions.remove(intRand);
-		tempMissionsMap.put(player, mission);
-		missionsInGame.add(mission);
+		boolean gotAMission = false;
+		/*
+		 * Worth knowing her is that until QONQUER-missions is implemented, there is a chance of
+		 * a never-ending loop.
+		 */
+		while(!gotAMission){
+			if(mission.getVictim() == player){
+				listOfMissions.add(mission);
+			}
+			else{
+				mission.setOwner(player);
+				tempMissionsMap.put(player, mission);
+				missionsInGame.add(mission);
+				gotAMission=true;
+			}
+		}
 	}
 	
 	public ArrayList<Mission> buildMissions(ArrayList<Player> players){
@@ -120,6 +134,10 @@ public class MissionHandler {
 		}
 		public MissionType getType(){
 			return type;
+		}
+		
+		public void setOwner(Player owner){
+			this.owner = owner;
 		}
 
 	}
