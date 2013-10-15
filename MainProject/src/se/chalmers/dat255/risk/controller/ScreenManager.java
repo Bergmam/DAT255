@@ -23,6 +23,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 public class ScreenManager extends ClickListener {
@@ -85,7 +86,7 @@ public class ScreenManager extends ClickListener {
 		}
 
 		for (Actor a : screen.getSpecActors()) {
-			if (a.getClass() == Button.class) {
+			if (a.getClass() == TextButton.class) {
 				a.addListener(new SurrenderListener(model));
 			} else if (a instanceof PopUp) {
 				a.addListener(new PopUpListener(model));

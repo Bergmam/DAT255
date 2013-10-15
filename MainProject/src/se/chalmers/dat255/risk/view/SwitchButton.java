@@ -1,31 +1,31 @@
 package se.chalmers.dat255.risk.view;
 
+import se.chalmers.dat255.risk.view.UIStage.Render;
 import se.chalmers.dat255.risk.view.resource.Resource;
 
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
-public class SwitchButton extends Button {
+public class SwitchButton extends TextButton {
 
-	private static final String CARDS = "Cards";
-	private static final String MAP = "Map";
-	private Label label;
+	private final String first;
+	private final String second;
+	private Render render;
 
-	private String current;
-
-	public SwitchButton() {
-		super(Resource.getInstance().skin);
-		current = CARDS;
-		label = new Label(current, Resource.getInstance().skin);
-		add(label);
-	}
-
-	public String getText() {
-		return current;
+	public SwitchButton(Render render) {
+		super("", Resource.getInstance().skin);
+		this.render = render;
+		first = render.getStrings()[0];
+		second = render.getStrings()[1];
+		
+		setText(first);
 	}
 
 	public void switchText() {
-		label.setText(current = current.equals(CARDS) ? MAP : CARDS);
+		setText(("" + getText()).equals(first) ? second : first);
+	}
+	
+	public Render getType(){
+		return render;
 	}
 
 }
