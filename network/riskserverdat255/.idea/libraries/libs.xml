@@ -1,0 +1,25 @@
+<component name="libraryTable">
+  <library name="libs">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/endpoint-libs/libmessageEndpoint-v1/messageEndpoint/libs/google-http-client-1.16.0-rc.jar!/" />
+      <root url="jar://$PROJECT_DIR$/endpoint-libs/libmessageEndpoint-v1/messageEndpoint/libs/google-http-client-jackson2-1.16.0-rc.jar!/" />
+      <root url="jar://$PROJECT_DIR$/endpoint-libs/libmessageEndpoint-v1/messageEndpoint/libs/gson-2.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/endpoint-libs/libmessageEndpoint-v1/messageEndpoint/libs/google-http-client-jackson-1.16.0-rc.jar!/" />
+      <root url="jar://$PROJECT_DIR$/endpoint-libs/libmessageEndpoint-v1/messageEndpoint/libs/google-oauth-client-1.16.0-rc.jar!/" />
+      <root url="jar://$PROJECT_DIR$/endpoint-libs/libmessageEndpoint-v1/messageEndpoint/libs/google-api-client-android-1.16.0-rc.jar!/" />
+      <root url="jar://$PROJECT_DIR$/endpoint-libs/libmessageEndpoint-v1/messageEndpoint/libs/google-http-client-android-1.16.0-rc.jar!/" />
+      <root url="jar://$PROJECT_DIR$/endpoint-libs/libmessageEndpoint-v1/messageEndpoint/libs/google-api-client-protobuf-1.16.0-rc.jar!/" />
+      <root url="jar://$PROJECT_DIR$/endpoint-libs/libmessageEndpoint-v1/messageEndpoint/libs/jackson-core-2.1.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/endpoint-libs/libmessageEndpoint-v1/messageEndpoint/libs/google-api-client-gson-1.16.0-rc.jar!/" />
+      <root url="jar://$PROJECT_DIR$/endpoint-libs/libmessageEndpoint-v1/messageEndpoint/libs/jackson-core-asl-1.9.11.jar!/" />
+      <root url="jar://$PROJECT_DIR$/endpoint-libs/libmessageEndpoint-v1/messageEndpoint/libs/google-api-client-1.16.0-rc.jar!/" />
+      <root url="jar://$PROJECT_DIR$/endpoint-libs/libmessageEndpoint-v1/messageEndpoint/libs/google-http-client-gson-1.16.0-rc.jar!/" />
+      <root url="jar://$PROJECT_DIR$/endpoint-libs/libmessageEndpoint-v1/messageEndpoint/libs/google-http-client-jdo-1.16.0-rc.jar!/" />
+      <root url="jar://$PROJECT_DIR$/endpoint-libs/libmessageEndpoint-v1/messageEndpoint/libs/jsr305-1.3.9.jar!/" />
+      <root url="jar://$PROJECT_DIR$/endpoint-libs/libmessageEndpoint-v1/messageEndpoint/libs/protobuf-java-2.4.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/endpoint-libs/libmessageEndpoint-v1/messageEndpoint/libs/google-api-client-jackson2-1.16.0-rc.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
