@@ -4,14 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import se.chalmers.dat255.risk.model.IGame;
+import se.chalmers.dat255.risk.model.IGame.GameMode;
 import se.chalmers.dat255.risk.view.resource.Resource;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 
@@ -47,7 +48,10 @@ public class MainScreen extends AbstractScreen {
 		playerButton.add("Add Player");
 		playerButton.setName("addPlayer");
 		buttonList.add(playerButton);
-
+		
+		SelectBox dropDown = new SelectBox(GameMode.values(), Resource.getInstance().skin);
+		//dropDown.clearListeners();
+		
 		nameField = new TextField("", Resource.getInstance().skin);
 		nameField.setMessageText("Enter Name");
 		
@@ -64,14 +68,12 @@ public class MainScreen extends AbstractScreen {
 		inputTable.add(nameField);
 		inputTable.row();
 		inputTable.add(startButton).colspan(2).fill();
+		inputTable.add(dropDown);
 		
 		mainTable.left().top();
 		mainTable.add(risk).colspan(2).row().expandX();
 		mainTable.add(inputTable).expand();
 		mainTable.add(playerTable).fill();
-
-		inputTable.size(Gdx.graphics.getWidth()/2,Gdx.graphics.getHeight());
-		playerTable.size(Gdx.graphics.getWidth()/2,Gdx.graphics.getHeight());
 
 		stage.addActor(mainTable);
 //		mainTable.debug();
