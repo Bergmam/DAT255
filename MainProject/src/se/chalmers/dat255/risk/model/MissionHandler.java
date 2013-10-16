@@ -31,11 +31,11 @@ public class MissionHandler {
 				
 			}
 			else if(tempMissionMap.get(player).getType() == MissionType.CONQUER_CONTINENTS){
-				System.out.println("UPPDRAG: " + player.getName() + " har i uppdrag att erövra " + tempMissionMap.get(player).getContinentsToConquer());
+				System.out.println("UPPDRAG: " + player.getName() + " har i uppdrag att erï¿½vra " + tempMissionMap.get(player).getContinentsToConquer());
 				
 			}
 			else if(tempMissionMap.get(player).getType() == MissionType.CONQUER_PROVINCES){
-				System.out.println("UPPDRAG: " + player.getName() + " har i uppdrag att erövra " + tempMissionMap.get(player).getNeedToConquer() + " provincer.");
+				System.out.println("UPPDRAG: " + player.getName() + " har i uppdrag att erï¿½vra " + tempMissionMap.get(player).getNeedToConquer() + " provincer.");
 				
 			}
 			// 
@@ -144,7 +144,7 @@ public class MissionHandler {
 		else if(type==MissionType.CONQUER_PROVINCES){
 			text = "Your mission is to conquer " + mission.getNeedToConquer() + " provinces.";
 		}
-		return "text";
+		return text;
 	}
 	
 	

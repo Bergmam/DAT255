@@ -22,7 +22,7 @@ public class StatStage extends AbstractStage {
 		players = new ArrayList<PlayerView>();
 
 		for (Player p : model.getPlayers()) {
-			players.add(new PlayerView(p));
+			players.add(new PlayerView(p,model.getMissionText(p)));
 		}
 
 		main = new Table();

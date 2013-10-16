@@ -5,23 +5,21 @@ import se.chalmers.dat255.risk.view.resource.ColorHandler;
 import se.chalmers.dat255.risk.view.resource.Resource;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 public class PlayerView extends Table {
 	private Player player;
-	private Label name, provinces, units;
+	private Label name, provinces, mission;
 
-	public PlayerView(Player p) {
+	public PlayerView(Player p, String quest) {
 		super(Resource.getInstance().skin);
 		this.player = p;
 		name = new Label("Player: " + p.getName(), Resource.getInstance().skin);
 		provinces = new Label("Number of Provinces: " + p.getNrOfProvinces(),
 				Resource.getInstance().skin);
-		units = new Label("", Resource.getInstance().skin);
+		mission = new Label("", Resource.getInstance().skin);
 		
 		Image i = new Image(Resource.getInstance().border);
 		i.setColor(ColorHandler.getInstance().getColor(player.getId()));
