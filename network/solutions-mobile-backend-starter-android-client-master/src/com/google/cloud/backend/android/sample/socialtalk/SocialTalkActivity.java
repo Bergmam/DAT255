@@ -13,8 +13,14 @@
  */
 package com.google.cloud.backend.android.sample.socialtalk;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnTouchListener;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -42,6 +48,10 @@ public class SocialTalkActivity extends CloudBackendActivity {
   private TextView tvPosts;
   private EditText etMessage;
 
+  //TODO
+  private Button getButton;
+  private OnTouchListener getButtonListener;
+  
   // a list of posts on the UI
   List<CloudEntity> posts = new LinkedList<CloudEntity>();
 
@@ -52,6 +62,24 @@ public class SocialTalkActivity extends CloudBackendActivity {
     setContentView(R.layout.activity_main);
     tvPosts = (TextView) findViewById(R.id.tvPosts);
     etMessage = (EditText) findViewById(R.id.etMessage);
+    getButton = (Button) findViewById(R.id.getButton);
+    
+    getButtonListener = new OnTouchListener() {
+		
+    	@Override
+        public boolean onTouch(View v, MotionEvent event) {
+          switch (event.getAction() & MotionEvent.ACTION_MASK) {
+          case MotionEvent.ACTION_DOWN:
+        	  pullLatestVersion();       	  
+
+        	  return true;
+          case MotionEvent.ACTION_UP:
+            return true;
+          default:
+            return false;
+          }
+        }
+      };
   }
 
   @Override
@@ -105,5 +133,14 @@ public class SocialTalkActivity extends CloudBackendActivity {
     }
     etMessage.setText("");
     updateTimelineUI();
+  }
+  
+  //TODO
+  public void pullLatestVersion(){
+	  final StringBuilder sb = new StringBuilder();
+      String message = sb.append(sdf.format(posts.get(posts.size()-1).getCreatedAt()) 
+		  + getCreatorName(posts.get(posts.size()-1)) + ": " + posts.get(posts.size()-1).get("message")).toString();
+
+      Log.d("net", message);
   }
 }

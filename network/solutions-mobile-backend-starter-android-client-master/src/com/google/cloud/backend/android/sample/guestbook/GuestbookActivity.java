@@ -14,7 +14,10 @@
 package com.google.cloud.backend.android.sample.guestbook;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnTouchListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -39,119 +42,160 @@ import java.util.Locale;
  */
 public class GuestbookActivity extends CloudBackendActivity {
 
-  // data formatter for formatting createdAt property
-  private static final SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss ", Locale.US);
+	// data formatter for formatting createdAt property
+	private static final SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss ", Locale.US);
 
-  private static final String BROADCAST_PROP_DURATION = "duration";
+	private static final String BROADCAST_PROP_DURATION = "duration";
 
-  private static final String BROADCAST_PROP_MESSAGE = "message";
+	private static final String BROADCAST_PROP_MESSAGE = "message";
 
-  // UI components
-  private TextView tvPosts;
-  private EditText etMessage;
-  private Button btSend;
+	// UI components
+	private TextView tvPosts;
+	private EditText etMessage;
+	private Button btSend;
 
-  // a list of posts on the UI
-  List<CloudEntity> posts = new LinkedList<CloudEntity>();
+	 //TODO
+	  private Button getButton;
+	  private OnTouchListener getButtonListener;
+	  
+	// a list of posts on the UI
+	List<CloudEntity> posts = new LinkedList<CloudEntity>();
 
-  // initialize UI
-  @Override
-  protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_main);
-    tvPosts = (TextView) findViewById(R.id.tvPosts);
-    etMessage = (EditText) findViewById(R.id.etMessage);
-    btSend = (Button) findViewById(R.id.btSend);
-  }
+	// initialize UI
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_main);
+		Log.d("net", "Init");
+		tvPosts = (TextView) findViewById(R.id.tvPosts);
+		etMessage = (EditText) findViewById(R.id.etMessage);
+		btSend = (Button) findViewById(R.id.btSend);
+		
+		//TODO
+		getButton = (Button) findViewById(R.id.getButton);
+	    
+	    
+	    getButtonListener = new OnTouchListener() {
+			
+	    	@Override
+	        public boolean onTouch(View v, MotionEvent event) {
+	          switch (event.getAction() & MotionEvent.ACTION_MASK) {
+	          case MotionEvent.ACTION_DOWN:
+	        	  Log.d("net", "Pressed");
+	        	  pullLatestVersion();       	  
 
-  @Override
-  protected void onPostCreate() {
-    super.onPostCreate();
-    listAllPosts();
-  }
+	        	  return true;
+	          case MotionEvent.ACTION_UP:
+	            return true;
+	          default:
+	            return false;
+	          }
+	        }
+	      };
+	      
+	      getButton.setOnTouchListener(getButtonListener);
+	}
 
-  // execute query "SELECT * FROM Guestbook ORDER BY _createdAt DESC LIMIT 50"
-  // this query will be re-executed when matching entity is updated
-  private void listAllPosts() {
+	@Override
+	protected void onPostCreate() {
+		super.onPostCreate();
+		listAllPosts();
+	}
 
-    // create a response handler that will receive the query result or an error
-    CloudCallbackHandler<List<CloudEntity>> handler = new CloudCallbackHandler<List<CloudEntity>>() {
-      @Override
-      public void onComplete(List<CloudEntity> results) {
-        posts = results;
-        updateGuestbookUI();
-      }
+	// execute query "SELECT * FROM Guestbook ORDER BY _createdAt DESC LIMIT 50"
+	// this query will be re-executed when matching entity is updated
+	private void listAllPosts() {
 
-      @Override
-      public void onError(IOException exception) {
-        handleEndpointException(exception);
-      }
-    };
+		// create a response handler that will receive the query result or an error
+		CloudCallbackHandler<List<CloudEntity>> handler = new CloudCallbackHandler<List<CloudEntity>>() {
+			@Override
+			public void onComplete(List<CloudEntity> results) {
+				posts = results;
+				updateGuestbookUI();
+			}
 
-    // execute the query with the handler
-    getCloudBackend().listByKind("Guestbook", CloudEntity.PROP_CREATED_AT, Order.DESC, 50,
-        Scope.FUTURE_AND_PAST, handler);
-  }
+			@Override
+			public void onError(IOException exception) {
+				handleEndpointException(exception);
+			}
+		};
 
-  private void handleEndpointException(IOException e) {
-    Toast.makeText(this, e.toString(), Toast.LENGTH_LONG).show();
-    btSend.setEnabled(true);
-  }
+		// execute the query with the handler
+		getCloudBackend().listByKind("Guestbook", CloudEntity.PROP_CREATED_AT, Order.DESC, 50,
+				Scope.FUTURE_AND_PAST, handler);
+	}
 
-  // convert posts into string and update UI
-  private void updateGuestbookUI() {
-    final StringBuilder sb = new StringBuilder();
-    for (CloudEntity post : posts) {
-      sb.append(sdf.format(post.getCreatedAt()) + getCreatorName(post) + ": " + post.get("message")
-          + "\n");
-    }
-    tvPosts.setText(sb.toString());
-  }
+	private void handleEndpointException(IOException e) {
+		Toast.makeText(this, e.toString(), Toast.LENGTH_LONG).show();
+		btSend.setEnabled(true);
+	}
 
-  // removing the domain name part from email address
-  private String getCreatorName(CloudEntity b) {
-    if (b.getCreatedBy() != null) {
-      return " " + b.getCreatedBy().replaceFirst("@.*", "");
-    } else {
-      return "<anonymous>";
-    }
-  }
+	// convert posts into string and update UI
+	private void updateGuestbookUI() {
+		final StringBuilder sb = new StringBuilder();
+		for (CloudEntity post : posts) {
+			sb.append(sdf.format(post.getCreatedAt()) + getCreatorName(post) + ": " + post.get("message")
+					+ "\n");
+		}
+		tvPosts.setText(sb.toString());
+	}
 
-  // post a new message to server
-  public void onSendButtonPressed(View view) {
+	// removing the domain name part from email address
+	private String getCreatorName(CloudEntity b) {
+		if (b.getCreatedBy() != null) {
+			return " " + b.getCreatedBy().replaceFirst("@.*", "");
+		} else {
+			return "<anonymous>";
+		}
+	}
 
-    // create a CloudEntity with the new post
-    CloudEntity newPost = new CloudEntity("Guestbook");
-    newPost.put("message", etMessage.getText().toString());
+	// post a new message to server
+	public void onSendButtonPressed(View view) {
 
-    // create a response handler that will receive the result or an error
-    CloudCallbackHandler<CloudEntity> handler = new CloudCallbackHandler<CloudEntity>() {
-      @Override
-      public void onComplete(final CloudEntity result) {
-        posts.add(0, result);
-        updateGuestbookUI();
-        etMessage.setText("");
-        btSend.setEnabled(true);
-      }
+		// create a CloudEntity with the new post
+		CloudEntity newPost = new CloudEntity("Guestbook");
+		newPost.put("message", etMessage.getText().toString());
 
-      @Override
-      public void onError(final IOException exception) {
-        handleEndpointException(exception);
-      }
-    };
+		// create a response handler that will receive the result or an error
+		CloudCallbackHandler<CloudEntity> handler = new CloudCallbackHandler<CloudEntity>() {
+			@Override
+			public void onComplete(final CloudEntity result) {
+				posts.add(0, result);
+				updateGuestbookUI();
+				etMessage.setText("");
+				btSend.setEnabled(true);
+			}
 
-    // execute the insertion with the handler
-    getCloudBackend().insert(newPost, handler);
-    btSend.setEnabled(false);
-  }
+			@Override
+			public void onError(final IOException exception) {
+				handleEndpointException(exception);
+			}
+		};
 
-  // handles broadcast message and show a toast
-  @Override
-  public void onBroadcastMessageReceived(List<CloudEntity> l) {
-    for (CloudEntity e : l) {
-      String message = (String) e.get(BROADCAST_PROP_MESSAGE);
-      int duration = Integer.parseInt((String) e.get(BROADCAST_PROP_DURATION));
-      Toast.makeText(this, message, duration).show();
-    }
-  }
+		// execute the insertion with the handler
+		getCloudBackend().insert(newPost, handler);
+		btSend.setEnabled(false);
+	}
+
+	// handles broadcast message and show a toast
+	@Override
+	public void onBroadcastMessageReceived(List<CloudEntity> l) {
+		for (CloudEntity e : l) {
+			String message = (String) e.get(BROADCAST_PROP_MESSAGE);
+			int duration = Integer.parseInt((String) e.get(BROADCAST_PROP_DURATION));
+			Toast.makeText(this, message, duration).show();
+		}
+	}
+
+	//TODO
+	public void pullLatestVersion(){
+		Log.d("net", "pulling");
+		final StringBuilder sb = new StringBuilder();
+		String message = sb.append(sdf.format(posts.get(0).getCreatedAt()) 
+				+ getCreatorName(posts.get(0)) + ": " + posts.get(0).get("message")).toString();
+
+		Log.d("net", message);
+		
+	}
 }
+
