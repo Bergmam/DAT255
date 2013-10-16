@@ -11,8 +11,6 @@ public class MissionHandler {
 	private ArrayList<Player> eliminatedPlayers;
 	private final HashMap<Player, Mission> missionMap;
 	private ArrayList<Mission> missionsInGame;
-//	private HashMap<String, Player> continentsOwner;
-//	private ArrayList<Mission> listOfMissions;
 	
 	public MissionHandler(ArrayList<Player> players, String missionFile){
 		eliminatedPlayers = new ArrayList<Player>();
@@ -133,6 +131,22 @@ public class MissionHandler {
 		return p1.trim();
 	}
 	
+	public String getText(Player currentPlayer){
+		Mission mission = missionMap.get(currentPlayer);
+		MissionType type = mission.getType();
+		String text="";
+		if(type==MissionType.ELIMINATE){
+			text = "Your mission is to eliminate " + mission.getVictim();
+		}
+		else if(type==MissionType.CONQUER_CONTINENTS){
+			text = "Your mission is to conquer " + mission.getContinentsToConquer();
+		}
+		else if(type==MissionType.CONQUER_PROVINCES){
+			text = "Your mission is to conquer " + mission.getNeedToConquer() + " provinces.";
+		}
+		return "text";
+	}
+	
 	
 	private class Mission{
 		
@@ -203,7 +217,10 @@ public class MissionHandler {
 		}
 		
 		public String getContinentsToConquer(){
-			return "" + firstContinent + " and "  +secondContinent;
+			if(needToTakeThree){
+				return "" + firstContinent + ", "  +secondContinent + " and one other continent.";
+			}else
+				return "" + firstContinent + " and "  +secondContinent + ".";
 		}
 		
 		private boolean continentalWinner(ArrayList<String> continentsCurrentPlayerOwns){

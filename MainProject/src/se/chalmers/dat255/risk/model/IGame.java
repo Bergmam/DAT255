@@ -152,4 +152,9 @@ public interface IGame {
 	public static enum GameMode {
 		WORLD_DOMINATION, SECRET_MISSION;
 	}
+	
+	/**
+	 * Returns a String that discribes your mission. Only used in Secret Mission-mode
+	 */
+	public String getMissionText(Player currentPlayer);
 }
