@@ -88,6 +88,7 @@ public class Resource {
 		neighbours = Gdx.files.internal("Gfx/neighbours.txt");
 		cords = Gdx.files.internal("Gfx/Cords.txt");
 		continents = Gdx.files.internal("Gfx/continents.txt");
+		missions = Gdx.files.internal("Gfx/missions_continents.txt");
 
 		neighborsFile = neighbours.readString();
 		continentsFile = continents.readString();
