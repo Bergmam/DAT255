@@ -34,7 +34,6 @@ public class ProvinceView extends AbstractView {
 				province.getId()));
 		batch.draw(province.isActive() ? imageDown : imageUp, getX(), getY(),
 				scale, scale);
-		font.setColor(Color.WHITE);
 		font.draw(batch, "" + province.getUnits(), getTextX(), getTextY());
 	}
 

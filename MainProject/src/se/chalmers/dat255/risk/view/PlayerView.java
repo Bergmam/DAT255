@@ -23,17 +23,13 @@ public class PlayerView extends Table {
 				Resource.getInstance().skin);
 		units = new Label("", Resource.getInstance().skin);
 		
-		Image i = new Image(Resource.getInstance().square);
+		Image i = new Image(Resource.getInstance().border);
 		i.setColor(ColorHandler.getInstance().getColor(player.getId()));
 
 		Table tmp = new Table();
-		Table tmp2 = new Table();
-		tmp2.add(name).fill().row();
-		tmp2.add(provinces).fill();
-		
-		tmp.add(i).expandX().fill();
-		
-		add(tmp2).expandX().fill();
+		tmp.add(name).fill().row();
+		tmp.add(provinces).fill();
+	
 		add(tmp).expandX().fill();
 	}
 
@@ -45,6 +41,8 @@ public class PlayerView extends Table {
 	public void draw(SpriteBatch batch, float alpha) {
 		name.setText("Player: " + player.getName());
 		provinces.setText("Number of Provinces: " + player.getNrOfProvinces());
+	batch.setColor(ColorHandler.getInstance().getColor(player.getId()));
+		batch.draw(Resource.getInstance().border, getX(), getY(), getWidth(), getHeight());
 		super.draw(batch, alpha);
 	}
 }

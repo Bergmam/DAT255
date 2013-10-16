@@ -96,7 +96,6 @@ public class MainScreen extends AbstractScreen {
 	}
 
 	public void setText(String text) {
-		msg.setColor(Color.RED);
 		msg.setText(text);
 	}
 
