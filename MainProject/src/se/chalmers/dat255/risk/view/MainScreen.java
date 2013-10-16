@@ -24,6 +24,7 @@ public class MainScreen extends AbstractScreen {
 	private TextField nameField;
 	private Label msg;
 	private Label risk;
+	private com.badlogic.gdx.scenes.scene2d.ui.List list;
 
 	public MainScreen(IGame model) {
 		super(model);
@@ -48,8 +49,13 @@ public class MainScreen extends AbstractScreen {
 		playerButton.setName("addPlayer");
 		buttonList.add(playerButton);
 		
-		SelectBox dropDown = new SelectBox(GameMode.values(), Resource.getInstance().skin);
+		//SelectBox dropDown = new SelectBox(GameMode.values(), Resource.getInstance().skin);
 		//dropDown.clearListeners();
+		
+		//for some reason the dropdown doesn't show the list, list is clickable but
+		// blocks any other interaction with the game. will use a simple list until I
+		// ,if ever, get the box working
+		list = new com.badlogic.gdx.scenes.scene2d.ui.List(GameMode.values(),Resource.getInstance().skin);
 		
 		nameField = new TextField("", Resource.getInstance().skin);
 		nameField.setMessageText("Enter Name");
@@ -67,7 +73,7 @@ public class MainScreen extends AbstractScreen {
 		inputTable.add(nameField);
 		inputTable.row();
 		inputTable.add(startButton).colspan(2).fill().row();
-		inputTable.add(dropDown).expand().fill().colspan(2);
+		inputTable.add(list).expand().fill().colspan(2);
 		
 		mainTable.left().top();
 		mainTable.add(risk).colspan(2).row().expandX();
@@ -75,9 +81,13 @@ public class MainScreen extends AbstractScreen {
 		mainTable.add(playerTable).fill();
 		
 		stage.addActor(mainTable);
-		mainTable.debug();
-		inputTable.debug();
-		playerTable.debug();
+//		mainTable.debug();
+//		inputTable.debug();
+//		playerTable.debug();
+	}
+	
+	public String getMode(){
+		return list.getSelection();
 	}
 
 	public List<Button> getButtons() {
@@ -114,7 +124,7 @@ public class MainScreen extends AbstractScreen {
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 
 		stage.draw();
-		Table.drawDebug(stage);
+		//Table.drawDebug(stage);
 	}
 
 	@Override

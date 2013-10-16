@@ -78,7 +78,7 @@ public class ScreenManager extends ClickListener {
 				Resource.getInstance().continentsFile,
 				Resource.getInstance().missionsFile);
 
-		model.setGameMode(GameMode.SECRET_MISSION);
+		model.setGameMode(GameMode.valueOf(main.getMode()));
 		
 		screen.setupGame();
 
