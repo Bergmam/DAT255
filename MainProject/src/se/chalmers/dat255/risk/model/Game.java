@@ -282,9 +282,12 @@ public class Game implements IGame {
 		checkGameOver(lostProvincePlayer);
 	}
 
+	// playerlose or removeplayer first?
 	private void checkGameOver(Player gameOver) {
 		if (gameOver.getNrOfProvinces() == 0) {
+			int pos = players.indexOf(gameOver);
 			playerLose(gameOver);
+			phaseHandler.removePlayer(pos);
 		}
 		if (players.size() == 1) {
 			win(players.get(0));
@@ -295,8 +298,7 @@ public class Game implements IGame {
 		pcs.firePropertyChange(WIN, 0, win);
 	}
 
-	// also handles defeat of neutral players, because they aren't
-	// no problem occurs
+	// also handles defeat of neutral players, 
 
 	private void playerLose(Player gameOver) {
 		gameOver.discard();

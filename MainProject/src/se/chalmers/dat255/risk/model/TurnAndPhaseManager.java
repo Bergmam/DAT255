@@ -69,6 +69,13 @@ public class TurnAndPhaseManager {
 	public int getActivePlayer() {
 		return activePlayer;
 	}
+	
+	
+	public void removePlayer(int pos){
+		if(pos < activePlayer){
+			activePlayer -= 1;
+		}
+	}
 
 	/**
 	 * called when a player gives up
