@@ -36,7 +36,7 @@ public interface IGame {
 	 *            continents and their provinces
 	 */
 	public void setupGame(String[] playersId, String neighboursFile,
-			String continentsFile);
+			String continentsFile, String missionFile);
 
 	/**
 	 * Fetches the player who has the current turn.
@@ -148,4 +148,8 @@ public interface IGame {
 	 * Inactivates any saved provinces
 	 */
 	public void flushProvinces();
+	
+	public static enum GameMode {
+		WORLD_DOMINATION, SECRET_MISSION;
+	}
 }

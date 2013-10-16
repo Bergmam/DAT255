@@ -210,6 +210,24 @@ public class WorldMap {
 	public ArrayList<IProvince> getProvinces() {
 		return allProvinces;
 	}
+	
+	public ArrayList<String> getPlayersContinents(Player owner){
+		ArrayList<String> continentsThePlayerOwns = new ArrayList<String>();
+		int i=0;
+		for(Continent continent : continents){
+			i++;
+			if(continent.getContinentOwner() == null){
+				System.out.println("getPlayersContinents: "+ continent.getContinentName() + "is owned by nobody");				
+			}else{
+				System.out.println("getPlayersContinents: "+ continent.getContinentName() + "is owned by " + continent.getContinentOwner().getName());
+			}
+			if(continent.getContinentOwner() == owner){
+				continentsThePlayerOwns.add(continent.getContinentName());
+			}
+		}
+		System.out.println("getPlayersContinents: There are " + i + "continents");
+		return continentsThePlayerOwns;
+	}
 
 	/**
 	 * Class for representing continents. Contains the name of the continent,
@@ -221,13 +239,15 @@ public class WorldMap {
 	 * 
 	 */
 	private class Continent {
-		String[] provinces;
-		int bonus;
+		final String[] provinces;
+		final int bonus;
 		Player owner = null;
-
+		final String continentName;
+		
 		public Continent(String continentName, String[] provinces, int bonus) {
 			this.provinces = provinces;
 			this.bonus = bonus;
+			this.continentName=continentName;
 		}
 
 		public int getBonus() {
@@ -254,6 +274,10 @@ public class WorldMap {
 				tempProvinceOwner = getOwner(province);
 			}
 			owner = tempProvinceOwner;
+		}
+		
+		public String getContinentName(){
+			return continentName;
 		}
 
 	}
