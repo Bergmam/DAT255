@@ -33,7 +33,6 @@ public class MainScreen extends AbstractScreen {
 		camera.setToOrtho(false);
 		
 		inputTable = new Table(Resource.getInstance().skin);
-		
 		playerTable = new Table(Resource.getInstance().skin);
 		
 		mainTable = new Table(Resource.getInstance().skin);
@@ -50,7 +49,7 @@ public class MainScreen extends AbstractScreen {
 		buttonList.add(playerButton);
 		
 		SelectBox dropDown = new SelectBox(GameMode.values(), Resource.getInstance().skin);
-		dropDown.clearListeners();
+		//dropDown.clearListeners();
 		
 		nameField = new TextField("", Resource.getInstance().skin);
 		nameField.setMessageText("Enter Name");
@@ -63,22 +62,22 @@ public class MainScreen extends AbstractScreen {
 		playerTable.add("Players:").expandX().left();
 		
 		inputTable.add();
-		inputTable.add(msg).left().row();
-		inputTable.add(playerButton);
+		inputTable.add(msg).fill().row();
+		inputTable.add(playerButton).fill();
 		inputTable.add(nameField);
 		inputTable.row();
-		inputTable.add(startButton).colspan(2).fill();
-		inputTable.add(dropDown);
+		inputTable.add(startButton).colspan(2).fill().row();
+		inputTable.add(dropDown).expand().fill().colspan(2);
 		
 		mainTable.left().top();
 		mainTable.add(risk).colspan(2).row().expandX();
 		mainTable.add(inputTable).expand();
 		mainTable.add(playerTable).fill();
-
+		
 		stage.addActor(mainTable);
-//		mainTable.debug();
-//		inputTable.debug();
-//		playerTable.debug();
+		mainTable.debug();
+		inputTable.debug();
+		playerTable.debug();
 	}
 
 	public List<Button> getButtons() {
@@ -115,7 +114,7 @@ public class MainScreen extends AbstractScreen {
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 
 		stage.draw();
-//		Table.drawDebug(stage);
+		Table.drawDebug(stage);
 	}
 
 	@Override
