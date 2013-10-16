@@ -17,8 +17,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 
 public class MainScreen extends AbstractScreen {
 
-	private Button startButton;
-	private Button playerButton;
 	private Table inputTable, playerTable ,mainTable;
 	private Stage stage;
 	private List<Button> buttonList;
@@ -40,12 +38,12 @@ public class MainScreen extends AbstractScreen {
 		mainTable = new Table(Resource.getInstance().skin);
 		mainTable.setFillParent(true);
 		
-		startButton = new Button(Resource.getInstance().skin);
+		Button startButton = new Button(Resource.getInstance().skin);
 		startButton.add("Start Game");
 		startButton.setName("startButton");
 		buttonList.add(startButton);
 
-		playerButton = new Button(Resource.getInstance().skin);
+		Button playerButton = new Button(Resource.getInstance().skin);
 		playerButton.add("Add Player");
 		playerButton.setName("addPlayer");
 		buttonList.add(playerButton);

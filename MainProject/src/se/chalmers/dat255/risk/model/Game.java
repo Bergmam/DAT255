@@ -27,7 +27,7 @@ public class Game implements IGame {
 	private boolean firstProvinceConqueredThisTurn = true;
 	private PropertyChangeSupport pcs;
 	private MissionHandler missionHandler;
-	private GameMode gameMode = GameMode.SECRET_MISSION;
+	private GameMode gameMode;
 
 	private String continentsFile;
 	private String neighboursFile;
@@ -51,10 +51,10 @@ public class Game implements IGame {
 		pcs = new PropertyChangeSupport(this);
 	}*/
 
-	public Game(GameMode gameMode) {
+	public Game() {
 		battle = new BattleHandler();
 		pcs = new PropertyChangeSupport(this);
-		this.gameMode=gameMode;
+		gameMode = GameMode.WORLD_DOMINATION;
 	}
 	
 	public void setupGame(String[] playersId, String neighboursFile,
@@ -63,6 +63,11 @@ public class Game implements IGame {
 		this.continentsFile = continentsFile;
 		this.missionFile = missionFile;
 		newGame(playersId);
+	}
+	
+	@Override
+	public void setGameMode(GameMode gameMode){
+		this.gameMode = gameMode;
 	}
 
 	private void newGame(String[] playersId) throws IllegalArgumentException {

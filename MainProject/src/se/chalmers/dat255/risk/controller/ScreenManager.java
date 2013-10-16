@@ -35,6 +35,7 @@ public class ScreenManager extends ClickListener {
 	private GDXGame game;
 	private final List<String> list = new ArrayList<String>();
 	private final int maxNbrOfPlayers = 6;
+	private GameMode gameMode;
 
 	private ScreenManager() {
 
@@ -52,7 +53,7 @@ public class ScreenManager extends ClickListener {
 	public void instantiate(GDXGame game) {
 		this.game = game;
 
-		model = new Game(GameMode.SECRET_MISSION);
+		model = new Game();
 		main = new MainScreen(model);
 		screen = new GameScreen(model);
 		ColorHandler.getInstance().instantiate(model);
@@ -77,6 +78,8 @@ public class ScreenManager extends ClickListener {
 				Resource.getInstance().continentsFile,
 				Resource.getInstance().missionsFile);
 
+		model.setGameMode(GameMode.WORLD_DOMINATION);
+		
 		screen.setupGame();
 
 		for (AbstractView v : screen.getViews()) {
