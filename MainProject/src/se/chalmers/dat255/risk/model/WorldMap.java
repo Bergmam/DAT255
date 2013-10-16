@@ -248,7 +248,6 @@ public class WorldMap {
 
 			for (String province : provinces) {
 				if (tempProvinceOwner != getOwner(province)) {
-					System.out.println("This continent is fail bc : " + province);
 					owner = null;
 					return;
 				}

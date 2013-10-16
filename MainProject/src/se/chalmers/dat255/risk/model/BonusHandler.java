@@ -34,7 +34,6 @@ public class BonusHandler {
 		
 		worldMap.updateBonus();
 		this.bonus += worldMap.getBonus(activePlayer);
-		System.out.println("this is the worldMaps continentbnus = " + worldMap.getBonus(activePlayer));
 	}
 	
 	public int getBonus(){
