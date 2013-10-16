@@ -36,7 +36,7 @@ public interface IGame {
 	 *            continents and their provinces
 	 */
 	public void setupGame(String[] playersId, String neighboursFile,
-			String continentsFile);
+			String continentsFile, String missionFile);
 
 	/**
 	 * Fetches the player who has the current turn.
