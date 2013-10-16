@@ -78,7 +78,7 @@ public class ScreenManager extends ClickListener {
 				Resource.getInstance().continentsFile,
 				Resource.getInstance().missionsFile);
 
-		model.setGameMode(GameMode.WORLD_DOMINATION);
+		model.setGameMode(GameMode.SECRET_MISSION);
 		
 		screen.setupGame();
 
@@ -132,7 +132,7 @@ public class ScreenManager extends ClickListener {
 			}
 
 		} else if (s.equalsIgnoreCase("startButton")) {
-			if (list.size() >= 2) {
+			if (list.size() >= 3) {
 				setupGame();
 				changeScreen(screen);
 			}

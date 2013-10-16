@@ -136,7 +136,7 @@ public class MissionHandler {
 		MissionType type = mission.getType();
 		String text="";
 		if(type==MissionType.ELIMINATE){
-			text = "Your mission is to eliminate " + mission.getVictim();
+			text = "Your mission is to eliminate " + mission.getVictim().getName();
 		}
 		else if(type==MissionType.CONQUER_CONTINENTS){
 			text = "Your mission is to conquer " + mission.getContinentsToConquer();

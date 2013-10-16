@@ -429,7 +429,11 @@ public class Game implements IGame {
 
 	@Override
 	public String getMissionText(Player currentPlayer) {
-		// TODO Auto-generated method stub
 		return missionHandler.getText(currentPlayer);
+	}
+
+	@Override
+	public GameMode getGameMode() {
+		return gameMode;
 	}
 }

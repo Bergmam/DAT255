@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import se.chalmers.dat255.risk.model.IGame;
+import se.chalmers.dat255.risk.model.IGame.GameMode;
 import se.chalmers.dat255.risk.model.Player;
 
 import com.badlogic.gdx.InputProcessor;
@@ -22,7 +23,9 @@ public class StatStage extends AbstractStage {
 		players = new ArrayList<PlayerView>();
 
 		for (Player p : model.getPlayers()) {
-			players.add(new PlayerView(p,model.getMissionText(p)));
+			players.add(new PlayerView(p,
+					model.getGameMode() == GameMode.SECRET_MISSION ? model
+							.getMissionText(p) : ""));
 		}
 
 		main = new Table();
@@ -42,6 +45,7 @@ public class StatStage extends AbstractStage {
 				secondary.add(v).expand().fill().row();
 			} else {
 				primary.add(v);
+				v.isMain(true);
 			}
 
 		}
@@ -56,8 +60,10 @@ public class StatStage extends AbstractStage {
 		for (PlayerView v : players) {
 			if (v.getPlayer() != model.getActivePlayer()) {
 				secondary.add(v).expand().fill().row();
+				v.isMain(false);
 			} else {
 				primary.add(v).expand().fill();
+				v.isMain(true);
 			}
 		}
 

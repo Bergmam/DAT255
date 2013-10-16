@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 public class PlayerView extends Table {
 	private Player player;
 	private Label name, provinces, mission;
+	private Table content;
 
 	public PlayerView(Player p, String quest) {
 		super(Resource.getInstance().skin);
@@ -19,16 +20,18 @@ public class PlayerView extends Table {
 		name = new Label("Player: " + p.getName(), Resource.getInstance().skin);
 		provinces = new Label("Number of Provinces: " + p.getNrOfProvinces(),
 				Resource.getInstance().skin);
-		mission = new Label("", Resource.getInstance().skin);
-		
+
+		mission = new Label(quest, Resource.getInstance().skin);
+		mission.setWrap(true);
+
 		Image i = new Image(Resource.getInstance().border);
 		i.setColor(ColorHandler.getInstance().getColor(player.getId()));
 
-		Table tmp = new Table();
-		tmp.add(name).fill().row();
-		tmp.add(provinces).fill();
-	
-		add(tmp).expandX().fill();
+		content = new Table();
+		content.add(name).fill().row();
+		content.add(provinces).fill();
+		content.row().fill();
+		add(content).expandX().fill();
 	}
 
 	public Player getPlayer() {
@@ -39,8 +42,20 @@ public class PlayerView extends Table {
 	public void draw(SpriteBatch batch, float alpha) {
 		name.setText("Player: " + player.getName());
 		provinces.setText("Number of Provinces: " + player.getNrOfProvinces());
-	batch.setColor(ColorHandler.getInstance().getColor(player.getId()));
-		batch.draw(Resource.getInstance().border, getX(), getY(), getWidth(), getHeight());
+		batch.setColor(ColorHandler.getInstance().getColor(player.getId()));
+		batch.draw(Resource.getInstance().border, getX(), getY(), getWidth(),
+				getHeight());
 		super.draw(batch, alpha);
+	}
+
+	// if view shows current player
+	public void isMain(boolean main) {
+		if (!mission.textEquals("")) {
+			if (main) {
+				content.add(mission).fill();
+			} else {
+				content.removeActor(mission);
+			}
+		}
 	}
 }

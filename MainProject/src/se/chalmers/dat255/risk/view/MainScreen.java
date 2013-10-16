@@ -50,7 +50,7 @@ public class MainScreen extends AbstractScreen {
 		buttonList.add(playerButton);
 		
 		SelectBox dropDown = new SelectBox(GameMode.values(), Resource.getInstance().skin);
-		//dropDown.clearListeners();
+		dropDown.clearListeners();
 		
 		nameField = new TextField("", Resource.getInstance().skin);
 		nameField.setMessageText("Enter Name");

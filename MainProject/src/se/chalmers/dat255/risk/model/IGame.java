@@ -162,6 +162,12 @@ public interface IGame {
 	public void setGameMode(GameMode gameMode);
 	
 	/**
+	 * retrieves current gameMode
+	 * @return current gameMode
+	 */
+	public GameMode getGameMode();
+	
+	/**
 	 * Returns a String that discribes your mission. Only used in Secret Mission-mode
 	 */
 	public String getMissionText(Player currentPlayer);
