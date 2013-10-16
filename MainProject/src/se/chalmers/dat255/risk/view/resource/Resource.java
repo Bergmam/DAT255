@@ -3,11 +3,14 @@ package se.chalmers.dat255.risk.view.resource;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 public class Resource {
 
 	private static Resource instance;
+	
+	public TextureAtlas atlas = new TextureAtlas("pack/uiskin.atlas");
 
 	public Skin skin = new Skin(Gdx.files.internal("pack/uiskin.json"));
 
@@ -33,6 +36,8 @@ public class Resource {
 	public Texture circle = new Texture(Gdx.files.internal("Gfx/circle.png"));
 	public Texture circleSelected = new Texture(
 			Gdx.files.internal("Gfx/circleOutline.png"));
+	
+	public Texture border = new Texture(Gdx.files.internal("Gfx/border.png"));
 
 	public FileHandle neighbours = Gdx.files.internal("Gfx/neighbours.txt");
 	public FileHandle cords = Gdx.files.internal("Gfx/Cords.txt");
@@ -54,6 +59,8 @@ public class Resource {
 
 	public void loadResources() {
 
+		atlas = new TextureAtlas("pack/uiskin.atlas");
+		
 		skin = new Skin(Gdx.files.internal("pack/uiskin.json"));
 
 		backGround = new Texture(Gdx.files.internal("Gfx/RiskMap1.png"));
@@ -73,6 +80,8 @@ public class Resource {
 		circle = new Texture(Gdx.files.internal("Gfx/circle.png"));
 		circleSelected = new Texture(
 				Gdx.files.internal("Gfx/circleOutline.png"));
+		
+		border = new Texture(Gdx.files.internal("Gfx/border.png"));
 
 		neighbours = Gdx.files.internal("Gfx/neighbours.txt");
 		cords = Gdx.files.internal("Gfx/Cords.txt");
@@ -85,6 +94,8 @@ public class Resource {
 
 	public void dispose() {
 		skin.dispose();
+		
+		atlas.dispose();
 
 		backGround.dispose();
 
@@ -98,6 +109,8 @@ public class Resource {
 		infantry2.dispose();
 		joker2.dispose();
 
+		border.dispose();
+		
 		cardHolder.dispose();
 
 		circle.dispose();

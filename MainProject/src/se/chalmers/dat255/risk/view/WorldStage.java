@@ -67,8 +67,10 @@ public class WorldStage extends AbstractStage implements GestureListener {
 
 		addActor(background);
 		addActor(provinceGroup);
-		zMax = (background.getHeight()+background.getWidth()) /(Gdx.graphics.getWidth()+Gdx.graphics.getHeight());
-		zMin = (Gdx.graphics.getWidth()+Gdx.graphics.getHeight())/(background.getHeight()+background.getWidth());
+		zMax = (height + width)
+				/ (Gdx.graphics.getWidth() + Gdx.graphics.getHeight());
+		zMin = ((Gdx.graphics.getWidth() + Gdx.graphics.getHeight())
+				/ (height + width) / 2);
 	}
 
 	@Override
@@ -80,7 +82,7 @@ public class WorldStage extends AbstractStage implements GestureListener {
 	public boolean touchDown(float x, float y, int pointer, int button) {
 		initialZoom = camera.zoom;
 		super.touchDown((int) x, (int) y, pointer, button);
-		
+
 		return false;
 	}
 

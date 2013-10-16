@@ -11,19 +11,20 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
 public class UIStage extends AbstractStage {
 
 	private ChangePhase phase;
-	private SwitchButton switchButton;
-	private boolean renderWorld;
+	private SwitchButton card, stat;
+	private Render render;
 	private Label label;
 	private IGame model;
 	private ColorHandler color;
 	private PopUp pop;
 	private Message message;
 	private ConfirmDialog confirm;
-	private Button giveUp;
+	private TextButton giveUp;
 	private Table table, buttonTable;
 
 	public UIStage(IGame model) {
@@ -38,20 +39,22 @@ public class UIStage extends AbstractStage {
 		phase = new ChangePhase(model);
 		others.add(phase);
 
-		switchButton = new SwitchButton();
-		others.add(switchButton);
+		card = new SwitchButton(Render.Card);
+		others.add(card);
 
-		renderWorld = true;
+		stat = new SwitchButton(Render.Stat);
+		others.add(stat);
+
+		render = Render.Map;
 
 		color = ColorHandler.getInstance();
 
 		label = new Label(model.getActivePlayer().getName() + "	\nPhase: "
-				+ model.getCurrentPhase(), Resource.getInstance().skin,
+				+ model.getCurrentPhase().getPhase(), Resource.getInstance().skin,
 				"default-font", color.getColor(0));
 		label.setFontScale(label.getFontScaleX() * 1.8f);// TODO magic number
 
-		giveUp = new Button(Resource.getInstance().skin);
-		giveUp.add(new Label("Surrender", Resource.getInstance().skin));
+		giveUp = new TextButton("Surrender", Resource.getInstance().skin);
 		others.add(giveUp);
 
 		pop = new PopUp("Title");
@@ -68,8 +71,8 @@ public class UIStage extends AbstractStage {
 		buttonTable.columnDefaults(0).expand().fill()
 				.width(phase.getBoundWidth());
 		buttonTable.add(giveUp).row();
-		buttonTable.add(switchButton).height(Gdx.graphics.getHeight() / 9)
-				.row();
+		buttonTable.add(stat).height(Gdx.graphics.getHeight() / 9).row();
+		buttonTable.add(card).height(Gdx.graphics.getHeight() / 9).row();
 		buttonTable.add(phase).height(Gdx.graphics.getHeight() / 9).row();
 
 		table.add().expand();
@@ -95,12 +98,12 @@ public class UIStage extends AbstractStage {
 		}
 	}
 
-	public boolean renderWorld() {
-		return renderWorld;
+	public Render getRender() {
+		return render;
 	}
 
-	public void switchRender() {
-		renderWorld = !renderWorld;
+	public void switchRender(Render render) {
+		this.render = render;
 	}
 
 	@Override
@@ -140,9 +143,27 @@ public class UIStage extends AbstractStage {
 	@Override
 	public void draw() {
 		label.setText(model.getActivePlayer().getName() + "	\nPhase: "
-				+ model.getCurrentPhase());
+				+ model.getCurrentPhase().getPhase());
 		label.setColor(color.getColor(model.getActivePlayer().getId()));
 		super.draw();
 	}
+
+	public enum Render {
+		Card("Card", "Map"), Map(), Stat("Stat", "Map");
+		private String s1, s2;
+
+		Render() {
+		}
+
+		Render(String s1, String s2) {
+			this.s1 = s1;
+			this.s2 = s2;
+		}
+
+		public String[] getStrings() {
+			return new String[] { s1, s2 };
+		}
+
+	};
 
 }

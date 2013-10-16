@@ -12,7 +12,14 @@ public class TurnAndPhaseManager {
 	}
 
 	public static enum Phase {
-		FBuild, F1, F2, F3
+		FBuild("Deployment"), F1("Rienforcement"), F2("Attack"), F3("Movment");
+		private String phase;
+		Phase(String p){
+			phase = p;
+		}
+		public String getPhase(){
+			return phase;
+		}
 	}
 
 	public Phase getPhase() {
@@ -61,6 +68,13 @@ public class TurnAndPhaseManager {
 
 	public int getActivePlayer() {
 		return activePlayer;
+	}
+	
+	
+	public void removePlayer(int pos){
+		if(pos < activePlayer){
+			activePlayer -= 1;
+		}
 	}
 
 	/**

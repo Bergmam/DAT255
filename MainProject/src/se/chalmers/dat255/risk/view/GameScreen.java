@@ -5,10 +5,12 @@ import java.util.List;
 
 import se.chalmers.dat255.risk.model.IGame;
 import se.chalmers.dat255.risk.model.Player;
+import se.chalmers.dat255.risk.view.UIStage.Render;
 import se.chalmers.dat255.risk.view.resource.Resource;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -18,16 +20,16 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
  * 
  */
 public class GameScreen extends AbstractScreen {
-	private boolean isWorld;
+	private Render render;
 	private AbstractStage worldStage;
 	private List<AbstractStage> cardStages;
 	private UIStage uiStage;
+	private StatStage stats;
 	private InputMultiplexer multi;
 	private boolean created;
 
 	public GameScreen(IGame model) {
 		super(model);
-		isWorld = true;
 	}
 
 	@Override
@@ -51,7 +53,7 @@ public class GameScreen extends AbstractScreen {
 
 	@Override
 	public void render(float render) {
-		Gdx.gl.glClearColor(0.7f, 0.7f, 0.7f, 0.7f);//Background color
+		Gdx.gl.glClearColor(0.7f, 0.7f, 0.7f, 0.7f);// Background color
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		camera.update();
@@ -61,21 +63,32 @@ public class GameScreen extends AbstractScreen {
 	}
 
 	private void checkStageChange() {
-		if (isWorld != uiStage.renderWorld()) {
+		if (render != uiStage.getRender()) {
 			changeStage();
 		}
 	}
 
 	public void changeStage() {
 		multi.removeProcessor(getStage().getProcessor());
-		isWorld = !isWorld;
+		render = uiStage.getRender();
 		multi.addProcessor(getStage().getProcessor());
 
 	}
 
 	private AbstractStage getStage() {
-		return isWorld ? worldStage : cardStages.get(model.getActivePlayer()
-				.getId());
+
+		switch (render) {
+		case Map:
+			return worldStage;
+		case Card:
+			return cardStages.get(model.getActivePlayer().getId());
+		case Stat:
+			stats.show();
+			return stats;
+		default:
+			return worldStage;
+		}
+
 	}
 
 	public void setupGame() {
@@ -92,8 +105,11 @@ public class GameScreen extends AbstractScreen {
 		}
 		uiStage = new UIStage(model);
 
+		stats = new StatStage(model);
+
 		multi = new InputMultiplexer(uiStage, worldStage.getProcessor());
 		created = true;
+		render = uiStage.getRender();
 	}
 
 	@Override

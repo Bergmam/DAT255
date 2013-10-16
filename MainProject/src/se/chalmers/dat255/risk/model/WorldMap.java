@@ -47,7 +47,6 @@ public class WorldMap {
 		allProvinces = buildProvinces(listOfProvinces);
 		createContinents(continentFile);
 		randomizeProvinces(listOfProvinces, players);
-
 	}
 
 	/*
