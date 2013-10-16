@@ -160,4 +160,9 @@ public interface IGame {
 	 *            what type of winning condition the game will have
 	 */
 	public void setGameMode(GameMode gameMode);
+	
+	/**
+	 * Returns a String that discribes your mission. Only used in Secret Mission-mode
+	 */
+	public String getMissionText(Player currentPlayer);
 }

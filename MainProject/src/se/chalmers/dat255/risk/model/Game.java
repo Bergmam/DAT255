@@ -426,4 +426,10 @@ public class Game implements IGame {
 			players.get(i).addListener(list.get(i));
 		}
 	}
+
+	@Override
+	public String getMissionText(Player currentPlayer) {
+		// TODO Auto-generated method stub
+		return missionHandler.getText(currentPlayer);
+	}
 }
