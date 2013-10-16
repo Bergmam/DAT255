@@ -31,6 +31,7 @@ public class Game implements IGame {
 
 	private String continentsFile;
 	private String neighboursFile;
+	private String missionFile;
 
 	private final int maxAllowedPlayers = 6;
 	private final int minAllowedPlayers = 2;
@@ -57,9 +58,10 @@ public class Game implements IGame {
 	}
 	
 	public void setupGame(String[] playersId, String neighboursFile,
-			String continentsFile) {
+			String continentsFile, String missionFile) {
 		this.neighboursFile = neighboursFile;
 		this.continentsFile = continentsFile;
+		this.missionFile = missionFile;
 		newGame(playersId);
 	}
 
@@ -73,7 +75,7 @@ public class Game implements IGame {
 							+ " and " + maxAllowedPlayers);
 		}
 		createPlayers(playersId);
-		missionHandler=new MissionHandler(players);
+		missionHandler=new MissionHandler(players, missionFile);
 
 		worldMap = new WorldMap(neighboursFile, continentsFile, players);
 		bonusHandler = new BonusHandler(worldMap, players.size());
@@ -308,7 +310,7 @@ public class Game implements IGame {
 			win(players.get(0));
 		}
 		
-		if(gameMode == GameMode.SECRET_MISSION && missionHandler.winner(getActivePlayer())){
+		if(gameMode == GameMode.SECRET_MISSION && missionHandler.winner(getActivePlayer(), worldMap.getPlayersContinents(getActivePlayer()))){
 			win(missionHandler.getWinner());
 		}
 	}

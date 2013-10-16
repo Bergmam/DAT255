@@ -11,33 +11,36 @@ public class MissionHandler {
 	private ArrayList<Player> eliminatedPlayers;
 	private final HashMap<Player, Mission> missionMap;
 	private ArrayList<Mission> missionsInGame;
+//	private HashMap<String, Player> continentsOwner;
 //	private ArrayList<Mission> listOfMissions;
 	
-	public MissionHandler(ArrayList<Player> players){
+	public MissionHandler(ArrayList<Player> players, String missionFile){
 		eliminatedPlayers = new ArrayList<Player>();
 		missionsInGame = new ArrayList<Mission>();
+		
 		Random randGen = new Random();
 		int nextRandInt;
-		ArrayList<Mission> listOfMissions = buildMissions(players);
+		ArrayList<Mission> listOfMissions = buildMissions(players, missionFile);
 		HashMap<Player, Mission> tempMissionMap = new HashMap<Player, Mission>();
 
 		for(Player player : players){
 			nextRandInt = randGen.nextInt(listOfMissions.size());
 			giveMission(player, nextRandInt, tempMissionMap, listOfMissions);
 			
-			
+		// DEV Printing	
 			if(tempMissionMap.get(player).getType() == MissionType.ELIMINATE){
 				System.out.println("UPPDRAG: " + player.getName() + " har i uppdrag att eliminera " + tempMissionMap.get(player).getVictim().getName() + ".");
 				
 			}
 			else if(tempMissionMap.get(player).getType() == MissionType.CONQUER_CONTINENTS){
-				System.out.println("UPPDRAG: " + player.getName() + " har i uppdrag att erövra " + "kontinenter.");
+				System.out.println("UPPDRAG: " + player.getName() + " har i uppdrag att erövra " + tempMissionMap.get(player).getContinentsToConquer());
 				
 			}
 			else if(tempMissionMap.get(player).getType() == MissionType.CONQUER_PROVINCES){
 				System.out.println("UPPDRAG: " + player.getName() + " har i uppdrag att erövra " + tempMissionMap.get(player).getNeedToConquer() + " provincer.");
 				
 			}
+			// 
 		}
 		
 		
@@ -52,9 +55,9 @@ public class MissionHandler {
 	/**
 	 * Return true if there is a winner.
 	 */
-	public boolean winner(Player currentPlayer){
+	public boolean winner(Player currentPlayer, ArrayList<String> continentsCurrentPlayerOwns){
 		for(Mission mission : missionsInGame){
-			if(mission.fullFilled(currentPlayer)){
+			if(mission.fullFilled(currentPlayer, continentsCurrentPlayerOwns)){
 				return true;
 			}
 		}
@@ -94,11 +97,11 @@ public class MissionHandler {
 		}
 	}
 	
-	public ArrayList<Mission> buildMissions(ArrayList<Player> players){
+	public ArrayList<Mission> buildMissions(ArrayList<Player> players, String missionFile){
 		ArrayList<Mission> missions = new ArrayList<Mission>();
 		addEliminateMissions(missions, players);
-		addConquerContinentMissions(missions);
-		addConquerProvincesMissions();
+		addConquerContinentMissions(missions, missionFile);
+		addConquerProvincesMissions(missions);
 		
 		return missions;
 	}
@@ -106,17 +109,30 @@ public class MissionHandler {
 	public void addEliminateMissions(ArrayList<Mission> missions, ArrayList<Player> players){
 		ArrayList<Player> notVictims = players;
 		for(Player victim : players)
-			missions.add(new Mission(victim, MissionType.ELIMINATE));
+			missions.add(new Mission(victim));
 	}
 	
-	public void addConquerContinentMissions(ArrayList<Mission> missions){
-		missions.add(new Mission(24));
-		missions.add(new Mission(18));
+	public void addConquerContinentMissions(ArrayList<Mission> missions, String missionFile){
+		String[] pLines = missionFile.split("\\n");
+		for (String pLine : pLines) {
+			String[] array = pLine.split("-");
+			
+			String firstContinent = removeBadChar(array[0]);
+			String secondContinent = removeBadChar(array[1]);
+			boolean moreThanTwo = array.length > 2;
+			missions.add(new Mission(firstContinent, secondContinent, moreThanTwo));
+		}
 	}
 	
-	public void addConquerProvincesMissions(){
-		
+	public void addConquerProvincesMissions(ArrayList<Mission> missions){
+		missions.add(new Mission());
+		missions.add(new Mission());
 	}
+	
+	private String removeBadChar(String p1) {
+		return p1.trim();
+	}
+	
 	
 	private class Mission{
 		
@@ -126,22 +142,32 @@ public class MissionHandler {
 		private Player victim;
 		//	CONQUER_PROVINCES
 		private int needToConquer;
+		//	CONQUER CONTINETS
+		private String firstContinent;
+		private String secondContinent;
+		private boolean needToTakeThree; // True if you need a total of three continents to win
 		
-		public Mission(Player vicitim, MissionType type){
-	//		this.owner=owner;
+		
+		public Mission(Player vicitim){
 			this.victim=vicitim;
 			this.type=MissionType.ELIMINATE;
 		}
 		
-		public Mission(int numberOfProvincesToConquer){
-	//		this.owner=owner;
+		public Mission(){
 			this.type=MissionType.CONQUER_PROVINCES;
-			needToConquer=numberOfProvincesToConquer;
+			needToConquer=24;
+		}
+		
+		public Mission(String firstContinent, String secondContinent, boolean needToTakeThree){
+			this.type=MissionType.CONQUER_CONTINENTS;
+			this.firstContinent = firstContinent;
+			this.secondContinent = secondContinent;
+			this.needToTakeThree = needToTakeThree;
 		}
 		
 		
 		
-		public boolean fullFilled(Player currentPlayer){
+		public boolean fullFilled(Player currentPlayer, ArrayList<String> continentsCurrentPlayerOwns){
 			if(type == MissionType.ELIMINATE){
 				if(eliminatedPlayers.contains(victim)){
 					winner=owner;
@@ -149,15 +175,12 @@ public class MissionHandler {
 				}
 			}
 			else if(type == MissionType.CONQUER_PROVINCES){
-				if(needToConquer == 24){
-					return currentPlayer.getNrOfProvinces() >=24;
-				}
-				else if(needToConquer == 18){
-					if(currentPlayer.getNrOfProvinces() >=24){
-						return checkSoTwoInEachProvince(currentPlayer);
-					}
-				}
+					return currentPlayer.getNrOfProvinces() >=needToConquer;
 			}
+			else if(type == MissionType.CONQUER_CONTINENTS){
+				return continentalWinner(continentsCurrentPlayerOwns);
+			}
+			
 			return false;
 		}
 		
@@ -179,13 +202,29 @@ public class MissionHandler {
 			this.owner = owner;
 		}
 		
-		private boolean checkSoTwoInEachProvince(Player player){
-		//	TODO Need to be implemented correct, now it just checks if you have enough troop
-			// also need to check so that they are placed at least two on each province
-			
-			return true;
+		public String getContinentsToConquer(){
+			return "" + firstContinent + " and "  +secondContinent;
 		}
-
+		
+		private boolean continentalWinner(ArrayList<String> continentsCurrentPlayerOwns){
+			if(continentsCurrentPlayerOwns.isEmpty()){
+				System.out.println("continentalWinner: You don't own any continents");
+				return false;
+			}
+			else if(continentsCurrentPlayerOwns.contains(firstContinent) && 
+					continentsCurrentPlayerOwns.contains(secondContinent)){
+				if(needToTakeThree){
+					return continentsCurrentPlayerOwns.size()>=3;
+				}else{
+					return true;
+				}
+			}
+			System.out.print("continentalWinner: As of now, you own the continents ");
+			for(String cont : continentsCurrentPlayerOwns){
+				System.out.print(cont + " ");
+			}
+			return false;
+		}
 	}
 	
 }

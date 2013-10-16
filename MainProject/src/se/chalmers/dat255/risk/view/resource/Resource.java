@@ -42,9 +42,11 @@ public class Resource {
 	public FileHandle neighbours = Gdx.files.internal("Gfx/neighbours.txt");
 	public FileHandle cords = Gdx.files.internal("Gfx/Cords.txt");
 	public FileHandle continents = Gdx.files.internal("Gfx/continents.txt");
+	public FileHandle missions = Gdx.files.internal("Gfx/missions_continents.txt");
 
 	public String neighborsFile = neighbours.readString();
 	public String continentsFile = continents.readString();
+	public String missionsFile = missions.readString();
 
 	public static Resource getInstance() {
 		if (instance == null) {
@@ -89,6 +91,7 @@ public class Resource {
 
 		neighborsFile = neighbours.readString();
 		continentsFile = continents.readString();
+		missionsFile = missions.readString();
 
 	}
 
