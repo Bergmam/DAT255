@@ -147,12 +147,6 @@ public class GuestbookActivity extends CloudBackendActivity {
 
 	// removing the domain name part from email address
 	private String getCreatorName(CloudEntity b) {
-//		Log.d("net", b.getOwner());
-//		if (b.getCreatedBy() != null) {
-//			return " " + b.getCreatedBy().replaceFirst("@.*", "");
-//		} else {
-//			return "<anonymous>";
-//		}
 		//TODO
 		if (b.getOwner() != null) {
 			return b.getOwner();
@@ -165,7 +159,9 @@ public class GuestbookActivity extends CloudBackendActivity {
 	public void onSendButtonPressed(View view) {
 
 		// create a CloudEntity with the new post
-		CloudEntity newPost = new CloudEntity("Guestbook");
+		//TODO
+//		CloudEntity newPost = new CloudEntity("Guestbook");
+		CloudEntity newPost = new CloudEntity("Game");
 		newPost.put("message", etMessage.getText().toString());
 		
 		//TODO
