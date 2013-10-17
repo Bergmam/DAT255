@@ -57,7 +57,8 @@ public class Game implements IGame {
 		gameMode = GameMode.WORLD_DOMINATION;
 	}
 	
-	public void setupGame(String[] playersId, String neighboursFile,
+	@Override
+	public void setupGame(List<String> playersId, String neighboursFile,
 			String continentsFile, String missionFile) {
 		this.neighboursFile = neighboursFile;
 		this.continentsFile = continentsFile;
@@ -70,10 +71,10 @@ public class Game implements IGame {
 		this.gameMode = gameMode;
 	}
 
-	private void newGame(String[] playersId) throws IllegalArgumentException {
+	private void newGame(List<String> playersId) throws IllegalArgumentException {
 		phaseHandler = new TurnAndPhaseManager();
 		eventHandler = new EventHandler(phaseHandler);
-		int noOfPlayers = playersId.length;
+		int noOfPlayers = playersId.size();
 		if (noOfPlayers > maxAllowedPlayers || noOfPlayers < minAllowedPlayers) {
 			throw new IllegalArgumentException(
 					"The player number must be betwen " + minAllowedPlayers
@@ -102,10 +103,10 @@ public class Game implements IGame {
 		deck.CreateCards(provinces, numbersOfWildCards);
 	}
 
-	private void createPlayers(String[] playersId) {
+	private void createPlayers(List<String> playersId) {
 		players = new ArrayList<Player>();
-		for (int i = 0; i < playersId.length; i++) {
-			players.add(new Player(i, playersId[i]));
+		for (int i = 0; i < playersId.size(); i++) {
+			players.add(new Player(i, playersId.get(i)));
 		}
 	}
 

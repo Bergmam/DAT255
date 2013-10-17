@@ -35,7 +35,7 @@ public interface IGame {
 	 * @param continentsFile
 	 *            continents and their provinces
 	 */
-	public void setupGame(String[] playersId, String neighboursFile,
+	public void setupGame(List<String> playersId, String neighboursFile,
 			String continentsFile, String missionFile);
 
 	/**
