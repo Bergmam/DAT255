@@ -8,6 +8,7 @@ import se.chalmers.dat255.risk.model.IGame.GameMode;
 import se.chalmers.dat255.risk.view.resource.Resource;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
@@ -55,8 +56,9 @@ public class MainScreen extends AbstractScreen {
 		//for some reason the dropdown doesn't show the list, list is clickable but
 		// blocks any other interaction with the game. will use a simple list until I
 		// ,if ever, get the box working
+		// because we use java.util.list everywhere I had to specify this one...
 		list = new com.badlogic.gdx.scenes.scene2d.ui.List(GameMode.values(),Resource.getInstance().skin);
-		
+
 		nameField = new TextField("", Resource.getInstance().skin);
 		nameField.setMessageText("Enter Name");
 		
