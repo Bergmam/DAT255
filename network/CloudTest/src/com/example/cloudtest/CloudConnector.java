@@ -8,6 +8,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 import android.widget.Button;
+import android.widget.EditText;
 
 import com.google.cloud.backend.android.sample.guestbook.GuestbookActivity;
 
@@ -16,12 +17,17 @@ public class CloudConnector extends Activity {
 	private Intent intent;
 	private Button chatButton;
 	private OnTouchListener chatListener;
+	private EditText nameField;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_cloud_connector);
 		
+		nameField = (EditText) findViewById(R.id.nameField);
+		
 		intent = new Intent("GuestbookActivity.intent.action.Launch");
+		intent.putExtra("username", nameField.getText().toString());
 		
 		chatButton = (Button) findViewById(R.id.chatButton);
 		
@@ -32,7 +38,7 @@ public class CloudConnector extends Activity {
 	          switch (event.getAction() & MotionEvent.ACTION_MASK) {
 	          case MotionEvent.ACTION_DOWN:
 	        	  Log.d("net", "Pressed");
-	        	 
+	        	  	intent.putExtra("username", nameField.getText().toString());
 	      			startActivity(intent);    	  
 
 	        	  return true;

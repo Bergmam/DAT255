@@ -13,6 +13,7 @@
  */
 package com.google.cloud.backend.android.sample.guestbook;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -49,15 +50,18 @@ public class GuestbookActivity extends CloudBackendActivity {
 
 	private static final String BROADCAST_PROP_MESSAGE = "message";
 
+	//TODO
+	private static String username;
+	
 	// UI components
 	private TextView tvPosts;
 	private EditText etMessage;
 	private Button btSend;
 
-	 //TODO
-	  private Button getButton;
-	  private OnTouchListener getButtonListener;
-	  
+	//TODO
+	private Button getButton;
+	private OnTouchListener getButtonListener;
+
 	// a list of posts on the UI
 	List<CloudEntity> posts = new LinkedList<CloudEntity>();
 
@@ -71,29 +75,30 @@ public class GuestbookActivity extends CloudBackendActivity {
 		etMessage = (EditText) findViewById(R.id.etMessage);
 		btSend = (Button) findViewById(R.id.btSend);
 		
-		//TODO
+        Intent intent = getIntent();
+        username = new String(intent.getExtras().getString("username"));
+        
 		getButton = (Button) findViewById(R.id.getButton);
-	    
-	    
-	    getButtonListener = new OnTouchListener() {
-			
-	    	@Override
-	        public boolean onTouch(View v, MotionEvent event) {
-	          switch (event.getAction() & MotionEvent.ACTION_MASK) {
-	          case MotionEvent.ACTION_DOWN:
-	        	  Log.d("net", "Pressed");
-	        	  pullLatestVersion();       	  
 
-	        	  return true;
-	          case MotionEvent.ACTION_UP:
-	            return true;
-	          default:
-	            return false;
-	          }
-	        }
-	      };
-	      
-	      getButton.setOnTouchListener(getButtonListener);
+
+		getButtonListener = new OnTouchListener() {
+
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				switch (event.getAction() & MotionEvent.ACTION_MASK) {
+				case MotionEvent.ACTION_DOWN:
+					pullLatestVersion();       	  
+
+					return true;
+				case MotionEvent.ACTION_UP:
+					return true;
+				default:
+					return false;
+				}
+			}
+		};
+
+		getButton.setOnTouchListener(getButtonListener);
 	}
 
 	@Override
@@ -134,7 +139,7 @@ public class GuestbookActivity extends CloudBackendActivity {
 	private void updateGuestbookUI() {
 		final StringBuilder sb = new StringBuilder();
 		for (CloudEntity post : posts) {
-			sb.append(sdf.format(post.getCreatedAt()) + getCreatorName(post) + ": " + post.get("message")
+			sb.append(sdf.format(post.getCreatedAt()) + post.getOwner() + ": " + post.get("message")
 					+ "\n");
 		}
 		tvPosts.setText(sb.toString());
@@ -142,8 +147,15 @@ public class GuestbookActivity extends CloudBackendActivity {
 
 	// removing the domain name part from email address
 	private String getCreatorName(CloudEntity b) {
-		if (b.getCreatedBy() != null) {
-			return " " + b.getCreatedBy().replaceFirst("@.*", "");
+//		Log.d("net", b.getOwner());
+//		if (b.getCreatedBy() != null) {
+//			return " " + b.getCreatedBy().replaceFirst("@.*", "");
+//		} else {
+//			return "<anonymous>";
+//		}
+		//TODO
+		if (b.getOwner() != null) {
+			return b.getOwner();
 		} else {
 			return "<anonymous>";
 		}
@@ -155,11 +167,16 @@ public class GuestbookActivity extends CloudBackendActivity {
 		// create a CloudEntity with the new post
 		CloudEntity newPost = new CloudEntity("Guestbook");
 		newPost.put("message", etMessage.getText().toString());
-
+		
+		//TODO
+		Log.d("net", "Username is " + username + " during Entity creation");
+		newPost.put("_owner", "" + username);
+		
 		// create a response handler that will receive the result or an error
 		CloudCallbackHandler<CloudEntity> handler = new CloudCallbackHandler<CloudEntity>() {
 			@Override
 			public void onComplete(final CloudEntity result) {
+				result.setOwner(username); //GUI hack
 				posts.add(0, result);
 				updateGuestbookUI();
 				etMessage.setText("");
@@ -188,14 +205,17 @@ public class GuestbookActivity extends CloudBackendActivity {
 	}
 
 	//TODO
-	public void pullLatestVersion(){
-		Log.d("net", "pulling");
+	public void pullLatestVersion(){		
 		final StringBuilder sb = new StringBuilder();
-		String message = sb.append(sdf.format(posts.get(0).getCreatedAt()) 
-				+ getCreatorName(posts.get(0)) + ": " + posts.get(0).get("message")).toString();
+		String message = sb.append(posts.get(0).getOwner().toString() + ": " + posts.get(0).get("message")).toString();
 
-		Log.d("net", message);
+		Log.d("net", "Owner of the entity is " + posts.get(0).getOwner() + " message was " + message);
 		
+		//TODO do w/e you need to do
+	}
+	
+	public String getUsername(){
+		return username;
 	}
 }
 

@@ -8,14 +8,23 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".CloudConnector" >
 
-    <Button
-        android:id="@+id/chatButton"
+    <EditText
+        android:id="@+id/nameField"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="104dp"
-        android:layout_marginTop="22dp"
+        android:layout_marginLeft="23dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Name" />
+
+    <Button
+        android:id="@+id/chatButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/nameField"
+        android:layout_centerHorizontal="true"
         android:text="Chat" />
 
 </RelativeLayout>

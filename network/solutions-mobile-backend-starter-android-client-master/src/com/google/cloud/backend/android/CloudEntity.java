@@ -15,6 +15,7 @@ package com.google.cloud.backend.android;
 
 import com.google.api.client.util.DateTime;
 import com.google.cloud.backend.android.mobilebackend.model.EntityDto;
+import com.google.cloud.backend.android.sample.guestbook.GuestbookActivity;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -81,11 +82,13 @@ public class CloudEntity {
     return co;
   }
 
+ 
   public CloudEntity(String kindName) {
     if (kindName == null || !kindName.matches("\\w+")) {
       throw new IllegalArgumentException("Illegal kind name: " + kindName);
     }
     this.kindName = kindName;
+    
   }
 
   protected EntityDto getEntityDto() {
