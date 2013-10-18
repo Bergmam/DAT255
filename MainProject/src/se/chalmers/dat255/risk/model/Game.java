@@ -1,6 +1,5 @@
 package se.chalmers.dat255.risk.model;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
 import se.chalmers.dat255.risk.view.resource.Resource;
@@ -11,7 +10,7 @@ import se.chalmers.dat255.risk.view.resource.Resource;
  * 
  */
 
-public class Game implements IGame, Serializable{
+public class Game implements IGame{
 	private Player[] players;
 	private int activePlayer, startingTroopNr;
 //	private int currentPhase;
