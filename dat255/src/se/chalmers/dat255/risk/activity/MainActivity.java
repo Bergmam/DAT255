@@ -1,6 +1,7 @@
 package se.chalmers.dat255.risk.activity;
 
 import se.chalmers.dat255.risk.GDXGame;
+import se.chalmers.dat255.risk.model.Card;
 import se.chalmers.dat255.risk.networkhandler.Networkhandler;
 
 import android.app.Activity;
@@ -12,11 +13,9 @@ import android.widget.Button;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
 
-public class MainActivity extends AndroidApplication {
+public class MainActivity extends Activity{
 
 	private OnTouchListener createListener;
-	
-	Networkhandler nH = new Networkhandler();
 	
 	@Override
 	public void onCreate(android.os.Bundle savedInstanceState) {
@@ -24,7 +23,6 @@ public class MainActivity extends AndroidApplication {
 		setContentView(R.layout.activity_main);
 		
 		Button createGameButton = (Button) findViewById(R.id.createGameButton);
-		
 		createListener = new OnTouchListener() {
 
 			@Override
@@ -33,7 +31,7 @@ public class MainActivity extends AndroidApplication {
 				case MotionEvent.ACTION_DOWN:
 //					Networkhandler nH = new Networkhandler();
 //					nH.postGameToServer("Thisisatestfile", "thisisnotmyusername");
-//
+					
 					Intent intent = new Intent("GuestbookActivity.intent.action.Launch");
 					intent.putExtra("username", "Test Name");
 					startActivity(intent); 
