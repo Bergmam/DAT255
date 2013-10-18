@@ -35,7 +35,7 @@ public class ColorHandler {
 			case 2: return Color.GREEN;
 			case 3: return Color.BLUE;
 			case 4: return Color.BLACK;
-			case 5: return Color.ORANGE;
+			case 5: return Color.PINK;
 			default: return Color.WHITE;
 		}
 	}

@@ -1,6 +1,10 @@
 package se.chalmers.dat255.risk.model;
 
+import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
+import java.util.List;
+
+import se.chalmers.dat255.risk.model.TurnAndPhaseManager.Phase;
 
 /**
  * Interface for top class in the game risk
@@ -9,15 +13,31 @@ import java.util.ArrayList;
  * 
  */
 public interface IGame {
+	// ============== EVENT-CONSTANTS ==============
+	public final static String MOVEMENT = "Movement";
+	public final static String ATTACK = "Attack";
+	public final static String CONQUER = "takeOver";
+	public final static String AGAIN = "Again?";
+	public final static String WIN = "Win";
+	public final static String SURRENDER = "Surrender";
+	public final static String UNITS = "Units";
+	public final static String CARDS = "Cards";
+
+	// =============================================
 
 	/**
-	 * Sets up a new game.
+	 * Sets up a new Game
 	 * 
-	 * @return the active player
+	 * @param playersId
+	 *            id's of all players
+	 * @param neighboursFile
+	 *            relations between provinces
+	 * @param continentsFile
+	 *            continents and their provinces
 	 */
-	public void newGame(String[] nrOfPlayers) throws IllegalArgumentException;
+	public void setupGame(List<String> playersId, String neighboursFile,
+			String continentsFile, String missionFile);
 
-	
 	/**
 	 * Fetches the player who has the current turn.
 	 * 
@@ -26,38 +46,12 @@ public interface IGame {
 	public Player getActivePlayer();
 
 	/**
-	 * Method for handling going in to battle and register the result of the
-	 * battle.
+	 * Tells the game to do battle with two provinces
 	 * 
-	 * @param offensiveDice
-	 *            number of attacking units.
-	 * @param offensive
-	 *            the attacking province.
-	 * @param defensive
-	 *            the province being attacked.
+	 * @param nbrOfDice
+	 *            the number of dice to attack with
 	 */
-	public boolean attack(int offensiveDice, IProvince offensive,
-			IProvince defensive);
-
-	/**
-	 * Method for handing a card from the deck to the active player.
-	 */
-	public void dealCard();
-
-	/**
-	 * Method for calculating the amount of units the player will receive at the
-	 * start of his turn.
-	 */
-	public void calcBonusUnits();
-
-	/**
-	 * Method for placing the amount of units the player chooses the place on
-	 * the province the player chooses to place them.
-	 * 
-	 * @param units
-	 *            , the number of units being placed
-	 */
-	public void placeBonusUnits(int units, IProvince province);
+	public void battle(int nbrOfDice);
 
 	/**
 	 * Method for retrieving the number of units the player has left to place.
@@ -67,31 +61,114 @@ public interface IGame {
 	public int getBonusUnitsLeft();
 
 	/**
-	 * Method for moving a number of units from one province to another.
+	 * Fetches the phase the game is in
 	 * 
-	 * @param nbrOfUnits
-	 *            The number of units to move
-	 * @param from
-	 *            Province to move units from
-	 * @param goTo
-	 *            Province to move units to
+	 * @return the current Phase
 	 */
-	
 	public Phase getCurrentPhase();
-	
-	public static enum Phase {FBuild, F1, F2, F3}
-	
-	public Player[] getPlayer();
-	
-	public ArrayList<IProvince> getGameProvinces();
-	
-	public void handleProvinceClick(IProvince province);
 
-	public void handleCardClick(ICard province);
-	
-	public void handlePhaseClick();
-	
-	public Phase getPhase();
-	
+	/**
+	 * Fetches all players
+	 * 
+	 * @return an array with all players
+	 */
+	public ArrayList<Player> getPlayers();
+
+	/**
+	 * Retrieves all provinces
+	 * 
+	 * @return an arrayList with all provinces in the game
+	 */
+	public ArrayList<IProvince> getGameProvinces();
+
+	/**
+	 * Determines what should be done with the chosen province
+	 * 
+	 * @param province
+	 *            province to be handled
+	 */
+	public void handleProvinceEvent(IProvince province);
+
+	/**
+	 * Determines what should be done with the chosen card
+	 * 
+	 * @param province
+	 *            card to be handled
+	 */
+	public void handleCardEvent(ICard province);
+
+	/**
+	 * Determines if the game should change phase
+	 */
+	public void handlePhaseEvent();
+
+	/**
+	 * Method for finding the owner of an province
+	 * 
+	 * @param provinceName
+	 *            the name of the province
+	 * @return the turnId of the owner
+	 */
 	public int getOwner(String provinceName);
+
+	/**
+	 * Adds a listener to receive events
+	 * 
+	 * @param listener
+	 *            listener for events
+	 */
+	public void addListener(PropertyChangeListener listener);
+
+	/**
+	 * Moves the requested number of units from one active province to another
+	 * 
+	 * @param nrOfUnits
+	 *            number of units to be moved
+	 */
+	public void moveToProvince(int nrOfUnits);
+
+	/**
+	 * Adds Listeners to the players, to listen for cards
+	 * 
+	 * @param list
+	 *            a list with listerners to the players
+	 */
+	public void addPlayerListener(List<PropertyChangeListener> list);
+
+	/**
+	 * Called when the current player gives up
+	 * 
+	 * @param confirm
+	 *            true if player has already confirmed their surrender, false
+	 *            otherwise
+	 */
+	public void surrender(boolean confirm);
+
+	/**
+	 * Inactivates any saved provinces
+	 */
+	public void flushProvinces();
+
+	public static enum GameMode {
+		WORLD_DOMINATION, SECRET_MISSION;
+	}
+
+	/**
+	 * Sets the game type. changes rules.
+	 * 
+	 * @param gameMode
+	 *            what type of winning condition the game will have
+	 */
+	public void setGameMode(GameMode gameMode);
+	
+	/**
+	 * retrieves current gameMode
+	 * @return current gameMode
+	 */
+	public GameMode getGameMode();
+	
+	/**
+	 * Returns a String that discribes your mission. Only used in Secret Mission-mode
+	 */
+	public String getMissionText(Player currentPlayer);
 }

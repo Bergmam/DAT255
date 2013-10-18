@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="risk.com-messageEndpoint-v1-20131009090645-java-1.16.0-rc-sources">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/endpoint-libs/libmessageEndpoint-v1/messageEndpoint/risk.com-messageEndpoint-v1-20131009090645-java-1.16.0-rc-sources.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

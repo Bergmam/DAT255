@@ -17,11 +17,8 @@ public class ChangePhaseListener extends ClickListener{
 	
 	@Override
 	public void clicked(InputEvent event, float x, float y){
-		if(event.getTarget() instanceof ChangePhase){
-			ChangePhase newClick =  ((ChangePhase) event.getTarget());
-			newClick.check();
-			theGame.handlePhaseClick();
+		if(event.getListenerActor() instanceof ChangePhase){
+			theGame.handlePhaseEvent();
 		} 
-	//	Gdx.app.log("trololol", "province clicked");
 	}
 }

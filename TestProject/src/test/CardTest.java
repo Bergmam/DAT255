@@ -1,8 +1,11 @@
 package test;
 
-import static org.junit.Assert.*;
-import se.chalmers.dat255.risk.model.*;
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Test;
+
+import se.chalmers.dat255.risk.model.Card;
+import se.chalmers.dat255.risk.model.ICard;
 
 public class CardTest {
 	ICard card1 = new Card(Card.CardType.ARTILLERY,"1");
@@ -12,7 +15,7 @@ public class CardTest {
 	ICard card5 = new Card(Card.CardType.ARTILLERY,"5");
 
 	@Test
-	public void testCard() {
+	public void testCardType() {
 		assertTrue(card1.getType()==Card.CardType.ARTILLERY);
 		assertTrue(card2.getType()==Card.CardType.CAVALRY);
 		assertTrue(card3.getType()==Card.CardType.INFANTRY);

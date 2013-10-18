@@ -1,48 +1,31 @@
 package se.chalmers.dat255.risk.view;
 
+import se.chalmers.dat255.risk.view.UIStage.Render;
 import se.chalmers.dat255.risk.view.resource.Resource;
 
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
-public class SwitchButton extends AbstractView {
+public class SwitchButton extends TextButton {
 
-	private static String cards = "Show Cards";
-	private static String map = "Show Map";
-	private Label label;
+	private final String first;
+	private final String second;
+	private Render render;
 
-	private String current;
-
-	public SwitchButton() {
-		super(Resource.getInstance().bucket, Resource.getInstance().bucket);
-		current = cards;
-		setPosition(0,0);
-		size(width, height);
-		label = new Label(current, new LabelStyle(font, Color.RED));
-		label.setPosition(getX(), getY() + getHeight()/2);
+	public SwitchButton(Render render) {
+		super("", Resource.getInstance().skin);
+		this.render = render;
+		first = render.getStrings()[0];
+		second = render.getStrings()[1];
+		
+		setText(first);
 	}
 
-	public String getText() {
-		return current;
+	public void switchText() {
+		setText(("" + getText()).equals(first) ? second : first);
 	}
-
-	@Override
-	public void check() {
-		super.check();
-		switchText();
-		super.check();
-	}
-
-	private void switchText() {
-		label.setText(current = current.equals(cards) ? map : cards);
-	}
-
-	@Override
-	public void draw(SpriteBatch batch, float alpha) {
-		super.draw(batch, alpha);
-		label.draw(batch, alpha);
+	
+	public Render getType(){
+		return render;
 	}
 
 }

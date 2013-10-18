@@ -14,13 +14,12 @@ import java.util.ArrayList;
 public class Player {
 	private PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 	private String name;
-	private int turnId, nrOfProvinces = 0;
-	private boolean current=false;
+	private int turnId, nrOfProvinces;
 	private ArrayList<ICard> cards; // The cards the player currently has on his/her hand.
 	
 	// ============== EVENT-CONSTANTS ==============
-	public final static String CARD_ADDED = "addedCard";
-	public final static String CARD_REMOVED = "addedCard";
+	public final static String CARD_ADDED = "addCard";
+	public final static String CARD_REMOVED = "removeCard";
 	// =============================================
 
 	
@@ -50,7 +49,7 @@ public class Player {
 	public void addCard(){
 		ICard newCard = Deck.giveCard();
 		cards.add(newCard);
-		pcs.firePropertyChange(this.CARD_ADDED, null, newCard);
+		pcs.firePropertyChange(Player.CARD_ADDED, newCard, null);
 	}
 	
 	/**
@@ -84,9 +83,15 @@ public class Player {
 		Deck.discard(c1);
 		Deck.discard(c2);
 		Deck.discard(c3);
-		pcs.firePropertyChange(this.CARD_REMOVED, null, c1);
-		pcs.firePropertyChange(this.CARD_REMOVED, null, c2);
-		pcs.firePropertyChange(this.CARD_REMOVED, null, c3);
+		pcs.firePropertyChange(CARD_REMOVED, null, c1);
+		pcs.firePropertyChange(CARD_REMOVED, null, c2);
+		pcs.firePropertyChange(CARD_REMOVED, null, c3);
+	}
+	
+	private void inactivate(ICard c1, ICard c2, ICard c3){
+		c1.setActive(false);
+		c2.setActive(false);
+		c3.setActive(false);
 	}
 
 	/**
@@ -94,7 +99,6 @@ public class Player {
 	 * Checks if you have three cards of the same type, or three cards of different types.
 	 * Also makes sure you can only trade in one Joker at a time.
 	 */
-	
 	public boolean exchangeCard(ICard c1, ICard c2, ICard c3){
 		ArrayList<ICard> exhangeList = new ArrayList<ICard>();
 		exhangeList.add(c1);
@@ -107,7 +111,7 @@ public class Player {
 				nrOfJokers++;
 			}
 		}
-		
+		inactivate(c1, c2, c3);
 		if(nrOfJokers > 1){
 			return false;
 		}
@@ -120,7 +124,7 @@ public class Player {
 		else if(!(c1.equals(c2)) && !(c2.equals(c3)) && !(c1.equals(c3))){
 			removeCard(c1, c2, c3);
 			return true;
-		}	
+		}
 		return false;
 	}
 	
@@ -140,12 +144,18 @@ public class Player {
 		return cards;
 	}
 	
-	public void setCurrent(Boolean current){
-		this.current=current;
-	}
-	
 	public int getId(){
 		return turnId;
+	}
+	
+	public void setTurn(int turn){
+		this.turnId = turn;
+	}
+
+	public void discard() {
+		for(ICard c:cards){
+			Deck.discard(c);
+		}
 	}
 	
 }

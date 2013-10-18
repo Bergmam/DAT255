@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="risk.com-deviceinfoendpoint-v1-20131009090636-java-1.16.0-rc-sources">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/endpoint-libs/libdeviceinfoendpoint-v1/deviceinfoendpoint/risk.com-deviceinfoendpoint-v1-20131009090636-java-1.16.0-rc-sources.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
