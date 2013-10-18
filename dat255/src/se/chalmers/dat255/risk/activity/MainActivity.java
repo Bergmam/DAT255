@@ -4,6 +4,7 @@ import se.chalmers.dat255.risk.GDXGame;
 import se.chalmers.dat255.risk.networkhandler.Networkhandler;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
@@ -11,7 +12,7 @@ import android.widget.Button;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
 
-public class MainActivity extends Activity {
+public class MainActivity extends AndroidApplication {
 
 	private OnTouchListener createListener;
 	
@@ -25,26 +26,30 @@ public class MainActivity extends Activity {
 		Button createGameButton = (Button) findViewById(R.id.createGameButton);
 		
 		createListener = new OnTouchListener() {
-			
-	    	@Override
-	        public boolean onTouch(View v, MotionEvent event) {
-	          switch (event.getAction() & MotionEvent.ACTION_MASK) {
-	          case MotionEvent.ACTION_DOWN:
-	        	  nH.postGameToServer("Thisisatestfile", "thisisnotmyusername");
-	        	          	  
-	        	  return true;
-	          case MotionEvent.ACTION_UP:
-	            return true;
-	          default:
-	            return false;
-	          }
-	        }
-	      };
-	      
-	      createGameButton.setOnTouchListener(createListener);
+
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				switch (event.getAction() & MotionEvent.ACTION_MASK) {
+				case MotionEvent.ACTION_DOWN:
+//					Networkhandler nH = new Networkhandler();
+//					nH.postGameToServer("Thisisatestfile", "thisisnotmyusername");
+//
+					Intent intent = new Intent("GuestbookActivity.intent.action.Launch");
+					intent.putExtra("username", "Test Name");
+					startActivity(intent); 
+
+					return true;
+				case MotionEvent.ACTION_UP:
+					return true;
+				default:
+					return false;
+				}
+			}
+		};
+
+		createGameButton.setOnTouchListener(createListener);
 //		initialize(new GDXGame(), true);
-		
-		
+
 	}
 
 }
