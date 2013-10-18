@@ -12,7 +12,7 @@ import android.widget.Button;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
 
-public class MainActivity extends Activity {
+public class MainActivity extends AndroidApplication {
 
 	private OnTouchListener createListener;
 
@@ -48,7 +48,7 @@ public class MainActivity extends Activity {
 		};
 
 		createGameButton.setOnTouchListener(createListener);
-		//		initialize(new GDXGame(), true);
+//		initialize(new GDXGame(), true);
 
 
 	}
