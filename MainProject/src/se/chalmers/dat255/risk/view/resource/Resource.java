@@ -10,8 +10,6 @@ public class Resource {
 
 	private static Resource instance;
 	
-	public TextureAtlas atlas = new TextureAtlas("pack/uiskin.atlas");
-
 	public Skin skin = new Skin(Gdx.files.internal("pack/uiskin.json"));
 
 	public Texture backGround = new Texture(
@@ -61,8 +59,6 @@ public class Resource {
 
 	public void loadResources() {
 
-		atlas = new TextureAtlas("pack/uiskin.atlas");
-		
 		skin = new Skin(Gdx.files.internal("pack/uiskin.json"));
 
 		backGround = new Texture(Gdx.files.internal("Gfx/RiskMap1.png"));
@@ -99,8 +95,6 @@ public class Resource {
 	public void dispose() {
 		skin.dispose();
 		
-		atlas.dispose();
-
 		backGround.dispose();
 
 		artillery.dispose();
