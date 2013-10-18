@@ -58,9 +58,6 @@ public class GuestbookActivity extends CloudBackendActivity {
 	private EditText etMessage;
 	private Button btSend;
 
-	//TODO
-	private Button getButton;
-	private OnTouchListener getButtonListener;
 
 	// a list of posts on the UI
 	List<CloudEntity> posts = new LinkedList<CloudEntity>();
@@ -77,28 +74,7 @@ public class GuestbookActivity extends CloudBackendActivity {
 		
         Intent intent = getIntent();
         username = new String(intent.getExtras().getString("username"));
-        
-		getButton = (Button) findViewById(R.id.getButton);
 
-
-		getButtonListener = new OnTouchListener() {
-
-			@Override
-			public boolean onTouch(View v, MotionEvent event) {
-				switch (event.getAction() & MotionEvent.ACTION_MASK) {
-				case MotionEvent.ACTION_DOWN:
-					pullLatestVersion();       	  
-
-					return true;
-				case MotionEvent.ACTION_UP:
-					return true;
-				default:
-					return false;
-				}
-			}
-		};
-
-		getButton.setOnTouchListener(getButtonListener);
 	}
 
 	@Override
@@ -198,20 +174,6 @@ public class GuestbookActivity extends CloudBackendActivity {
 			int duration = Integer.parseInt((String) e.get(BROADCAST_PROP_DURATION));
 			Toast.makeText(this, message, duration).show();
 		}
-	}
-
-	//TODO
-	public void pullLatestVersion(){		
-		final StringBuilder sb = new StringBuilder();
-		String message = sb.append(posts.get(0).getOwner().toString() + ": " + posts.get(0).get("message")).toString();
-
-		Log.d("net", "Owner of the entity is " + posts.get(0).getOwner() + " message was " + message);
-		
-		//TODO do w/e you need to do
-	}
-	
-	public String getUsername(){
-		return username;
 	}
 }
 

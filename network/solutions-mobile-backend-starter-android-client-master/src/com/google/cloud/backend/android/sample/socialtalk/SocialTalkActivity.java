@@ -62,7 +62,7 @@ public class SocialTalkActivity extends CloudBackendActivity {
     setContentView(R.layout.activity_main);
     tvPosts = (TextView) findViewById(R.id.tvPosts);
     etMessage = (EditText) findViewById(R.id.etMessage);
-    getButton = (Button) findViewById(R.id.getButton);
+
     
     getButtonListener = new OnTouchListener() {
 		

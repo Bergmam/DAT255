@@ -1,4 +1,4 @@
-package com.google.cloud.backend.android;
+package se.chalmers.dat255.risk.networkhandler;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -9,11 +9,20 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
+import com.google.cloud.backend.android.CloudBackendActivity;
+import com.google.cloud.backend.android.CloudCallbackHandler;
+import com.google.cloud.backend.android.CloudEntity;
+import com.google.cloud.backend.android.R;
 import com.google.cloud.backend.android.CloudQuery.Order;
 import com.google.cloud.backend.android.CloudQuery.Scope;
 
 import se.chalmers.dat255.risk.model.Game;
+import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -23,13 +32,21 @@ public class Networkhandler extends CloudBackendActivity {
 	private static final String BROADCAST_PROP_DURATION = "duration";
 	private static final String BROADCAST_PROP_MESSAGE = "message";
 	
+	private String task;
+	
 	private List<CloudEntity> gameVersions = new LinkedList<CloudEntity>();
 
-	// Constructor
-	public Networkhandler() {
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.networkhandler_layout);
+		Log.d("Networkhandler", "Init");
+		
+        Intent intent = getIntent();
+        task = new String(intent.getExtras().getString("task"));
 
 	}
-
+	
 	@Override
 	protected void onPostCreate() {
 		super.onPostCreate();
