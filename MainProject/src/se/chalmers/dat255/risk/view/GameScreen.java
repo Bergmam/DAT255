@@ -19,10 +19,8 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
  */
 public class GameScreen extends AbstractScreen {
 	private Render render;
-	private AbstractStage worldStage;
+	private AbstractStage worldStage, stats, cards;
 	private UIStage uiStage;
-	private StatStage stats;
-	private CardStage cards;
 	private InputMultiplexer multi;
 	private boolean created;
 

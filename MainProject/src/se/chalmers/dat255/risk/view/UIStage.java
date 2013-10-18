@@ -127,9 +127,9 @@ public class UIStage extends AbstractStage {
 		} else if (name.equalsIgnoreCase(IGame.SURRENDER)) {
 			showPopUp(name, "Are you sure you\n want to surrender?");
 		} else if (name.equalsIgnoreCase(IGame.UNITS)) {
-			showPopUp(name, "You must place \nall your units");
+			showPopUp(name, "You must place all your units");
 		} else if (name.equalsIgnoreCase(IGame.CARDS)) {
-			showPopUp(name, "You must exchange \nyour cards");
+			showPopUp(name, "You must exchange your cards");
 		}
 
 	}

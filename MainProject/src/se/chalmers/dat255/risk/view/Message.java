@@ -24,16 +24,14 @@ public class Message extends Dialog {
 		
 		// checks button names in listener to decide action
 		confirm = new Button(Resource.getInstance().skin);
-		confirm.add("Ok", "default");
+		confirm.add("Ok");
 		confirm.setName("confirm");
 
-		label = new Label("ewihroiefjo\nefdfsfew", Resource.getInstance().skin);
+		label = new Label("", Resource.getInstance().skin);
 		label.setTouchable(Touchable.disabled);
-
-		Table t = getContentTable();
-		t.pad(5);
-		t.add(label);
-
+		
+		text(label);
+		
 		button(confirm);
 	}
 
@@ -41,4 +39,5 @@ public class Message extends Dialog {
 		setTitle(title);
 		label.setText(msg);
 	}
+	
 }
