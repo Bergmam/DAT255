@@ -20,9 +20,9 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 public class GameScreen extends AbstractScreen {
 	private Render render;
 	private AbstractStage worldStage;
-	private List<AbstractStage> cardStages;
 	private UIStage uiStage;
 	private StatStage stats;
+	private CardStage cards;
 	private InputMultiplexer multi;
 	private boolean created;
 
@@ -43,9 +43,8 @@ public class GameScreen extends AbstractScreen {
 		List<AbstractView> tmp = new ArrayList<AbstractView>();
 		tmp.addAll(worldStage.getViews());
 		tmp.addAll(uiStage.getViews());
-		for (AbstractStage s : cardStages) {
-			tmp.addAll(s.getViews());
-		}
+		tmp.addAll(cards.getViews());
+
 		return tmp;
 	}
 
@@ -79,9 +78,8 @@ public class GameScreen extends AbstractScreen {
 		case Map:
 			return worldStage;
 		case Card:
-			return cardStages.get(model.getActivePlayer().getId());
+			return cards;
 		case Stat:
-			stats.show();
 			return stats;
 		default:
 			return worldStage;
@@ -90,17 +88,12 @@ public class GameScreen extends AbstractScreen {
 	}
 
 	public void setupGame() {
-		worldStage = new WorldStage(model.getGameProvinces(),
-				Resource.getInstance().cords);
+		worldStage = new WorldStage(model, Resource.getInstance().cords);
 
-		// Creates a cardStage for every player
-		cardStages = new ArrayList<AbstractStage>();
+		cards = new CardStage(model);
 
-		for (Player i : model.getPlayers()) {
-			CardStage stage = new CardStage(i.getCards());
-			i.addListener(stage);
-			cardStages.add(stage);
-		}
+		// TODO remove listeners in game when new game
+
 		uiStage = new UIStage(model);
 
 		stats = new StatStage(model);
@@ -108,12 +101,7 @@ public class GameScreen extends AbstractScreen {
 		multi = new InputMultiplexer(uiStage, worldStage.getProcessor());
 		created = true;
 		render = uiStage.getRender();
-		
-		for(Player p:model.getPlayers()){
-			for(int i = 0; i<4; i++){
-				p.addCard();
-			}
-		}
+
 	}
 
 	@Override
@@ -121,9 +109,7 @@ public class GameScreen extends AbstractScreen {
 		if (created) {
 			worldStage.dispose();
 			uiStage.dispose();
-			for (AbstractStage s : cardStages) {
-				s.dispose();
-			}
+			cards.dispose();
 		}
 	}
 }

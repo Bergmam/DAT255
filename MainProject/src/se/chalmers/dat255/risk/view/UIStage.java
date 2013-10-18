@@ -19,7 +19,6 @@ public class UIStage extends AbstractStage {
 	private SwitchButton card, stat;
 	private Render render;
 	private Label label;
-	private IGame model;
 	private ColorHandler color;
 	private PopUp pop;
 	private Message message;
@@ -28,7 +27,7 @@ public class UIStage extends AbstractStage {
 	private Table table, buttonTable;
 
 	public UIStage(IGame model) {
-		this.model = model;
+		super(model);
 		model.addListener(this);
 
 		table = new Table();

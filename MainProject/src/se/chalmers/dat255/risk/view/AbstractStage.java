@@ -5,6 +5,8 @@ import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import se.chalmers.dat255.risk.model.IGame;
+
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -13,8 +15,10 @@ public abstract class AbstractStage extends Stage implements
 		PropertyChangeListener {
 	protected List<AbstractView> views;
 	protected List<Actor> others;
+	protected IGame model;
 
-	public AbstractStage() {
+	public AbstractStage(IGame model) {
+		this.model = model;
 		views = new ArrayList<AbstractView>();
 		others = new ArrayList<Actor>();
 	}

@@ -59,8 +59,6 @@ public class TurnAndPhaseManager {
 
 	public static enum ResultType {ComputeBonusForF0, ComputeBonusForF1, ChangedPhase, DoNothing}
 
-	
-	
 	private void changeTurn(List<Player> players) {
 		activePlayer = (activePlayer + 1) % players.size();
 		System.out.println("Changed Turn, new player is: " + activePlayer);
@@ -83,19 +81,23 @@ public class TurnAndPhaseManager {
 	 * @param players
 	 *            the list of players left in the game
 	 */
-	public void surrender(List<Player> players) {
+	public boolean surrender(List<Player> players) {
 		if (players.size() != 1) {
 			if (currentPhase == Phase.FBuild) {
 				if (activePlayer == players.size()) {
 					changeTurn(players);
 					currentPhase = Phase.F1;
+					return true;
 				}
+				return false;
 			} else {
 				currentPhase = Phase.F1;
+				return false;
 			}
 		} else {
 			activePlayer = 0;//safety messure as to not crash the game
 			currentPhase = Phase.F1;
+			return false;
 		}
 	}
 }

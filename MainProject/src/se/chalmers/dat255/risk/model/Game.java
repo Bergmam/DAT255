@@ -46,17 +46,17 @@ public class Game implements IGame {
 	 * @param playersId
 	 *            The ids of the players
 	 */
-	/*public Game() {
-		battle = new BattleHandler();
-		pcs = new PropertyChangeSupport(this);
-	}*/
+	/*
+	 * public Game() { battle = new BattleHandler(); pcs = new
+	 * PropertyChangeSupport(this); }
+	 */
 
 	public Game() {
 		battle = new BattleHandler();
 		pcs = new PropertyChangeSupport(this);
 		gameMode = GameMode.WORLD_DOMINATION;
 	}
-	
+
 	@Override
 	public void setupGame(List<String> playersId, String neighboursFile,
 			String continentsFile, String missionFile) {
@@ -65,13 +65,14 @@ public class Game implements IGame {
 		this.missionFile = missionFile;
 		newGame(playersId);
 	}
-	
+
 	@Override
-	public void setGameMode(GameMode gameMode){
+	public void setGameMode(GameMode gameMode) {
 		this.gameMode = gameMode;
 	}
 
-	private void newGame(List<String> playersId) throws IllegalArgumentException {
+	private void newGame(List<String> playersId)
+			throws IllegalArgumentException {
 		phaseHandler = new TurnAndPhaseManager();
 		eventHandler = new EventHandler(phaseHandler);
 		int noOfPlayers = playersId.size();
@@ -81,7 +82,7 @@ public class Game implements IGame {
 							+ " and " + maxAllowedPlayers);
 		}
 		createPlayers(playersId);
-		missionHandler=new MissionHandler(players, missionFile);
+		missionHandler = new MissionHandler(players, missionFile);
 
 		worldMap = new WorldMap(neighboursFile, continentsFile, players);
 		bonusHandler = new BonusHandler(worldMap, players.size());
@@ -304,7 +305,7 @@ public class Game implements IGame {
 		if (gameOver.getNrOfProvinces() == 0) {
 			int pos = players.indexOf(gameOver);
 			playerLose(gameOver);
-			if(gameMode==GameMode.SECRET_MISSION){
+			if (gameMode == GameMode.SECRET_MISSION) {
 				missionHandler.playerEliminated(gameOver);
 			}
 			phaseHandler.removePlayer(pos);
@@ -312,8 +313,10 @@ public class Game implements IGame {
 		if (players.size() == 1) {
 			win(players.get(0));
 		}
-		
-		if(gameMode == GameMode.SECRET_MISSION && missionHandler.winner(getActivePlayer(), worldMap.getPlayersContinents(getActivePlayer()))){
+
+		if (gameMode == GameMode.SECRET_MISSION
+				&& missionHandler.winner(getActivePlayer(),
+						worldMap.getPlayersContinents(getActivePlayer()))) {
 			win(missionHandler.getWinner());
 		}
 	}
@@ -322,7 +325,7 @@ public class Game implements IGame {
 		pcs.firePropertyChange(WIN, 0, win);
 	}
 
-	// also handles defeat of neutral players, 
+	// also handles defeat of neutral players,
 
 	private void playerLose(Player gameOver) {
 		gameOver.discard();
@@ -358,7 +361,8 @@ public class Game implements IGame {
 	public void surrender(boolean confirm) {
 		if (confirm) {
 			playerLose(getActivePlayer());
-			phaseHandler.surrender(players);
+			pcs.firePropertyChange(CHANGE_TURN,
+					phaseHandler.surrender(players), false);
 			if (players.size() == 1) {
 				win(players.get(0));
 				return;
@@ -391,8 +395,10 @@ public class Game implements IGame {
 				bonus, players);
 		if (result == ResultType.ComputeBonusForF0) {
 			bonusHandler.calcBonusForF0(getActivePlayer().getNrOfProvinces());
+			pcs.firePropertyChange(CHANGE_TURN, true, false);
 		} else if (result == ResultType.ComputeBonusForF1) {
 			updateValues();
+			pcs.firePropertyChange(CHANGE_TURN, true, false);
 		} else if (result == ResultType.DoNothing) {
 			if (bonus > 0) {
 				pcs.firePropertyChange(UNITS, true, false);

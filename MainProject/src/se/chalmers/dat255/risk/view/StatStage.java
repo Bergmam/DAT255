@@ -1,7 +1,7 @@
 package se.chalmers.dat255.risk.view;
 
+import java.beans.PropertyChangeEvent;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import se.chalmers.dat255.risk.model.IGame;
@@ -13,12 +13,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 
 public class StatStage extends AbstractStage {
 
-	private IGame model;
 	private Table main, primary, secondary;
 	private List<PlayerView> players;
 
 	public StatStage(IGame model) {
-		this.model = model;
+		super(model);
 
 		players = new ArrayList<PlayerView>();
 
@@ -77,6 +76,15 @@ public class StatStage extends AbstractStage {
 	@Override
 	public InputProcessor getProcessor() {
 		return this;
+	}
+	
+	
+	
+	@Override
+	public void propertyChange(PropertyChangeEvent event) {
+		if (event.getPropertyName().equalsIgnoreCase(IGame.CHANGE_TURN)){
+			placeViews();
+		}
 	}
 
 }

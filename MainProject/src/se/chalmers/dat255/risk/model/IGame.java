@@ -14,15 +14,10 @@ import se.chalmers.dat255.risk.model.TurnAndPhaseManager.Phase;
  */
 public interface IGame {
 	// ============== EVENT-CONSTANTS ==============
-	public final static String MOVEMENT = "Movement";
-	public final static String ATTACK = "Attack";
-	public final static String CONQUER = "takeOver";
-	public final static String AGAIN = "Again?";
-	public final static String WIN = "Win";
-	public final static String SURRENDER = "Surrender";
-	public final static String UNITS = "Units";
-	public final static String CARDS = "Cards";
-
+	public final static String MOVEMENT = "Movement", ATTACK = "Attack",
+			CONQUER = "takeOver", AGAIN = "Again?", WIN = "Win",
+			SURRENDER = "Surrender", UNITS = "Units", CARDS = "Cards",
+			CHANGE_TURN = "ChangeTurn";
 	// =============================================
 
 	/**
@@ -160,15 +155,17 @@ public interface IGame {
 	 *            what type of winning condition the game will have
 	 */
 	public void setGameMode(GameMode gameMode);
-	
+
 	/**
 	 * retrieves current gameMode
+	 * 
 	 * @return current gameMode
 	 */
 	public GameMode getGameMode();
-	
+
 	/**
-	 * Returns a String that discribes your mission. Only used in Secret Mission-mode
+	 * Returns a String that discribes your mission. Only used in Secret
+	 * Mission-mode
 	 */
 	public String getMissionText(Player currentPlayer);
 }

@@ -3,6 +3,7 @@ package se.chalmers.dat255.risk.view;
 import java.util.ArrayList;
 import java.util.List;
 
+import se.chalmers.dat255.risk.model.IGame;
 import se.chalmers.dat255.risk.model.IProvince;
 import se.chalmers.dat255.risk.view.resource.Resource;
 
@@ -28,8 +29,8 @@ public class WorldStage extends AbstractStage implements GestureListener {
 	private float zMax;
 	private float zMin;
 
-	public WorldStage(List<IProvince> provinces, FileHandle positionsOnMap) {
-
+	public WorldStage(IGame model,FileHandle positionsOnMap) {
+		super(model);
 		background = new Image(Resource.getInstance().backGround);
 		camera = new OrthographicCamera();
 		provinceGroup = new Group();
@@ -45,7 +46,7 @@ public class WorldStage extends AbstractStage implements GestureListener {
 				background.getHeight() / 2, 0);
 
 		views = new ArrayList<AbstractView>();
-
+		List<IProvince> provinces = model.getGameProvinces();
 		String wholeFile = positionsOnMap.readString();
 		String[] array = wholeFile.split("\\n");
 		int temp = 0;
