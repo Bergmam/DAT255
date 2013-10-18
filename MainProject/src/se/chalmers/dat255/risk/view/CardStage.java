@@ -19,7 +19,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 public class CardStage extends AbstractStage {
 
 	private final int maxNbrOfCards = 5;
-	Table main,top,bottom;
+	private Table main,top,bottom;
 
 	public CardStage(List<ICard> cards) {
 		super();

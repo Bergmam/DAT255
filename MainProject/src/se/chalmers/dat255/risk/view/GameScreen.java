@@ -108,6 +108,12 @@ public class GameScreen extends AbstractScreen {
 		multi = new InputMultiplexer(uiStage, worldStage.getProcessor());
 		created = true;
 		render = uiStage.getRender();
+		
+		for(Player p:model.getPlayers()){
+			for(int i = 0; i<4; i++){
+				p.addCard();
+			}
+		}
 	}
 
 	@Override

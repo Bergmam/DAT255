@@ -13,6 +13,7 @@ public class PlayerView extends Table {
 	private Player player;
 	private Label name, provinces, mission;
 	private Table content;
+	private boolean main;
 
 	public PlayerView(Player p, String quest) {
 		super(Resource.getInstance().skin);
@@ -47,9 +48,14 @@ public class PlayerView extends Table {
 				getHeight());
 		super.draw(batch, alpha);
 	}
+	
+	public boolean isMain(){
+		return main;
+	}
 
 	// if view shows current player
-	public void isMain(boolean main) {
+	public void setMain(boolean main) {
+		this.main = main;
 		if (!mission.textEquals("")) {
 			if (main) {
 				content.add(mission).fill();
