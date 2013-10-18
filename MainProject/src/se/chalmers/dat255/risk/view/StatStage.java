@@ -18,6 +18,7 @@ public class StatStage extends AbstractStage {
 
 	public StatStage(IGame model) {
 		super(model);
+		model.addListener(this);
 
 		players = new ArrayList<PlayerView>();
 
@@ -41,15 +42,6 @@ public class StatStage extends AbstractStage {
 
 		placeViews();
 
-	}
-
-	public void show() {
-		if (getMain().getPlayer() != model.getActivePlayer()) {
-			primary.clearChildren();
-			secondary.clearChildren();
-
-			placeViews();
-		}
 	}
 
 	private void placeViews() {
@@ -83,6 +75,8 @@ public class StatStage extends AbstractStage {
 	@Override
 	public void propertyChange(PropertyChangeEvent event) {
 		if (event.getPropertyName().equalsIgnoreCase(IGame.CHANGE_TURN)){
+			primary.clearChildren();
+			secondary.clearChildren();
 			placeViews();
 		}
 	}

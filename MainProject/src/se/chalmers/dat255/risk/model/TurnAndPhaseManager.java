@@ -89,10 +89,10 @@ public class TurnAndPhaseManager {
 					currentPhase = Phase.F1;
 					return true;
 				}
-				return false;
+				return true;
 			} else {
 				currentPhase = Phase.F1;
-				return false;
+				return true;
 			}
 		} else {
 			activePlayer = 0;//safety messure as to not crash the game
