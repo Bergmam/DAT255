@@ -18,27 +18,6 @@ public class GDXGame extends Game {
 	}
 
 	@Override
-	public void resize(int width, int height) {
-
-	}
-
-	@Override
-	public void render() {
-		super.render();
-	}
-
-	@Override
-	public void pause() {
-		Gdx.app.log("Risk", "Pausing game");
-	}
-
-	@Override
-	public void resume() {
-		Gdx.app.log("Risk", "Resuming game");
-
-	}
-
-	@Override
 	public void dispose() {
 		Gdx.app.log("Risk", "Destroying game");
 		manager.dispose();

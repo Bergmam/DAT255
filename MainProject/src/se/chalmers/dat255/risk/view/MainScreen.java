@@ -56,7 +56,7 @@ public class MainScreen extends AbstractScreen {
 		//for some reason the dropdown doesn't show the list, list is clickable but
 		// blocks any other interaction with the game. will use a simple list until I
 		// ,if ever, get the box working
-		// because we use java.util.list everywhere I had to specify this one...
+		// because we use java.util.list everywhere I had to specify this import...
 		list = new com.badlogic.gdx.scenes.scene2d.ui.List(GameMode.values(),Resource.getInstance().skin);
 
 		nameField = new TextField("", Resource.getInstance().skin);
@@ -117,7 +117,7 @@ public class MainScreen extends AbstractScreen {
 	
 	public void clearPlayers(){
 		playerTable.clear();
-		playerTable.add("Players:");
+		playerTable.add("Players:").expandX().left();;
 	}
 
 	@Override

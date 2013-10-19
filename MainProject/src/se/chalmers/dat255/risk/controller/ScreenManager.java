@@ -35,12 +35,11 @@ public class ScreenManager extends ClickListener {
 	private GDXGame game;
 	private final List<String> list = new ArrayList<String>();
 	private final int maxNbrOfPlayers = 6;
-	private GameMode gameMode;
+	//min player usually two, but we haven't implemented that functionality  
+	private final int minNbrOfPlayers = 3;
 
 	private ScreenManager() {
-
 		Resource.getInstance();
-
 	}
 
 	public static ScreenManager getInstance() {
@@ -70,13 +69,13 @@ public class ScreenManager extends ClickListener {
 	}
 
 	public void setupGame() {
-		
+
 		model.setupGame(list, Resource.getInstance().neighborsFile,
 				Resource.getInstance().continentsFile,
 				Resource.getInstance().missionsFile);
 
 		model.setGameMode(GameMode.valueOf(main.getMode()));
-		
+
 		screen.setupGame();
 
 		for (AbstractView v : screen.getViews()) {
@@ -129,7 +128,7 @@ public class ScreenManager extends ClickListener {
 			}
 
 		} else if (s.equalsIgnoreCase("startButton")) {
-			if (list.size() >= 3) {
+			if (list.size() >= minNbrOfPlayers) {
 				setupGame();
 				changeScreen(screen);
 			}
