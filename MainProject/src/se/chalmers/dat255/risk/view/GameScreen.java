@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import se.chalmers.dat255.risk.model.IGame;
-import se.chalmers.dat255.risk.model.Player;
+import se.chalmers.dat255.risk.model.IPlayer;
 import se.chalmers.dat255.risk.view.UIStage.Render;
 import se.chalmers.dat255.risk.view.resource.Resource;
 

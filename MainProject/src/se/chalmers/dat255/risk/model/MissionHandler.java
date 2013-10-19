@@ -7,21 +7,21 @@ import java.util.Random;
 import sun.security.action.GetBooleanAction;
 
 public class MissionHandler {
-	private Player winner;
-	private ArrayList<Player> eliminatedPlayers;
-	private final HashMap<Player, Mission> missionMap;
+	private IPlayer winner;
+	private ArrayList<IPlayer> eliminatedPlayers;
+	private final HashMap<IPlayer, Mission> missionMap;
 	private ArrayList<Mission> missionsInGame;
 	
-	public MissionHandler(ArrayList<Player> players, String missionFile){
-		eliminatedPlayers = new ArrayList<Player>();
+	public MissionHandler(ArrayList<IPlayer> players, String missionFile){
+		eliminatedPlayers = new ArrayList<IPlayer>();
 		missionsInGame = new ArrayList<Mission>();
 		
 		Random randGen = new Random();
 		int nextRandInt;
 		ArrayList<Mission> listOfMissions = buildMissions(players, missionFile);
-		HashMap<Player, Mission> tempMissionMap = new HashMap<Player, Mission>();
+		HashMap<IPlayer, Mission> tempMissionMap = new HashMap<IPlayer, Mission>();
 
-		for(Player player : players){
+		for(IPlayer player : players){
 			nextRandInt = randGen.nextInt(listOfMissions.size());
 			giveMission(player, nextRandInt, tempMissionMap, listOfMissions);
 			
@@ -46,14 +46,14 @@ public class MissionHandler {
 		missionMap = tempMissionMap;
 	}
 	
-	private Mission getMission(Player player){
+	private Mission getMission(IPlayer player){
 		return missionMap.get(player);
 	}
 	
 	/**
 	 * Return true if there is a winner.
 	 */
-	public boolean winner(Player currentPlayer, ArrayList<String> continentsCurrentPlayerOwns){
+	public boolean winner(IPlayer currentPlayer, ArrayList<String> continentsCurrentPlayerOwns){
 		for(Mission mission : missionsInGame){
 			if(mission.fullFilled(currentPlayer, continentsCurrentPlayerOwns)){
 				return true;
@@ -62,7 +62,7 @@ public class MissionHandler {
 		return false;
 	}
 	
-	public Player getWinner(){
+	public IPlayer getWinner(){
 		return winner;
 	}
 	
@@ -70,11 +70,11 @@ public class MissionHandler {
 		ELIMINATE, CONQUER_CONTINENTS, CONQUER_PROVINCES;
 	}
 	
-	public void playerEliminated(Player player){
+	public void playerEliminated(IPlayer player){
 		eliminatedPlayers.add(player);
 	}
 	
-	public void giveMission(Player player, int intRand, HashMap<Player, Mission> tempMissionsMap, ArrayList<Mission> listOfMissions){
+	public void giveMission(IPlayer player, int intRand, HashMap<IPlayer, Mission> tempMissionsMap, ArrayList<Mission> listOfMissions){
 
 		boolean gotAMission = false;
 		/*
@@ -95,7 +95,7 @@ public class MissionHandler {
 		}
 	}
 	
-	public ArrayList<Mission> buildMissions(ArrayList<Player> players, String missionFile){
+	public ArrayList<Mission> buildMissions(ArrayList<IPlayer> players, String missionFile){
 		ArrayList<Mission> missions = new ArrayList<Mission>();
 		addEliminateMissions(missions, players);
 		addConquerContinentMissions(missions, missionFile);
@@ -104,9 +104,9 @@ public class MissionHandler {
 		return missions;
 	}
 	
-	public void addEliminateMissions(ArrayList<Mission> missions, ArrayList<Player> players){
-		ArrayList<Player> notVictims = players;
-		for(Player victim : players)
+	public void addEliminateMissions(ArrayList<Mission> missions, ArrayList<IPlayer> players){
+		ArrayList<IPlayer> notVictims = players;
+		for(IPlayer victim : players)
 			missions.add(new Mission(victim));
 	}
 	
@@ -131,7 +131,7 @@ public class MissionHandler {
 		return p1.trim();
 	}
 	
-	public String getText(Player currentPlayer){
+	public String getText(IPlayer currentPlayer){
 		Mission mission = missionMap.get(currentPlayer);
 		MissionType type = mission.getType();
 		String text="";
@@ -152,8 +152,8 @@ public class MissionHandler {
 		
 		private MissionType type;
 		// ELIMINATE
-		private Player owner;
-		private Player victim;
+		private IPlayer owner;
+		private IPlayer victim;
 		//	CONQUER_PROVINCES
 		private int needToConquer;
 		//	CONQUER CONTINETS
@@ -162,7 +162,7 @@ public class MissionHandler {
 		private boolean needToTakeThree; // True if you need a total of three continents to win
 		
 		
-		public Mission(Player vicitim){
+		public Mission(IPlayer vicitim){
 			this.victim=vicitim;
 			this.type=MissionType.ELIMINATE;
 		}
@@ -181,7 +181,7 @@ public class MissionHandler {
 		
 		
 		
-		public boolean fullFilled(Player currentPlayer, ArrayList<String> continentsCurrentPlayerOwns){
+		public boolean fullFilled(IPlayer currentPlayer, ArrayList<String> continentsCurrentPlayerOwns){
 			if(type == MissionType.ELIMINATE){
 				if(eliminatedPlayers.contains(victim)){
 					winner=owner;
@@ -198,11 +198,11 @@ public class MissionHandler {
 			return false;
 		}
 		
-		public Player getVictim(){
+		public IPlayer getVictim(){
 			return victim;
 		}
 		 
-		public Player getOwner(){
+		public IPlayer getOwner(){
 			return owner;
 		}
 		public MissionType getType(){
@@ -212,7 +212,7 @@ public class MissionHandler {
 			return needToConquer;
 		}
 		
-		public void setOwner(Player owner){
+		public void setOwner(IPlayer owner){
 			this.owner = owner;
 		}
 		

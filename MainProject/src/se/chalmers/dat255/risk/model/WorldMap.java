@@ -16,7 +16,7 @@ public class WorldMap {
 	private final ArrayList<IProvince> allProvinces;
 
 	ArrayList<String> continent = new ArrayList<String>();
-	private HashMap<String, Player> ownership;
+	private HashMap<String, IPlayer> ownership;
 	int[] bonuses; // Each id, corrseponds to a players continental bonus
 	ArrayList<Continent> continents; // All the continents that gives bonuses
 	// neighbours maps together each territory with all adjacent territories.
@@ -40,7 +40,7 @@ public class WorldMap {
 	 *            players
 	 */
 	public WorldMap(String provinceString, String continentFile,
-			ArrayList<Player> players) {
+			ArrayList<IPlayer> players) {
 
 		ArrayList<String> listOfProvinces = createProvinces(provinceString,
 				players);
@@ -53,10 +53,10 @@ public class WorldMap {
 	 * Create all the provinces.
 	 */
 	private ArrayList<String> createProvinces(String string,
-			ArrayList<Player> players) {
+			ArrayList<IPlayer> players) {
 		HashMap<String, ArrayList<String>> tempNeighbours = new HashMap<String, ArrayList<String>>();
 		ArrayList<String> listOfProvinces = new ArrayList<String>();
-		ownership = new HashMap<String, Player>();
+		ownership = new HashMap<String, IPlayer>();
 		bonuses = new int[players.size()];
 		String[] pLines = string.split("\\n");
 		for (String pLine : pLines) {
@@ -107,7 +107,7 @@ public class WorldMap {
 	 *            province name sent to the method
 	 * @return The owner of the province sent to the method
 	 */
-	public Player getOwner(String provinceName) {
+	public IPlayer getOwner(String provinceName) {
 		return ownership.get(provinceName);
 	}
 
@@ -121,8 +121,8 @@ public class WorldMap {
 	 *            player the ownership should change to.
 	 */
 
-	public void changeOwner(String provinceName, Player player) {
-		Player oldPlayer = ownership.get(provinceName);
+	public void changeOwner(String provinceName, IPlayer player) {
+		IPlayer oldPlayer = ownership.get(provinceName);
 		oldPlayer.loseProvince();
 
 		ownership.put(provinceName, player);
@@ -158,13 +158,13 @@ public class WorldMap {
 	 *            of all players
 	 */
 	private void randomizeProvinces(ArrayList<String> provinceList,
-			ArrayList<Player> players) {
+			ArrayList<IPlayer> players) {
 		ArrayList<String> temp = provinceList;
 		int nrOfProvinces = provinceList.size();
 
 		Random randGen = new Random();
 		while (!temp.isEmpty()) {
-			for (Player player : players) {
+			for (IPlayer player : players) {
 				if (nrOfProvinces > 0)
 					ownership.put(temp.remove(randGen.nextInt(nrOfProvinces)),
 							player);
@@ -190,7 +190,7 @@ public class WorldMap {
 		return provinceList;
 	}
 
-	public int getBonus(Player player) {
+	public int getBonus(IPlayer player) {
 		return bonuses[player.getId()];
 	}
 
@@ -211,7 +211,7 @@ public class WorldMap {
 		return allProvinces;
 	}
 	
-	public ArrayList<String> getPlayersContinents(Player owner){
+	public ArrayList<String> getPlayersContinents(IPlayer owner){
 		ArrayList<String> continentsThePlayerOwns = new ArrayList<String>();
 		int i=0;
 		for(Continent continent : continents){
@@ -241,7 +241,7 @@ public class WorldMap {
 	private class Continent {
 		final String[] provinces;
 		final int bonus;
-		Player owner = null;
+		IPlayer owner = null;
 		final String continentName;
 		
 		public Continent(String continentName, String[] provinces, int bonus) {
@@ -254,7 +254,7 @@ public class WorldMap {
 			return bonus;
 		}
 
-		public Player getContinentOwner() {
+		public IPlayer getContinentOwner() {
 			return owner;
 		}
 
@@ -264,7 +264,7 @@ public class WorldMap {
 		 * when someone takes a province from someone else.
 		 */
 		public void update() {
-			Player tempProvinceOwner = getOwner(provinces[0]);
+			IPlayer tempProvinceOwner = getOwner(provinces[0]);
 
 			for (String province : provinces) {
 				if (tempProvinceOwner != getOwner(province)) {

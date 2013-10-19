@@ -7,7 +7,7 @@ import java.util.List;
 import se.chalmers.dat255.risk.model.ICard;
 import se.chalmers.dat255.risk.model.ICard.CardType;
 import se.chalmers.dat255.risk.model.IGame;
-import se.chalmers.dat255.risk.model.Player;
+import se.chalmers.dat255.risk.model.IPlayer;
 import se.chalmers.dat255.risk.view.resource.Resource;
 
 import com.badlogic.gdx.InputProcessor;
@@ -22,7 +22,7 @@ public class CardStage extends AbstractStage {
 	private final int maxNbrOfCards = 5;
 	private Table main, top, bottom;
 	private List<List<AbstractView>> all;
-	private Player current;
+	private IPlayer current;
 
 	public CardStage(IGame model) {
 		super(model);
@@ -40,7 +40,7 @@ public class CardStage extends AbstractStage {
 
 		CardView view;
 		List<AbstractView> list;
-		for (Player p : model.getPlayers()) {
+		for (IPlayer p : model.getPlayers()) {
 			p.addListener(this);
 
 			list = new ArrayList<AbstractView>();
@@ -103,10 +103,10 @@ public class CardStage extends AbstractStage {
 
 	@Override
 	public void propertyChange(PropertyChangeEvent event) {
-		if (event.getPropertyName().equalsIgnoreCase(Player.CARD_ADDED)) {
+		if (event.getPropertyName().equalsIgnoreCase(IPlayer.CARD_ADDED)) {
 			addCard((ICard) event.getOldValue());
 		} else if (event.getPropertyName()
-				.equalsIgnoreCase(Player.CARD_REMOVED)) {
+				.equalsIgnoreCase(IPlayer.CARD_REMOVED)) {
 			removeCard((ICard) event.getNewValue());
 		} else if (event.getPropertyName().equalsIgnoreCase(IGame.CHANGE_TURN)) {
 			current = model.getActivePlayer();

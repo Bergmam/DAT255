@@ -38,7 +38,7 @@ public interface IGame {
 	 * 
 	 * @return the active player
 	 */
-	public Player getActivePlayer();
+	public IPlayer getActivePlayer();
 
 	/**
 	 * Tells the game to do battle with two provinces
@@ -67,7 +67,7 @@ public interface IGame {
 	 * 
 	 * @return an array with all players
 	 */
-	public ArrayList<Player> getPlayers();
+	public ArrayList<IPlayer> getPlayers();
 
 	/**
 	 * Retrieves all provinces
@@ -167,5 +167,5 @@ public interface IGame {
 	 * Returns a String that discribes your mission. Only used in Secret
 	 * Mission-mode
 	 */
-	public String getMissionText(Player currentPlayer);
+	public String getMissionText(IPlayer currentPlayer);
 }

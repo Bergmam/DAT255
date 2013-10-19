@@ -14,7 +14,7 @@ public class BonusHandler {
 		currentCardBonus = 4;
 	}
 			
-	public void calcBonusesFromCards(ArrayList<String> names, Player activePlayer){
+	public void calcBonusesFromCards(ArrayList<String> names, IPlayer activePlayer){
 		for(String name : names){
 			if(worldMap.getOwner(name) == activePlayer){
 				bonus += 2;
@@ -24,7 +24,7 @@ public class BonusHandler {
 		currentCardBonus += 2; // Maybe needs to be changed later, may not be linear.
 	}
 
-	public void calcBonusUnits(Player activePlayer) {
+	public void calcBonusUnits(IPlayer activePlayer) {
 		int provinces = activePlayer.getNrOfProvinces();
 		if (provinces <= 9) {
 			this.bonus = 3;

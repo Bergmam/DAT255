@@ -1,6 +1,6 @@
 package se.chalmers.dat255.risk.view;
 
-import se.chalmers.dat255.risk.model.Player;
+import se.chalmers.dat255.risk.model.IPlayer;
 import se.chalmers.dat255.risk.view.resource.ColorHandler;
 import se.chalmers.dat255.risk.view.resource.Resource;
 
@@ -10,12 +10,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 
 public class PlayerView extends Table {
-	private Player player;
+	private IPlayer player;
 	private Label name, provinces, mission;
 	private Table content;
 	private boolean main;
 
-	public PlayerView(Player p, String quest) {
+	public PlayerView(IPlayer p, String quest) {
 		super(Resource.getInstance().skin);
 		this.player = p;
 		name = new Label("Player: " + p.getName(), Resource.getInstance().skin);
@@ -35,7 +35,7 @@ public class PlayerView extends Table {
 		add(content).expandX().fill();
 	}
 
-	public Player getPlayer() {
+	public IPlayer getPlayer() {
 		return player;
 	}
 

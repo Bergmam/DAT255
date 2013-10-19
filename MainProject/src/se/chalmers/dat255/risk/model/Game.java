@@ -15,7 +15,7 @@ import se.chalmers.dat255.risk.model.TurnAndPhaseManager.ResultType;
  */
 
 public class Game implements IGame {
-	private ArrayList<Player> players;
+	private ArrayList<IPlayer> players;
 	private WorldMap worldMap;
 	private EventHandler eventHandler;
 	private TurnAndPhaseManager phaseHandler;
@@ -107,14 +107,14 @@ public class Game implements IGame {
 	}
 
 	private void createPlayers(List<String> playersId) {
-		players = new ArrayList<Player>();
+		players = new ArrayList<IPlayer>();
 		for (int i = 0; i < playersId.size(); i++) {
 			players.add(new Player(i, playersId.get(i)));
 		}
 	}
 
 	@Override
-	public Player getActivePlayer() {
+	public IPlayer getActivePlayer() {
 		return players.get(phaseHandler.getActivePlayer());
 	}
 
@@ -139,7 +139,7 @@ public class Game implements IGame {
 	}
 
 	@Override
-	public ArrayList<Player> getPlayers() {
+	public ArrayList<IPlayer> getPlayers() {
 		return players;
 	}
 
@@ -296,14 +296,14 @@ public class Game implements IGame {
 	 * turn.
 	 */
 	private void changeOwner() {
-		Player lostProvincePlayer = worldMap.getOwner(secondProvince.getId());
+		IPlayer lostProvincePlayer = worldMap.getOwner(secondProvince.getId());
 		worldMap.changeOwner(secondProvince.getId(), getActivePlayer());
 
 		checkGameOver(lostProvincePlayer);
 	}
 
 	// playerlose or removeplayer first?
-	private void checkGameOver(Player gameOver) {
+	private void checkGameOver(IPlayer gameOver) {
 		if (gameOver.getNrOfProvinces() == 0) {
 			int pos = players.indexOf(gameOver);
 			playerLose(gameOver);
@@ -323,13 +323,13 @@ public class Game implements IGame {
 		}
 	}
 
-	private void win(Player win) {
+	private void win(IPlayer win) {
 		pcs.firePropertyChange(WIN, 0, win);
 	}
 
 	// also handles defeat of neutral players,
 
-	private void playerLose(Player gameOver) {
+	private void playerLose(IPlayer gameOver) {
 		gameOver.discard();
 		players.remove(gameOver);
 	}
@@ -437,7 +437,7 @@ public class Game implements IGame {
 	}
 
 	@Override
-	public String getMissionText(Player currentPlayer) {
+	public String getMissionText(IPlayer currentPlayer) {
 		return missionHandler.getText(currentPlayer);
 	}
 
