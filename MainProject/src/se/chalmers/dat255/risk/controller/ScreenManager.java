@@ -70,10 +70,7 @@ public class ScreenManager extends ClickListener {
 	}
 
 	public void setupGame() {
-		String[] tmp = new String[list.size()];
-		for (int i = 0; i < list.size(); i++) {
-			tmp[i] = list.get(i);
-		}
+		
 		model.setupGame(list, Resource.getInstance().neighborsFile,
 				Resource.getInstance().continentsFile,
 				Resource.getInstance().missionsFile);

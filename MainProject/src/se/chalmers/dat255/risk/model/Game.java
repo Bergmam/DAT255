@@ -63,6 +63,8 @@ public class Game implements IGame {
 		this.neighboursFile = neighboursFile;
 		this.continentsFile = continentsFile;
 		this.missionFile = missionFile;
+		pcs = new PropertyChangeSupport(this);// removed all existing listeners
+												// in case this is a second game
 		newGame(playersId);
 	}
 
