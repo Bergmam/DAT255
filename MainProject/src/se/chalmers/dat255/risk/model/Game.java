@@ -34,7 +34,7 @@ public class Game implements IGame {
 	private String missionFile;
 
 	private final int maxAllowedPlayers = 6;
-	private final int minAllowedPlayers = 2;
+	private final int minAllowedPlayers = 3;
 	private final int numbersOfWildCards = 6;
 	private final int oneDice = 1;
 	private final int twoDices = 2;
@@ -53,7 +53,6 @@ public class Game implements IGame {
 
 	public Game() {
 		battle = new BattleHandler();
-		pcs = new PropertyChangeSupport(this);
 		gameMode = GameMode.WORLD_DOMINATION;
 	}
 
@@ -161,10 +160,10 @@ public class Game implements IGame {
 		// FIGHTING PHASE 2, FIGHT IF TWO PROVINCE CLICKED AND OWNED BY
 		// DIFFERENT PLAYER AND ATTACKING PROVINCE OWNED BY ME
 		else if (getCurrentPhase() == Phase.F2) {
-			handlePhaseF2(newProvince);
+			handleProvinceF2(newProvince);
 		}// MOVING TROOPS IN PHASE 3
 		else if (getCurrentPhase() == Phase.F3 && !movedTroops) {
-			handlePhaseF3(newProvince);
+			handleProvinceF3(newProvince);
 		}// Placing troops in build phase
 		else if (getCurrentPhase() == Phase.FBuild) {
 			if (worldMap.getOwner(newProvince.getId()) == getActivePlayer()
@@ -174,7 +173,7 @@ public class Game implements IGame {
 		}
 	}
 
-	private void handlePhaseF2(IProvince newProvince) {
+	private void handleProvinceF2(IProvince newProvince) {
 		if (myProvince(newProvince.getId()) && newProvince.getUnits() > 1) {
 			if (oldProvince != null) {
 				oldProvince.setActive(false);
@@ -204,13 +203,12 @@ public class Game implements IGame {
 		}
 	}
 
-	private void handlePhaseF3(IProvince newProvince) {
+	private void handleProvinceF3(IProvince newProvince) {
 		if (myProvince(newProvince.getId()) && oldProvince == null
 				&& newProvince.getUnits() > 1) {
 			oldProvince = newProvince;
 			oldProvince.setActive(true);
 		}
-
 		else if (oldProvince != null) {
 			if (checkProvinceOk(oldProvince, newProvince, true)) {
 				if (oldProvince.getUnits() > 1) {
@@ -427,13 +425,6 @@ public class Game implements IGame {
 	public void addListener(PropertyChangeListener listener) {
 		pcs.addPropertyChangeListener(listener);
 
-	}
-
-	@Override
-	public void addPlayerListener(List<PropertyChangeListener> list) {
-		for (int i = 0; i < list.size(); i++) {
-			players.get(i).addListener(list.get(i));
-		}
 	}
 
 	@Override

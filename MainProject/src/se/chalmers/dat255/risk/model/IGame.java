@@ -123,14 +123,6 @@ public interface IGame {
 	public void moveToProvince(int nrOfUnits);
 
 	/**
-	 * Adds Listeners to the players, to listen for cards
-	 * 
-	 * @param list
-	 *            a list with listerners to the players
-	 */
-	public void addPlayerListener(List<PropertyChangeListener> list);
-
-	/**
 	 * Called when the current player gives up
 	 * 
 	 * @param confirm
