@@ -36,6 +36,21 @@
                 <action android:name="GuestbookActivity.intent.action.Launch" />
     			<category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
+            </activity>
+            
+            <activity
+            android:name="com.google.cloud.backend.android.networkhandler.NetworkHandler"
+            android:label="@string/app_name"
+            android:screenOrientation="landscape" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+                
+                <action android:name="NetworkHandler.intent.action.Launch" />
+    			<category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        
+        
         </activity>
 
 <!--

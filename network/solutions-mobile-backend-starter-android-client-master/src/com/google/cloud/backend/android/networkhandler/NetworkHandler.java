@@ -1,4 +1,4 @@
-package se.chalmers.dat255.risk.networkhandler;
+package com.google.cloud.backend.android.networkhandler;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -26,14 +26,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-public class Networkhandler extends CloudBackendActivity {
+public class NetworkHandler extends CloudBackendActivity {
 
-
+	private static final String TAG = "NetworkHandler";
 	private static final String BROADCAST_PROP_DURATION = "duration";
 	private static final String BROADCAST_PROP_MESSAGE = "message";
-	
-	private String task;
-	
+
 	private List<CloudEntity> gameVersions = new LinkedList<CloudEntity>();
 
 	@Override
@@ -41,18 +39,54 @@ public class Networkhandler extends CloudBackendActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.networkhandler_layout);
 		Log.d("Networkhandler", "Init");
-		
-        Intent intent = getIntent();
-        task = new String(intent.getExtras().getString("task"));
 
+		Intent intent = getIntent();
+		String user = null;
+		String game = null;
+		try{
+			user = new String(intent.getExtras().getString("user"));
+			Log.d(TAG, "This is a user");
+		}catch(NullPointerException e){
+			Log.d(TAG, "This is not a User");
+		}
+		
+		try{
+			game = new String(intent.getExtras().getString("game"));
+			Log.d(TAG, "This is a game");
+		}catch(NullPointerException e){
+			Log.d("NetworkHandler", "This is not a Game");
+		}
+		registerUser(user);
 	}
-	
+
 	@Override
 	protected void onPostCreate() {
 		super.onPostCreate();
 		updateGame();
 	}
-	
+
+	private void registerUser(String username){
+		// create a CloudEntity with the new post
+				CloudEntity newPost = new CloudEntity("User");
+				
+				newPost.put("_owner", "" + username);
+
+				// create a response handler that will receive the result or an error
+				CloudCallbackHandler<CloudEntity> handler = new CloudCallbackHandler<CloudEntity>() {
+					@Override
+					public void onComplete(final CloudEntity result) {
+						Log.d(TAG, "User registered");
+					}
+
+					@Override
+					public void onError(final IOException exception) {
+						Log.d(TAG, "egisterUser onError");
+					}
+				};
+
+				// execute the insertion with the handler
+				getCloudBackend().insert(newPost, handler);
+	}
 	//Get update from server
 	public void updateGame() {
 		// create a response handler that will receive the query result or an

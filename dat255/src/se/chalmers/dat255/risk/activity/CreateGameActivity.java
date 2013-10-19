@@ -1,6 +1,8 @@
 package se.chalmers.dat255.risk.activity;
 
+import se.chalmers.dat255.risk.net.User;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -43,13 +45,19 @@ public class CreateGameActivity extends Activity {
 	          case MotionEvent.ACTION_DOWN:
 	        	  	//TODO
 	        	  String username = nameField.getText().toString();
+	        	  User user;
 	        	  
 	        	  if(checkUsername(username)){
 	        		  //Create lobby activity
 	        		  //Set max players to spinner value (intent)
+	        		  user = new User(username);
+	        		  
+	        		  Intent intent = new Intent("NetworkHandler.intent.action.Launch");
+		        	  intent.putExtra("user", username);
+		        	  intent.putExtra("game", "ThisisagameFYI");
+		        	  startActivity(intent);
 	        	  }
-	        	  
-	        	  
+
 	        	  return true;
 	          case MotionEvent.ACTION_UP:
 	            return true;
