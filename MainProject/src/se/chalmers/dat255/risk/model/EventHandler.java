@@ -1,6 +1,7 @@
 package se.chalmers.dat255.risk.model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import se.chalmers.dat255.risk.model.TurnAndPhaseManager.Phase;
 import se.chalmers.dat255.risk.model.TurnAndPhaseManager.ResultType;
@@ -31,7 +32,7 @@ public class EventHandler {
 	 * the phase didn't change.
 	 */
 	public ResultType handlePhaseEvent(IPlayer currentPlayer,
-			int bonusUnitsLeft, ArrayList<IPlayer> players) {
+			int bonusUnitsLeft, List<IPlayer> players) {
 		Phase currentPhase = phaseHandler.getPhase();
 		if (currentPhase == Phase.FBuild || currentPhase == Phase.F1) {
 			// CHECKS IF I'M ALLOWED TO PRESS CHANGE PHASE

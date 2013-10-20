@@ -13,12 +13,13 @@ import se.chalmers.dat255.risk.model.TurnAndPhaseManager.Phase;
  * 
  */
 public interface IGame {
-	// ============== EVENT-CONSTANTS ==============
+	// ============== EVENT-CONSTANTS ================================
 	public final static String MOVEMENT = "Movement", ATTACK = "Attack",
 			CONQUER = "takeOver", AGAIN = "Again?", WIN = "Win",
 			SURRENDER = "Surrender", UNITS = "Units", CARDS = "Cards",
 			CHANGE_TURN = "ChangeTurn";
-	// =============================================
+
+	// ===============================================================
 
 	/**
 	 * Sets up a new Game
@@ -67,14 +68,14 @@ public interface IGame {
 	 * 
 	 * @return an array with all players
 	 */
-	public ArrayList<IPlayer> getPlayers();
+	public List<IPlayer> getPlayers();
 
 	/**
 	 * Retrieves all provinces
 	 * 
 	 * @return an arrayList with all provinces in the game
 	 */
-	public ArrayList<IProvince> getGameProvinces();
+	public List<IProvince> getGameProvinces();
 
 	/**
 	 * Determines what should be done with the chosen province
