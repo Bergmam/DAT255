@@ -9,7 +9,7 @@ import se.chalmers.dat255.risk.model.TurnAndPhaseManager.Phase;
  * Help class for Game to manage WorldMap and province events
  * 
  */
-class NewClass {
+class WorldHandler {
 
 	private WorldMap worldMap;
 	private IProvince oldProvince, secondProvince;
@@ -17,8 +17,8 @@ class NewClass {
 	private TurnAndPhaseManager phaseHandler;
 	private ArrayList<IPlayer> players;
 
-	public NewClass(TurnAndPhaseManager phaseHandler, String neighboursFile,
-			String continentsFile, List<String> playersId) {
+	public WorldHandler(TurnAndPhaseManager phaseHandler,
+			String neighboursFile, String continentsFile, List<String> playersId) {
 		this.phaseHandler = phaseHandler;
 
 		createPlayers(playersId);
@@ -275,7 +275,8 @@ class NewClass {
 	/**
 	 * moves units from one province to another
 	 * 
-	 * @param nrOfUnits amount of units to be moved
+	 * @param nrOfUnits
+	 *            amount of units to be moved
 	 */
 	public void moveToProvince(int nrOfUnits) {
 		if (oldProvince.getUnits() - nrOfUnits > 0) {
@@ -287,16 +288,41 @@ class NewClass {
 		flushProvinces();
 	}
 
+	/**
+	 * fetches the current phase enum
+	 * 
+	 * @return the current phase
+	 */
 	public Phase getPhase() {
 		return phaseHandler.getPhase();
 	}
 
+	/**
+	 * removes a player from the game properly
+	 * 
+	 * @param pos
+	 *            the players position in list
+	 */
 	public void removePlayer(int pos) {
 		phaseHandler.removePlayer(pos);
-		
+
 	}
 
-	public Object surrender() {
+	/**
+	 * make phasehandler handle surrender
+	 * 
+	 * @return true if change of turn has taken place
+	 */
+	public boolean surrender() {
 		return phaseHandler.surrender(getPlayers());
+	}
+
+	/**
+	 * returns the bonus of the current player
+	 * 
+	 * @return bonus of current player
+	 */
+	public int getBonus() {
+		return worldMap.getBonus(getActivePlayer());
 	}
 }
