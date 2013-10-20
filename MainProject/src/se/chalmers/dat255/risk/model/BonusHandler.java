@@ -7,7 +7,7 @@ public class BonusHandler {
 	private int bonus, startingTroopNr, currentCardBonus;
 	private WorldHandler worldHandler;
 	
-	public BonusHandler(WorldHandler worldhandler, int numberOfPlayers){
+	public BonusHandler(WorldHandler worldHandler, int numberOfPlayers){
 		this.worldHandler = worldHandler;
 		bonus = 0;
 		startingTroopNr = 50 - numberOfPlayers * 5;
