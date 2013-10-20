@@ -17,6 +17,13 @@ class WorldHandler {
 	private TurnAndPhaseManager phaseHandler;
 	private ArrayList<IPlayer> players;
 
+	/**
+	 * enum constants for different outcomes of handleProvinceEvent
+	 */
+	public enum ProvinceResult {
+		BONUS, ATTACK, MOVEMET, NOTHING
+	}
+
 	public WorldHandler(TurnAndPhaseManager phaseHandler,
 			String neighboursFile, String continentsFile, List<String> playersId) {
 		this.phaseHandler = phaseHandler;
@@ -263,13 +270,6 @@ class WorldHandler {
 	 */
 	public WorldMap getWorldMap() {
 		return worldMap;
-	}
-
-	/**
-	 * enum constants for different outcomes of handleProvinceEvent
-	 */
-	public enum ProvinceResult {
-		BONUS, ATTACK, MOVEMET, NOTHING
 	}
 
 	/**
