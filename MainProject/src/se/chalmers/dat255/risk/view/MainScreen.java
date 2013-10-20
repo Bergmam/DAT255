@@ -8,7 +8,6 @@ import se.chalmers.dat255.risk.model.IGame.GameMode;
 import se.chalmers.dat255.risk.view.resource.Resource;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
@@ -25,7 +24,7 @@ public class MainScreen extends AbstractScreen {
 	private TextField nameField;
 	private Label msg;
 	private Label risk;
-	private com.badlogic.gdx.scenes.scene2d.ui.List list;
+	private SelectBox dropDown;
 
 	public MainScreen(IGame model) {
 		super(model);
@@ -50,14 +49,7 @@ public class MainScreen extends AbstractScreen {
 		playerButton.setName("addPlayer");
 		buttonList.add(playerButton);
 		
-		//SelectBox dropDown = new SelectBox(GameMode.values(), Resource.getInstance().skin);
-		//dropDown.clearListeners();
-		
-		//for some reason the dropdown doesn't show the list, list is clickable but
-		// blocks any other interaction with the game. will use a simple list until I
-		// ,if ever, get the box working
-		// because we use java.util.list everywhere I had to specify this import...
-		list = new com.badlogic.gdx.scenes.scene2d.ui.List(GameMode.values(),Resource.getInstance().skin);
+		dropDown = new SelectBox(GameMode.values(), Resource.getInstance().skin);
 
 		nameField = new TextField("", Resource.getInstance().skin);
 		nameField.setMessageText("Enter Name");
@@ -74,8 +66,8 @@ public class MainScreen extends AbstractScreen {
 		inputTable.add(playerButton).fill();
 		inputTable.add(nameField);
 		inputTable.row();
-		inputTable.add(startButton).colspan(2).fill().row();
-		inputTable.add(list).expand().fill().colspan(2);
+		inputTable.add(dropDown).colspan(2).fill().row();
+		inputTable.add(startButton).expand().fill().colspan(2);
 		
 		mainTable.left().top();
 		mainTable.add(risk).colspan(2).row().expandX();
@@ -89,7 +81,7 @@ public class MainScreen extends AbstractScreen {
 	}
 	
 	public String getMode(){
-		return list.getSelection();
+		return dropDown.getSelection();
 	}
 
 	public List<Button> getButtons() {
@@ -124,7 +116,7 @@ public class MainScreen extends AbstractScreen {
 	public void render(float render) {
 		Gdx.gl.glClearColor(0.7f, 0.7f, 0.7f, 0.7f);//Background color
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
-
+		stage.act();
 		stage.draw();
 		//Table.drawDebug(stage);
 	}
