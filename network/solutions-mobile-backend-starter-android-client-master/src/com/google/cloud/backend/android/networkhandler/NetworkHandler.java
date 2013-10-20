@@ -18,6 +18,7 @@ import com.google.cloud.backend.android.CloudEntity;
 import com.google.cloud.backend.android.CloudQuery.Order;
 import com.google.cloud.backend.android.CloudQuery.Scope;
 import com.google.cloud.backend.android.R;
+import com.google.cloud.backend.android.sample.guestbook.GuestbookActivity;
 
 
 public class NetworkHandler extends CloudBackendActivity {
@@ -78,6 +79,7 @@ public class NetworkHandler extends CloudBackendActivity {
 		CloudEntity newPost = new CloudEntity("User");
 
 		newPost.put("_owner", "" + username);
+		newPost.put("message", "Registered");
 
 		// create a response handler that will receive the result or an error
 		CloudCallbackHandler<CloudEntity> handler = new CloudCallbackHandler<CloudEntity>() {
@@ -92,6 +94,7 @@ public class NetworkHandler extends CloudBackendActivity {
 				startActivity(intent);
 				
 				finish();
+				
 			}
 
 			@Override
@@ -104,8 +107,9 @@ public class NetworkHandler extends CloudBackendActivity {
 		// execute the insertion with the handler
 		getCloudBackend().insert(newPost, handler);
 
-		
+
 	}
+
 	//Get update from server
 	public void updateGame() {
 		// create a response handler that will receive the query result or an

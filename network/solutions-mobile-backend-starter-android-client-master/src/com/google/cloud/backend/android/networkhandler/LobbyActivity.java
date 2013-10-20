@@ -1,11 +1,17 @@
 package com.google.cloud.backend.android.networkhandler;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,10 +23,8 @@ import com.google.cloud.backend.android.CloudQuery.Scope;
 import com.google.cloud.backend.android.R;
 
 public class LobbyActivity extends CloudBackendActivity{
-
 	// UI components
 	private TextView tvPosts;
-
 
 	// a list of posts on the UI
 	List<CloudEntity> posts = new LinkedList<CloudEntity>();
@@ -30,7 +34,7 @@ public class LobbyActivity extends CloudBackendActivity{
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.lobby_layout);
-		Log.d("net", "Init Lobby");
+		Log.d("net", "Init");
 		tvPosts = (TextView) findViewById(R.id.tvPosts);
 
 	}
@@ -59,7 +63,7 @@ public class LobbyActivity extends CloudBackendActivity{
 			}
 		};
 
-		// execute the query with the handler, 6 is the maximum amount of players allowed in a lobby
+		// execute the query with the handler
 		getCloudBackend().listByKind("User", CloudEntity.PROP_CREATED_AT, Order.DESC, 6,
 				Scope.FUTURE_AND_PAST, handler);
 	}
@@ -72,8 +76,28 @@ public class LobbyActivity extends CloudBackendActivity{
 	private void updateGuestbookUI() {
 		final StringBuilder sb = new StringBuilder();
 		for (CloudEntity post : posts) {
-			sb.append(post.getOwner() + ": " + post.get("message") + "\n");
+			sb.append(post.getOwner() + "\n");
 		}
 		tvPosts.setText(sb.toString());
+	}
+
+	// removing the domain name part from email address
+	private String getCreatorName(CloudEntity b) {
+		//TODO
+		if (b.getOwner() != null) {
+			return b.getOwner();
+		} else {
+			return "<anonymous>";
+		}
+	}
+
+	// handles broadcast message and show a toast
+	@Override
+	public void onBroadcastMessageReceived(List<CloudEntity> l) {
+		for (CloudEntity e : l) {
+			String message = (String) e.get("_owner");
+			int duration = Integer.parseInt((String) e.get("duration"));
+			Toast.makeText(this, message, duration).show();
+		}
 	}
 }
