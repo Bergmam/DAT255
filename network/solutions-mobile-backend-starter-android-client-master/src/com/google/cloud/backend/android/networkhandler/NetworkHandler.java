@@ -88,7 +88,7 @@ public class NetworkHandler extends CloudBackendActivity {
 				
 				busy = false;
 				
-				Intent intent = new Intent("LobbyActivity.intent.action.Launch");
+				Intent intent = new Intent(NetworkHandler.this, LobbyActivity.class);
 				startActivity(intent);
 				
 				finish();
