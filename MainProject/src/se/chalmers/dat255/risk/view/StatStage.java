@@ -55,22 +55,6 @@ public class StatStage extends AbstractStage {
 			}
 		}
 	}
-
-	private PlayerView getMain() {
-		for (PlayerView v : players) {
-			if (v.isMain()) {
-				return v;
-			}
-		}
-		return null;
-	}
-
-	@Override
-	public InputProcessor getProcessor() {
-		return this;
-	}
-	
-	
 	
 	@Override
 	public void propertyChange(PropertyChangeEvent event) {

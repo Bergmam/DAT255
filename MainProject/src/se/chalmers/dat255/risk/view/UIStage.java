@@ -3,12 +3,11 @@ package se.chalmers.dat255.risk.view;
 import java.beans.PropertyChangeEvent;
 
 import se.chalmers.dat255.risk.model.IGame;
+import se.chalmers.dat255.risk.model.TurnAndPhaseManager.Phase;
 import se.chalmers.dat255.risk.view.resource.ColorHandler;
 import se.chalmers.dat255.risk.view.resource.Resource;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -49,8 +48,8 @@ public class UIStage extends AbstractStage {
 		color = ColorHandler.getInstance();
 
 		label = new Label(model.getActivePlayer().getName() + "	\nPhase: "
-				+ model.getCurrentPhase().getPhase(), Resource.getInstance().skin,
-				"default-font", color.getColor(0));
+				+ model.getCurrentPhase().getPhase(),
+				Resource.getInstance().skin, "default-font", color.getColor(0));
 		label.setFontScale(label.getFontScaleX() * 1.8f);// TODO magic number
 
 		giveUp = new TextButton("Surrender", Resource.getInstance().skin);
@@ -108,7 +107,6 @@ public class UIStage extends AbstractStage {
 	@Override
 	public void propertyChange(PropertyChangeEvent event) {
 		String name = event.getPropertyName();
-
 		if (name.equalsIgnoreCase(IGame.ATTACK)) {
 			showPopUp(name, "How many dice \ndo you want?",
 					(Integer) event.getOldValue(), 1);
@@ -132,11 +130,6 @@ public class UIStage extends AbstractStage {
 			showPopUp(name, "You must exchange your cards");
 		}
 
-	}
-
-	@Override
-	public InputProcessor getProcessor() {
-		return this;
 	}
 
 	@Override

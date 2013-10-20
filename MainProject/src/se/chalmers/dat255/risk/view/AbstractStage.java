@@ -31,7 +31,9 @@ public abstract class AbstractStage extends Stage implements
 		return others;
 	}
 
-	public abstract InputProcessor getProcessor();
+	public InputProcessor getProcessor(){
+		return this;
+	}
 
 	public void dispose() {
 		super.dispose();

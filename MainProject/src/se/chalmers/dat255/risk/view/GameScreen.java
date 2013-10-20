@@ -88,17 +88,15 @@ public class GameScreen extends AbstractScreen {
 	}
 
 	public void setupGame() {
-		worldStage = new WorldStage(model, Resource.getInstance().cords);
+		worldStage = new WorldStage(model);
 
 		cards = new CardStage(model);
-
-		// TODO remove listeners in game when new game
 
 		uiStage = new UIStage(model);
 
 		stats = new StatStage(model);
 
-		multi = new InputMultiplexer(uiStage, worldStage.getProcessor());
+		multi = new InputMultiplexer(uiStage.getProcessor(), worldStage.getProcessor());
 		created = true;
 		render = uiStage.getRender();
 

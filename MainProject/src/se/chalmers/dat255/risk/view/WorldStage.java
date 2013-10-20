@@ -29,7 +29,7 @@ public class WorldStage extends AbstractStage implements GestureListener {
 	private float zMax;
 	private float zMin;
 
-	public WorldStage(IGame model,FileHandle positionsOnMap) {
+	public WorldStage(IGame model) {
 		super(model);
 		background = new Image(Resource.getInstance().backGround);
 		camera = new OrthographicCamera();
@@ -47,7 +47,7 @@ public class WorldStage extends AbstractStage implements GestureListener {
 
 		views = new ArrayList<AbstractView>();
 		List<IProvince> provinces = model.getGameProvinces();
-		String wholeFile = positionsOnMap.readString();
+		String wholeFile = Resource.getInstance().cords.readString();
 		String[] array = wholeFile.split("\\n");
 		int temp = 0;
 		for (String line : array) {

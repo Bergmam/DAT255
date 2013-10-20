@@ -141,9 +141,4 @@ public class CardStage extends AbstractStage {
 			}
 		}
 	}
-
-	@Override
-	public InputProcessor getProcessor() {
-		return this;
-	}
 }
