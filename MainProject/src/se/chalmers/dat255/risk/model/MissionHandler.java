@@ -2,23 +2,22 @@ package se.chalmers.dat255.risk.model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Random;
-
-import sun.security.action.GetBooleanAction;
 
 public class MissionHandler {
 	private IPlayer winner;
-	private ArrayList<IPlayer> eliminatedPlayers;
+	private List<IPlayer> eliminatedPlayers;
 	private final HashMap<IPlayer, Mission> missionMap;
-	private ArrayList<Mission> missionsInGame;
+	private List<Mission> missionsInGame;
 	
-	public MissionHandler(ArrayList<IPlayer> players, String missionFile){
+	public MissionHandler(List<IPlayer> players, String missionFile){
 		eliminatedPlayers = new ArrayList<IPlayer>();
 		missionsInGame = new ArrayList<Mission>();
 		
 		Random randGen = new Random();
 		int nextRandInt;
-		ArrayList<Mission> listOfMissions = buildMissions(players, missionFile);
+		List<Mission> listOfMissions = buildMissions(players, missionFile);
 		HashMap<IPlayer, Mission> tempMissionMap = new HashMap<IPlayer, Mission>();
 
 		for(IPlayer player : players){
@@ -53,7 +52,7 @@ public class MissionHandler {
 	/**
 	 * Return true if there is a winner.
 	 */
-	public boolean winner(IPlayer currentPlayer, ArrayList<String> continentsCurrentPlayerOwns){
+	public boolean winner(IPlayer currentPlayer, List<String> continentsCurrentPlayerOwns){
 		for(Mission mission : missionsInGame){
 			if(mission.fullFilled(currentPlayer, continentsCurrentPlayerOwns)){
 				return true;
@@ -74,7 +73,7 @@ public class MissionHandler {
 		eliminatedPlayers.add(player);
 	}
 	
-	public void giveMission(IPlayer player, int intRand, HashMap<IPlayer, Mission> tempMissionsMap, ArrayList<Mission> listOfMissions){
+	public void giveMission(IPlayer player, int intRand, HashMap<IPlayer, Mission> tempMissionsMap, List<Mission> listOfMissions){
 
 		boolean gotAMission = false;
 		/*
@@ -95,8 +94,8 @@ public class MissionHandler {
 		}
 	}
 	
-	public ArrayList<Mission> buildMissions(ArrayList<IPlayer> players, String missionFile){
-		ArrayList<Mission> missions = new ArrayList<Mission>();
+	public List<Mission> buildMissions(List<IPlayer> players, String missionFile){
+		List<Mission> missions = new ArrayList<Mission>();
 		addEliminateMissions(missions, players);
 		addConquerContinentMissions(missions, missionFile);
 		addConquerProvincesMissions(missions);
@@ -104,13 +103,13 @@ public class MissionHandler {
 		return missions;
 	}
 	
-	public void addEliminateMissions(ArrayList<Mission> missions, ArrayList<IPlayer> players){
-		ArrayList<IPlayer> notVictims = players;
+	public void addEliminateMissions(List<Mission> missions, List<IPlayer> players){
+		List<IPlayer> notVictims = players;
 		for(IPlayer victim : players)
 			missions.add(new Mission(victim));
 	}
 	
-	public void addConquerContinentMissions(ArrayList<Mission> missions, String missionFile){
+	public void addConquerContinentMissions(List<Mission> missions, String missionFile){
 		String[] pLines = missionFile.split("\\n");
 		for (String pLine : pLines) {
 			String[] array = pLine.split("-");
@@ -122,7 +121,7 @@ public class MissionHandler {
 		}
 	}
 	
-	public void addConquerProvincesMissions(ArrayList<Mission> missions){
+	public void addConquerProvincesMissions(List<Mission> missions){
 		missions.add(new Mission());
 		missions.add(new Mission());
 	}
@@ -181,7 +180,7 @@ public class MissionHandler {
 		
 		
 		
-		public boolean fullFilled(IPlayer currentPlayer, ArrayList<String> continentsCurrentPlayerOwns){
+		public boolean fullFilled(IPlayer currentPlayer, List<String> continentsCurrentPlayerOwns){
 			if(type == MissionType.ELIMINATE){
 				if(eliminatedPlayers.contains(victim)){
 					winner=owner;
@@ -223,7 +222,7 @@ public class MissionHandler {
 				return "" + firstContinent + " and "  +secondContinent + ".";
 		}
 		
-		private boolean continentalWinner(ArrayList<String> continentsCurrentPlayerOwns){
+		private boolean continentalWinner(List<String> continentsCurrentPlayerOwns){
 			if(continentsCurrentPlayerOwns.isEmpty()){
 				System.out.println("continentalWinner: You don't own any continents");
 				return false;

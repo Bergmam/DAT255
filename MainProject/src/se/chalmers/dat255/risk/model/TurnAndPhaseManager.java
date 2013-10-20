@@ -80,6 +80,7 @@ public class TurnAndPhaseManager {
 	 * 
 	 * @param players
 	 *            the list of players left in the game
+	 * @return true if a change of turn has taken place
 	 */
 	public boolean surrender(List<IPlayer> players) {
 		if (players.size() != 1) {
