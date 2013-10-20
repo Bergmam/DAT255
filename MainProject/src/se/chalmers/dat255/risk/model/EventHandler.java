@@ -10,9 +10,13 @@ public class EventHandler {
 	private TurnAndPhaseManager phaseHandler;
 	private CardExanger cardExanger;
 
-	public EventHandler(TurnAndPhaseManager phaseHandler) {
-		this.phaseHandler = phaseHandler;
+	public EventHandler() {
+		this.phaseHandler = new TurnAndPhaseManager();
 		cardExanger = new CardExanger();
+	}
+	
+	public TurnAndPhaseManager getPhaseHandler(){
+		return phaseHandler;
 	}
 
 	/*

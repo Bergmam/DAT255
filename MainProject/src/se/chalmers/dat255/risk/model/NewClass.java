@@ -5,10 +5,9 @@ import java.util.List;
 
 import se.chalmers.dat255.risk.model.TurnAndPhaseManager.Phase;
 
-
 /**
  * Help class for Game to manage WorldMap and province events
- *
+ * 
  */
 class NewClass {
 
@@ -29,14 +28,16 @@ class NewClass {
 
 	/**
 	 * Fetches the first province that was saved
+	 * 
 	 * @return oldProvince
 	 */
 	public IProvince getOld() {
 		return oldProvince;
 	}
-	
+
 	/**
 	 * Fetches the second province that was saved
+	 * 
 	 * @return secondProvince
 	 */
 	public IProvince getNew() {
@@ -46,7 +47,8 @@ class NewClass {
 	/**
 	 * Fetches the owner of a province
 	 * 
-	 * @param province string representive of a province
+	 * @param province
+	 *            string representive of a province
 	 * @return IPlayer that owns the province
 	 */
 	public IPlayer getOwner(String province) {
@@ -65,8 +67,10 @@ class NewClass {
 	/**
 	 * checks if two provinces are neighbours
 	 * 
-	 * @param id name of first province
-	 * @param id2 name of second province
+	 * @param id
+	 *            name of first province
+	 * @param id2
+	 *            name of second province
 	 * @return true if neighbours, false otherwise
 	 */
 	public boolean isNeighbours(String id, String id2) {
@@ -76,7 +80,8 @@ class NewClass {
 	/**
 	 * changes owner of secondProvince to new player
 	 * 
-	 * @param player new owner of province
+	 * @param player
+	 *            new owner of province
 	 */
 	public void changeOwner(IPlayer player) {
 		worldMap.changeOwner(secondProvince.getId(), player);
@@ -85,7 +90,8 @@ class NewClass {
 	/**
 	 * returns all continents a player owns
 	 * 
-	 * @param player owner of continents
+	 * @param player
+	 *            owner of continents
 	 * 
 	 * @return all continents the player owns
 	 */
@@ -120,14 +126,15 @@ class NewClass {
 	}
 
 	/**
-	 * Determines what should be done with the chosen province	
-	 * @param p
+	 * Determines what should be done with the chosen province
+	 * 
 	 * @param newProvince
+	 *            new province to be handled
 	 * @param bonus
-	 * @return
+	 *            current players bonus units
+	 * @return result determining games action
 	 */
-	public ProvinceResult handleProvinceEvent(IProvince newProvince,
-			int bonus) {
+	public ProvinceResult handleProvinceEvent(IProvince newProvince, int bonus) {
 		// TROOP REINFORCMENT PHASE 1, ONLY THE PLACEMENT
 		if (phaseHandler.getPhase() == Phase.F1 && bonus > 0) {
 			// PUT A SINGEL UNIT ON THIS PROVINCE IF OWNED
@@ -153,6 +160,9 @@ class NewClass {
 		return ProvinceResult.NOTHING;
 	}
 
+	/*
+	 * help method for handling province events in phase 2
+	 */
 	private ProvinceResult handleProvinceF2(IProvince newProvince) {
 		if (myProvince(newProvince.getId()) && newProvince.getUnits() > 1) {
 			if (oldProvince != null) {
@@ -181,6 +191,9 @@ class NewClass {
 		return ProvinceResult.NOTHING;
 	}
 
+	/*
+	 * help method for handling province events in phase 3
+	 */
 	private ProvinceResult handleProvinceF3(IProvince newProvince) {
 		if (myProvince(newProvince.getId()) && oldProvince == null
 				&& newProvince.getUnits() > 1) {
@@ -221,6 +234,7 @@ class NewClass {
 		return false;
 	}
 
+	// creates all players
 	private void createPlayers(List<String> playersId) {
 		players = new ArrayList<IPlayer>();
 		for (int i = 0; i < playersId.size(); i++) {
@@ -228,6 +242,9 @@ class NewClass {
 		}
 	}
 
+	/**
+	 * Inactivate saved provinces and removes their value
+	 */
 	public void flushProvinces() {
 		if (oldProvince != null) {
 			oldProvince.setActive(false);
@@ -239,21 +256,47 @@ class NewClass {
 		secondProvince = null;
 	}
 
+	/**
+	 * method for reaching the worldmap
+	 * 
+	 * @return worldMap
+	 */
 	public WorldMap getWorldMap() {
 		return worldMap;
 	}
 
+	/**
+	 * enum constants for different outcomes of handleProvinceEvent
+	 */
 	public enum ProvinceResult {
 		BONUS, ATTACK, MOVEMET, NOTHING
 	}
 
-	public void moveToProvince(int nrOfUnits, Phase phase) {
+	/**
+	 * moves units from one province to another
+	 * 
+	 * @param nrOfUnits amount of units to be moved
+	 */
+	public void moveToProvince(int nrOfUnits) {
 		if (oldProvince.getUnits() - nrOfUnits > 0) {
 			oldProvince.moveUnits(nrOfUnits, secondProvince);
-			if (phase == Phase.F3) {
+			if (phaseHandler.getPhase() == Phase.F3) {
 				movedTroops = true;
 			}
 		}
 		flushProvinces();
+	}
+
+	public Phase getPhase() {
+		return phaseHandler.getPhase();
+	}
+
+	public void removePlayer(int pos) {
+		phaseHandler.removePlayer(pos);
+		
+	}
+
+	public Object surrender() {
+		return phaseHandler.surrender(getPlayers());
 	}
 }

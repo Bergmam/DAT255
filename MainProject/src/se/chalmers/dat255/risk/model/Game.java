@@ -17,7 +17,6 @@ import se.chalmers.dat255.risk.model.TurnAndPhaseManager.ResultType;
 
 public class Game implements IGame {
 	private EventHandler eventHandler;
-	private TurnAndPhaseManager phaseHandler;
 	private BonusHandler bonusHandler;
 	private BattleHandler battle;
 	private Deck deck;
@@ -67,8 +66,7 @@ public class Game implements IGame {
 
 	private void newGame(List<String> playersId)
 			throws IllegalArgumentException {
-		phaseHandler = new TurnAndPhaseManager();
-		eventHandler = new EventHandler(phaseHandler);
+		eventHandler = new EventHandler();
 		int noOfPlayers = playersId.size();
 		if (noOfPlayers > maxAllowedPlayers || noOfPlayers < minAllowedPlayers) {
 			throw new IllegalArgumentException(
@@ -76,8 +74,8 @@ public class Game implements IGame {
 							+ " and " + maxAllowedPlayers);
 		}
 
-		nc = new NewClass(phaseHandler, neighboursFile, continentsFile,
-				playersId);
+		nc = new NewClass(eventHandler.getPhaseHandler(), neighboursFile,
+				continentsFile, playersId);
 
 		missionHandler = new MissionHandler(getPlayers(), missionFile);
 
@@ -118,7 +116,7 @@ public class Game implements IGame {
 
 	@Override
 	public Phase getCurrentPhase() {
-		return phaseHandler.getPhase();
+		return nc.getPhase();
 	}
 
 	@Override
@@ -162,7 +160,7 @@ public class Game implements IGame {
 
 	@Override
 	public void moveToProvince(int nrOfUnits) {
-		nc.moveToProvince(nrOfUnits, getCurrentPhase());
+		nc.moveToProvince(nrOfUnits);
 	}
 
 	@Override
@@ -208,7 +206,7 @@ public class Game implements IGame {
 			if (gameMode == GameMode.SECRET_MISSION) {
 				missionHandler.playerEliminated(gameOver);
 			}
-			phaseHandler.removePlayer(pos);
+			nc.removePlayer(pos);
 		}
 		if (getPlayers().size() == 1) {
 			win(getPlayers().get(0));
@@ -261,8 +259,7 @@ public class Game implements IGame {
 	public void surrender(boolean confirm) {
 		if (confirm) {
 			playerLose(getActivePlayer());
-			pcs.firePropertyChange(CHANGE_TURN,
-					phaseHandler.surrender(getPlayers()), false);
+			pcs.firePropertyChange(CHANGE_TURN, nc.surrender(), false);
 			if (getPlayers().size() == 1) {
 				win(getPlayers().get(0));
 				return;
