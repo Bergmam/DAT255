@@ -1,5 +1,7 @@
 package se.chalmers.dat255.risk.activity;
 
+import com.google.cloud.backend.android.networkhandler.NetworkHandler;
+
 import se.chalmers.dat255.risk.net.User;
 import android.app.Activity;
 import android.content.Intent;
@@ -55,6 +57,8 @@ public class CreateGameActivity extends Activity {
 						intent.putExtra("user", username);
 						intent.putExtra("game", "ThisisagameFYI");
 						startActivity(intent);
+						
+						finish();
 					}
 
 					return true;

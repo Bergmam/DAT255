@@ -1,13 +1,13 @@
 {
   "files": [
     {
-      "downloadUrl": "/downloads/messageEndpoint/v1/20131015073718/java/1.16.0-rc/dat255.com-messageEndpoint-v1-20131015073718-java-1.16.0-rc-sources.jar", 
-      "path": "dat255.com-messageEndpoint-v1-20131015073718-java-1.16.0-rc-sources.jar", 
+      "downloadUrl": "/downloads/messageEndpoint/v1/20131020132055/java/1.16.0-rc/dat255.com-messageEndpoint-v1-20131020132055-java-1.16.0-rc-sources.jar", 
+      "path": "dat255.com-messageEndpoint-v1-20131020132055-java-1.16.0-rc-sources.jar", 
       "type": "source", 
-      "timestamp": "2013-10-15 07:37"
+      "timestamp": "2013-10-20 13:20"
     }, 
     {
-      "path": "dat255.com-messageEndpoint-v1-20131015073718-java-1.16.0-rc.jar.properties", 
+      "path": "dat255.com-messageEndpoint-v1-20131020132055-java-1.16.0-rc.jar.properties", 
       "type": "android.properties"
     }
   ], 
@@ -702,5 +702,5 @@
   "packagePath": "risk.network", 
   "language_version": "1.16.0-rc", 
   "id": "messageEndpoint:v1", 
-  "revision": 20131015073718
+  "revision": 20131020132055
 }

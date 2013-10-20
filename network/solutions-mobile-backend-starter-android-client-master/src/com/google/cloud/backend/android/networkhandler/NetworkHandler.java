@@ -1,45 +1,45 @@
 package com.google.cloud.backend.android.networkhandler;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Scanner;
+
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.cloud.backend.android.CloudBackendActivity;
 import com.google.cloud.backend.android.CloudCallbackHandler;
 import com.google.cloud.backend.android.CloudEntity;
-import com.google.cloud.backend.android.R;
 import com.google.cloud.backend.android.CloudQuery.Order;
 import com.google.cloud.backend.android.CloudQuery.Scope;
-
-import se.chalmers.dat255.risk.model.Game;
-import android.content.Intent;
-import android.os.Bundle;
-import android.util.Log;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
+import com.google.cloud.backend.android.R;
 
 
 public class NetworkHandler extends CloudBackendActivity {
 
+	public static boolean busy = false;
 	private static final String TAG = "NetworkHandler";
 	private static final String BROADCAST_PROP_DURATION = "duration";
 	private static final String BROADCAST_PROP_MESSAGE = "message";
+	private TextView statusText;
+	private static final String registerUser = "Registering User";
 
 	private List<CloudEntity> gameVersions = new LinkedList<CloudEntity>();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		busy = true;
 		setContentView(R.layout.networkhandler_layout);
 		Log.d("Networkhandler", "Init");
 
+		statusText = (TextView) findViewById(R.id.statusText);
+		
 		Intent intent = getIntent();
 		String user = null;
 		String game = null;
@@ -49,14 +49,22 @@ public class NetworkHandler extends CloudBackendActivity {
 		}catch(NullPointerException e){
 			Log.d(TAG, "This is not a User");
 		}
-		
+
 		try{
 			game = new String(intent.getExtras().getString("game"));
 			Log.d(TAG, "This is a game");
 		}catch(NullPointerException e){
-			Log.d("NetworkHandler", "This is not a Game");
+			Log.d(TAG, "This is not a Game");
 		}
 		registerUser(user);
+	}
+
+	/**
+	 * Back pressing not allowed!
+	 */
+	@Override
+	public void onBackPressed(){
+		
 	}
 
 	@Override
@@ -66,26 +74,37 @@ public class NetworkHandler extends CloudBackendActivity {
 	}
 
 	private void registerUser(String username){
-		// create a CloudEntity with the new post
-				CloudEntity newPost = new CloudEntity("User");
+		statusText.setText(registerUser);
+		CloudEntity newPost = new CloudEntity("User");
+
+		newPost.put("_owner", "" + username);
+
+		// create a response handler that will receive the result or an error
+		CloudCallbackHandler<CloudEntity> handler = new CloudCallbackHandler<CloudEntity>() {
+			@Override
+			public void onComplete(final CloudEntity result) {
+				Log.d(TAG, "User registered");
 				
-				newPost.put("_owner", "" + username);
+				
+				busy = false;
+				
+				Intent intent = new Intent("LobbyActivity.intent.action.Launch");
+				startActivity(intent);
+				
+				finish();
+			}
 
-				// create a response handler that will receive the result or an error
-				CloudCallbackHandler<CloudEntity> handler = new CloudCallbackHandler<CloudEntity>() {
-					@Override
-					public void onComplete(final CloudEntity result) {
-						Log.d(TAG, "User registered");
-					}
+			@Override
+			public void onError(final IOException exception) {
+				showDialog("Can't connect to the server. Please check your connection");
+				Log.d(TAG, "egisterUser onError");
+			}
+		};
 
-					@Override
-					public void onError(final IOException exception) {
-						Log.d(TAG, "egisterUser onError");
-					}
-				};
+		// execute the insertion with the handler
+		getCloudBackend().insert(newPost, handler);
 
-				// execute the insertion with the handler
-				getCloudBackend().insert(newPost, handler);
+		
 	}
 	//Get update from server
 	public void updateGame() {
@@ -100,6 +119,7 @@ public class NetworkHandler extends CloudBackendActivity {
 
 			@Override
 			public void onError(IOException exception) {
+				showDialog("Can't connect to the server. Please check your connection");
 				Log.d("net", "onError CLOUDCALLBACKHANDLER!!!");
 			}
 		};
@@ -109,35 +129,6 @@ public class NetworkHandler extends CloudBackendActivity {
 				Order.DESC, 1, Scope.FUTURE_AND_PAST, handler);
 	}
 
-	//Serialize game
-	public void sendGame(Game game) {
-		// PERSIST
-		String filename = "game.txt";
-		FileOutputStream fos = null;
-		ObjectOutputStream out = null;
-		try {
-			fos = new FileOutputStream(filename);
-			out = new ObjectOutputStream(fos);
-			out.writeObject(game);
-			out.close();
-		} catch (IOException ex) {
-			ex.printStackTrace();
-		}
-
-		String serializedGame = null;
-		Scanner sc = null;
-		try {
-			sc = new Scanner(new FileInputStream(filename));
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-
-		while (sc.hasNextLine()) {
-			serializedGame = sc.nextLine();
-			Log.d("net", serializedGame);
-		}
-		postGameToServer(serializedGame, game.getActivePlayer().getName());
-	}
 
 	// post a new message to server
 	public void postGameToServer(String serializedGame, String username) {
@@ -153,11 +144,13 @@ public class NetworkHandler extends CloudBackendActivity {
 			@Override
 			public void onComplete(final CloudEntity result) {
 				gameVersions.add(0, result);
+				finish();
 			}
 
 			@Override
 			public void onError(final IOException exception) {
 				Log.d("net", "onError SEND MESSAGE");
+				showDialog("Can't connect to the server. Please check your connection.");
 			}
 		};
 
@@ -174,4 +167,17 @@ public class NetworkHandler extends CloudBackendActivity {
 			Toast.makeText(this, message, duration).show();
 		}
 	}
+
+	private void showDialog(String message) {
+	    new AlertDialog.Builder(this)
+	        .setMessage(message)
+	        .setPositiveButton(android.R.string.ok,
+	            new DialogInterface.OnClickListener() {
+	              public void onClick(DialogInterface dialog, int id) {
+	                dialog.dismiss();
+	                finish();
+	              }
+	            }).show();
+	  }
+	
 }
