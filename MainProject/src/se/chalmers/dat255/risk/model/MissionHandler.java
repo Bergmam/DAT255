@@ -64,20 +64,28 @@ public class MissionHandler {
 	public IPlayer getWinner(){
 		return winner;
 	}
-	
+	/**
+	 * Different types of missions
+	 */
 	public static enum MissionType {
 		ELIMINATE, CONQUER_CONTINENTS, CONQUER_PROVINCES;
 	}
-	
+	/**
+	 * A method for remembering wich players been eliminated.
+	 */
 	public void playerEliminated(IPlayer player){
 		eliminatedPlayers.add(player);
 	}
+	
+	/**
+	 * Give a player his/hers mission
+	 */
 	
 	public void giveMission(IPlayer player, int intRand, HashMap<IPlayer, Mission> tempMissionsMap, List<Mission> listOfMissions){
 
 		boolean gotAMission = false;
 		/*
-		 * Worth knowing her is that until QONQUER-missions is implemented, there is a chance of
+		 * Worth knowing here is that until QONQUER-missions is implemented, there is a chance of
 		 * a never-ending loop.
 		 */
 		while(!gotAMission){
@@ -94,6 +102,10 @@ public class MissionHandler {
 		}
 	}
 	
+	/**
+	 * Constructing the missions that can be choosen from.
+	 */
+	
 	public List<Mission> buildMissions(List<IPlayer> players, String missionFile){
 		List<Mission> missions = new ArrayList<Mission>();
 		addEliminateMissions(missions, players);
@@ -103,12 +115,19 @@ public class MissionHandler {
 		return missions;
 	}
 	
+	/**
+	 * Creates the mission of Eliminate type 
+	 */
+	
 	public void addEliminateMissions(List<Mission> missions, List<IPlayer> players){
 		List<IPlayer> notVictims = players;
 		for(IPlayer victim : players)
 			missions.add(new Mission(victim));
 	}
-	
+
+	/**
+	 * Creates the mission of Conquer Continent Mission type 
+	 */
 	public void addConquerContinentMissions(List<Mission> missions, String missionFile){
 		String[] pLines = missionFile.split("\\n");
 		for (String pLine : pLines) {
@@ -120,7 +139,10 @@ public class MissionHandler {
 			missions.add(new Mission(firstContinent, secondContinent, moreThanTwo));
 		}
 	}
-	
+
+	/**
+	 * Creates the mission of Conquer Province Mission type 
+	 */
 	public void addConquerProvincesMissions(List<Mission> missions){
 		missions.add(new Mission());
 		missions.add(new Mission());
@@ -130,6 +152,9 @@ public class MissionHandler {
 		return p1.trim();
 	}
 	
+	/**
+	 * Returns a missions mission-text.	
+	 */
 	public String getText(IPlayer currentPlayer){
 		Mission mission = missionMap.get(currentPlayer);
 		MissionType type = mission.getType();
@@ -146,7 +171,9 @@ public class MissionHandler {
 		return text;
 	}
 	
-	
+	/**
+	 * Implements a mission to be used locally in this class.
+	 */
 	private class Mission{
 		
 		private MissionType type;
@@ -179,7 +206,9 @@ public class MissionHandler {
 		}
 		
 		
-		
+		/**
+		 * Returns true if criteria for winning is fullfilled
+		 */
 		public boolean fullFilled(IPlayer currentPlayer, List<String> continentsCurrentPlayerOwns){
 			if(type == MissionType.ELIMINATE){
 				if(eliminatedPlayers.contains(victim)){
@@ -215,12 +244,20 @@ public class MissionHandler {
 			this.owner = owner;
 		}
 		
+		/**
+		 * Returns the continent as String so it can be used in mission-text.
+		 */
+		
 		public String getContinentsToConquer(){
 			if(needToTakeThree){
 				return "" + firstContinent + ", "  +secondContinent + " and one other continent.";
 			}else
 				return "" + firstContinent + " and "  +secondContinent + ".";
 		}
+		
+		/**
+		 * A help-function for deciding if there's a continental winner.
+		 */
 		
 		private boolean continentalWinner(List<String> continentsCurrentPlayerOwns){
 			if(continentsCurrentPlayerOwns.isEmpty()){
