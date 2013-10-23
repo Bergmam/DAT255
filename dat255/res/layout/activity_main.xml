@@ -27,21 +27,30 @@
         android:text="Create Game" />
 
     <Button
-        android:id="@+id/button1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/createGameButton"
-        android:text="How to play" />
-
-    <Button
         android:id="@+id/button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/button1"
-        android:layout_alignRight="@+id/button1"
-        android:layout_below="@+id/button1"
+        android:layout_alignLeft="@+id/joinGame"
+        android:layout_alignRight="@+id/joinGame"
+        android:layout_below="@+id/joinGame"
         android:text="High Scores" />
+
+    <Button
+        android:id="@+id/joinGameButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/createGameButton"
+        android:layout_alignRight="@+id/createGameButton"
+        android:layout_below="@+id/createGameButton"
+        android:text="Join Game" />
+
+    <Button
+        android:id="@+id/joinGame"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/joinGameButton"
+        android:layout_alignRight="@+id/joinGameButton"
+        android:layout_below="@+id/joinGameButton"
+        android:text="How to play" />
 
 </RelativeLayout>
