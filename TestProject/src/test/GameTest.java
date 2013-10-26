@@ -122,36 +122,42 @@ public class GameTest {
 	@Test
 	public void testChangePhase() {
 		assertTrue(game4.getCurrentPhase() == TurnAndPhaseManager.Phase.FBuild);
+		
+		Player active = (Player) game4.getActivePlayer();
 		game4.handlePhaseEvent();
 
 		// First we have to place out our bonusUnits.
 		assertTrue(game4.getCurrentPhase() == TurnAndPhaseManager.Phase.FBuild);
+		assertTrue(game4.getActivePlayer()==active);
 
 		// We can just place units at the province that the active player owns.
 		// Therefor
 		// Game4 because the number of players are equal to the number of
 		// provinces
 		
-		Player player = (Player)game4.getActivePlayer();
 		IProvince myProvince = null;
 		for (int i = 0; i < game4.getPlayers().size(); i++) {
-			myProvince = getPlayerProvince(player,
+			active = (Player) game4.getActivePlayer();
+			myProvince = getPlayerProvince(active,
 					(ArrayList)game4.getGameProvinces(), game4);
 
 			this.looseAllBonusUnitsLeft(myProvince, game4);
 
 			assertTrue(game4.getCurrentPhase() == TurnAndPhaseManager.Phase.FBuild);
 			game4.handlePhaseEvent();
+			System.out.println("UUUUUUUUUSSSSSEEEEEERRR: "+ game4.getActivePlayer().getId());
+			//assertFalse(game4.getActivePlayer()==active);
 		}
 
+		System.out.println("what Phase? " + game4.getCurrentPhase());
 		assertTrue(game4.getCurrentPhase() == TurnAndPhaseManager.Phase.F1);
 
 		// Have to place out bonus units first!
 		game4.handlePhaseEvent();
 		assertTrue(game4.getCurrentPhase() == TurnAndPhaseManager.Phase.F1);
 
-		player = (Player)game4.getActivePlayer();
-		myProvince = getPlayerProvince(player,
+		active = (Player)game4.getActivePlayer();
+		myProvince = getPlayerProvince(active,
 				(ArrayList)game4.getGameProvinces(), game4);
 
 		this.looseAllBonusUnitsLeft(myProvince, game4);
@@ -569,6 +575,7 @@ public class GameTest {
 		assertTrue(game4.getCurrentPhase() == Phase.F1);
 		
 		//Now we will test if you can surrender if ou have won. ()
+		game1.surrender(true);
 		game1.surrender(true);
 		
 		try {
