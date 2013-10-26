@@ -1,6 +1,7 @@
 package se.chalmers.dat255.risk.model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import se.chalmers.dat255.risk.model.TurnAndPhaseManager.Phase;
 import se.chalmers.dat255.risk.model.TurnAndPhaseManager.ResultType;
@@ -9,15 +10,19 @@ public class EventHandler {
 	private TurnAndPhaseManager phaseHandler;
 	private CardExanger cardExanger;
 
-	public EventHandler(TurnAndPhaseManager phaseHandler) {
-		this.phaseHandler = phaseHandler;
+	public EventHandler() {
+		this.phaseHandler = new TurnAndPhaseManager();
 		cardExanger = new CardExanger();
+	}
+	
+	public TurnAndPhaseManager getPhaseHandler(){
+		return phaseHandler;
 	}
 
 	/*
 	 * Makes the exange of three card, when you've chosen three good cards.
 	 */
-	public ArrayList<String> handleCardEvent(ICard card, Player currentPlayer) {
+	public ArrayList<String> handleCardEvent(ICard card, IPlayer currentPlayer) {
 		return cardExanger.makeExange(card, currentPlayer);
 	}
 
@@ -30,8 +35,8 @@ public class EventHandler {
 	 * ChangedPhase if a change of phase has taken place. Return is DoNothing if
 	 * the phase didn't change.
 	 */
-	public ResultType handlePhaseEvent(Player currentPlayer,
-			int bonusUnitsLeft, ArrayList<Player> players) {
+	public ResultType handlePhaseEvent(IPlayer currentPlayer,
+			int bonusUnitsLeft, List<IPlayer> players) {
 		Phase currentPhase = phaseHandler.getPhase();
 		if (currentPhase == Phase.FBuild || currentPhase == Phase.F1) {
 			// CHECKS IF I'M ALLOWED TO PRESS CHANGE PHASE

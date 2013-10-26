@@ -12,7 +12,14 @@ public class TurnAndPhaseManager {
 	}
 
 	public static enum Phase {
-		FBuild, F1, F2, F3
+		FBuild("Deployment"), F1("Rienforcement"), F2("Attack"), F3("Movment");
+		private String phase;
+		Phase(String p){
+			phase = p;
+		}
+		public String getPhase(){
+			return phase;
+		}
 	}
 
 	public Phase getPhase() {
@@ -28,7 +35,7 @@ public class TurnAndPhaseManager {
 	 * Return is DoNothing if the phase didn't change. (Currently not in use here. Is instead controlled in EventHandler)
 	 */
 
-	public ResultType changePhase(Player currentPlayer, List<Player> players) {
+	public ResultType changePhase(IPlayer currentPlayer, List<IPlayer> players) {
 		if (currentPhase == Phase.FBuild) {
 			if (currentPlayer == players.get(players.size() - 1)) { //Sista spelaren i F0
 				changeTurn(players);
@@ -52,9 +59,7 @@ public class TurnAndPhaseManager {
 
 	public static enum ResultType {ComputeBonusForF0, ComputeBonusForF1, ChangedPhase, DoNothing}
 
-	
-	
-	private void changeTurn(List<Player> players) {
+	private void changeTurn(List<IPlayer> players) {
 		activePlayer = (activePlayer + 1) % players.size();
 		System.out.println("Changed Turn, new player is: " + activePlayer);
 	}
@@ -62,26 +67,38 @@ public class TurnAndPhaseManager {
 	public int getActivePlayer() {
 		return activePlayer;
 	}
+	
+	
+	public void removePlayer(int pos){
+		if(pos < activePlayer){
+			activePlayer -= 1;
+		}
+	}
 
 	/**
 	 * called when a player gives up
 	 * 
 	 * @param players
 	 *            the list of players left in the game
+	 * @return true if a change of turn has taken place
 	 */
-	public void surrender(List<Player> players) {
+	public boolean surrender(List<IPlayer> players) {
 		if (players.size() != 1) {
 			if (currentPhase == Phase.FBuild) {
 				if (activePlayer == players.size()) {
 					changeTurn(players);
 					currentPhase = Phase.F1;
+					return true;
 				}
+				return true;
 			} else {
 				currentPhase = Phase.F1;
+				return true;
 			}
 		} else {
 			activePlayer = 0;//safety messure as to not crash the game
 			currentPhase = Phase.F1;
+			return false;
 		}
 	}
 }

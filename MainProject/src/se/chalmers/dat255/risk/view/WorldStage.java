@@ -3,6 +3,7 @@ package se.chalmers.dat255.risk.view;
 import java.util.ArrayList;
 import java.util.List;
 
+import se.chalmers.dat255.risk.model.IGame;
 import se.chalmers.dat255.risk.model.IProvince;
 import se.chalmers.dat255.risk.view.resource.Resource;
 
@@ -28,8 +29,8 @@ public class WorldStage extends AbstractStage implements GestureListener {
 	private float zMax;
 	private float zMin;
 
-	public WorldStage(List<IProvince> provinces, FileHandle positionsOnMap) {
-
+	public WorldStage(IGame model) {
+		super(model);
 		background = new Image(Resource.getInstance().backGround);
 		camera = new OrthographicCamera();
 		provinceGroup = new Group();
@@ -45,8 +46,8 @@ public class WorldStage extends AbstractStage implements GestureListener {
 				background.getHeight() / 2, 0);
 
 		views = new ArrayList<AbstractView>();
-
-		String wholeFile = positionsOnMap.readString();
+		List<IProvince> provinces = model.getGameProvinces();
+		String wholeFile = Resource.getInstance().cords.readString();
 		String[] array = wholeFile.split("\\n");
 		int temp = 0;
 		for (String line : array) {
@@ -67,8 +68,10 @@ public class WorldStage extends AbstractStage implements GestureListener {
 
 		addActor(background);
 		addActor(provinceGroup);
-		zMax = (background.getHeight()+background.getWidth()) /(Gdx.graphics.getWidth()+Gdx.graphics.getHeight());
-		zMin = (Gdx.graphics.getWidth()+Gdx.graphics.getHeight())/(background.getHeight()+background.getWidth());
+		zMax = (height + width)
+				/ (Gdx.graphics.getWidth() + Gdx.graphics.getHeight());
+		zMin = ((Gdx.graphics.getWidth() + Gdx.graphics.getHeight())
+				/ (height + width) / 2);
 	}
 
 	@Override
@@ -80,7 +83,7 @@ public class WorldStage extends AbstractStage implements GestureListener {
 	public boolean touchDown(float x, float y, int pointer, int button) {
 		initialZoom = camera.zoom;
 		super.touchDown((int) x, (int) y, pointer, button);
-		
+
 		return false;
 	}
 

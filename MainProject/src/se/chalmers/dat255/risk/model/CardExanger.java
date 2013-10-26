@@ -17,7 +17,7 @@ public class CardExanger {
 	 * @return names of the provinces connected to the cards if a correct
 	 *         combination has been chosen, null otherwise
 	 */
-	public ArrayList<String> makeExange(ICard card, Player currentPlayer) {
+	public ArrayList<String> makeExange(ICard card, IPlayer currentPlayer) {
 		if (!handledBefore(card)) {
 			card.setActive(true);
 			if (card2 != null) {

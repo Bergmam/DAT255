@@ -5,18 +5,18 @@ import java.util.ArrayList;
 public class BonusHandler {
 
 	private int bonus, startingTroopNr, currentCardBonus;
-	private WorldMap worldMap;
+	private WorldHandler worldHandler;
 	
-	public BonusHandler(WorldMap worldMap, int numberOfPlayers){
-		this.worldMap = worldMap;
+	public BonusHandler(WorldHandler worldHandler, int numberOfPlayers){
+		this.worldHandler = worldHandler;
 		bonus = 0;
 		startingTroopNr = 50 - numberOfPlayers * 5;
 		currentCardBonus = 4;
 	}
 			
-	public void calcBonusesFromCards(ArrayList<String> names, Player activePlayer){
+	public void calcBonusesFromCards(ArrayList<String> names, IPlayer activePlayer){
 		for(String name : names){
-			if(worldMap.getOwner(name) == activePlayer){
+			if(worldHandler.getOwner(name) == activePlayer){
 				bonus += 2;
 			}
 		}
@@ -24,16 +24,16 @@ public class BonusHandler {
 		currentCardBonus += 2; // Maybe needs to be changed later, may not be linear.
 	}
 
-	public void calcBonusUnits(Player activePlayer) {
-		int provinces = activePlayer.getNrOfProvinces();
+	public void calcBonusUnits() {
+		int provinces = worldHandler.getActivePlayer().getNrOfProvinces();
 		if (provinces <= 9) {
 			this.bonus = 3;
 		} else {
 			this.bonus = provinces / 3;
 		}
 		
-		worldMap.updateBonus();
-		this.bonus += worldMap.getBonus(activePlayer);
+		worldHandler.updateBonus();
+		this.bonus += worldHandler.getBonus();
 	}
 	
 	public int getBonus(){

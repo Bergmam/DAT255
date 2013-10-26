@@ -3,12 +3,13 @@ package se.chalmers.dat255.risk.view.resource;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 public class Resource {
 
 	private static Resource instance;
-
+	
 	public Skin skin = new Skin(Gdx.files.internal("pack/uiskin.json"));
 
 	public Texture backGround = new Texture(
@@ -33,13 +34,17 @@ public class Resource {
 	public Texture circle = new Texture(Gdx.files.internal("Gfx/circle.png"));
 	public Texture circleSelected = new Texture(
 			Gdx.files.internal("Gfx/circleOutline.png"));
+	
+	public Texture border = new Texture(Gdx.files.internal("Gfx/border.png"));
 
 	public FileHandle neighbours = Gdx.files.internal("Gfx/neighbours.txt");
 	public FileHandle cords = Gdx.files.internal("Gfx/Cords.txt");
 	public FileHandle continents = Gdx.files.internal("Gfx/continents.txt");
+	public FileHandle missions = Gdx.files.internal("Gfx/missions_continents.txt");
 
 	public String neighborsFile = neighbours.readString();
 	public String continentsFile = continents.readString();
+	public String missionsFile = missions.readString();
 
 	public static Resource getInstance() {
 		if (instance == null) {
@@ -63,7 +68,7 @@ public class Resource {
 		infantry = new Texture(Gdx.files.internal("Gfx/Soldier.png"));
 		joker = new Texture(Gdx.files.internal("Gfx/Joker.png"));
 
-		artillery2 = new Texture(Gdx.files.internal("Gfx/Cannon.png"));
+		artillery2 = new Texture(Gdx.files.internal("Gfx/Cannon1.png"));
 		cavalry2 = new Texture(Gdx.files.internal("Gfx/Cavalry1.png"));
 		infantry2 = new Texture(Gdx.files.internal("Gfx/Soldier1.png"));
 		joker2 = new Texture(Gdx.files.internal("Gfx/Joker1.png"));
@@ -73,19 +78,23 @@ public class Resource {
 		circle = new Texture(Gdx.files.internal("Gfx/circle.png"));
 		circleSelected = new Texture(
 				Gdx.files.internal("Gfx/circleOutline.png"));
+		
+		border = new Texture(Gdx.files.internal("Gfx/border.png"));
 
 		neighbours = Gdx.files.internal("Gfx/neighbours.txt");
 		cords = Gdx.files.internal("Gfx/Cords.txt");
 		continents = Gdx.files.internal("Gfx/continents.txt");
+		missions = Gdx.files.internal("Gfx/missions_continents.txt");
 
 		neighborsFile = neighbours.readString();
 		continentsFile = continents.readString();
+		missionsFile = missions.readString();
 
 	}
 
 	public void dispose() {
 		skin.dispose();
-
+		
 		backGround.dispose();
 
 		artillery.dispose();
@@ -98,6 +107,8 @@ public class Resource {
 		infantry2.dispose();
 		joker2.dispose();
 
+		border.dispose();
+		
 		cardHolder.dispose();
 
 		circle.dispose();

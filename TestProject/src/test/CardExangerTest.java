@@ -1,6 +1,9 @@
 package test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 
@@ -9,7 +12,6 @@ import org.junit.Test;
 
 import se.chalmers.dat255.risk.model.Card;
 import se.chalmers.dat255.risk.model.CardExanger;
-import se.chalmers.dat255.risk.model.ICard;
 import se.chalmers.dat255.risk.model.Player;
 
 public class CardExangerTest {

@@ -13,17 +13,13 @@ import se.chalmers.dat255.risk.model.TurnAndPhaseManager.Phase;
  * 
  */
 public interface IGame {
-	// ============== EVENT-CONSTANTS ==============
-	public final static String MOVEMENT = "Movement";
-	public final static String ATTACK = "Attack";
-	public final static String CONQUER = "takeOver";
-	public final static String AGAIN = "Again?";
-	public final static String WIN = "Win";
-	public final static String SURRENDER = "Surrender";
-	public final static String UNITS = "Units";
-	public final static String CARDS = "Cards";
+	// ============== EVENT-CONSTANTS ================================
+	public final static String MOVEMENT = "Movement", ATTACK = "Attack",
+			CONQUER = "takeOver", AGAIN = "Again?", WIN = "Win",
+			SURRENDER = "Surrender", UNITS = "Units", CARDS = "Cards",
+			CHANGE_TURN = "ChangeTurn";
 
-	// =============================================
+	// ===============================================================
 
 	/**
 	 * Sets up a new Game
@@ -35,15 +31,15 @@ public interface IGame {
 	 * @param continentsFile
 	 *            continents and their provinces
 	 */
-	public void setupGame(String[] playersId, String neighboursFile,
-			String continentsFile);
+	public void setupGame(List<String> playersId, String neighboursFile,
+			String continentsFile, String missionFile);
 
 	/**
 	 * Fetches the player who has the current turn.
 	 * 
 	 * @return the active player
 	 */
-	public Player getActivePlayer();
+	public IPlayer getActivePlayer();
 
 	/**
 	 * Tells the game to do battle with two provinces
@@ -72,14 +68,14 @@ public interface IGame {
 	 * 
 	 * @return an array with all players
 	 */
-	public ArrayList<Player> getPlayers();
+	public List<IPlayer> getPlayers();
 
 	/**
 	 * Retrieves all provinces
 	 * 
 	 * @return an arrayList with all provinces in the game
 	 */
-	public ArrayList<IProvince> getGameProvinces();
+	public List<IProvince> getGameProvinces();
 
 	/**
 	 * Determines what should be done with the chosen province
@@ -128,14 +124,6 @@ public interface IGame {
 	public void moveToProvince(int nrOfUnits);
 
 	/**
-	 * Adds Listeners to the players, to listen for cards
-	 * 
-	 * @param list
-	 *            a list with listerners to the players
-	 */
-	public void addPlayerListener(List<PropertyChangeListener> list);
-
-	/**
 	 * Called when the current player gives up
 	 * 
 	 * @param confirm
@@ -148,4 +136,29 @@ public interface IGame {
 	 * Inactivates any saved provinces
 	 */
 	public void flushProvinces();
+
+	public static enum GameMode {
+		WORLD_DOMINATION, SECRET_MISSION;
+	}
+
+	/**
+	 * Sets the game type. changes rules.
+	 * 
+	 * @param gameMode
+	 *            what type of winning condition the game will have
+	 */
+	public void setGameMode(GameMode gameMode);
+
+	/**
+	 * retrieves current gameMode
+	 * 
+	 * @return current gameMode
+	 */
+	public GameMode getGameMode();
+
+	/**
+	 * Returns a String that discribes your mission. Only used in Secret
+	 * Mission-mode
+	 */
+	public String getMissionText(IPlayer currentPlayer);
 }

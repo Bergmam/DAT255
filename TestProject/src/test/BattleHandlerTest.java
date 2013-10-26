@@ -1,9 +1,10 @@
 package test;
 
-import static org.junit.Assert.*;
-import se.chalmers.dat255.risk.model.*;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
+
+import se.chalmers.dat255.risk.model.BattleHandler;
 
 public class BattleHandlerTest {
 	public BattleHandler bh = new BattleHandler();

@@ -6,6 +6,7 @@ import java.util.List;
 import se.chalmers.dat255.risk.GDXGame;
 import se.chalmers.dat255.risk.model.Game;
 import se.chalmers.dat255.risk.model.IGame;
+import se.chalmers.dat255.risk.model.IGame.GameMode;
 import se.chalmers.dat255.risk.view.AbstractView;
 import se.chalmers.dat255.risk.view.CardView;
 import se.chalmers.dat255.risk.view.ChangePhase;
@@ -23,6 +24,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 public class ScreenManager extends ClickListener {
@@ -33,11 +35,11 @@ public class ScreenManager extends ClickListener {
 	private GDXGame game;
 	private final List<String> list = new ArrayList<String>();
 	private final int maxNbrOfPlayers = 6;
+	//min player usually two, but we haven't implemented that functionality  
+	private final int minNbrOfPlayers = 3;
 
 	private ScreenManager() {
-
 		Resource.getInstance();
-
 	}
 
 	public static ScreenManager getInstance() {
@@ -67,12 +69,12 @@ public class ScreenManager extends ClickListener {
 	}
 
 	public void setupGame() {
-		String[] tmp = new String[list.size()];
-		for (int i = 0; i < list.size(); i++) {
-			tmp[i] = list.get(i);
-		}
-		model.setupGame(tmp, Resource.getInstance().neighborsFile,
-				Resource.getInstance().continentsFile);
+
+		model.setupGame(list, Resource.getInstance().neighborsFile,
+				Resource.getInstance().continentsFile,
+				Resource.getInstance().missionsFile);
+
+		model.setGameMode(GameMode.valueOf(main.getMode()));
 
 		screen.setupGame();
 
@@ -85,7 +87,7 @@ public class ScreenManager extends ClickListener {
 		}
 
 		for (Actor a : screen.getSpecActors()) {
-			if (a.getClass() == Button.class) {
+			if (a.getClass() == TextButton.class) {
 				a.addListener(new SurrenderListener(model));
 			} else if (a instanceof PopUp) {
 				a.addListener(new PopUpListener(model));
@@ -107,6 +109,7 @@ public class ScreenManager extends ClickListener {
 		String s = b.getName();
 
 		if (s.equalsIgnoreCase("addPlayer")) {
+			main.setText("Enter name below");
 			if (list.size() < maxNbrOfPlayers) {
 				s = main.getText();
 				if (s.length() >= 1 && s.length() <= 10) {
@@ -125,7 +128,7 @@ public class ScreenManager extends ClickListener {
 			}
 
 		} else if (s.equalsIgnoreCase("startButton")) {
-			if (list.size() >= 2) {
+			if (list.size() >= minNbrOfPlayers) {
 				setupGame();
 				changeScreen(screen);
 			}
