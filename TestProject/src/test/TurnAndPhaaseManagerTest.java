@@ -3,17 +3,19 @@ package test;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
 
+import se.chalmers.dat255.risk.model.IPlayer;
 import se.chalmers.dat255.risk.model.Player;
 import se.chalmers.dat255.risk.model.TurnAndPhaseManager;
 import se.chalmers.dat255.risk.model.TurnAndPhaseManager.Phase;
 
 public class TurnAndPhaaseManagerTest {
 	TurnAndPhaseManager tAPM = new TurnAndPhaseManager();
-	ArrayList<Player> players = new ArrayList<Player>();
+	List<IPlayer> players = new ArrayList<IPlayer>();
 
 	@Before
 	public void beforeAllTest() {

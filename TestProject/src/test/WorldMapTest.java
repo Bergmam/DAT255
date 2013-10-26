@@ -8,12 +8,13 @@ import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
 
+import se.chalmers.dat255.risk.model.IPlayer;
 import se.chalmers.dat255.risk.model.Player;
 import se.chalmers.dat255.risk.model.WorldMap;
 
 public class WorldMapTest {
 
-	ArrayList<Player> players = new ArrayList();
+	ArrayList<IPlayer> players = new ArrayList();
 	String provinces = "A-B-C-D-E" + "\n" + "B-A-C-E" + "\n" + "C-A-D" + "\n"
 			+ "D-A-C-E" + "\n" + "E-A-B-D";
 	String continents = "3-continent1-A-B-C" + "\n" + "2-continent2-D-E";

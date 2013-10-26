@@ -6,15 +6,17 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import se.chalmers.dat255.risk.model.Card;
-import se.chalmers.dat255.risk.model.ICard.CardType;
 import se.chalmers.dat255.risk.model.Deck;
 import se.chalmers.dat255.risk.model.Game;
 import se.chalmers.dat255.risk.model.ICard;
+import se.chalmers.dat255.risk.model.ICard.CardType;
+import se.chalmers.dat255.risk.model.IPlayer;
 import se.chalmers.dat255.risk.model.IProvince;
 import se.chalmers.dat255.risk.model.Player;
 import se.chalmers.dat255.risk.model.TurnAndPhaseManager;
@@ -31,39 +33,62 @@ public class GameTest {
 
 	@Before
 	public void beforeAllTest() {
+		
+		String missionFile = "EUROPE-AUSTRALIA-1"+ "\n" + "EUROPE-SOUTH AMERICA-1" + "\n" + 
+		        "NORTH AMERICA-AFRICA" + "\n" +
+				"ASIA-SOUTH AMERICA" + "\n" + 
+				"NORTH AMERICA-AUSTRALIA";
 
 		String provinces = "A-B-C-D-E" + "\n" + "B-A-C-D-E" + "\n"
 				+ "C-B-E-A-D" + "\n" + "D-A-C-E-B" + "\n" + "E-A-B-D-C";
 		String provinces1 = "A" + "\n" + "B" + "\n" + "C" + "\n" + "D" + "\n"
 				+ "E";
 		String continents = "3-A-B-C" + "\n" + "2-D-E";
-		String[] name = new String[] { "Linnea", "Andreas", "Emil", "Bergman",
-				"Christoffer", "Emma" };
+		List<String> name = new ArrayList<String>();
+		name.add("Linnea");
+		name.add("Andreas");
+		name.add("Emil");
+		name.add("Bergman");
+		name.add("Christoffer");
+		name.add("Emma");
 		game = new Game();
-		game.setupGame(name, provinces, continents);
-
-		String[] name1 = new String[] { "Christoffer", "Emma" };
+		game.setupGame(name, provinces, continents, missionFile);
+		
+		ArrayList<String> name1 = new ArrayList<String>();
+		name1.add("Christoffer");
+		name1.add("Emma");
+		name1.add("Tjo");
 		game1 = new Game();
-		game1.setupGame(name1, provinces, continents);
+		game1.setupGame(name1, provinces, continents,missionFile);
 
 		gameNoNeighbors = new Game();
-		gameNoNeighbors.setupGame(name1, provinces1, continents);
-
-		String[] name2 = new String[] { "Andreas", "Emil", "Bergman" };
+		gameNoNeighbors.setupGame(name1, provinces1, continents, missionFile);
+		
+		ArrayList<String> name2 = new ArrayList<String>();
+		name2.add("Andreas");
+		name2.add("Emil");
+		name2.add("Bergman");
 		game2 = new Game();
-		game2.setupGame(name2, provinces, continents);
+		game2.setupGame(name2, provinces, continents, missionFile);
 
-		String[] name3 = new String[] { "Andreas", "Emil", "Bergman",
-				"Christoffer" };
+		ArrayList<String> name3 = new ArrayList<String>();
+		name3.add("Andreas");
+		name3.add("Emil");
+		name3.add("Bergman");
+		name3.add("Christoffer");
 		game3 = new Game();
-		game3.setupGame(name3, provinces, continents);
-		String[] name4 = new String[] { "Andreas", "Emil", "Bergman",
-				"Christoffer", "Emma" };
+		game3.setupGame(name3, provinces, continents, missionFile);
 
-		game4 = new Game();
+		ArrayList<String> name4 = new ArrayList<String>();
+		name4.add("Andreas");
+		name4.add("Emil");
+		name4.add("Bergman");
+		name4.add("Christoffer");
+		name4.add("Emma");
+        game4 = new Game();
 		// This is because we for every new testMethod wants the same deck.
 		Deck.getInstance().getDeckList().clear();
-		game4.setupGame(name4, provinces, continents);
+		game4.setupGame(name4, provinces, continents, missionFile);
 	}
 
 	@Test
@@ -78,7 +103,7 @@ public class GameTest {
 	public void testSizeOfPlayerList() {
 		// Check if number of player is correct,
 		assertTrue(game.getPlayers().size() == 6);
-		assertTrue(game1.getPlayers().size() == 2);
+		assertTrue(game1.getPlayers().size() == 3);
 		assertTrue(game2.getPlayers().size() == 3);
 		assertTrue(game3.getPlayers().size() == 4);
 		assertTrue(game4.getPlayers().size() == 5);
@@ -106,10 +131,12 @@ public class GameTest {
 		// Therefor
 		// Game4 because the number of players are equal to the number of
 		// provinces
+		
+		Player player = (Player)game4.getActivePlayer();
 		IProvince myProvince = null;
 		for (int i = 0; i < game4.getPlayers().size(); i++) {
-			myProvince = getPlayerProvince(game4.getActivePlayer(),
-					game4.getGameProvinces(), game4);
+			myProvince = getPlayerProvince(player,
+					(ArrayList)game4.getGameProvinces(), game4);
 
 			this.looseAllBonusUnitsLeft(myProvince, game4);
 
@@ -123,8 +150,9 @@ public class GameTest {
 		game4.handlePhaseEvent();
 		assertTrue(game4.getCurrentPhase() == TurnAndPhaseManager.Phase.F1);
 
-		myProvince = getPlayerProvince(game4.getActivePlayer(),
-				game4.getGameProvinces(), game4);
+		player = (Player)game4.getActivePlayer();
+		myProvince = getPlayerProvince(player,
+				(ArrayList)game4.getGameProvinces(), game4);
 
 		this.looseAllBonusUnitsLeft(myProvince, game4);
 
@@ -152,10 +180,10 @@ public class GameTest {
 		// player owns the incoming province
 		IProvince myProvince = null;
 		IProvince notMine = null;
-		ArrayList<IProvince> provinces = game4.getGameProvinces();
-		myProvince = getPlayerProvince(game4.getActivePlayer(), provinces,
+		ArrayList<IProvince> provinces = (ArrayList<IProvince>) game4.getGameProvinces();
+		myProvince = getPlayerProvince((Player)game4.getActivePlayer(), provinces,
 				game4);
-		notMine = getPlayerProvince(game4.getPlayers().get(1), provinces, game4);
+		notMine = getPlayerProvince((Player)game4.getPlayers().get(1), provinces, game4);
 
 		// Test so bonus not change with a province that not belongs to another
 		// player.
@@ -176,7 +204,7 @@ public class GameTest {
 		// changing phase until we get to phase1.
 		game4.handlePhaseEvent();
 		for (int i = 0; i < game4.getPlayers().size() - 1; i++) {
-			myProvince = getPlayerProvince(game4.getActivePlayer(), provinces,
+			myProvince = getPlayerProvince((Player)game4.getActivePlayer(), (ArrayList)provinces,
 					game4);
 			this.looseAllBonusUnitsLeft(myProvince, game4);
 			game4.handlePhaseEvent();
@@ -191,7 +219,7 @@ public class GameTest {
 
 		// Test so bonus change with a province that the active payer owns.
 
-		myProvince = getPlayerProvince(game4.getActivePlayer(), provinces,
+		myProvince = getPlayerProvince((Player)game4.getActivePlayer(), (ArrayList)provinces,
 				game4);
 		this.looseAllBonusUnitsLeft(myProvince, game4);
 		assertTrue(myProvince.getUnits() == 1 + bonusFromF1 + bonusFromStart);
@@ -215,19 +243,19 @@ public class GameTest {
 		// Because every player just have got one Province each we test this
 		// with game1 (there are all Provinces neighbors) and gameNoNeighbors.
 
-		provinces = game1.getGameProvinces();
-		ArrayList<IProvince> provinces1 = gameNoNeighbors.getGameProvinces();
+		provinces = (ArrayList)game1.getGameProvinces();
+		ArrayList<IProvince> provinces1 = (ArrayList)gameNoNeighbors.getGameProvinces();
 
 		// Set up 2 provinces, for each game, that belongs to the active player
 		// and one that belongs to the other player.
-		myProvince = getPlayerProvince(game1.getActivePlayer(), provinces,
+		myProvince = getPlayerProvince((Player)game1.getActivePlayer(), (ArrayList)provinces,
 				game1);
 		IProvince myProvince1 = getPlayerProvince(
-				gameNoNeighbors.getActivePlayer(), provinces1, gameNoNeighbors);
+				(Player)gameNoNeighbors.getActivePlayer(), (ArrayList)provinces1, gameNoNeighbors);
 
-		IProvince player2P = getPlayerProvince(game1.getPlayers().get(1),
+		IProvince player2P = getPlayerProvince((Player)game1.getPlayers().get(1),
 				provinces1, game1);
-		IProvince player2P1 = getPlayerProvince(gameNoNeighbors.getPlayers()
+		IProvince player2P1 = getPlayerProvince((Player)gameNoNeighbors.getPlayers()
 				.get(1), provinces1, gameNoNeighbors);
 
 		IProvince mP1 = getAnotherProvinceFromPlayer(game1, myProvince);
@@ -274,9 +302,9 @@ public class GameTest {
 	// For not so much duplicated code
 	private void getToPhase1(Game game) {
 		ArrayList<IProvince> belongsToPlayer = new ArrayList<IProvince>();
-		for (Player player : game.getPlayers()) {
-			belongsToPlayer.add(getPlayerProvince(player,
-					game.getGameProvinces(), game));
+		for (IPlayer player : game.getPlayers()) {
+			belongsToPlayer.add((IProvince)getPlayerProvince((Player)player,
+					(ArrayList)game.getGameProvinces(), game));
 		}
 		for (int i = 0; i < game.getPlayers().size(); i++) {
 			this.looseAllBonusUnitsLeft(belongsToPlayer.get(i), game);
@@ -286,8 +314,8 @@ public class GameTest {
 
 	// For not so much duplicated code
 	private void getToPhase2(Game game) {
-		IProvince myProvince = getPlayerProvince(game.getActivePlayer(),
-				game.getGameProvinces(), game);
+		IProvince myProvince = getPlayerProvince((Player)game.getActivePlayer(),
+				(ArrayList)game.getGameProvinces(), game);
 		getToPhase1(game);
 		looseAllBonusUnitsLeft(myProvince, game);
 		game.handlePhaseEvent();
@@ -327,9 +355,9 @@ public class GameTest {
 	public void testFlushProvinces() {
 		// To test flush we need to be in phase 2 or 3, this time we choose 3
 		// because it is easy.
-		ArrayList<IProvince> provinces = game1.getGameProvinces();
+		ArrayList<IProvince> provinces = (ArrayList)game1.getGameProvinces();
 		getToPhase3(game1);
-		IProvince myProvince = getPlayerProvince(game1.getActivePlayer(),
+		IProvince myProvince = getPlayerProvince((Player)game1.getActivePlayer(),
 				provinces, game1);
 		IProvince myProvince1 = getAnotherProvinceFromPlayer(game1, myProvince);
 
@@ -356,11 +384,11 @@ public class GameTest {
 	public void testMoveTroops() {
 		// First we test it in Phase2, that time we can move troops more than
 		// once
-		ArrayList<IProvince> provinces = game1.getGameProvinces();
-		IProvince myProvince = getPlayerProvince(game1.getActivePlayer(),
+		ArrayList<IProvince> provinces = (ArrayList)game1.getGameProvinces();
+		IProvince myProvince = getPlayerProvince((Player)game1.getActivePlayer(),
 				provinces, game1);
 		IProvince myProvince1 = getAnotherProvinceFromPlayer(game1, myProvince);
-		IProvince notMine = getPlayerProvince(game1.getPlayers().get(1),
+		IProvince notMine = getPlayerProvince((Player)game1.getPlayers().get(1),
 				provinces, game1);
 		getToPhase2(game1);
 
@@ -416,9 +444,9 @@ public class GameTest {
 
 	@Test
 	public void testBattle() {
-		Player player1 = game1.getPlayers().get(0);
-		Player player2 = game1.getPlayers().get(1);
-		ArrayList<IProvince> provinces = game1.getGameProvinces();
+		Player player1 = (Player)game1.getPlayers().get(0);
+		Player player2 = (Player)game1.getPlayers().get(1);
+		ArrayList<IProvince> provinces = (ArrayList)game1.getGameProvinces();
 
 		IProvince myProvince = getPlayerProvince(player1, provinces, game1);
 		IProvince myProvince1 = getAnotherProvinceFromPlayer(game1, myProvince);
@@ -481,7 +509,7 @@ public class GameTest {
 	@Test
 	public void testCardEvent() {
 		getToPhase1(game4);
-		Player player1 = game4.getActivePlayer();
+		Player player1 = (Player)game4.getActivePlayer();
 		ArrayList<ICard> cards = player1.getCards();
 
 		// So we know that we have 3 we can change in!
@@ -526,7 +554,7 @@ public class GameTest {
 	@Test
 	public void testSurrender(){
 		int nmbOfPlayers = game4.getPlayers().size();
-		ArrayList<Player> players = game4.getPlayers();
+		ArrayList<Player> players = (ArrayList)game4.getPlayers();
 		
 		//First we test if one can surrender.
 		game4.surrender(true);
