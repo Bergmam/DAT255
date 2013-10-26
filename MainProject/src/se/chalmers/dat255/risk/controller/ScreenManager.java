@@ -3,7 +3,6 @@ package se.chalmers.dat255.risk.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import se.chalmers.dat255.risk.GDXGame;
 import se.chalmers.dat255.risk.model.Game;
 import se.chalmers.dat255.risk.model.IGame;
 import se.chalmers.dat255.risk.model.IGame.GameMode;

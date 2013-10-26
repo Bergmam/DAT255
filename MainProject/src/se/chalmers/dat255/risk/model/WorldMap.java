@@ -103,8 +103,8 @@ public class WorldMap {
 	/**
 	 * Returns ownership of a certain territory.
 	 * 
-	 * @param A
-	 *            province name sent to the method
+	 * @param provinceName
+	 *            A province name sent to the method
 	 * @return The owner of the province sent to the method
 	 */
 	public IPlayer getOwner(String provinceName) {
@@ -115,10 +115,10 @@ public class WorldMap {
 	 * Changes the ownership of a certain territory. Also changes the number of
 	 * provinces that the players involved controls.
 	 * 
-	 * @param Name
-	 *            of the province that will change owner.
-	 * @param Which
-	 *            player the ownership should change to.
+	 * @param provinceName
+	 *            Name of the province that will change owner.
+	 * @param player
+	 *            Which player the ownership should change to.
 	 */
 
 	public void changeOwner(String provinceName, IPlayer player) {
@@ -210,22 +210,26 @@ public class WorldMap {
 	public ArrayList<IProvince> getProvinces() {
 		return allProvinces;
 	}
-	
-	public ArrayList<String> getPlayersContinents(IPlayer owner){
+
+	public ArrayList<String> getPlayersContinents(IPlayer owner) {
 		ArrayList<String> continentsThePlayerOwns = new ArrayList<String>();
-		int i=0;
-		for(Continent continent : continents){
+		int i = 0;
+		for (Continent continent : continents) {
 			i++;
-			if(continent.getContinentOwner() == null){
-				System.out.println("getPlayersContinents: "+ continent.getContinentName() + "is owned by nobody");				
-			}else{
-				System.out.println("getPlayersContinents: "+ continent.getContinentName() + "is owned by " + continent.getContinentOwner().getName());
+			if (continent.getContinentOwner() == null) {
+				System.out.println("getPlayersContinents: "
+						+ continent.getContinentName() + "is owned by nobody");
+			} else {
+				System.out.println("getPlayersContinents: "
+						+ continent.getContinentName() + "is owned by "
+						+ continent.getContinentOwner().getName());
 			}
-			if(continent.getContinentOwner() == owner){
+			if (continent.getContinentOwner() == owner) {
 				continentsThePlayerOwns.add(continent.getContinentName());
 			}
 		}
-		System.out.println("getPlayersContinents: There are " + i + "continents");
+		System.out.println("getPlayersContinents: There are " + i
+				+ "continents");
 		return continentsThePlayerOwns;
 	}
 
@@ -243,11 +247,11 @@ public class WorldMap {
 		final int bonus;
 		IPlayer owner = null;
 		final String continentName;
-		
+
 		public Continent(String continentName, String[] provinces, int bonus) {
 			this.provinces = provinces;
 			this.bonus = bonus;
-			this.continentName=continentName;
+			this.continentName = continentName;
 		}
 
 		public int getBonus() {
@@ -275,8 +279,8 @@ public class WorldMap {
 			}
 			owner = tempProvinceOwner;
 		}
-		
-		public String getContinentName(){
+
+		public String getContinentName() {
 			return continentName;
 		}
 

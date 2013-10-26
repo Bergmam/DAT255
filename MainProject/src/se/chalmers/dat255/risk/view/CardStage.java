@@ -10,7 +10,6 @@ import se.chalmers.dat255.risk.model.IGame;
 import se.chalmers.dat255.risk.model.IPlayer;
 import se.chalmers.dat255.risk.view.resource.Resource;
 
-import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 

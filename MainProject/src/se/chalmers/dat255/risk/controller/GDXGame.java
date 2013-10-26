@@ -1,6 +1,5 @@
-package se.chalmers.dat255.risk;
+package se.chalmers.dat255.risk.controller;
 
-import se.chalmers.dat255.risk.controller.ScreenManager;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;

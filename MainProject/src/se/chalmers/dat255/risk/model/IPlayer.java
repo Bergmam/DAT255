@@ -1,7 +1,6 @@
 package se.chalmers.dat255.risk.model;
 
 import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 
 /**

@@ -5,9 +5,9 @@ import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.List;
 
-import se.chalmers.dat255.risk.model.WorldHandler.ProvinceResult;
 import se.chalmers.dat255.risk.model.TurnAndPhaseManager.Phase;
 import se.chalmers.dat255.risk.model.TurnAndPhaseManager.ResultType;
+import se.chalmers.dat255.risk.model.WorldHandler.ProvinceResult;
 
 /**
  * The top game class. Controls flow between our lower classes, such as the
@@ -40,9 +40,6 @@ public class Game implements IGame {
 
 	/**
 	 * Creates a new Game.
-	 * 
-	 * @param playersId
-	 *            The ids of the players
 	 */
 	public Game() {
 		battleHandler = new BattleHandler();
@@ -80,7 +77,7 @@ public class Game implements IGame {
 
 		missionHandler = new MissionHandler(getPlayers(), missionFile);
 
-		bonusHandler = new BonusHandler(worldHandler, getPlayers().size());
+		bonusHandler = new BonusHandler(worldHandler.getWorldMap(), getPlayers().size());
 		bonusHandler.calcBonusForF0(getActivePlayer().getNrOfProvinces()); // Instancieate
 																			// bonus
 		setUpDeck();
@@ -309,7 +306,7 @@ public class Game implements IGame {
 
 	private void updateValues() {
 		worldHandler.updateBonus();
-		bonusHandler.calcBonusUnits();
+		bonusHandler.calcBonusUnits(getActivePlayer());
 		firstProvinceConqueredThisTurn = true;
 	}
 

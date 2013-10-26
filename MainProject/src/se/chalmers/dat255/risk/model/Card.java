@@ -5,10 +5,6 @@ package se.chalmers.dat255.risk.model;
  * A card either has a type of unit and the id of a province in the form of a string
  * or has the type joker and the id joker. A joker is equal to any other card 
  * according to the overwritten equals method.
- * 
- * @author Emma Håkansson
- * @author Christoffer Matsson
- * @since 2013-09-16
  *
  */
 public class Card implements ICard{
@@ -20,8 +16,8 @@ public class Card implements ICard{
 	/**
 	 * Constructor for creating a card with the given type and string
 	 * or the string "Joker" if the given type is JOKER.
-	 * @param type, the type of the card.
-	 * @param name, the name of the province belonging to the card being created.
+	 * @param type the type of the card.
+	 * @param name the name of the province belonging to the card being created.
 	 */
 	public Card(Card.CardType type, String name){
 		if(type == CardType.JOKER){

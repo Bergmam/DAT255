@@ -22,7 +22,7 @@ public class Deck {
 	/**
 	 * Constructs the cards in the deck given an array containing the names of all provinces 
 	 * in the game and the number of jokers there should be in the deck.
-	 * @param provinces, array with the names of all provinces.
+	 * @param provinces array with the names of all provinces.
 	 * @param nbrOfJokers number of jokers in the deck.
 	 */
 	public void CreateCards(ArrayList<String> provinces, int nbrOfJokers){
@@ -62,7 +62,7 @@ public class Deck {
 	
 	/**
 	 * Method which adds the given card to the list of discarded cards.
-	 * @param card, the card being discarded.
+	 * @param card the card being discarded.
 	 */
 	public static void discard(ICard card){
 		discardPile.add(card);

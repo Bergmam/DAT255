@@ -10,13 +10,13 @@ public class BattleHandler {
 	private Random generator = new Random();
 
 	/**
-	 * Handles the attack between two provinces.
+	 * Handles the battle between two provinces.
 	 * 
 	 * @param offensive
-	 *            number of offensive attackers.
+	 *            number of attackers.
 	 * @param defensive
-	 *            number of defensive attackers.
-	 * @return lost Armies, offensive and defensive.
+	 *            number of defenders.
+	 * @return lost units, offensive and defensive.
 	 */
 	public int[] doBattle(int offensive, int defensive) {
 		int[] lostArmies = new int[2];
@@ -33,7 +33,7 @@ public class BattleHandler {
 		return lostArmies;
 	}
 
-	/**
+	/*
 	 * Creates dice.
 	 * 
 	 * @param armies

@@ -8,7 +8,6 @@ import se.chalmers.dat255.risk.model.IGame;
 import se.chalmers.dat255.risk.model.IGame.GameMode;
 import se.chalmers.dat255.risk.model.IPlayer;
 
-import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 
 public class StatStage extends AbstractStage {

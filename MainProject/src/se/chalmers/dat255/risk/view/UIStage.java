@@ -3,7 +3,6 @@ package se.chalmers.dat255.risk.view;
 import java.beans.PropertyChangeEvent;
 
 import se.chalmers.dat255.risk.model.IGame;
-import se.chalmers.dat255.risk.model.TurnAndPhaseManager.Phase;
 import se.chalmers.dat255.risk.view.resource.ColorHandler;
 import se.chalmers.dat255.risk.view.resource.Resource;
 

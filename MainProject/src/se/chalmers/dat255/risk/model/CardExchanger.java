@@ -2,7 +2,7 @@ package se.chalmers.dat255.risk.model;
 
 import java.util.ArrayList;
 
-public class CardExanger {
+public class CardExchanger {
 	private ICard card1 = null;
 	private ICard card2 = null;
 
@@ -10,14 +10,14 @@ public class CardExanger {
 	 * Checks if the player has clicked cards before. If this is the third card
 	 * that is clicked
 	 * 
-	 * @param The
+	 * @param card
 	 *            last card clicked.
-	 * @param The
+	 * @param currentPlayer
 	 *            current player.
 	 * @return names of the provinces connected to the cards if a correct
 	 *         combination has been chosen, null otherwise
 	 */
-	public ArrayList<String> makeExange(ICard card, IPlayer currentPlayer) {
+	public ArrayList<String> makeExchange(ICard card, IPlayer currentPlayer) {
 		if (!handledBefore(card)) {
 			card.setActive(true);
 			if (card2 != null) {
@@ -66,6 +66,9 @@ public class CardExanger {
 		return false;
 	}
 
+	/**
+	 * Resets the values of stored cards
+	 */
 	public void flushCards() {
 		if (card1 != null) {
 			card1.setActive(false);

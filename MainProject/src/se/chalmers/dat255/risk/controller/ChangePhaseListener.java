@@ -2,8 +2,6 @@ package se.chalmers.dat255.risk.controller;
 
 import se.chalmers.dat255.risk.model.IGame;
 import se.chalmers.dat255.risk.view.ChangePhase;
-import se.chalmers.dat255.risk.view.UIStage;
-import se.chalmers.dat255.risk.view.UIStage.Render;
 
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
