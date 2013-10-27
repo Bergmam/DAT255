@@ -31,10 +31,11 @@ public abstract class AbstractStage extends Stage implements
 		return others;
 	}
 
-	public InputProcessor getProcessor(){
+	public InputProcessor getProcessor() {
 		return this;
 	}
 
+	@Override
 	public void dispose() {
 		super.dispose();
 		for (AbstractView v : views) {

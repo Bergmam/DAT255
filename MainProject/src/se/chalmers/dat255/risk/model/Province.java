@@ -3,7 +3,6 @@ package se.chalmers.dat255.risk.model;
 /**
  * Simulates a province on the world map. Contains a number of units and handles
  * troop movement.
- * 
  */
 public class Province implements IProvince {
 	private int units;

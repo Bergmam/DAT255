@@ -309,7 +309,7 @@ class WorldHandler {
 	}
 
 	/**
-	 * make phasehandler handle surrender
+	 * Tell phasehandler to handle surrender
 	 * 
 	 * @return true if change of turn has taken place
 	 */

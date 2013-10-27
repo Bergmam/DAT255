@@ -9,13 +9,14 @@ import se.chalmers.dat255.risk.model.TurnAndPhaseManager.ResultType;
 public class EventHandler {
 	private TurnAndPhaseManager phaseHandler;
 	private CardExchanger cardExchanger;
+	private final int maxNbrOfCards = 5;
 
 	public EventHandler() {
-		this.phaseHandler = new TurnAndPhaseManager();
+		phaseHandler = new TurnAndPhaseManager();
 		cardExchanger = new CardExchanger();
 	}
-	
-	public TurnAndPhaseManager getPhaseHandler(){
+
+	public TurnAndPhaseManager getPhaseHandler() {
 		return phaseHandler;
 	}
 
@@ -40,7 +41,8 @@ public class EventHandler {
 		Phase currentPhase = phaseHandler.getPhase();
 		if (currentPhase == Phase.FBuild || currentPhase == Phase.F1) {
 			// CHECKS IF I'M ALLOWED TO PRESS CHANGE PHASE
-			if (bonusUnitsLeft == 0 && currentPlayer.getCards().size() < 5) {
+			if (bonusUnitsLeft == 0
+					&& currentPlayer.getCards().size() < maxNbrOfCards) {
 				cardExchanger.flushCards();
 				return phaseHandler.changePhase(currentPlayer, players);
 			}

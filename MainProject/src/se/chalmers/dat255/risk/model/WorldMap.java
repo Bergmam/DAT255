@@ -10,14 +10,13 @@ import java.util.Random;
  * 
  * Has methods for checking and dealing out ownership to territories.
  */
-
 public class WorldMap {
 
 	private final ArrayList<IProvince> allProvinces;
 
 	ArrayList<String> continent = new ArrayList<String>();
 	private HashMap<String, IPlayer> ownership;
-	int[] bonuses; // Each id, corrseponds to a players continental bonus
+	int[] bonuses; // Each id, corresponds to a players continental bonus
 	ArrayList<Continent> continents; // All the continents that gives bonuses
 	// neighbours maps together each territory with all adjacent territories.
 	// It gets its information via the class constructor, which in turn reads
@@ -28,12 +27,12 @@ public class WorldMap {
 	/**
 	 * 
 	 * @param provinceString
-	 *            the provinces separated with new line and the neighbors of the
-	 *            province, separated by "-" Example: A-B-C\nB-A\nC-A
+	 *            the provinces separated with new line and the neighbours of
+	 *            the province, separated by "-" Example: A-B-C\nB-A\nC-A
 	 * @param continentFile
-	 *            representing the diffrent continents. The continents are
-	 *            separeted with new line. One continent are built up by int
-	 *            bonus, followed by the provinces in the continent, separeted
+	 *            representing the different continents. The continents are
+	 *            separated with new line. One continent are built up by int
+	 *            bonus, followed by the provinces in the continent, separated
 	 *            with "-" Example: 3-A-B-C, a continents that gives the bonus 3
 	 *            and contains the provinces A,B,C
 	 * @param players
@@ -198,8 +197,8 @@ public class WorldMap {
 		// updateContinent.update();
 		int continentBonus = 0;
 		for (int i = 0; i < bonuses.length; i++)
-			bonuses[i] = 0; // Emptys
-		for (Continent continent : continents) { // Fils
+			bonuses[i] = 0; // Empty
+		for (Continent continent : continents) { // Fills
 			continent.update();
 			continentBonus = continent.getBonus();
 			if (continent.getContinentOwner() != null)

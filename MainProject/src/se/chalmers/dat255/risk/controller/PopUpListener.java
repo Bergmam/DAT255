@@ -18,13 +18,10 @@ public class PopUpListener extends ClickListener {
 
 	@Override
 	public void clicked(InputEvent event, float x, float y) {
-		// I can't for the life of me figure out why I can't reach the buttons
-		// at once
-		System.out.println(""+event.getTarget().getClass());
 		PopUp pop = (PopUp) event.getListenerActor();
 		String title = pop.getTitle();
 		String name = null;
-		
+
 		// you can press both the button and the label...
 		if (event.getTarget() instanceof Label) {
 			name = event.getTarget().getParent().getName();
@@ -32,20 +29,20 @@ public class PopUpListener extends ClickListener {
 			name = event.getTarget().getName();
 		}
 		if (name != null) {
-			if (title.equalsIgnoreCase("Attack")) {
+			if (title.equalsIgnoreCase(IGame.ATTACK)) {
 				if (name.equals("confirm")) {
 					model.battle((int) pop.getValue());
 				} else if (name.equals("cancel")) {
 					model.flushProvinces();
 				}
-			} else if (title.equalsIgnoreCase("Movement")
-					|| pop.getTitle().equalsIgnoreCase("Occupy")) {
+			} else if (title.equalsIgnoreCase(IGame.MOVEMENT)
+					|| pop.getTitle().equalsIgnoreCase(IGame.CONQUER)) {
 				if (name.equals("confirm")) {
 					model.moveToProvince((int) pop.getValue());
 				} else if (name.equals("cancel")) {
 					model.flushProvinces();
 				}
-			} else if (title.equalsIgnoreCase("Again?")) {
+			} else if (title.equalsIgnoreCase(IGame.AGAIN)) {
 				if (name.equals("confirm")) {
 					model.battle((int) pop.getValue());
 				} else if (name.equals("cancel")) {

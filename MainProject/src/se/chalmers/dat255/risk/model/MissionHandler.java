@@ -89,10 +89,6 @@ public class MissionHandler {
 			List<Mission> listOfMissions) {
 
 		boolean gotAMission = false;
-		/*
-		 * Worth knowing here is that until QONQUER-missions is implemented,
-		 * there is a chance of a never-ending loop.
-		 */
 		while (!gotAMission) {
 			Mission mission = listOfMissions.remove(intRand);
 			if (mission.getType() == MissionType.ELIMINATE
@@ -110,7 +106,6 @@ public class MissionHandler {
 	/**
 	 * Constructing the missions that can be choosen from.
 	 */
-
 	public List<Mission> buildMissions(List<IPlayer> players, String missionFile) {
 		List<Mission> missions = new ArrayList<Mission>();
 		addEliminateMissions(missions, players);
@@ -123,7 +118,6 @@ public class MissionHandler {
 	/**
 	 * Creates the mission of Eliminate type
 	 */
-
 	public void addEliminateMissions(List<Mission> missions,
 			List<IPlayer> players) {
 		for (IPlayer victim : players)

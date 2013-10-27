@@ -7,8 +7,6 @@ import se.chalmers.dat255.risk.view.CardView;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
-//import com.badlogic.gdx.scenes.scene2d.InputListener;
-
 public class CardListener extends ClickListener {
 	IGame theGame;
 

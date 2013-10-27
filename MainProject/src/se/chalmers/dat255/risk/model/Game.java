@@ -20,12 +20,11 @@ public class Game implements IGame {
 	private BattleHandler battleHandler;
 	private MissionHandler missionHandler;
 	private WorldHandler worldHandler;
-	
+
 	private Deck deck;
 	private boolean firstProvinceConqueredThisTurn = true;
 	private PropertyChangeSupport pcs;
 	private GameMode gameMode;
-	
 
 	private String continentsFile;
 	private String neighboursFile;
@@ -34,9 +33,9 @@ public class Game implements IGame {
 	private final int maxAllowedPlayers = 6;
 	private final int minAllowedPlayers = 3;
 	private final int numbersOfWildCards = 6;
-	private final int oneDice = 1;
-	private final int twoDices = 2;
-	private final int threeDices = 3;
+	private final int oneDie = 1;
+	private final int twoDice = 2;
+	private final int threeDice = 3;
 
 	/**
 	 * Creates a new Game.
@@ -72,12 +71,13 @@ public class Game implements IGame {
 							+ " and " + maxAllowedPlayers);
 		}
 
-		worldHandler = new WorldHandler(eventHandler.getPhaseHandler(), neighboursFile,
-				continentsFile, playersId);
+		worldHandler = new WorldHandler(eventHandler.getPhaseHandler(),
+				neighboursFile, continentsFile, playersId);
 
 		missionHandler = new MissionHandler(getPlayers(), missionFile);
 
-		bonusHandler = new BonusHandler(worldHandler.getWorldMap(), getPlayers().size());
+		bonusHandler = new BonusHandler(worldHandler.getWorldMap(),
+				getPlayers().size());
 		bonusHandler.calcBonusForF0(getActivePlayer().getNrOfProvinces()); // Instancieate
 																			// bonus
 		setUpDeck();
@@ -134,14 +134,16 @@ public class Game implements IGame {
 		switch (result) {
 		case ATTACK:
 			pcs.firePropertyChange(ATTACK,
-					worldHandler.getOld().getUnits() - 1 >= 3 ? threeDices : worldHandler.getOld()
-							.getUnits() - 1, worldHandler.getNew());
+					worldHandler.getOld().getUnits() - 1 >= 3 ? threeDice
+							: worldHandler.getOld().getUnits() - 1,
+					worldHandler.getNew());
 			break;
 		case BONUS:
 			placeBonusUnits(newProvince);
 			break;
 		case MOVEMET:
-			pcs.firePropertyChange(MOVEMENT, worldHandler.getOld().getUnits(), 1);
+			pcs.firePropertyChange(MOVEMENT, worldHandler.getOld().getUnits(),
+					1);
 			break;
 		case NOTHING:
 			break;
@@ -164,7 +166,6 @@ public class Game implements IGame {
 	@Override
 	public void battle(int nbrOfDice) {
 
-		// if (oldProvince.getUnits() > 1) {
 		IProvince old = worldHandler.getOld();
 		IProvince second = worldHandler.getNew();
 
@@ -177,12 +178,11 @@ public class Game implements IGame {
 			}
 			pcs.firePropertyChange(CONQUER, old.getUnits(), "" + nbrOfDice);
 		} else if (old.getUnits() > 1) {
-			pcs.firePropertyChange(AGAIN, old.getUnits() - 1 >= 3 ? threeDices
+			pcs.firePropertyChange(AGAIN, old.getUnits() - 1 >= 3 ? threeDice
 					: old.getUnits() - 1, 0);
 		} else {
 			flushProvinces();
 		}
-		// }
 	}
 
 	/*
@@ -190,13 +190,13 @@ public class Game implements IGame {
 	 * turn.
 	 */
 	private void changeOwner() {
-		IPlayer lostProvincePlayer = worldHandler.getOwner(worldHandler.getNew().getId());
+		IPlayer lostProvincePlayer = worldHandler.getOwner(worldHandler
+				.getNew().getId());
 		worldHandler.changeOwner(getActivePlayer());
 
 		checkGameOver(lostProvincePlayer);
 	}
 
-	// playerlose or removeplayer first?
 	private void checkGameOver(IPlayer gameOver) {
 		if (gameOver.getNrOfProvinces() == 0) {
 			int pos = getPlayers().indexOf(gameOver);
@@ -222,7 +222,6 @@ public class Game implements IGame {
 	}
 
 	// also handles defeat of neutral players,
-
 	private void playerLose(IPlayer gameOver) {
 		gameOver.discard();
 		getPlayers().remove(gameOver);
@@ -231,7 +230,7 @@ public class Game implements IGame {
 	private boolean attack(int offensiveDice, IProvince offensive,
 			IProvince defensive) {
 
-		int defensiveDice = defensive.getUnits() == 1 ? oneDice : twoDices;
+		int defensiveDice = defensive.getUnits() == 1 ? oneDie : twoDice;
 
 		int[] result = battleHandler.doBattle(offensiveDice, defensiveDice);
 
@@ -246,7 +245,6 @@ public class Game implements IGame {
 			ArrayList<String> names = eventHandler.handleCardEvent(card,
 
 			getActivePlayer());
-			// HAVE TO FIX BONUSES //
 			if (names != null) {
 				bonusHandler.calcBonusesFromCards(names, getActivePlayer());
 			}

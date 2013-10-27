@@ -15,19 +15,13 @@ public class ProvinceListener extends ClickListener {
 		this.theGame = theGame;
 	}
 
-	/**
-	 * If we want to highlight the province that logic can/should be in this
-	 * method.
-	 * 
-	 */
 	@Override
 	public void clicked(InputEvent event, float x, float y) {
 		if (event.getTarget() instanceof ProvinceView) {
-			
+
 			ProvinceView newClick = ((ProvinceView) event.getTarget());
 			IProvince newClickedProvince = newClick.getProvince();
-			// removed if logic here because activity is now represented
-			// in the province and should be handled in the model
+
 			theGame.handleProvinceEvent(newClickedProvince);
 		}
 	}

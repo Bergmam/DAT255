@@ -9,7 +9,7 @@ public abstract class AbstractScreen implements Screen {
 
 	protected IGame model;
 	protected OrthographicCamera camera;
-	
+
 	public AbstractScreen(IGame model) {
 		this.model = model;
 		camera = new OrthographicCamera();

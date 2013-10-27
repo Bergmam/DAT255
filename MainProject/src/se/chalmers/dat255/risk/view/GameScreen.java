@@ -11,10 +11,6 @@ import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
-/**
- * shows the gameboard, including provinces, cards and buttons.
- * 
- */
 public class GameScreen extends AbstractScreen {
 	private Render render;
 	private AbstractStage worldStage, stats, cards;
@@ -93,7 +89,8 @@ public class GameScreen extends AbstractScreen {
 
 		stats = new StatStage(model);
 
-		multi = new InputMultiplexer(uiStage.getProcessor(), worldStage.getProcessor());
+		multi = new InputMultiplexer(uiStage.getProcessor(),
+				worldStage.getProcessor());
 		created = true;
 		render = uiStage.getRender();
 

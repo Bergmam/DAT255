@@ -42,14 +42,14 @@ public class PlayerView extends Table {
 	@Override
 	public void draw(SpriteBatch batch, float alpha) {
 		name.setText("Player: " + player.getName());
-		provinces.setText("Number of Provinces: " + 100);
+		provinces.setText("Number of Provinces: " + player.getNrOfProvinces());
 		batch.setColor(ColorHandler.getInstance().getColor(player.getId()));
 		batch.draw(Resource.getInstance().border, getX(), getY(), getWidth(),
 				getHeight());
 		super.draw(batch, alpha);
 	}
-	
-	public boolean isMain(){
+
+	public boolean isMain() {
 		return main;
 	}
 

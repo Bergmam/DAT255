@@ -54,10 +54,10 @@ public class StatStage extends AbstractStage {
 			}
 		}
 	}
-	
+
 	@Override
 	public void propertyChange(PropertyChangeEvent event) {
-		if (event.getPropertyName().equalsIgnoreCase(IGame.CHANGE_TURN)){
+		if (event.getPropertyName().equalsIgnoreCase(IGame.CHANGE_TURN)) {
 			primary.clearChildren();
 			secondary.clearChildren();
 			placeViews();

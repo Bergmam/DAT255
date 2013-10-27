@@ -16,15 +16,15 @@ public class SwitchButton extends TextButton {
 		this.render = render;
 		first = render.getStrings()[0];
 		second = render.getStrings()[1];
-		
+
 		setText(first);
 	}
 
 	public void switchText() {
 		setText(("" + getText()).equals(first) ? second : first);
 	}
-	
-	public Render getType(){
+
+	public Render getType() {
 		return render;
 	}
 

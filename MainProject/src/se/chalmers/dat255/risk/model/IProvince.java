@@ -47,21 +47,20 @@ public interface IProvince {
 	 * @return the name(ID) of this province
 	 */
 	public String getId();
-	
-	
+
 	/**
-	 * Checks if the province is in an active state.
-	 * An active province is prepared to attack, move units etc.
+	 * Checks if the province is in an active state. An active province is
+	 * prepared to attack, move units etc.
 	 * 
 	 * @return true if the province is active
 	 */
 	public boolean isActive();
 
-	
 	/**
 	 * Sets the state of this province.
 	 * 
-	 * @param active the new state of the province
+	 * @param active
+	 *            the new state of the province
 	 */
 	public void setActive(boolean active);
 }

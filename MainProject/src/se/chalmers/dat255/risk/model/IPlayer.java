@@ -6,7 +6,6 @@ import java.util.ArrayList;
 /**
  * Interface for a player class
  */
-
 public interface IPlayer {
 
 	// ============== EVENT-CONSTANTS ==============

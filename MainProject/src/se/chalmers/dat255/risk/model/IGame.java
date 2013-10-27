@@ -8,13 +8,11 @@ import se.chalmers.dat255.risk.model.TurnAndPhaseManager.Phase;
 /**
  * Interface for top class in the game risk
  * 
- * @since 2013-09-13
- * 
  */
 public interface IGame {
 	// ============== EVENT-CONSTANTS ================================
 	public final static String MOVEMENT = "Movement", ATTACK = "Attack",
-			CONQUER = "takeOver", AGAIN = "Again?", WIN = "Win",
+			CONQUER = "Occupy", AGAIN = "Again?", WIN = "Congratz",
 			SURRENDER = "Surrender", UNITS = "Units", CARDS = "Cards",
 			CHANGE_TURN = "ChangeTurn";
 
