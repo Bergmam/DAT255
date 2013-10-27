@@ -18,22 +18,8 @@ public class ChangePhase extends Button {
 		this.model = model;
 		label = new Label("Next Phase", Resource.getInstance().skin);
 		add(label);
-		
-	}
 
-	/**
-	 * changes text output. If param isn't correct the text/behavior of the
-	 * class will not be used
-	 * 
-	 * @param s
-	 *            use one of the static strings in this class
-	 */
-	/**
-	 * public void setCurrent(String s) { current = s; label.setText(getText());
-	 * }
-	 * 
-	 * public String getCurrent() { return current; }
-	 */
+	}
 
 	private String getText() {
 		if ((model.getCurrentPhase() == Phase.F1)
@@ -49,8 +35,8 @@ public class ChangePhase extends Button {
 		}
 		return "value not found";
 	}
-	
-	public float getBoundWidth(){
+
+	public float getBoundWidth() {
 		return label.getTextBounds().width;
 	}
 

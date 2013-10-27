@@ -8,10 +8,6 @@ public class ColorHandler {
 	private static ColorHandler instance;
 	private IGame game;
 	
-	private ColorHandler(){
-		
-	}
-	
 	public static ColorHandler getInstance(){
 		if(instance == null){
 			instance = new ColorHandler(); 

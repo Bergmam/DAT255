@@ -3,7 +3,6 @@ package se.chalmers.dat255.risk.view;
 import java.beans.PropertyChangeEvent;
 
 import se.chalmers.dat255.risk.model.IGame;
-import se.chalmers.dat255.risk.model.TurnAndPhaseManager.Phase;
 import se.chalmers.dat255.risk.view.resource.ColorHandler;
 import se.chalmers.dat255.risk.view.resource.Resource;
 
@@ -50,7 +49,7 @@ public class UIStage extends AbstractStage {
 		label = new Label(model.getActivePlayer().getName() + "	\nPhase: "
 				+ model.getCurrentPhase().getPhase(),
 				Resource.getInstance().skin, "default-font", color.getColor(0));
-		label.setFontScale(label.getFontScaleX() * 1.8f);// TODO magic number
+		label.setFontScale(label.getFontScaleX() * 1.8f);
 
 		giveUp = new TextButton("Surrender", Resource.getInstance().skin);
 		others.add(giveUp);
@@ -117,11 +116,11 @@ public class UIStage extends AbstractStage {
 			showPopUp(name, "Do you want \nto attack again?",
 					(Integer) event.getOldValue(), 1);
 		} else if (name.equalsIgnoreCase(IGame.CONQUER)) {
-			showPopUp("Occupy", "How many units do \nyou want to move?",
+			showPopUp(name, "How many units do \nyou want to move?",
 					(Integer) event.getOldValue() - 1,
 					Integer.parseInt((String) event.getNewValue()));
 		} else if (name.equalsIgnoreCase(IGame.WIN)) {
-			showPopUp("Congratz", "You have won!");
+			showPopUp(name, "You have won!");
 		} else if (name.equalsIgnoreCase(IGame.SURRENDER)) {
 			showPopUp(name, "Are you sure you\n want to surrender?");
 		} else if (name.equalsIgnoreCase(IGame.UNITS)) {

@@ -1,6 +1,4 @@
-package se.chalmers.dat255.risk;
-
-import se.chalmers.dat255.risk.controller.ScreenManager;
+package se.chalmers.dat255.risk.controller;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -13,7 +11,7 @@ public class GDXGame extends Game {
 		Gdx.app.log("Risk", "creating game");
 		manager = ScreenManager.getInstance();
 		manager.instantiate(this);
-		
+
 	}
 
 	@Override

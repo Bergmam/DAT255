@@ -4,7 +4,6 @@ import se.chalmers.dat255.risk.model.IProvince;
 import se.chalmers.dat255.risk.view.resource.ColorHandler;
 import se.chalmers.dat255.risk.view.resource.Resource;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class ProvinceView extends AbstractView {
@@ -12,9 +11,10 @@ public class ProvinceView extends AbstractView {
 	private IProvince province;
 
 	public ProvinceView(IProvince province, int x, int y) {
-		super(Resource.getInstance().circle, Resource.getInstance().circleSelected);
+		super(Resource.getInstance().circle,
+				Resource.getInstance().circleSelected);
 		this.province = province;
-		setSize(width , height );
+		setSize(width, height);
 		setPosition(x, y);
 		scale = width / 2;
 	}

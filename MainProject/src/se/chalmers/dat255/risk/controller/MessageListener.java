@@ -1,5 +1,6 @@
 package se.chalmers.dat255.risk.controller;
 
+import se.chalmers.dat255.risk.model.IGame;
 import se.chalmers.dat255.risk.view.Message;
 
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -12,7 +13,7 @@ public class MessageListener extends ClickListener {
 
 		Message msg = (Message) event.getListenerActor();
 		String title = msg.getTitle();
-		if (title.equalsIgnoreCase("Congratz")) {
+		if (title.equalsIgnoreCase(IGame.WIN)) {
 			ScreenManager.getInstance().gameOver();
 		}
 	}

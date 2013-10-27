@@ -3,7 +3,6 @@ package se.chalmers.dat255.risk.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import se.chalmers.dat255.risk.GDXGame;
 import se.chalmers.dat255.risk.model.Game;
 import se.chalmers.dat255.risk.model.IGame;
 import se.chalmers.dat255.risk.model.IGame.GameMode;
@@ -35,7 +34,7 @@ public class ScreenManager extends ClickListener {
 	private GDXGame game;
 	private final List<String> list = new ArrayList<String>();
 	private final int maxNbrOfPlayers = 6;
-	//min player usually two, but we haven't implemented that functionality  
+	// min player usually two, but we haven't implemented that functionality
 	private final int minNbrOfPlayers = 3;
 
 	private ScreenManager() {
@@ -112,6 +111,7 @@ public class ScreenManager extends ClickListener {
 			main.setText("Enter name below");
 			if (list.size() < maxNbrOfPlayers) {
 				s = main.getText();
+				// don't want too long names
 				if (s.length() >= 1 && s.length() <= 10) {
 					if (!list.contains(s)) {
 						list.add(s);

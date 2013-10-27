@@ -48,8 +48,8 @@ public class PlayerView extends Table {
 				getHeight());
 		super.draw(batch, alpha);
 	}
-	
-	public boolean isMain(){
+
+	public boolean isMain() {
 		return main;
 	}
 

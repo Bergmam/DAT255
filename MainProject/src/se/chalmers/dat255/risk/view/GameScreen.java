@@ -4,20 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import se.chalmers.dat255.risk.model.IGame;
-import se.chalmers.dat255.risk.model.IPlayer;
 import se.chalmers.dat255.risk.view.UIStage.Render;
-import se.chalmers.dat255.risk.view.resource.Resource;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.sun.org.apache.bcel.internal.generic.IUSHR;
 
-/**
- * shows the gameboard, including provinces, cards and buttons.
- * 
- */
 public class GameScreen extends AbstractScreen {
 	private Render render;
 	private AbstractStage worldStage, stats, cards;
@@ -96,7 +89,8 @@ public class GameScreen extends AbstractScreen {
 
 		stats = new StatStage(model);
 
-		multi = new InputMultiplexer(uiStage.getProcessor(), worldStage.getProcessor());
+		multi = new InputMultiplexer(uiStage.getProcessor(),
+				worldStage.getProcessor());
 		created = true;
 		render = uiStage.getRender();
 

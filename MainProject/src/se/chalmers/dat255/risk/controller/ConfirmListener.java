@@ -17,7 +17,6 @@ public class ConfirmListener extends ClickListener {
 
 	@Override
 	public void clicked(InputEvent event, float x, float y) {
-		System.out.println(""+event.getTarget().getClass());
 		ConfirmDialog confirm = (ConfirmDialog) event.getListenerActor();
 		String title = confirm.getTitle();
 		String name = null;
@@ -30,7 +29,7 @@ public class ConfirmListener extends ClickListener {
 		}
 		
 		if (name != null) {
-			if (title.equalsIgnoreCase("Surrender")) {
+			if (title.equalsIgnoreCase(IGame.SURRENDER)) {
 				if (name.equals("confirm")) {
 					model.surrender(true);
 				} else if (name.equals("cancel")) {

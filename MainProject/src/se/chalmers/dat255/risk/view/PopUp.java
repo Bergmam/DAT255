@@ -1,5 +1,6 @@
 package se.chalmers.dat255.risk.view;
 
+import se.chalmers.dat255.risk.model.IGame;
 import se.chalmers.dat255.risk.view.resource.Resource;
 
 import com.badlogic.gdx.scenes.scene2d.Touchable;
@@ -9,7 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 
 public class PopUp extends ConfirmDialog {
 	private Slider slider;
-	
+
 	private Label slideMin, slideMax;
 
 	public PopUp(String title) {
@@ -25,7 +26,7 @@ public class PopUp extends ConfirmDialog {
 		slideMax.setTouchable(Touchable.disabled);
 
 		Table t = getContentTable();
-		
+
 		t.row();
 		t.add(slider);
 		t.row();
@@ -44,9 +45,9 @@ public class PopUp extends ConfirmDialog {
 	public void setTexts(String title, String msg) {
 		setTitle(title);
 		label.setText(msg);
-		if(title.equalsIgnoreCase("Occupy")){
+		if (title.equalsIgnoreCase(IGame.CONQUER)) {
 			cancel.setVisible(false);
-		} else if(!cancel.isVisible()){
+		} else if (!cancel.isVisible()) {
 			cancel.setVisible(true);
 		}
 	}

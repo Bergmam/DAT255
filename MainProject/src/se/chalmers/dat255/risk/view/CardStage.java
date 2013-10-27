@@ -10,13 +10,9 @@ import se.chalmers.dat255.risk.model.IGame;
 import se.chalmers.dat255.risk.model.IPlayer;
 import se.chalmers.dat255.risk.view.resource.Resource;
 
-import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 
-/**
- * Stage for showing a players cards
- */
 public class CardStage extends AbstractStage {
 
 	private final int maxNbrOfCards = 5;
@@ -75,6 +71,7 @@ public class CardStage extends AbstractStage {
 		main.add(bottom).expand().fill();
 	}
 
+	@Override
 	public List<AbstractView> getViews() {
 		return views;
 	}
@@ -105,8 +102,8 @@ public class CardStage extends AbstractStage {
 	public void propertyChange(PropertyChangeEvent event) {
 		if (event.getPropertyName().equalsIgnoreCase(IPlayer.CARD_ADDED)) {
 			addCard((ICard) event.getOldValue());
-		} else if (event.getPropertyName()
-				.equalsIgnoreCase(IPlayer.CARD_REMOVED)) {
+		} else if (event.getPropertyName().equalsIgnoreCase(
+				IPlayer.CARD_REMOVED)) {
 			removeCard((ICard) event.getNewValue());
 		} else if (event.getPropertyName().equalsIgnoreCase(IGame.CHANGE_TURN)) {
 			current = model.getActivePlayer();

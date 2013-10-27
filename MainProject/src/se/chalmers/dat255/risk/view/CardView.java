@@ -7,9 +7,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Stack;
 
 public class CardView extends AbstractView {
 	private ICard card;
@@ -29,7 +27,7 @@ public class CardView extends AbstractView {
 		hasCard = true;
 		super.setImages(normal, checked);
 		label.setText(card.getName());
-		
+
 	}
 
 	public void removeCard() {
@@ -40,7 +38,7 @@ public class CardView extends AbstractView {
 	}
 
 	public boolean hasCard() {
-		return hasCard; 
+		return hasCard;
 	}
 
 	public ICard getCard() {
@@ -55,8 +53,8 @@ public class CardView extends AbstractView {
 	public void draw(SpriteBatch batch, float alpha) {
 		batch.draw(isChecked() ? imageDown : imageUp, getX(), getY(),
 				getWidth(), getHeight());
-		label.setPosition(getX() +width/2 - ((label.getTextBounds().width /3)),
-				getY() + height/3);
+		label.setPosition(getX() + width / 2
+				- ((label.getTextBounds().width / 3)), getY() + height / 3);
 		label.draw(batch, alpha);
 
 	}

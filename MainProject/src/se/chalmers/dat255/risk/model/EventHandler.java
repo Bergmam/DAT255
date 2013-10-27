@@ -8,25 +8,26 @@ import se.chalmers.dat255.risk.model.TurnAndPhaseManager.ResultType;
 
 public class EventHandler {
 	private TurnAndPhaseManager phaseHandler;
-	private CardExanger cardExanger;
+	private CardExchanger cardExchanger;
+	private final int maxNbrOfCards = 5;
 
 	public EventHandler() {
-		this.phaseHandler = new TurnAndPhaseManager();
-		cardExanger = new CardExanger();
+		phaseHandler = new TurnAndPhaseManager();
+		cardExchanger = new CardExchanger();
 	}
-	
-	public TurnAndPhaseManager getPhaseHandler(){
+
+	public TurnAndPhaseManager getPhaseHandler() {
 		return phaseHandler;
 	}
 
-	/*
-	 * Makes the exange of three card, when you've chosen three good cards.
+	/**
+	 * Makes the exchange of three card, when you've chosen three correct cards.
 	 */
 	public ArrayList<String> handleCardEvent(ICard card, IPlayer currentPlayer) {
-		return cardExanger.makeExange(card, currentPlayer);
+		return cardExchanger.makeExchange(card, currentPlayer);
 	}
 
-	/*
+	/**
 	 * Tells PhaseHandler to changePhase if some conditions is met.
 	 * 
 	 * Return is ComputeBonusForF0 if if a new bonus shall be computed in F0.
@@ -40,8 +41,9 @@ public class EventHandler {
 		Phase currentPhase = phaseHandler.getPhase();
 		if (currentPhase == Phase.FBuild || currentPhase == Phase.F1) {
 			// CHECKS IF I'M ALLOWED TO PRESS CHANGE PHASE
-			if (bonusUnitsLeft == 0 && currentPlayer.getCards().size() < 5) {
-				cardExanger.flushCards();
+			if (bonusUnitsLeft == 0
+					&& currentPlayer.getCards().size() < maxNbrOfCards) {
+				cardExchanger.flushCards();
 				return phaseHandler.changePhase(currentPlayer, players);
 			}
 

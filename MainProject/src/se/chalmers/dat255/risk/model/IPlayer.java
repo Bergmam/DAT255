@@ -1,13 +1,11 @@
 package se.chalmers.dat255.risk.model;
 
 import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 
 /**
  * Interface for a player class
  */
-
 public interface IPlayer {
 
 	// ============== EVENT-CONSTANTS ==============

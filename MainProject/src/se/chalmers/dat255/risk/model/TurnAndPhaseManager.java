@@ -34,7 +34,6 @@ public class TurnAndPhaseManager {
 	 * Return is ChangedPhase if a change of phase has taken place.  
 	 * Return is DoNothing if the phase didn't change. (Currently not in use here. Is instead controlled in EventHandler)
 	 */
-
 	public ResultType changePhase(IPlayer currentPlayer, List<IPlayer> players) {
 		if (currentPhase == Phase.FBuild) {
 			if (currentPlayer == players.get(players.size() - 1)) { //Sista spelaren i F0
@@ -96,7 +95,7 @@ public class TurnAndPhaseManager {
 				return true;
 			}
 		} else {
-			activePlayer = 0;//safety messure as to not crash the game
+			activePlayer = 0;//safety measure as to not crash the game
 			currentPhase = Phase.F1;
 			return false;
 		}
